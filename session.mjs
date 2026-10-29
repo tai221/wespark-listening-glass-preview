@@ -14,6 +14,12 @@ queueMicrotask(hydrate);
 function renderSaveState(){
  const main=document.querySelector('main'),bar=document.querySelector('.reviewbar');
  if(!main||!bar)return;
+ if(!document.querySelector('#reset-session')){
+  const restart=document.createElement('button');restart.id='reset-session';restart.type='button';restart.className='reset-session-button';restart.textContent='Bắt đầu lại';
+  restart.title='Đặt lại tiến trình bài học và SparkPoint minh họa trong bản Glass';
+  restart.addEventListener('click',()=>{reset();window.location.reload();});
+  bar.insertBefore(restart,bar.children[1]||null);
+ }
  if(!document.querySelector('#review-save')){
   const details=document.createElement('details');details.id='review-save';
   const summary=document.createElement('summary');summary.textContent='Trạng thái lưu';

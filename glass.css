@@ -29,3 +29,7 @@ body .eyebrow,body .word-label,body .q-type,body .spark-label{font-size:12px;let
 [data-spark-slot]:not([data-spark-motion='true']) .spark-portrait{animation:none!important}
 body[data-glass-motion='false'] .button:active:not(:disabled),body[data-glass-motion='false'] .audio-button:active{transform:none!important;scale:none!important}
 @media(prefers-reduced-motion:reduce){.button:active:not(:disabled),.audio-button:active{transform:none!important;scale:none!important}}
+
+/* Restart remains visible on every learning screen, outside review disclosures. */
+.reviewbar .reset-session-button{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:7px 15px;border:1px solid #9fbfcd;border-radius:999px;background:#ffffffdf;color:#234e60;font-size:12px;font-weight:650;white-space:nowrap;cursor:pointer}.reviewbar .reset-session-button:hover{background:#fff3c7}.reviewbar .reset-session-button:focus-visible{outline:3px solid #08667a;outline-offset:3px}
+@media(max-width:740px){.reviewbar .reset-session-button{min-height:44px}}
