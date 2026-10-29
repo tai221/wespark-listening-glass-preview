@@ -1,0 +1,31 @@
+/* Local to the Listening prototype. All content is visible before motion runs. */
+[data-spark-slot]{--spark-ink:#725427;position:relative;display:flex;align-items:center;gap:20px;padding:14px 22px 14px 14px;margin:16px 0 24px;border:1px solid #e9ddc4;border-radius:20px;background:linear-gradient(110deg,#fffaf0,#faf5e9);color:#3e3527;isolation:isolate;min-width:0}
+.spark-portrait{position:relative;flex:0 0 100px;align-self:center;display:grid;place-items:center;min-width:0}
+.spark-portrait:before{content:'';position:absolute;inset:10% 0;border-radius:50%;background:#f5e4b9;z-index:-1}
+.spark-portrait img{display:block;width:100%;height:100px;object-fit:contain;transform-origin:50% 85%;filter:drop-shadow(0 5px 1px #80662d0b)}
+.spark-message{min-width:0;flex:1}.spark-label{display:block;color:#86601b;font-size:12px;font-weight:750;letter-spacing:.13em;text-transform:uppercase;margin-bottom:5px}
+[data-spark-copy]{font-size:13px;line-height:1.6;margin:0;max-width:760px;text-wrap:pretty}
+.spark-tools{display:flex;align-items:center;flex-wrap:wrap;gap:6px 16px;margin-top:9px}
+.spark-tools button{border:0;padding:4px 0;background:transparent;color:#725427;font:inherit;font-size:12px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;min-height:28px}
+.spark-tools button:disabled{color:#81796b;cursor:default;text-decoration:none}
+[data-spark-slot] button:focus-visible,[data-spark-page] :is(a,button,input,select):focus-visible{outline:3px solid #926519;outline-offset:4px}
+.spark-wave{width:48px;height:22px;color:#a37a28;flex:none;display:none}
+[data-spark-quiet='true'] .spark-wave{display:block}
+.spark-wave path{fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round}
+.spark-welcome{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;margin:12px 0 30px;padding:18px 0 24px;border-bottom:1px solid #e6ddcc}
+.spark-welcome .page-heading{margin:0}.spark-welcome h1{font-size:34px;letter-spacing:-1.1px}
+.spark-welcome [data-spark-slot]{margin:0;padding:22px 24px 20px 10px;min-height:210px;gap:12px;border-radius:30px 30px 30px 8px;background:linear-gradient(140deg,#fffbf1,#f8edce);box-shadow:0 8px 28px #71551a08}
+.spark-welcome .spark-portrait{flex-basis:170px}.spark-welcome .spark-portrait img{height:180px}
+.spark-welcome [data-spark-copy]{font-size:15px}.spark-welcome .spark-label{font-size:12px}
+[data-spark-page='pre'] main>[data-spark-slot]{margin-top:0}
+[data-spark-page='post'] .activity:nth-child(2){border-top:4px solid #9facbb}
+[data-spark-page='post'] .activity:nth-child(3){border-top:4px solid #c9a78f}
+[data-spark-page='post'] .activity:first-child{border-top:4px solid #d7b765}
+[data-spark-page] .button{transition:background-color .15s,box-shadow .15s}
+[data-spark-page] .button:active{box-shadow:inset 0 2px 3px #49371020}
+/* Shared reward visuals retain their earned moment under the global motion gate. */
+[data-spark-page='pre'][data-spark-legacy-motion='false'] .wallet-pulse,[data-spark-page='pre'][data-spark-legacy-motion='false'] #spark,[data-spark-page='pre'][data-spark-legacy-motion='false'] .burst,[data-spark-page='pre'][data-spark-legacy-motion='false'] #reward-pop{animation:none!important}
+[data-spark-page='pre'][data-spark-legacy-motion='false'] #particles{display:none!important}
+@media(max-width:1000px){.spark-welcome{grid-template-columns:1fr 1.15fr;gap:20px}.spark-welcome .spark-portrait{flex-basis:125px}.spark-welcome .spark-portrait img{height:145px}.spark-welcome [data-spark-slot]{padding-right:16px}.spark-welcome h1{font-size:30px}}
+@media(max-width:740px){.spark-welcome{grid-template-columns:1fr;gap:12px;margin-top:0;padding-bottom:20px}.spark-welcome [data-spark-slot]{min-height:170px}.spark-welcome .spark-portrait{flex-basis:125px}.spark-welcome .spark-portrait img{height:145px}.spark-welcome [data-spark-copy]{font-size:13px}[data-spark-slot]{gap:12px;padding:12px;margin-bottom:18px;border-radius:16px}.spark-portrait{flex-basis:72px}.spark-portrait img{height:85px}[data-spark-copy]{font-size:12px}.spark-label{font-size:12px}.spark-tools{gap:2px 12px}.spark-tools button{font-size:12px;min-height:44px;padding:8px 0}.spark-wave{display:none!important}}
+@media(prefers-reduced-motion:reduce){[data-spark-page] *,[data-spark-page] *:before,[data-spark-page] *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
