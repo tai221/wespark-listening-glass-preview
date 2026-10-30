@@ -1,0 +1,176 @@
+@media(min-width:1100px){
+.project-shell{--sidebar-size:216px;--shell-edge:#eee8d9}
+.project-shell[data-sidebar=collapsed]{--sidebar-size:64px}
+.project-shell .project-header{display:flex;align-items:center;min-height:72px;height:72px;padding:14px 24px;gap:24px;background:#fffefb;border-bottom:1px solid var(--shell-edge);position:sticky;top:0;z-index:25}
+.project-identity,.project-utilities{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.project-shell .project-identity .brand{display:flex;align-items:center}
+.project-nav-toggle,.project-account{display:grid;place-items:center;width:36px;height:36px;flex:none;padding:8px;border:1px solid transparent;border-radius:10px;color:#62665b;background:transparent;cursor:pointer}
+.project-nav-toggle:hover,.project-account:hover{background:#fff2c6;border-color:#f0dfaa}
+.project-nav-toggle svg,.project-account svg{width:20px;height:20px}
+.project-account{width:38px;height:38px;background:#fff8e2;border-color:#ebdfbd;border-radius:50%}
+.project-notification-button{display:grid;place-items:center;width:36px;height:38px;padding:8px;border:1px solid transparent;border-radius:11px;background:transparent;color:#64675b;cursor:pointer}
+.project-notification-button svg{width:20px;height:20px}
+.project-notification-button:hover,.project-notification-button[aria-expanded=true]{background:#fff5da;color:#765016;border-color:#f1e4bc}
+.project-notifications{position:fixed;inset:auto;margin:0;width:320px;padding:22px;background:#fffefb;color:#3e4038;border:1px solid #fff;border-radius:18px;box-shadow:0 10px 30px #6655322b;font-family:'Be Vietnam Pro',sans-serif}
+.project-notifications h2{font-size:16px;font-weight:600;line-height:1.4;letter-spacing:0;margin:0 0 24px}
+.project-notifications p{font-size:13px;line-height:1.6;color:#62665b;margin:0 0 8px}
+.project-notifications::backdrop{background:transparent}
+.project-breadcrumb{display:flex;align-items:center;gap:12px;font-size:13px;min-width:0;flex:1;white-space:nowrap}
+.project-breadcrumb a{color:#64675e;text-decoration:none}.project-breadcrumb a:hover{text-decoration:underline}
+.project-breadcrumb [aria-current]{font-weight:600;overflow:hidden;text-overflow:ellipsis;color:#3e4038}.project-crumb-separator{color:#989a90}
+.project-shell .project-utilities .wallet{display:grid;grid-template-columns:28px auto;grid-template-rows:18px 14px;align-items:center;column-gap:9px;row-gap:0;min-width:112px;height:42px;margin:0;padding:4px 12px 4px 7px;white-space:nowrap;cursor:pointer;background:linear-gradient(135deg,#fffefa,#fffaf0);border:1px solid #e8dfcc;border-radius:13px;box-shadow:inset 0 1px 0 #fff,0 2px 4px #68562d08;transition:border-color .16s ease,box-shadow .16s ease}
+.project-shell .project-utilities .wallet:hover{border-color:#cfb36e;box-shadow:inset 0 1px 0 #fff,0 3px 8px #68562d12}
+.project-shell .wallet>.project-point-mark{display:grid;place-items:center;grid-column:1;grid-row:1/3;width:28px;height:28px;background:linear-gradient(145deg,#fff2c3,#ffdf86);border-radius:9px;color:#a16a08;font-size:initial}
+.project-point-mark svg{width:19px;height:19px;fill:#d99b1f;stroke:#a36e0b;stroke-width:1.2}
+.project-shell .project-utilities .wallet>strong{grid-column:2;grid-row:1;font-size:15px;font-weight:700;line-height:18px;letter-spacing:-.2px;font-variant-numeric:tabular-nums;color:#433b2b}
+.project-shell .project-utilities .wallet>:is(small,span:not(.project-point-mark)){grid-column:2;grid-row:2;font-size:11px;font-weight:500;line-height:14px;letter-spacing:0;color:#73664b}
+.project-layout{display:grid;grid-template-columns:var(--sidebar-size) minmax(0,1fr);align-items:start}
+.project-sidebar{position:relative;align-self:stretch;padding:26px 14px 20px;background:#fffef9eb;border-right:1px solid #fff;min-height:calc(100dvh - 126px)}
+.project-sidebar nav{position:sticky;top:96px;max-height:calc(100dvh - 112px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:#d6cba9 transparent}
+.project-nav-group{margin-bottom:26px}.project-nav-group:last-child{margin-bottom:0}
+.project-nav-group h2{font-size:12px;font-weight:500;line-height:1.5;color:#6c6b5f;letter-spacing:0;margin:0 12px 9px}
+.project-nav-item{display:flex;align-items:center;gap:12px;min-height:44px;margin:4px 0;padding:10px 12px;border:1px solid transparent;border-radius:12px;text-decoration:none;color:#5f6358;font-size:13px;font-weight:500;white-space:nowrap}
+.project-nav-item svg{width:20px;height:20px;flex:none}
+.project-nav-item:hover{background:#fff6dc;color:#3e4038}
+.project-nav-item[aria-current]{background:linear-gradient(130deg,#fff4ce,#ffe9a5);border-color:#fff;color:#765016;font-weight:600;box-shadow:inset 0 1px 0 #fff,0 3px 8px #a5781910}
+.project-workspace{min-width:0;min-height:calc(100dvh - 126px)}
+.project-shell[data-sidebar=collapsed] .project-sidebar{padding:26px 8px 20px}
+.project-shell[data-sidebar=collapsed] .project-nav-group h2,.project-shell[data-sidebar=collapsed] .project-nav-item span{display:none}
+.project-shell[data-sidebar=collapsed] .project-nav-item{padding:10px 12px;justify-content:center}
+.project-shell[data-sidebar=collapsed] .project-nav-group{margin-bottom:20px}
+.project-lesson-context{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:54px;padding:12px 28px;border-bottom:1px solid #eee7d4;background:#fffdf6a6}
+.project-lesson-name{font-size:13px;font-weight:600;color:#555a4e;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.project-lesson-context .journey{flex-shrink:0;font-size:12px;gap:10px}.project-lesson-context .journey .circle{width:24px;height:24px}.project-lesson-context .journey .dash{width:14px}
+.project-shell .project-workspace>main{width:100%;margin:0;max-width:none}
+.project-shell .spark-welcome{gap:24px}.project-shell .spark-welcome h1{font-size:28px}
+.project-shell .studio-greeting>p{color:#565b50}
+.project-shell .filters{grid-template-columns:minmax(180px,1fr) 170px 120px 120px;gap:12px}
+.project-shell .lesson-grid{gap:16px}.project-shell .lesson-art{height:146px}.project-shell .lesson-body{padding:18px}.project-shell .lesson-body h2{font-size:20px;min-height:50px;margin:10px 0 8px}.project-shell .lesson-body p{min-height:63px}
+.project-shell .while-main{padding-top:16px}.project-shell .while-grid{grid-template-columns:minmax(280px,.78fr) minmax(540px,1.65fr);gap:20px}
+.project-shell .dictation-grid{grid-template-columns:220px minmax(330px,1fr) 200px;gap:16px}.project-shell .dictation-grid.list-hidden{grid-template-columns:220px minmax(330px,1fr)}
+.project-account-menu{position:fixed;inset:auto;margin:0;width:232px;padding:10px;background:#fffefb;border:1px solid #fff;border-radius:16px;box-shadow:0 10px 30px #6655322b;color:#3e4038;font-family:'Be Vietnam Pro',sans-serif;font-size:13px}
+.project-account-menu strong{display:block;font-size:12px;font-weight:500;color:#66685e;padding:9px 12px 12px}.project-account-menu a{display:block;text-decoration:none;padding:11px 12px;border-radius:9px}.project-account-menu a:hover{background:#fff3ce}.project-account-menu::backdrop{background:transparent}
+.project-shell :is(a,button,[role=link]):focus-visible,.project-account-menu a:focus-visible{outline:3px solid #95691c!important;outline-offset:3px!important}
+}
+
+@media(min-width:1100px){
+.project-shell .project-utilities .wallet{display:flex;align-items:center;gap:8px;min-width:0;height:38px;padding:4px 11px 4px 5px;border-radius:12px}
+.project-shell .project-utilities .wallet>:is(small,span:not(.project-point-mark)){display:none}
+.project-shell .project-utilities .wallet>strong{font-size:15px;line-height:20px}
+.project-shell .wallet>.project-point-mark{width:26px;height:26px;border-radius:8px}
+}
+
+@media(min-width:1100px){
+.project-shell .lesson-art img{width:100%;height:100%;padding:0;object-fit:cover;filter:none}
+.project-shell .lesson-art{height:168px;overflow:hidden}
+.project-shell .lesson-body h2{min-height:50px}
+}
+
+@media(min-width:1100px){
+.project-shell .lesson-art{position:relative}
+.lesson-format{position:absolute;right:12px;bottom:12px;display:flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid #ffffffd9;border-radius:8px;background:#fffef8f2;color:#45483e;font-size:11px;font-weight:500;box-shadow:0 2px 6px #382d1914}
+.lesson-format svg{width:13px;height:13px}.lesson-format-separator{color:#727366;margin:0 1px}
+.project-shell .lesson-body{display:flex;flex-direction:column;padding:18px;gap:0}
+.project-shell .lesson-body h2{font-size:19px;line-height:1.35;min-height:52px;margin:0 0 10px}
+.lesson-tags{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:0 0 12px;min-height:26px}
+.lesson-tags>span{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;font-size:12px;line-height:18px;border-radius:7px;font-weight:500}
+.lesson-topic-tag{background:#f4f1e7;color:#5f5e50}.lesson-level-tag{background:#fff0bd;color:#74521a}.lesson-level-tag svg{width:13px;height:13px}
+.project-shell .lesson-body .lesson-summary{display:flex;align-items:flex-start;gap:7px;min-height:40px;font-size:13px;line-height:20px;margin:0 0 14px;color:#62665b}
+.lesson-summary svg{width:16px;height:16px;flex:none;margin-top:2px;color:#8a713b}
+.project-shell .lesson-body .lesson-state{display:flex;align-items:center;gap:6px;font-size:11px;margin:0 0 12px}
+.project-shell .lesson-state:before{content:'';width:5px;height:5px;border-radius:50%;background:#848775;flex:none}
+.project-shell .lesson-body>.button{margin-top:auto}
+}
+
+/* Compact lesson cards: state is an accessible icon beside the title. */
+@media(min-width:1100px){
+.project-shell .lesson-body{position:relative;padding:15px 16px 16px}
+.project-shell .lesson-body h2{font-size:18px;line-height:1.35;min-height:0;margin:0 28px 10px 0}
+.project-shell .lesson-tags{margin-bottom:9px;min-height:24px}
+.project-shell .lesson-tags>span{padding:3px 8px;font-size:11px;line-height:18px}
+.project-shell .lesson-body .lesson-summary{min-height:0;margin:0 0 14px;font-size:12px;line-height:19px}
+.project-shell .lesson-body .lesson-state-icon{position:absolute;right:15px;top:16px;display:grid;place-items:center;width:19px;height:19px;margin:0;color:#777b6b;cursor:help}
+.project-shell .lesson-state-icon:before{display:none}
+.lesson-state-icon svg{width:18px;height:18px}
+.project-shell .lesson-state-icon[data-state=complete]{color:#4d7351}
+.project-shell .lesson-state-icon[data-state=progress]{color:#926512}
+.project-shell .lesson-body>.button{min-height:40px;padding:8px 14px;font-size:13px;margin-top:auto}
+.project-shell .lesson-body .plan-tag{padding:3px 8px;font-size:11px;top:12px;left:12px}
+}
+
+@media(min-width:1100px){.project-shell .lesson-art>.plan-tag{position:absolute;top:12px;left:12px;margin:0;padding:3px 8px;font-size:11px;background:#fff0bdf2;color:#664b1a;border:1px solid #fff8db;border-radius:6px}}
+
+@media(min-width:1100px){
+.project-shell .lesson-body h2{margin-right:34px}
+.project-shell .lesson-body .lesson-state-icon{width:26px;height:26px;right:14px;top:14px}
+.lesson-state-icon svg{width:24px;height:24px;stroke-width:2.3}
+.project-shell .lesson-state-icon[data-state=complete]{color:#3f7049}
+.project-shell .lesson-state-icon[data-state=complete] svg{fill:#eaf4e9}
+.project-shell .lesson-state-icon[data-state=progress]{color:#a36b10}
+.lesson-state-icon .status-track{stroke:#ead7a4;fill:#fff5da}
+.lesson-state-icon .status-play{fill:currentColor;stroke:none}
+.project-shell .lesson-state-icon[data-state=new]{color:#777d6b}
+}
+
+@media(min-width:1100px){
+body .spark-welcome [data-spark-slot].spark-conversation{display:flex;align-items:center;gap:14px;padding:0;margin:0;border:0;border-radius:0;background:transparent;background-image:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+body .spark-conversation .spark-portrait{flex:0 0 82px;width:82px;align-self:center}
+body .spark-conversation .spark-portrait img{width:82px;height:104px;object-fit:contain;filter:drop-shadow(0 4px 3px #99732216)}
+body .spark-conversation .spark-message{position:relative;flex:1;padding:14px 17px;border:1px solid #fff;border-radius:20px 20px 20px 5px;background:linear-gradient(130deg,#fff,#fffdf5);box-shadow:inset 0 1px 0 #fff,0 5px 14px #806c401c}
+body .spark-conversation .spark-message:before{content:'';position:absolute;left:-10px;top:calc(50% - 9px);width:18px;height:18px;background:#fffefb;border-left:1px solid #fff;border-bottom:1px solid #fff;transform:rotate(45deg);border-radius:0 0 0 4px}
+body .spark-conversation .spark-label{position:relative;font-size:12px;font-weight:700;color:#87611f;margin:0 0 4px;letter-spacing:0}
+body .spark-conversation .spark-message p{position:relative;font-size:13px;line-height:1.6;margin:0;color:#454538}
+}
+
+@media(min-width:1100px){body .spark-conversation .spark-portrait{animation:none!important}body .spark-conversation .spark-portrait img{animation:none!important}}
+
+.reviewbar .review-effects[open]{position:relative;z-index:60}
+
+/* Cloud-shaped conversation balloon, with a soft dotted tail toward Spark. */
+@media(min-width:1100px){
+body .spark-conversation .spark-message{isolation:isolate;padding:22px 25px;border:0;border-radius:0;background:transparent;box-shadow:none;margin:4px 0}
+body .spark-conversation .spark-message:before{content:'';position:absolute;inset:-9px -10px;left:-10px;top:-9px;width:auto;height:auto;border:0;border-radius:0;transform:none;z-index:-1;background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20440%20150%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M36%2041C24%2017%2062%208%2090%2022C106%201%20151%204%20167%2019C193%201%20233%206%20249%2020C279%203%20318%209%20332%2025C365%209%20402%2019%20401%2042C439%2047%20444%2076%20422%2091C440%20119%20405%20141%20373%20130C356%20151%20311%20149%20292%20134C267%20153%20221%20149%20206%20135C178%20153%20137%20148%20120%20134C87%20150%2050%20138%2047%20121C10%20126-6%20103%2015%2083C-2%2063%2010%2044%2036%2041Z%22%20fill%3D%22%23fff0bd%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E") center/100% 100% no-repeat;filter:drop-shadow(0 2px 2px #80652c24) drop-shadow(0 8px 10px #80652c2e)}
+body .spark-conversation .spark-message:after{content:'';position:absolute;left:-13px;top:62%;width:11px;height:9px;border:1px solid #fff;border-radius:50%;background:#fffef9;box-shadow:-12px 8px 0 -2px #fffef9,-22px 14px 0 -3px #fffef9;z-index:-1}
+body .spark-welcome [data-spark-slot].spark-conversation{gap:19px}
+}
+
+@media(min-width:1100px){
+.spark-conversation .spark-word{opacity:1}
+body[data-glass-motion=true] .spark-conversation[data-spark-motion=true] .spark-word{animation:spark-word-reveal 130ms ease-out var(--word-delay) both}
+@keyframes spark-word-reveal{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){body .spark-conversation .spark-word{animation:none!important;opacity:1!important}}
+}
+
+@media(min-width:1100px){
+body .spark-conversation .spark-message{padding:24px 26px}
+body .spark-conversation .spark-message p{font-family:'Be Vietnam Pro',sans-serif;font-size:15px;font-weight:600;line-height:1.65;letter-spacing:-.1px;color:#754215}
+body .spark-conversation .spark-message:after{background:#fff0bd;box-shadow:-12px 8px 0 -2px #fff0bd,-22px 14px 0 -3px #fff0bd}
+}
+
+/* CEFR badges keep their level label alongside a distinct color. */
+.lesson-level-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:7px;font-size:12px;line-height:18px;font-weight:500;background:#fff0bd;color:#74521a}
+.lesson-level-tag svg{width:13px;height:13px}
+.lesson-level-tag[data-level="A1"]{background:#e1f1df;color:#2d623e}
+.lesson-level-tag[data-level="A2"]{background:#fff0bd;color:#74521a}
+.lesson-level-tag[data-level="B1"]{background:#e2eefb;color:#2e5c8a}
+.lesson-level-tag[data-level="B2"]{background:#eee4f8;color:#70418c}
+
+/* Shared lesson route: actual completion and current page stay in sync. */
+@media(min-width:1100px){
+body[data-spark-page] .project-shell .journey[data-lesson-route]{display:flex;align-items:center;gap:14px;font-size:13px;line-height:1.5}
+body[data-spark-page] .project-shell .journey[data-lesson-route]>[data-route-step]{display:flex;align-items:center;gap:7px;color:#62665b;font-weight:500;white-space:nowrap}
+body[data-spark-page] .project-shell .journey[data-lesson-route] .route-art{width:44px;height:44px;object-fit:contain;margin-right:3px}
+body[data-spark-page] .project-shell .journey[data-lesson-route] .circle{display:grid;place-items:center;width:22px;height:22px;border:0;border-radius:50%;background:#f3f1e9;color:#62665b;font-size:11px;font-weight:600;font-style:normal}
+body[data-spark-page] .project-shell .journey[data-lesson-route] .route-current{color:#654719;font-weight:700}
+body[data-spark-page] .project-shell .journey[data-lesson-route] .route-current .circle{background:#ffdc70;color:#674718}
+body[data-spark-page] .project-shell .journey[data-lesson-route] .route-complete{color:#315e39}
+body[data-spark-page] .project-shell .journey[data-lesson-route] .route-complete .circle{background:#e2efdc;color:#315e39;font-size:13px}
+body[data-spark-page] .project-shell .journey[data-lesson-route]>.dash{flex:1;min-width:24px;height:2px;border:0;background:#e8dfc3}
+body[data-spark-page] .project-shell .journey[data-lesson-route]>.dash.is-complete{background:#88a579}
+body[data-spark-page] .project-shell .journey[data-lesson-route]>.dash.is-complete #stage-fill{width:100%;background:#88a579}
+}
+
+@media(min-width:1100px){
+body[data-spark-page] .project-shell .journey[data-lesson-route]>.dash.is-in-progress:not(:has(#stage-fill)){position:relative;overflow:hidden}
+body[data-spark-page] .project-shell .journey[data-lesson-route]>.dash.is-in-progress:not(:has(#stage-fill))::before{content:'';position:absolute;inset:0 auto 0 0;width:25%;background:var(--route-gold,#ebc64d);border-radius:inherit}
+}

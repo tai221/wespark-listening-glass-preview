@@ -1,0 +1,151 @@
+/* UI/UX Pro Max — shared desktop practice language for all three activities. */
+@media(min-width:1100px){
+body[data-practice-ui]{--practice-ink:#34382f;--practice-muted:#62665b;--practice-surface:#fffefb;--practice-line:#ebe7da;--practice-control:#d8d6c8;--practice-gold:#ffdc70;--practice-gold-ink:#674718;--practice-focus:#8b6718;--practice-green:#315e39;--practice-green-bg:#eaf3e5;--practice-red:#854b37;--practice-red-bg:#fbefea;--practice-shadow:0 8px 22px #735b1510,0 2px 5px #735b1508}
+body[data-practice-ui] .project-shell .project-workspace>.practice-main{max-width:1160px;margin-inline:auto;padding:28px;color:var(--practice-ink)}
+.practice-lesson-header{padding:22px 26px 16px;margin-bottom:24px;border-radius:16px;background:var(--practice-surface);box-shadow:var(--practice-shadow)}
+.practice-lesson-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-bottom:18px}
+body[data-practice-ui] .practice-lesson-heading h1{font-size:24px;line-height:1.35;font-weight:700;letter-spacing:-.025em;margin:0;color:var(--practice-ink)}
+.practice-lesson-tags{display:flex;align-items:center;gap:8px;flex:none}
+.practice-lesson-tags span{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:12px;line-height:1.5;font-weight:600;background:var(--practice-green-bg);color:var(--practice-green);white-space:nowrap}
+.practice-lesson-tags svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.practice-lesson-tags span:last-child{background:#fff0bc;color:#73531d;border-radius:8px}
+body[data-practice-ui] .practice-journey{margin:0;padding-top:12px;border-top:1px solid var(--practice-line)}
+body[data-practice-ui] .practice-title{align-items:center;gap:24px;margin-bottom:18px}
+body[data-practice-ui] .practice-title h2{font-size:24px;line-height:1.4;letter-spacing:-.025em;font-weight:600;margin:8px 0;color:var(--practice-ink)}
+body[data-practice-ui] .practice-title p{font-size:14px;line-height:1.7;color:var(--practice-muted);margin:0}
+body[data-practice-ui] .back-link{display:inline-flex;align-items:center;min-height:32px;font-size:12px;line-height:1.6;color:var(--practice-muted);text-decoration:none}
+body[data-practice-ui] .back-link:hover{text-decoration:underline;text-underline-offset:4px;color:var(--practice-gold-ink)}
+body[data-practice-ui] .progress-chip{font-size:13px;line-height:1.6;white-space:nowrap;border:1px solid var(--practice-line);border-radius:10px;padding:9px 13px;background:var(--practice-surface);color:var(--practice-gold-ink);box-shadow:none}
+body[data-practice-ui] .practice-main>[data-spark-slot]{min-height:54px;display:flex;align-items:center;gap:12px;margin:0 0 24px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;backdrop-filter:none}
+body[data-practice-ui] .practice-main>[data-spark-slot] .spark-portrait{width:62px;flex:0 0 62px}
+body[data-practice-ui] .practice-main>[data-spark-slot] .spark-portrait img{width:62px;height:62px;object-fit:contain;filter:none}
+body[data-practice-ui] .practice-main>[data-spark-slot] .spark-label{display:none}
+body[data-practice-ui] .practice-main>[data-spark-slot] .spark-message{position:relative;flex:0 1 auto;max-width:720px;padding:10px 16px;border:0;border-radius:12px;background:#fff1bf}
+body[data-practice-ui] .practice-main>[data-spark-slot] .spark-message p{font-size:13px;line-height:1.6;color:#705121;margin:0}
+body[data-practice-ui] .practice-main>[data-spark-slot] .spark-message:before{content:'';position:absolute;left:-5px;top:18px;width:10px;height:10px;background:#fff1bf;transform:rotate(45deg)}
+body[data-practice-ui] :is(.card,.practice-completion){border:1px solid var(--practice-line);border-radius:16px;background:var(--practice-surface);background-image:none;box-shadow:var(--practice-shadow);backdrop-filter:none}
+body[data-practice-ui] .dictation-grid,body[data-practice-ui] .dictation-grid.list-hidden{grid-template-columns:minmax(260px,.8fr) minmax(0,1.8fr);gap:24px;align-items:start}
+.practice-source-stack{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;min-width:0}
+body[data-practice-ui] :is(.practice-source-stack,.dictation-grid,.shadow-grid,.conversation-grid)>*{min-width:0}
+body[data-practice-ui] .shadow-grid{grid-template-columns:minmax(260px,.8fr) minmax(0,1.8fr);gap:24px;align-items:start}
+body[data-practice-ui] .conversation-grid{grid-template-columns:minmax(0,1.8fr) minmax(260px,.8fr);gap:24px;align-items:start}
+body[data-practice-ui] .source-card{padding:20px;overflow:hidden}
+body[data-practice-ui] .source-card .source-art{height:132px;min-height:0;margin:-20px -20px 18px;border-radius:0;background:none;display:block;overflow:hidden}
+body[data-practice-ui] .source-art img{display:block;width:100%;height:100%;object-fit:cover}
+body[data-practice-ui] .source-card h2{font-size:16px;line-height:1.5;font-weight:600;margin:8px 0;color:var(--practice-ink)}
+body[data-practice-ui] .eyebrow{font-size:12px;line-height:1.6;font-weight:500;letter-spacing:0;text-transform:none;color:var(--practice-muted)}
+body[data-practice-ui] .micro,body[data-practice-ui] .demo-note{font-size:12px;line-height:1.7;color:var(--practice-muted)}
+body[data-practice-ui] .source-card .audio-control{width:100%;min-height:44px;margin:10px 0 4px;background:#fff1bf;border-color:#dbc387;color:var(--practice-gold-ink)}
+body[data-practice-ui] .media-tools{gap:12px;margin-top:14px;font-size:13px;color:var(--practice-muted)}
+body[data-practice-ui] .media-tools select{min-height:34px;padding:6px 8px;border:1px solid var(--practice-control);border-radius:8px;background:var(--practice-surface);color:var(--practice-ink);font:inherit}
+body[data-practice-ui] .media-tools label{gap:10px;justify-content:space-between}
+body[data-practice-ui] .media-tools .switch-label{justify-content:flex-start;background:none;border:0;border-radius:0;padding:0}
+body[data-practice-ui] input[type=checkbox]{accent-color:var(--practice-focus);width:15px;height:15px}
+body[data-practice-ui] #audio-status:empty{display:none}
+body[data-practice-ui] #audio-status:not(:empty){margin:14px 0 0;color:var(--practice-red)}
+body[data-practice-ui] .writing-card,body[data-practice-ui] .shadow-workspace{padding:24px;min-width:0}
+body[data-practice-ui] .section-row{gap:14px;margin-bottom:18px}
+body[data-practice-ui] .writing-card h2{font-size:18px;line-height:1.5;font-weight:600;margin:0 0 18px;color:var(--practice-ink)}
+body[data-practice-ui] .mode-switch{background:#f5f3e9;border:1px solid var(--practice-line);padding:4px;gap:4px;border-radius:10px}
+body[data-practice-ui] .mode-switch button{min-height:38px;padding:8px 10px;border-radius:7px;background:none;border:1px solid transparent;font-size:13px;line-height:1.5;font-weight:500;color:var(--practice-muted);box-shadow:none}
+body[data-practice-ui] .mode-switch button[aria-pressed=true]{background:#fff1bf;border-color:#d8bd77;color:var(--practice-gold-ink);font-weight:600}
+body[data-practice-ui] .mode-switch button:hover:not(:disabled):not([aria-pressed=true]){background:#ede9da}
+body[data-practice-ui] .source-sentence{font-size:22px;line-height:1.9;letter-spacing:0;margin:24px 0;color:var(--practice-ink)}
+body[data-practice-ui] .source-sentence .blank{min-width:80px;font-size:18px;color:var(--practice-gold-ink);border-color:#b18b30}
+body[data-practice-ui] .writing-card>label{font-size:13px;margin-bottom:8px;color:var(--practice-ink)}
+body[data-practice-ui] .writing-card textarea{font-family:inherit;font-size:17px;line-height:1.7;min-height:116px;max-height:280px;padding:14px 16px;background:#fffefa;border:1px solid #b9baaa;border-radius:10px;color:var(--practice-ink);box-shadow:none}
+body[data-practice-ui] .writing-card textarea.needs-work{border-color:#b67b64;background:var(--practice-red-bg);box-shadow:none}
+body[data-practice-ui] .writing-card textarea.correct{border-color:#87ab7c;background:var(--practice-green-bg);box-shadow:none}
+body[data-practice-ui] #dictation-feedback{font-size:13px;line-height:1.7}
+body[data-practice-ui] .inline-feedback{font-size:13px;line-height:1.7;border:1px solid #dfcd97;border-radius:10px;background:#fff6d8;color:#71521c;padding:12px 14px}
+body[data-practice-ui] .inline-feedback.correct{border-color:#c6d9bb;background:var(--practice-green-bg);color:var(--practice-green)}
+body[data-practice-ui] .support-box{background:none;border:0;border-top:1px solid var(--practice-line);border-radius:0;padding:16px 0 0;margin-top:20px}
+body[data-practice-ui] .support-box summary{font-size:13px;line-height:1.6;min-height:32px;color:var(--practice-gold-ink)}
+body[data-practice-ui] .support-box p{font-size:13px;line-height:1.7}
+body[data-practice-ui] .support-box .text-button{font-size:13px;min-height:36px}
+body[data-practice-ui] .unit-list{padding:20px}
+body[data-practice-ui] .unit-list h2{font-size:16px;line-height:1.5;font-weight:600;margin:0 0 8px;color:var(--practice-ink)}
+body[data-practice-ui] .unit-list ol{display:block;padding:0;margin:16px 0}
+body[data-practice-ui] .unit-list button{padding:11px 12px;border:1px solid var(--practice-line);background:var(--practice-surface);border-radius:10px;color:var(--practice-ink);font-size:13px}
+body[data-practice-ui] .unit-list button[aria-current]{background:#fff1bf;border-color:#d8bd77}
+body[data-practice-ui] .unit-list button:hover{border-color:#bda36b}
+body[data-practice-ui] .unit-list button strong{font-size:13px;font-weight:600}
+body[data-practice-ui] .unit-list button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;font-size:12px;color:var(--practice-muted)}
+body[data-practice-ui] .unit-list .unit-result{color:var(--practice-green);white-space:normal}
+body[data-practice-ui] .unit-list .demo-note{border-color:var(--practice-line);background:none;padding:14px 0 0;border-radius:0;margin-bottom:0}
+body[data-practice-ui] .button{min-height:44px;padding:11px 18px;border:1px solid var(--practice-control);border-radius:10px;background:var(--practice-surface);background-image:none;color:#535a47;font-size:14px;font-weight:500;line-height:1.5;box-shadow:none}
+body[data-practice-ui] .button.primary{background:var(--practice-gold);border-color:var(--practice-gold);color:var(--practice-gold-ink);font-weight:600}
+body[data-practice-ui] .button:hover:not(:disabled){background:#fff8df;border-color:#bda36b;transform:none;box-shadow:none}
+body[data-practice-ui] .button.primary:hover:not(:disabled){background:#ffd253;border-color:#ffd253}
+body[data-practice-ui] .button.danger{background:var(--practice-red);border-color:var(--practice-red);color:#fff}
+body[data-practice-ui] .button.danger:hover{background:#733e2c;color:#fff}
+body[data-practice-ui] .button:disabled{opacity:.5;cursor:default}
+body[data-practice-ui] .text-button{color:var(--practice-gold-ink);font-size:13px;line-height:1.6;min-height:32px}
+body[data-practice-ui] .practice-actions{gap:12px;margin-top:20px}
+body[data-practice-ui] .practice-actions .button{font-size:14px;padding:11px 18px}
+body[data-practice-ui] .practice-completion{gap:24px;align-items:center;padding:28px;margin-top:24px;background:#fbfdf7}
+body[data-practice-ui] .completion-check{display:block;width:104px;height:104px;object-fit:contain;flex:none;background:none;border-radius:0}
+body[data-practice-ui] .practice-completion h2{font-size:22px;line-height:1.4;margin:0 0 10px;font-weight:600;color:var(--practice-ink)}
+body[data-practice-ui] .practice-completion p{font-size:14px;line-height:1.7;color:var(--practice-muted)}
+body[data-practice-ui] .completion-links{gap:16px;margin-top:18px}
+body[data-practice-ui] .shadow-display{gap:12px;font-size:12px;line-height:1.6;color:var(--practice-muted)}
+body[data-practice-ui] .spoken-text{font-size:28px;line-height:1.8;letter-spacing:0;min-height:110px;margin:24px 0;color:var(--practice-ink)}
+body[data-practice-ui] .translation,body[data-practice-ui] .ipa{font-size:14px;line-height:1.8;color:var(--practice-muted)}
+body[data-practice-ui] .voice-workspace{padding:20px;margin-top:24px;border:1px solid #ded8c1;border-radius:12px;background:#f8f6eb}
+body[data-practice-ui] .voice-workspace.recording{border-color:#c39480;background:var(--practice-red-bg)}
+body[data-practice-ui] .voice-state{background:none;padding:0;border:0;border-radius:0;font-size:16px;line-height:1.6;font-weight:600;color:var(--practice-ink)}
+body[data-practice-ui] .voice-workspace.recording .voice-state{color:var(--practice-red)}
+body[data-practice-ui] .voice-workspace .micro{margin:8px 0 18px}
+body[data-practice-ui] .voice-workspace .button{min-width:160px}
+body[data-practice-ui] .feedback-card{padding:20px;margin-top:20px;border:1px solid #d5e2cc;border-radius:12px;background:var(--practice-green-bg);box-shadow:none}
+body[data-practice-ui] .feedback-card h3{font-size:18px;line-height:1.5;font-weight:600;color:var(--practice-ink)}
+body[data-practice-ui] .feedback-card p{font-size:14px;line-height:1.75;color:var(--practice-muted)}
+body[data-practice-ui] .feedback-evidence{border:0;border-radius:8px;padding:12px 14px;background:var(--practice-surface);font-size:15px;line-height:1.7;color:var(--practice-green)}
+body[data-practice-ui] .shadow-nav{gap:12px;border-color:var(--practice-line);padding-top:18px;margin-top:22px;flex-wrap:wrap}
+body[data-practice-ui] .shadow-nav .micro{font-size:12px}
+body[data-practice-ui] .source-card details{border-color:var(--practice-line);padding-top:16px;margin-top:20px}
+body[data-practice-ui] .source-card summary{font-size:13px;line-height:1.6;min-height:32px;color:var(--practice-ink)}
+body[data-practice-ui] .source-card fieldset label{font-size:13px;line-height:1.7}
+body[data-practice-ui] .source-card #apply-scope{font-size:13px;min-height:40px;padding:8px 12px;width:100%}
+body[data-practice-ui] .vocab-hint{border:0;border-top:1px solid var(--practice-line);border-radius:0;padding:18px 0 0;margin-top:20px;background:none}
+body[data-practice-ui] .vocab-hint p{font-size:13px;line-height:1.7}
+body[data-practice-ui] .quick-lookup{padding:12px 14px;border:1px solid #d8bd77;border-radius:10px;background:#fff5d3;font-size:13px;color:var(--practice-gold-ink)}
+body[data-practice-ui] .lookup-token{border-radius:2px;text-underline-offset:4px}
+body[data-practice-ui] .lookup-token:hover,body[data-practice-ui] .lookup-token[aria-expanded=true]{background:#fff1bf;color:var(--practice-gold-ink)}
+body[data-practice-ui] .conversation-workspace .card{padding:24px;min-width:0}
+body[data-practice-ui] .task-card{position:relative;overflow:hidden}
+.conversation-task-art{display:flex;align-items:center;justify-content:center;height:156px;margin:-24px -24px 22px;background:#deedd7}
+.conversation-task-art img{width:200px;height:150px;object-fit:contain}
+body[data-practice-ui] .task-card h2{font-size:22px;line-height:1.5;font-weight:600;letter-spacing:-.025em;margin:10px 0 22px;color:var(--practice-ink)}
+body[data-practice-ui] .task-card dl>div{grid-template-columns:88px minmax(0,1fr);font-size:14px;line-height:1.75;gap:16px;margin-bottom:16px}
+body[data-practice-ui] .task-card dt{font-size:13px;color:var(--practice-muted)}
+body[data-practice-ui] .task-card dd{margin:0;color:var(--practice-ink)}
+body[data-practice-ui] .conversation-support{gap:20px;min-width:0}
+body[data-practice-ui] .conversation-support .card{padding:20px}
+body[data-practice-ui] .conversation-support summary{font-size:14px;line-height:1.6;color:var(--practice-ink);font-weight:600;min-height:32px}
+body[data-practice-ui] .conversation-support h3{font-size:13px;line-height:1.6;font-weight:600;color:var(--practice-ink);margin:20px 0 8px}
+body[data-practice-ui] .conversation-support p{font-size:13px;line-height:1.8;color:var(--practice-muted);margin:12px 0}
+body[data-practice-ui] .conversation-support p[lang=en]{padding:10px 12px;background:#f8f6eb;border-radius:8px;color:#595b46}
+body[data-practice-ui] .conversation-support audio{width:100%;height:42px;margin-top:10px;color-scheme:light}
+body[data-practice-ui] .chat-messages{max-height:390px;gap:16px;scrollbar-width:thin;scrollbar-color:#d6cba9 transparent;padding:4px 8px 4px 0}
+body[data-practice-ui] .chat-message{max-width:94%;padding:16px 18px;border:1px solid var(--practice-line);border-radius:12px;background:#f7f6ef;box-shadow:none}
+body[data-practice-ui] .chat-message.user{background:#fff1bf;border-color:#ebd694}
+body[data-practice-ui] .chat-message .speaker{font-size:12px;line-height:1.6;font-weight:500;color:var(--practice-muted);margin-bottom:8px}
+body[data-practice-ui] .chat-message p{font-size:17px;line-height:1.75;color:var(--practice-ink)}
+body[data-practice-ui] .chat-message.user p{font-size:15px}
+body[data-practice-ui] .conversation-workspace .practice-actions{border-color:var(--practice-line);padding-top:14px}
+body[data-practice-ui] .feedback-item{margin-top:20px;padding-top:18px;border-color:var(--practice-line)}
+body[data-practice-ui] .feedback-item h3{font-size:15px;font-weight:600;line-height:1.6;color:var(--practice-ink)}
+body[data-practice-ui] .feedback-item p{font-size:14px;line-height:1.8;color:var(--practice-muted)}
+body[data-practice-ui] .feedback-item p[lang=en]{font-size:16px;padding:12px 14px;background:#f7f6ef;border-radius:8px;color:var(--practice-ink)}
+body[data-practice-ui] .final-feedback>h2{font-size:22px;line-height:1.5;margin:12px 0 20px;font-weight:600;color:var(--practice-ink)}
+body[data-practice-ui] .complete-label{color:var(--practice-green);font-size:14px;line-height:1.7}
+body[data-practice-ui] #conversation-partial h2{font-size:22px;line-height:1.5}
+body[data-practice-ui] #conversation-partial p{font-size:14px;line-height:1.7;color:var(--practice-muted)}
+body[data-practice-ui] dialog{width:460px;max-width:calc(100vw - 64px);padding:28px;border:0;border-radius:16px;background:var(--practice-surface);box-shadow:0 20px 50px #493a2429;color:var(--practice-ink)}
+body[data-practice-ui] dialog h2{font-size:22px;line-height:1.4;font-weight:600;margin:0 0 12px;letter-spacing:-.025em}
+body[data-practice-ui] dialog p{font-size:14px;line-height:1.75;color:var(--practice-muted)}
+body[data-practice-ui] :is(button,a,input,select,textarea,summary):focus-visible{outline:3px solid var(--practice-focus)!important;outline-offset:3px!important}
+body[data-practice-ui] ::selection{background:#ffedb1;color:var(--practice-ink)}
+@media(prefers-reduced-motion:reduce){body[data-practice-ui] :is(button,a,textarea){transition:none}}
+}

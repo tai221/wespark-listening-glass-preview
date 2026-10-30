@@ -1,89 +1,60 @@
-import {KEYS,POINTS,create,predict,learn,select,check,advance,replay,reward} from './state.mjs';
-const $=s=>document.querySelector(s);
-const sessionKey='wespark-listening-glass-pre-v1';
-let state=create(),step=0,saved;
-try{saved=JSON.parse(sessionStorage.getItem(sessionKey));}catch{}
-if(saved&&saved.version===1&&saved.state?.answers?.length===3&&saved.state?.checked?.length===3){state=saved.state;step=Math.min(2,Math.max(0,saved.step||0));}
-const questions=[
- {title:'“Reduce waste” có nghĩa là gì?',options:['Giảm chất thải','Tăng chi phí','Tiết kiệm thời gian'],explanation:'“Reduce waste” nghĩa là giảm chất thải. Trong câu vừa học, những thay đổi nhỏ giúp chúng ta tạo ra ít chất thải hơn.'},
- {title:'Bạn nghe thấy cụm từ nào?',audio:true,options:['big changes','small changes','small chances'],explanation:'Âm thanh nói “small changes” — những thay đổi nhỏ. Chú ý “small”, không phải “big”; và “changes”, không phải “chances”.'},
- {title:'Chọn cách nói phù hợp.',prompt:'We ___ today.',options:['can start','can starting','can started'],explanation:'Sau “can” dùng động từ nguyên mẫu: “We can start today” — Chúng ta có thể bắt đầu hôm nay.'}
-];
-let animationTimer,flightTimer,cleanupTimer,audioBlocked=false;
-const audio=$('#sample-audio');
-function save(){try{sessionStorage.setItem(sessionKey,JSON.stringify({version:1,state,step}));}catch{}}
-function showStep(n){if(n===1&&!state.prediction||n===2&&!state.learned)return;step=n;$('#prep-map').open=false;render();document.querySelector(step===2&&state.finished?'#finish-title':`[data-panel="${step}"] h1`).focus();}
+import {POINTS,create,predict,learn,replay,reward,restore,finish,selectMode} from './state.mjs';
+import {mountLearning,learningItems} from '../pre-learning.mjs';
+import {mountBlast} from '../pre-blast.mjs';
+import {mountQuiz} from '../pre-quiz.mjs';
+import {mountQuizReview} from '../pre-quiz-review.mjs';
+mountLearning(document);
+const $=s=>document.querySelector(s),sessionKey='wespark-listening-glass-pre-v1';
+let saved;try{saved=JSON.parse(sessionStorage.getItem(sessionKey));}catch{}
+let {state,step}=restore(saved);
+let animationTimer,flightTimer,cleanupTimer,savingEnabled=true;
+const game=mountBlast(document,{state:state.blast,onChange(value){state={...state,blast:value};save();},onComplete(){const earn=!state.awarded;state=reward(finish(state));render();$('#finish-title').focus();if(earn)celebrate();}});
+const quizMode=mountQuiz(document,{state:state.quiz,onChange(value){state={...state,quiz:value};save();},onComplete(){const earn=!state.awarded;state=reward(finish(state,'quiz'));render();$('#finish-title').focus();if(earn)celebrate();}});
+const answerReview=mountQuizReview(document,{onClose(){answerReview.close();$('#result-summary').hidden=false;$('#view-answers').setAttribute('aria-expanded','false');positionListening();$('#finish-title').focus();},onReplay:restartChallenge});
+function positionListening(){const inside=state.challengeMode==='quiz'&&challengeComplete()&&!$('#result-summary').hidden;$(inside?'.result-actions':'main>footer.actions').append($('#listening'));}
+function challengeComplete(){return state.challengeMode==='quiz'?state.quiz.phase==='complete':state.challengeMode==='game'&&state.blast.phase==='complete';}
+function challengeFocus(){return challengeComplete()?'#finish-title':state.challengeMode==='quiz'?'#quiz-mode-title':state.challengeMode==='game'?'#quiz-title':'#challenge-mode-title';}
+function save(){if(!savingEnabled)return;try{sessionStorage.setItem(sessionKey,JSON.stringify({version:3,state,step}));window.dispatchEvent(new window.Event('lesson-preparation-change'));}catch{}}
+function showStep(n){if(n===1&&!state.prediction||n===2&&!state.learned)return;step=n;if(n===1)state=learn(state);render();$(step===0?'#context-title':step===1?'#learn-panel':challengeFocus()).focus();}
 function render(){
- save();$('#prep-current').textContent=state.finished&&step===2?'Hoàn tất chuẩn bị':['Đoán ngữ cảnh','Học từ & câu','Thử sức'][step];$('#prep-count').textContent=`Bước ${step+1} / 3`;document.querySelectorAll('[data-panel]').forEach(e=>e.hidden=Number(e.dataset.panel)!==step);
- document.querySelectorAll('[data-step]').forEach(b=>{const n=Number(b.dataset.step);b.disabled=n===1&&!state.prediction||n===2&&!state.learned;b.toggleAttribute('aria-current',n===step);if(n===step)b.setAttribute('aria-current','step');b.classList.toggle('done',n<step||state.finished);});
+ game.activate(step===2&&state.challengeMode==='game'&&!challengeComplete());quizMode.activate(step===2&&state.challengeMode==='quiz'&&!challengeComplete());save();document.body.dataset.preStep=String(step);document.body.dataset.challengeMode=state.challengeMode||'choose';if(step!==1)$('#vocab-audio').pause();
+ const companion=$('[data-spark-slot]'),panel=$('[data-panel="'+step+'"]');if(companion.nextElementSibling!==panel)panel.before(companion);
+ const completed=[!!state.prediction,state.learned,state.finished],done=completed.filter(Boolean).length;
+ $('#stage-fill').style.setProperty('--route-fill',done/3);
+ document.querySelectorAll('[data-panel]').forEach(e=>e.hidden=Number(e.dataset.panel)!==step);
+ document.querySelectorAll('[data-step]').forEach(b=>{const n=Number(b.dataset.step),label=['Đoán ngữ cảnh','Học từ & câu','Thử sức'][n];b.disabled=n===1&&!state.prediction||n===2&&!state.learned;b.toggleAttribute('aria-current',n===step);if(n===step)b.setAttribute('aria-current','step');b.classList.toggle('done',completed[n]);b.setAttribute('aria-label',label+(completed[n]?(n===0?' · Đã dự đoán':' · Đã hoàn tất'):'')+(n===step?' · Đang xem':''));});
  document.querySelectorAll('[name="prediction"]').forEach(r=>r.checked=r.value===state.prediction);
- $('#balance').textContent=state.balance;
- $('#back').hidden=step===0;$('#library').hidden=step!==0;
- $('#primary').hidden=step===2&&state.finished;$('#listening').hidden=!(step===2&&state.finished);
- $('#action-note').textContent=step===1?'Từ và mẫu câu trong cùng ngữ cảnh':step===2?'Không có ngưỡng điểm để vào bài nghe.':(!state.prediction?'Chọn một dự đoán để tiếp tục.':'');
- if(step===0){$('#primary').textContent='Học từ & câu →';$('#primary').disabled=!state.prediction;}
- if(step===1){$('#primary').textContent='Thử sức →';$('#primary').disabled=false;}
- if(step===2){
-  $('#challenge').hidden=state.finished;$('#completion').hidden=!state.finished;
-  if(state.finished)renderResults();else renderQuestion();
+ $('#balance').textContent=state.balance;$('#back').hidden=step===0;$('#library').hidden=step!==0;
+ $('#primary').hidden=step===2;$('#listening').hidden=!(step===2&&state.finished);$('#action-note').textContent=step===2&&state.challengeMode?'Không có ngưỡng điểm để vào bài nghe.':'';
+ if(step===0){$('#primary').textContent='Nạp từ vựng →';$('#primary').disabled=!state.prediction;}
+ if(step===1){$('#primary').textContent='Sang Thử sức →';$('#primary').disabled=false;}
+ answerReview.close();$('#result-summary').hidden=false;$('#reviews').hidden=true;$('#view-answers').setAttribute('aria-expanded','false');
+ $('#challenge-selector').classList.toggle('has-mode',!!state.challengeMode);$('#challenge-mode-title').textContent=state.challengeMode?'Thử sức':'Bạn muốn thử sức theo cách nào?';document.querySelectorAll('[data-challenge-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.challengeChoice===state.challengeMode)));
+ $('#challenge').hidden=state.challengeMode!=='game'||challengeComplete();$('#quiz-mode-pane').hidden=state.challengeMode!=='quiz'||challengeComplete();$('#completion').hidden=!challengeComplete();
+ if(challengeComplete()){$('#finish-title').textContent=state.challengeMode==='quiz'?'Hoàn thành rồi!':'Sẵn sàng nghe rồi!';$('#view-answers-label').textContent=state.challengeMode==='quiz'?'Xem lại các câu':'Ôn lại từ và câu';$('#replay-label').textContent=state.challengeMode==='quiz'?'Làm lại Quiz':'Chơi lại Spark Vệ Binh';$('#score-summary').textContent=state.challengeMode==='quiz'?`${state.quiz.score} / 7 câu đúng`:state.blast.legacyComplete?'Đã hoàn tất ở phiên chuẩn bị trước. Bạn có thể chơi lại Spark Vệ Binh; SparkPoint đã nhận vẫn được giữ.':`${state.blast.score} điểm arcade · ${state.blast.misses.length} mục cần ôn · ${state.blast.assisted.length} mục từ vựng có hỗ trợ · ${state.blast.sentenceAssisted.length} mẫu câu có hỗ trợ. Điểm trò chơi không đánh giá năng lực.`;renderReviews();$('#reward-status').textContent=state.awarded?(state.challengeMode==='quiz'?`+${POINTS} SparkPoint · Đã nhận`:'SparkPoint đã được cộng cho lượt chuẩn bị này.'):'';}
+ positionListening();
+}
+function renderReviews(){
+ $('#reviews').replaceChildren();
+ for(const item of learningItems){
+  const details=document.createElement('details');details.className='review-row';const summary=document.createElement('summary');summary.textContent=item.title;
+  const meaning=document.createElement('p');meaning.textContent=item.meaning;
+  const example=document.createElement('p');example.lang='en';example.textContent=item.example;
+  const translation=document.createElement('p');translation.textContent=item.translation;
+  details.append(summary,meaning,example,translation);$('#reviews').append(details);
  }
 }
-function renderQuestion(){
- const i=state.index,q=questions[i],checked=state.checked[i];
- $('#question-count').textContent=`Câu ${i+1} / ${questions.length}`;
- const done=state.checked.filter(Boolean).length;$('#track-fill').style.width=`${done/3*100}%`;$('.track').setAttribute('aria-valuenow',done);
- $('#quiz-title').textContent=q.title;$('#audio-area').hidden=!q.audio;
- $('#answers').replaceChildren();
- if(q.prompt){const p=document.createElement('p');p.className='sentence';p.lang='en';p.textContent=q.prompt;$('#answers').append(p);}
- q.options.forEach((text,j)=>{
-  const letter='ABC'[j],label=document.createElement('label');label.className='option';
-  const input=document.createElement('input');input.type='radio';input.name='answer';input.value=letter;input.checked=state.answers[i]===letter;input.disabled=checked;
-  input.addEventListener('change',()=>{state=select(state,letter);save();$('#primary').disabled=!!(q.audio&&(audioBlocked||audio.error));});
-  const key=document.createElement('span');key.className='letter';key.textContent=letter;
-  const copy=document.createElement('span');copy.textContent=text;if(q.audio||q.prompt)copy.lang='en';
-  label.append(input,key,copy);
-  if(checked&&(letter===KEYS[i]||letter===state.answers[i])){
-   const correct=letter===KEYS[i];label.classList.add(correct?'correct':'wrong');
-   const status=document.createElement('span');status.className='status';status.textContent=correct?'✓ '+(state.answers[i]===letter?'Đúng':'Đáp án'):'× Bạn chọn';label.append(status);
-  }
-  $('#answers').append(label);
- });
- $('#feedback').replaceChildren();
- if(checked){const title=document.createElement('strong');title.textContent=state.answers[i]===KEYS[i]?'Chính xác.':'Nhớ điểm này nhé.';const copy=document.createElement('span');copy.textContent=q.explanation;$('#feedback').append(title,copy);}
- $('#primary').textContent=checked?(i===2?'Hoàn tất →':'Câu tiếp →'):'Kiểm tra';
- $('#primary').disabled=!state.answers[i]||(!checked&&q.audio&&(audioBlocked||!!audio.error));
-}
-function renderResults(){
- $('#score-summary').textContent=`${state.score} / 3 câu đúng · Không cần làm đúng tất cả.`;
- $('#reviews').replaceChildren();
- questions.map((q,i)=>({q,i,correct:state.answers[i]===KEYS[i]})).sort((a,b)=>Number(a.correct)-Number(b.correct)).forEach(({q,i,correct})=>{
-  const details=document.createElement('details');details.className='review-row';const summary=document.createElement('summary');summary.textContent=(correct?'✓ ':'↻ ')+q.title;
-  const status=document.createElement('span');status.textContent=correct?'Đã nhớ':'Cần nhớ';summary.append(status);
-  const p=document.createElement('p');p.textContent=`${correct?'':'Bạn chọn: '+q.options['ABC'.indexOf(state.answers[i])]+'. '}${q.explanation}`;
-  details.append(summary,p);$('#reviews').append(details);
- });
- $('#reward-status').textContent=state.awarded?'SparkPoint đã được cộng cho lượt chuẩn bị này.':'';
-}
-document.querySelectorAll('[name="prediction"]').forEach(r=>r.addEventListener('change',()=>{state=predict(state,r.value);save();$('#primary').disabled=false;$('#action-note').textContent='';document.querySelector('[data-step="1"]').disabled=false;}));
-document.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>showStep(Number(b.dataset.step))));
+
+document.querySelectorAll('[name="prediction"]').forEach(r=>r.addEventListener('change',()=>{state=predict(state,r.value);render();}));
+document.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{if(Number(b.dataset.step)===2&&state.prediction&&!state.learned)state=learn(state);showStep(Number(b.dataset.step));}));
 $('#back').addEventListener('click',()=>showStep(step-1));
-$('#primary').addEventListener('click',()=>{
- if(step===0){showStep(1);return;}
- if(step===1){state=learn(state);showStep(2);return;}
- if(!state.checked[state.index]){if(questions[state.index].audio&&(audioBlocked||audio.error))return;state=check(state);render();return;}
- state=advance(state);
- const earn=state.finished&&!state.awarded;
- if(earn)state=reward(state);
- render();
- if(state.finished){$('#finish-title').focus();if(earn)celebrate();}
- else $('#quiz-title').focus();
-});
-$('#replay').addEventListener('click',()=>{state=replay(state);clearCelebration();render();$('#quiz-title').focus();});
-async function playSample(){try{if(audio.error){audio.load();}audio.currentTime=0;await audio.play();audioBlocked=false;$('#audio-error').hidden=true;}catch{audioBlocked=true;$('#audio-error').hidden=false;}if(step===2&&!state.finished)$('#primary').disabled=!state.answers[state.index]||(!state.checked[state.index]&&(audioBlocked||!!audio.error));}
-$('#play-audio').addEventListener('click',playSample);
-audio.addEventListener('error',()=>{audioBlocked=true;$('#audio-error').hidden=false;if(step===2&&!state.finished&&questions[state.index].audio&&!state.checked[state.index])$('#primary').disabled=true;});
-audio.addEventListener('canplay',()=>{audioBlocked=false;$('#audio-error').hidden=true;if(step===2&&!state.finished&&questions[state.index].audio&&!state.checked[state.index])$('#primary').disabled=!state.answers[state.index];});
-$('#word-audio').addEventListener('click',async()=>{const a=$('#vocab-audio');try{if(a.error)a.load();a.currentTime=0;await a.play();$('#word-error').hidden=true;}catch{$('#word-error').hidden=false;}});
+$('#primary').addEventListener('click',()=>{if(step===0)showStep(1);else if(step===1){state=learn(state);showStep(2);}});
+document.querySelectorAll('[data-challenge-choice]').forEach(b=>b.addEventListener('click',()=>{state=selectMode(state,b.dataset.challengeChoice);clearCelebration();render();$(challengeFocus()).focus();}));
+function restartChallenge(){state=replay(state);if(state.challengeMode==='quiz')quizMode.reset(state.quiz);else game.reset(state.blast);clearCelebration();render();$(challengeFocus()).focus();}
+$('#replay').addEventListener('click',restartChallenge);
+$('#view-answers').addEventListener('click',()=>{if(state.challengeMode==='quiz'){$('#result-summary').hidden=true;positionListening();answerReview.open(state.quiz);$('#view-answers').setAttribute('aria-expanded','true');}else{$('#reviews').hidden=!$('#reviews').hidden;$('#view-answers').setAttribute('aria-expanded',String(!$('#reviews').hidden));}});
+window.addEventListener('pagehide',()=>{try{if(sessionStorage.getItem(sessionKey)===null)savingEnabled=false;}catch{}game.pause();save();clearCelebration();});
+window.addEventListener('pageshow',()=>{savingEnabled=true;});
 function clearCelebration(){clearTimeout(animationTimer);clearTimeout(flightTimer);clearTimeout(cleanupTimer);$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');$('#wallet').classList.remove('wallet-pulse');$('#balance').textContent=state.balance;}
 function stopRewardMotion(){
  clearCelebration();
@@ -112,7 +83,5 @@ function celebrate(){
  },850);
  cleanupTimer=setTimeout(()=>{$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');},1450);
 }
-render();
 
-document.addEventListener('click',event=>{const map=$('#prep-map');if(map.open&&!map.contains(event.target))map.open=false;});
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&$('#prep-map').open){$('#prep-map').open=false;$('#prep-map>summary').focus();}});
+render();

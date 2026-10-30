@@ -1,0 +1,42 @@
+.library-journey{display:none}
+@media(min-width:1100px){
+.library-journey{display:block;position:relative;padding:14px 24px 17px;margin:0 0 22px;isolation:isolate}
+.library-journey-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.library-journey ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;list-style:none;margin:0;padding:0}
+.library-journey li{position:relative;min-width:0;text-align:center;z-index:1}
+.journey-art{position:relative;display:flex;align-items:center;justify-content:center;height:92px;margin:0 0 9px}
+.journey-art:after{content:'';position:absolute;bottom:0;width:66px;height:9px;z-index:-1;background:radial-gradient(ellipse,#bc8c2824,transparent 72%)}
+.journey-symbol{display:grid;place-items:center;width:96px;height:92px;transform-origin:50% 90%;filter:drop-shadow(0 4px 3px #b8871920)}
+.journey-symbol img{display:block;width:96px;height:92px;object-fit:contain}
+.library-journey h3{display:flex;align-items:center;justify-content:center;gap:8px;font-size:15px;font-weight:600;line-height:22px;letter-spacing:-.2px;margin:0 0 5px;color:#3e4038}
+.journey-number{display:grid;place-items:center;width:20px;height:20px;flex:none;font-size:11px;line-height:1;font-weight:600;border:1px solid #fff;border-radius:50%;background:#fff0b6;color:#765016;box-shadow:0 1px 3px #a5761714}
+.library-journey li p{max-width:260px;margin:0 auto;font-size:13px;line-height:1.5;color:#62665b}
+.journey-route{position:absolute;left:0;top:0;width:100%;height:112px;z-index:0;overflow:visible;pointer-events:none}
+.journey-route-base{stroke:#e6ca7c;stroke-width:2;fill:none;stroke-linecap:round}
+.journey-route-arrow{fill:none;stroke:#ba8b27;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.journey-route-light{fill:none;stroke:#e9aa2f;stroke-width:4;stroke-linecap:round;stroke-dasharray:5 195;stroke-dashoffset:5;opacity:0}
+body[data-glass-motion=true] .library-journey[data-journey-ready] .journey-route-light{animation:journey-follow 4s linear infinite}
+body[data-glass-motion=true] .library-journey[data-journey-ready] .journey-symbol{animation:journey-arrive .9s cubic-bezier(.22,.8,.25,1) 1 both}
+body[data-glass-motion=true] .library-journey[data-journey-ready] li:nth-child(2) .journey-symbol{animation-delay:.2s}
+body[data-glass-motion=true] .library-journey[data-journey-ready] li:nth-child(3) .journey-symbol{animation-delay:.4s}
+body[data-glass-motion=true] .library-journey[data-journey-visible=false] .journey-route-light{animation-play-state:paused}
+@keyframes journey-arrive{0%{transform:translateY(3px) rotate(-2deg)}45%{transform:translateY(-4px) rotate(1deg)}100%{transform:translateY(0) rotate(0)}}
+@keyframes journey-follow{0%{stroke-dashoffset:5;opacity:0}5%{opacity:1}95%{opacity:1}100%{stroke-dashoffset:-100;opacity:0}}
+@media(prefers-reduced-motion:reduce){.library-journey *{animation:none!important}.journey-route-light{display:none}}
+}
+
+@media(min-width:1100px){
+.journey-route-light{display:none}
+.journey-comet{opacity:0;offset-distance:0%;offset-rotate:auto}
+body[data-glass-motion=true] .library-journey[data-journey-ready] .journey-comet{animation:journey-comet-travel 4.5s linear infinite}
+body[data-glass-motion=true] .library-journey[data-journey-visible=false] .journey-comet{animation-play-state:paused}
+@keyframes journey-comet-travel{0%{offset-distance:0%;opacity:0}7%{opacity:1}93%{opacity:1}100%{offset-distance:100%;opacity:0}}
+@media(prefers-reduced-motion:reduce){.journey-comet{display:none}}
+}
+
+/* Topic identity: label, icon and a distinct accessible pastel pair. */
+.lesson-tags .lesson-topic-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:600;line-height:1.4;white-space:nowrap}
+.lesson-topic-tag svg{width:16px;height:16px;flex:none}
+.lesson-topic-tag[data-topic='environment']{background:#eaf3e5;color:#315e39}
+.lesson-topic-tag[data-topic='daily-life']{background:#e7f0f9;color:#315d85}
+.lesson-topic-tag[data-topic='sport']{background:#fff0da;color:#88551d}

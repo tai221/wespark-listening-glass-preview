@@ -1,3 +1,4 @@
+import {mountListeningPlayer} from './while-player.mjs';
 import {read,write} from './session.mjs';
 const TRANSCRIPT=[
   [
@@ -45,18 +46,44 @@ let stored=read().while||{};
 let state={answers:Array.isArray(stored.answers)&&stored.answers.length===4?stored.answers:[null,null,null,null],submitted:!!stored.submitted,reviewComplete:!!stored.reviewComplete,reviewed:Array.isArray(stored.reviewed)?stored.reviewed:[]};
 const policies={blank:'pending',review:'pending'};
 let activeQuestion=null;
-const audio=$('#source-audio');
+const audio=$('#source-audio'),questionAudio=$('#question-audio');
+let playingQuestion=null,playRequest=0;
+function icon(kind){
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');
+ const paths={right:'M8 12l3 3 5-6',wrong:'M9 9l6 6m0-6-6 6',blank:'M8 12h8',play:'M9 6l9 6-9 6Z',stop:'M8 8h8v8H8Z'};
+ if(['right','wrong','blank','neutral'].includes(kind)){const circle=document.createElementNS(svg.namespaceURI,'circle');circle.setAttribute('cx','12');circle.setAttribute('cy','12');circle.setAttribute('r','9');svg.append(circle);}
+ if(paths[kind]){const path=document.createElementNS(svg.namespaceURI,'path');path.setAttribute('d',paths[kind]);svg.append(path);}return svg;
+}
+function statusIcon(kind,label){const node=el('span','answer-status');node.setAttribute('role','img');node.setAttribute('aria-label',label);node.append(icon(kind));return node;}
+function updateQuestionPlayback(){document.querySelectorAll('[data-play-question]').forEach(button=>{const i=Number(button.dataset.playQuestion),playing=i===playingQuestion;button.setAttribute('aria-pressed',String(playing));button.setAttribute('aria-label',`${playing?'Dừng':'Nghe đoạn liên quan đến'} câu ${i+1}`);button.title=button.getAttribute('aria-label');button.replaceChildren(icon(playing?'stop':'play'));});}
+function stopQuestion(){playRequest++;playingQuestion=null;questionAudio.pause();updateQuestionPlayback();}
+async function playQuestion(i){
+ if(playingQuestion===i){stopQuestion();return;}
+ stopQuestion();audio.pause();const request=++playRequest;playingQuestion=i;
+ document.querySelectorAll('.question-audio-error').forEach(node=>node.hidden=true);
+ questionAudio.src=`assets/while-audio/question-${i+1}.wav`;questionAudio.playbackRate=audio.playbackRate;questionAudio.volume=audio.volume;questionAudio.muted=audio.muted;updateQuestionPlayback();
+ try{await questionAudio.play();}catch{if(request!==playRequest)return;questionPlaybackError(i);}
+}
+function questionPlaybackError(i=playingQuestion){stopQuestion();if(i!==null){const error=$(`#question-${i+1} .question-audio-error`);if(error)error.hidden=false;}}
+questionAudio.addEventListener('ended',stopQuestion);
+questionAudio.addEventListener('error',()=>{if(playingQuestion!==null)questionPlaybackError();});
+questionAudio.addEventListener('pause',()=>{if(playingQuestion!==null){playRequest++;playingQuestion=null;updateQuestionPlayback();}});
+audio.addEventListener('play',stopQuestion);
+audio.addEventListener('volumechange',()=>{questionAudio.volume=audio.volume;questionAudio.muted=audio.muted;});
+audio.addEventListener('ratechange',()=>{questionAudio.playbackRate=audio.playbackRate;});
+window.addEventListener('pagehide',stopQuestion);
 function persist(){write({while:{...state,answers:[...state.answers],reviewed:[...state.reviewed]}});}
 function el(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
 function wrongIndices(){return KEYS.map((key,i)=>state.answers[i]!==key?i:null).filter(i=>i!==null);}
 function reviewedAll(){return wrongIndices().every(i=>state.reviewed.includes(i));}
 function render(){
+ stopQuestion();
  document.body.classList.toggle('review-mode',state.submitted);
  $('#phase-caption').textContent=state.submitted?'Nghe lại & đối chiếu':'Lắng nghe & nắm bắt nội dung';
  $('#question-section-heading').hidden=state.submitted;$('#result-summary').hidden=!state.submitted;$('#transcript-panel').hidden=!state.submitted;
  $('#submit').hidden=state.submitted;$('#post-link').hidden=!state.submitted;$('#next-wrong').hidden=!state.submitted||wrongIndices().length===0;
  $('#question-list').replaceChildren();
- QUESTIONS.forEach((q,i)=>renderQuestion(q,i));
+ QUESTIONS.forEach((q,i)=>renderQuestion(q,i));updateQuestionPlayback();
  if(state.submitted){$('#score-count').textContent=`${state.answers.filter((a,i)=>a===KEYS[i]).length} / 4`;renderTranscript();}
  updateProgress();
 }
@@ -65,16 +92,22 @@ function renderQuestion(q,i){
  const article=el('article','question-card card');article.id=`question-${i+1}`;
  if(state.submitted)article.classList.add(correct?'correct':blank?'blank':'wrong');
  const meta=el('div','q-meta');meta.append(el('span','q-index',i+1),el('span','q-type',q.type));
- if(state.submitted)meta.append(el('span','q-result',correct?'✓ Đúng':blank?'— Chưa trả lời':'× Chưa đúng'));
+ if(state.submitted){const result=statusIcon(correct?'right':blank?'blank':'wrong',correct?'Trả lời đúng':blank?'Chưa trả lời':'Trả lời sai');result.classList.add('q-result');meta.append(result);}
+ const play=el('button','question-play');play.type='button';play.dataset.playQuestion=i;play.addEventListener('click',()=>playQuestion(i));meta.append(play);
  article.append(meta,el('h3','',q.title));
+ const playbackError=el('p','question-audio-error','Chưa phát được đoạn nghe. Bấm nút phát để thử lại.');playbackError.hidden=true;playbackError.setAttribute('role','alert');article.append(playbackError);
  if(!state.submitted){
   const fieldset=el('fieldset','answer-set');fieldset.append(el('legend','sr-only',`Câu ${i+1}: ${q.title}`));
   q.options.forEach((text,j)=>{const letter='AB'[j],label=el('label','while-answer'),input=document.createElement('input');input.type='radio';input.name=`q${i+1}`;input.value=letter;input.checked=state.answers[i]===letter;input.addEventListener('change',()=>{state.answers[i]=letter;persist();updateProgress();});label.append(input,el('span','',`${letter}. ${text}`));fieldset.append(label);});article.append(fieldset);
  }else{
   const answers=el('div','answer-review');
-  if(!correct&&!blank){const selected=el('div','answer-line wrong');selected.append(el('span','',`${state.answers[i]}. ${q.options['AB'.indexOf(state.answers[i])]}`),el('small','','Bạn chọn'));answers.append(selected);}
-  if(blank)answers.append(el('div','answer-line wrong','Bạn chưa chọn đáp án cho câu này.'));
-  const right=el('div','answer-line right');right.append(el('span','',`${KEYS[i]}. ${q.options['AB'.indexOf(KEYS[i])]}`),el('small','',correct?'Bạn chọn · Đúng':'Đáp án đúng'));answers.append(right);article.append(answers);
+  q.options.forEach((text,j)=>{
+   const letter='AB'[j],right=letter===KEYS[i],selected=letter===state.answers[i];
+   const row=el('div',`answer-line${right?' right':selected?' wrong':' neutral'}${selected?' selected':''}`);
+   row.append(statusIcon(right?'right':selected?'wrong':'neutral',right?(selected?'Bạn chọn · Đáp án đúng':'Đáp án đúng'):selected?'Bạn chọn · Đáp án sai':'Không được chọn'),el('span','answer-copy',`${letter}. ${text}`));answers.append(row);
+  });
+  if(blank)answers.append(el('p','sr-only','Bạn chưa chọn đáp án cho câu này.'));
+  article.append(answers);
   const details=el('details','explanation');details.id=`explain-${i+1}`;
   const summary=el('summary','',correct?'Vì sao đúng?':'Giải thích & bằng chứng');if(state.reviewed.includes(i))summary.append(el('span','reviewed-flag','✓ Đã xem'));
   const copy=el('div','explanation-copy');copy.append(el('strong','','Bằng chứng trong bài nghe'));
@@ -94,7 +127,7 @@ function renderTranscript(){
  TRANSCRIPT.forEach(([timestamp,text],i)=>{const segment=el('div','transcript-segment');segment.id=`segment-${i+1}`;segment.tabIndex=-1;const copy=el('p','',text);copy.lang='en';segment.append(el('span','timestamp',timestamp),copy);$('#transcript').append(segment);});
  if(activeQuestion!==null)highlightQuestion(activeQuestion);
 }
-function highlightQuestion(i){document.querySelectorAll('.question-card').forEach((e,j)=>e.classList.toggle('active-question',j===i));document.querySelectorAll('.transcript-segment').forEach((e,j)=>e.classList.toggle('active',QUESTIONS[i].segments.includes(j)));$('#evidence-context').textContent=`Đối chiếu câu ${i+1} · Mốc thời gian minh họa gốc, không đồng bộ audio tổng hợp.`;}
+function highlightQuestion(i){document.querySelectorAll('.question-card').forEach((e,j)=>e.classList.toggle('active-question',j===i));document.querySelectorAll('.transcript-segment').forEach((e,j)=>e.classList.toggle('active',QUESTIONS[i].segments.includes(j)));$('#evidence-context').textContent=`Đối chiếu câu ${i+1}`;}
 function showEvidence(i){activeQuestion=i;highlightQuestion(i);const target=$(`#segment-${QUESTIONS[i].segments[0]+1}`);target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'nearest'});target.focus({preventScroll:true});}
 function updateProgress(){
  const answered=state.answers.filter(Boolean).length;
@@ -120,7 +153,7 @@ $('#demo-wrong').addEventListener('click',()=>fixture(['A','B','A','A'],true));
 $('#demo-perfect').addEventListener('click',()=>fixture(['A','A','A','B'],true));
 $('#demo-empty').addEventListener('click',()=>fixture([null,null,null,null],false));
 function audioError(){ $('#audio-problem').hidden=false;$('#play-state').textContent='Âm thanh chưa sẵn sàng';}
-function restoreAudio(){audio.src='source-listening.wav';audio.load();$('#audio-problem').hidden=true;$('#play-state').textContent='Sẵn sàng nghe';}
+function restoreAudio(){audio.src=audio.dataset.seekableSource||'source-listening.wav';audio.load();$('#audio-problem').hidden=true;$('#play-state').textContent='Sẵn sàng nghe';}
 $('#demo-audio-error').addEventListener('click',()=>{audio.src='data:audio/wav;base64,aW52YWxpZA==';audio.load();});
 $('#demo-audio-restore').addEventListener('click',restoreAudio);$('#retry-audio').addEventListener('click',restoreAudio);
 for(const name of ['play','pause','ended'])audio.addEventListener(name,()=>{$('#play-state').textContent=audio.ended?'Đã nghe hết':audio.paused?'Đã tạm dừng':'Đang phát';});
@@ -128,3 +161,5 @@ audio.addEventListener('error',audioError);audio.addEventListener('canplay',()=>
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('.tips').open){$('.tips').open=false;$('.tips>summary').focus();}});
 document.addEventListener('click',e=>{const tips=$('.tips');if(tips.open&&!tips.contains(e.target))tips.open=false;});
 render();
+
+mountListeningPlayer(audio,{onError:audioError,isSubmitted:()=>state.submitted});

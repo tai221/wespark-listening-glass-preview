@@ -1,18 +1,22 @@
-# WeSpark Listening · Glass Studio
+# WeSpark Listening · Desktop Preview
 
-Separate interactive Glassmorphism design experiment for WeSpark Listening.
+Public desktop UI prototype for WeSpark Listening.
 
-Open: https://tai221.github.io/wespark-listening-glass-preview/
+- [Open the demo](https://tai221.github.io/wespark-listening-glass-preview/)
+- [Lesson library](https://tai221.github.io/wespark-listening-glass-preview/library.html)
+- [Preparation](https://tai221.github.io/wespark-listening-glass-preview/pre.html)
+- [Listening comprehension](https://tai221.github.io/wespark-listening-glass-preview/while.html)
+- [Practice activities](https://tai221.github.io/wespark-listening-glass-preview/post.html)
 
-The earlier preview remains separate: https://tai221.github.io/wespark-listening-preview/
+Updated 2026-10-30 with Quiz / Spark Vệ Binh, answer review, source-player controls,
+shared lesson progress, activity-specific Spark illustrations, and aligned
+Dictation, Shadowing and Conversation screens.
 
-Vietnamese learning UI, English demonstration lesson, translucent surfaces,
-rounded controls, Spark and generated 3D artwork, with a motion toggle and reduced-motion support.
+Desktop web only. Audio is synthetic. Recording, conversation and AI feedback
+are UI simulations. Progress and illustrative SparkPoint stay in the browser tab;
+there is no connected account, backend, real recording or AI grading service.
+Only Listening is published; navigation to other product areas is unavailable.
 
-Audio is synthetic. Microphone, conversation and scoring states are simulations.
-Progress and illustrative SparkPoint are stored only in the current browser tab.
-No learner accounts, backend, real recordings or AI scoring are connected.
-
-Only browser runtime assets are published. Internal plans, research, verification
-logs, test scripts and screenshots are excluded. New planet illustration was generated
-with OpenAI ImageGen; Spark assets are reused from the supplied WeSpark prototype.
+Only browser runtime assets are published. Internal plans, research, credentials,
+QA scripts, source artwork and verification logs are excluded. Activity artwork
+was generated with OpenAI ImageGen using the supplied Spark identity references.

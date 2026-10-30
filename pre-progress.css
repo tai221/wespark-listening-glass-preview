@@ -1,0 +1,40 @@
+/* A single route: lesson stages above, preparation activities below. */
+body[data-spark-page='pre'] .lesson-heading .separator,body[data-spark-page='pre'] .lesson-heading>div{display:none}
+.learning-route{--route-ink:#454c3e;--route-muted:#636b5a;--route-line:#dce0d1;--route-gold:#ebc64d;margin:0 0 22px;padding:0 0 18px;border-bottom:1px solid #e6e1ce;color:var(--route-ink)}
+.learning-route .route-title{margin:0 0 14px;font-size:13px;font-weight:600;color:var(--route-muted)}
+.learning-route .journey{display:flex;align-items:center;gap:14px;width:100%;font-size:14px;color:var(--route-muted)}
+.learning-route .journey .item{display:flex;align-items:center;gap:10px;flex:none;white-space:nowrap}
+.learning-route .journey .circle{display:grid;place-items:center;flex:none;width:32px;height:32px;background:#fffef7;border:1px solid #b3bba7;border-radius:50%;font-size:13px;font-weight:600}
+.learning-route .journey .active{color:#514316;font-weight:700}
+.learning-route .journey .active .circle{background:#f6d862;border-color:#e0bb3d;color:#514316}
+.learning-route .journey .dash{display:block;flex:1;min-width:16px;height:3px;background:var(--route-line);border-radius:2px;overflow:hidden}
+.learning-route #stage-fill{display:block;width:100%;height:100%;background:var(--route-gold);transform:scaleX(var(--route-fill,0));transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.learning-route .route-preparation{display:flex;align-items:center;gap:20px;margin-top:14px;padding-left:12px}
+.learning-route .stepper{display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:0;margin:0;border:0;background:none;min-width:0}
+.learning-route .stepper button{display:flex;align-items:center;gap:8px;min-height:44px;padding:4px 8px;border:0;border-radius:8px;background:transparent;color:var(--route-muted);font-size:12px;font-weight:500;white-space:nowrap;cursor:pointer;transition:background .15s,color .15s}
+.learning-route .stepper button:hover:not(:disabled){background:#f1eddc}
+.learning-route .stepper button[aria-current]{color:#594716;background:#fff2c1;font-weight:650}
+.learning-route .stepper button:disabled{opacity:1;color:#73796b;cursor:default}
+.learning-route .stepper .step-dot{display:grid;place-items:center;width:16px;height:16px;flex:none;border:1px solid #aeb6a2;border-radius:50%;background:#fffef8}
+.learning-route .step-dot svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;visibility:hidden}
+.learning-route .stepper button[aria-current] .step-dot{background:#f5d568;border-color:#ac8427;box-shadow:inset 0 0 0 4px #fff7d5}
+.learning-route .stepper button.done .step-dot{background:#e6efdf;border-color:#69805a;color:#3f6233;box-shadow:none}
+.learning-route .stepper button.done svg{visibility:visible}
+.learning-route .stepper i{display:block;width:26px;height:2px;background:var(--route-line);flex:none;border:0;position:relative;overflow:hidden}
+.learning-route .stepper i:after{content:'';position:absolute;inset:0;background:#8fa477;transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.learning-route .stepper button.done+i:after{transform:scaleX(1)}
+@media(max-width:740px){
+ .learning-route .journey{gap:8px;font-size:12px}
+ .learning-route .journey .item{gap:6px}
+ .learning-route .journey .circle{width:26px;height:26px;font-size:12px}
+ .learning-route .route-preparation{display:block;padding-left:0;margin-top:12px}
+ .learning-route .stepper{gap:3px;justify-content:space-between}
+ .learning-route .stepper button{gap:5px;padding:4px;font-size:12px;white-space:normal;text-align:left;line-height:1.5}
+ .learning-route .stepper i{width:12px}
+}
+@media(max-width:420px){
+ .learning-route .journey{display:grid;grid-template-columns:minmax(0,1fr) 12px minmax(0,1fr) 12px minmax(0,1fr);gap:4px}
+ .learning-route .journey .item{flex-direction:column;gap:5px;white-space:normal;text-align:center;line-height:1.5}
+ .learning-route .journey .dash{align-self:start;margin-top:12px;min-width:0;width:100%}
+}
+@media(prefers-reduced-motion:reduce){.learning-route *,.learning-route *:after{transition:none!important}}
