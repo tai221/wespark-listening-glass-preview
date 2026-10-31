@@ -26,3 +26,5 @@ Dictation now covers all 28 sentences of the sample lesson with dedicated synthe
 Dictation gives live red/green feedback while typing and records correct answers automatically, with no Check button.
 
 Latest update: refined Dictation controls, exact word masks, completed sentence states and layout; Quiz completion celebration sound; yellow paper background with upper-right sun and independently drifting soft clouds. Desktop preview only.
+
+Background updated to pale travel artwork: airplane with dotted flight path, soft clouds, golden sun and a cropped globe bleeding into the translucent sidebar.

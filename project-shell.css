@@ -175,30 +175,9 @@ body[data-spark-page] .project-shell .journey[data-lesson-route]>.dash.is-in-pro
 body[data-spark-page] .project-shell .journey[data-lesson-route]>.dash.is-in-progress:not(:has(#stage-fill))::before{content:'';position:absolute;inset:0 auto 0 0;width:25%;background:var(--route-gold,#ebc64d);border-radius:inherit}
 }
 
-/* Local-only paper background stays clipped to the desktop web frame. */
+/* Reference-inspired travel artwork is shared continuously across the web frame. */
 @media(min-width:1100px){
-body[data-spark-page] .app.project-shell{background-color:#fff2ab;background-image:url('assets/backgrounds/sun-paper-desktop-v3.webp');background-size:cover;background-position:right bottom;background-repeat:no-repeat;background-attachment:fixed;backdrop-filter:none;-webkit-backdrop-filter:none}
-}
-
-/* Move the actual paper texture, keeping the right-hand sun region stationary. */
-@media(min-width:1100px){
-body[data-spark-page] .app.project-shell{position:relative;isolation:isolate;overflow:hidden}
-body[data-spark-page] .app.project-shell::before{
- content:'';position:absolute;inset:-48px;z-index:-1;pointer-events:none;
- background-image:url('assets/backgrounds/sun-paper-desktop-v3.webp');
- background-size:cover;background-position:right bottom;background-repeat:no-repeat;background-attachment:fixed;
- mask-image:linear-gradient(to right,#000 0%,#000 55%,transparent 82%);
- -webkit-mask-image:linear-gradient(to right,#000 0%,#000 55%,transparent 82%);
- opacity:0;
-}
-body[data-spark-page][data-glass-motion="true"]:not([data-glass-playing="true"]) .app.project-shell::before{opacity:.92;animation:paper-ripple-drift 7s ease-in-out infinite alternate}
-@keyframes paper-ripple-drift{
- from{transform:translate3d(-26px,-12px,0) scale(1.03)}
- to{transform:translate3d(26px,16px,0) scale(1.055)}
-}
-}
-@media(prefers-reduced-motion:reduce){
-body[data-spark-page] .app.project-shell::before{animation:none!important;opacity:0!important}
+body[data-spark-page] .app.project-shell{position:relative;isolation:isolate;overflow:hidden;background-color:#fffbee;background-image:url('assets/backgrounds/travel-clouds-desktop-v1.webp');background-size:cover;background-position:right 64px;background-repeat:no-repeat;background-attachment:fixed;backdrop-filter:none;-webkit-backdrop-filter:none}
 }
 
 /* Diffuse cloud wisps: separate shapes, paths, periods and starting phases. */
@@ -221,4 +200,10 @@ body[data-spark-page][data-glass-motion="true"]:not([data-glass-playing="true"])
 }
 @media(prefers-reduced-motion:reduce){
 body[data-spark-page] .paper-clouds{display:none}
+}
+
+/* Pale paper continues underneath the navigation, with a quiet white wash at the top. */
+@media(min-width:1100px){
+body[data-spark-page] .project-shell .project-sidebar{background:linear-gradient(to bottom,#fffefbf0 0%,#fffefbc7 38%,#fffefb66 82%,#fffefb47 100%);border-right-color:transparent}
+body[data-spark-page] .project-shell .project-header{background:#fffefbf5}
 }
