@@ -1,13 +1,12 @@
-import {createQuizSound} from './pre-quiz-sound.mjs';
 import {balance} from './session.mjs';
 const KEYS=['A','A','A','B'];
 const score=state=>state.submitted?state.answers.filter((a,i)=>a===KEYS[i]).length:0;
 const bolt='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 2-9 12h7l-2 8 9-12h-7l2-8Z"/></svg>';
 export function mountWhileFeedback(document){
- const view=document.defaultView,$=s=>document.querySelector(s),sound=createQuizSound(document,{id:'while-sound',label:'Âm báo nghe hiểu'});
+ const view=document.defaultView,$=s=>document.querySelector(s);
  const tools=document.createElement('div');tools.className='while-feedback-tools';
  const counter=document.createElement('span');counter.className='while-point-counter';counter.id='while-point-counter';counter.setAttribute('role','status');counter.setAttribute('aria-live','polite');counter.setAttribute('aria-atomic','true');counter.title='Mỗi câu đúng +1; nhận vào tổng điểm sau khi đối chiếu xong.';counter.innerHTML=bolt+'<strong id="while-points">0</strong>';
- tools.append(counter,sound.button,...sound.sounds);$('.tips').before(tools);
+ tools.append(counter);$('.tips').before(tools);
  const completion=document.createElement('div');completion.id='while-completion';completion.className='while-completion';completion.hidden=true;completion.setAttribute('role','status');
  completion.innerHTML='<img src="assets/spark-journey/listen-v1.webp" alt="Spark đeo tai nghe ăn mừng" width="76" height="76"><div><strong>Bạn đã nghe và hiểu thêm rồi!</strong><p>Đã hoàn thành phần nghe hiểu.</p></div><span class="while-earned">'+bolt+'<b></b></span>';
  $('#result-summary').after(completion);
@@ -16,7 +15,7 @@ export function mountWhileFeedback(document){
  function count(n){$('#while-points').textContent=String(n);counter.setAttribute('aria-label',`${n} SparkPoint trong phần nghe hiểu`);}
  function later(fn,ms){timers.push(view.setTimeout(fn,ms));}
  function animate(node,frames,options){if(!node?.animate||!motion())return;const animation=node.animate(frames,options);animations.push(animation);}
- function stop(){sound.stop();timers.forEach(id=>view.clearTimeout(id));timers=[];animations.forEach(a=>a.cancel());animations=[];flights.forEach(n=>n.remove());flights=[];if(current)count(score(current));document.querySelectorAll('[data-balance]').forEach(n=>n.textContent=String(balance()));}
+ function stop(){timers.forEach(id=>view.clearTimeout(id));timers=[];animations.forEach(a=>a.cancel());animations=[];flights.forEach(n=>n.remove());flights=[];if(current)count(score(current));document.querySelectorAll('[data-balance]').forEach(n=>n.textContent=String(balance()));}
  function fly(from,to,text,done){
   if(!motion()||!from||!to){done?.();return;}
   const a=from.getBoundingClientRect(),b=to.getBoundingClientRect();
@@ -36,7 +35,7 @@ export function mountWhileFeedback(document){
  }
  function sync(state){current=state;count(score(state));complete(state);}
  function grade(state){
-  current=state;const n=score(state);sound.play(n>0);
+  current=state;const n=score(state);
   if(!motion()){count(n);return;}
   count(0);let earned=0;
   document.querySelectorAll('.question-card').forEach((card,i)=>{
