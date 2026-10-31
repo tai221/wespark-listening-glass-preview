@@ -1,3 +1,4 @@
+import {whileReward} from '../session.mjs';
 import {rewardPoints,create,predict,learn,replay,reward,restore,finish,selectMode} from './state.mjs';
 import {mountLearning,learningItems} from '../pre-learning.mjs';
 import {mountBlast} from '../pre-blast.mjs';
@@ -24,7 +25,7 @@ function render(){
  document.querySelectorAll('[data-panel]').forEach(e=>e.hidden=Number(e.dataset.panel)!==step);
  document.querySelectorAll('[data-step]').forEach(b=>{const n=Number(b.dataset.step),label=['Đoán ngữ cảnh','Học từ & câu','Thử sức'][n];b.disabled=n===1&&!state.prediction||n===2&&!state.learned;b.toggleAttribute('aria-current',n===step);if(n===step)b.setAttribute('aria-current','step');b.classList.toggle('done',completed[n]);b.setAttribute('aria-label',label+(completed[n]?(n===0?' · Đã dự đoán':' · Đã hoàn tất'):'')+(n===step?' · Đang xem':''));});
  document.querySelectorAll('[name="prediction"]').forEach(r=>r.checked=r.value===state.prediction);
- $('#balance').textContent=state.balance;$('#back').hidden=step===0;$('#library').hidden=step!==0;
+ $('#balance').textContent=walletBalance();$('#back').hidden=step===0;$('#library').hidden=step!==0;
  $('#primary').hidden=step===2;$('#listening').hidden=!(step===2&&state.finished);$('#action-note').textContent=step===2&&state.challengeMode?'Không có ngưỡng điểm để vào bài nghe.':'';
  if(step===0){$('#primary').textContent='Nạp từ vựng →';$('#primary').disabled=!state.prediction;}
  if(step===1){$('#primary').textContent='Sang Thử sức →';$('#primary').disabled=false;}
@@ -63,7 +64,8 @@ function renderRewardStatus(){
  const amount=document.createElement('strong');amount.textContent=`+${points}`;const received=document.createElement('span');received.textContent='Đã nhận';
  status.setAttribute('aria-label',label);status.setAttribute('aria-atomic','true');status.replaceChildren(icon,amount,received);
 }
-function clearCelebration(){clearTimeout(animationTimer);clearTimeout(flightTimer);clearTimeout(cleanupTimer);$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');$('#wallet').classList.remove('wallet-pulse');$('#balance').textContent=state.balance;}
+function walletBalance(){return state.balance+whileReward();}
+function clearCelebration(){clearTimeout(animationTimer);clearTimeout(flightTimer);clearTimeout(cleanupTimer);$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');$('#wallet').classList.remove('wallet-pulse');$('#balance').textContent=walletBalance();}
 function stopRewardMotion(){
  clearCelebration();
  if(state.finished&&state.awarded)renderRewardStatus();
@@ -76,8 +78,8 @@ matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',event=>
 function celebrate(){
  clearCelebration();clearRewardStatus();$('.spark-stage').classList.add('celebrate');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches||document.body.dataset.glassMotion!=='true';
- if(reduced||rewardPoints(state)===0){$('#balance').textContent=state.balance;renderRewardStatus();return;}
- $('#balance').textContent=state.balance-rewardPoints(state);
+ if(reduced||rewardPoints(state)===0){$('#balance').textContent=walletBalance();renderRewardStatus();return;}
+ $('#balance').textContent=walletBalance()-rewardPoints(state);
  const from=$('#spark').getBoundingClientRect(),to=$('#wallet').getBoundingClientRect();
  for(let i=0;i<9;i++){
   const el=document.createElement('span');el.className='flying-spark';el.textContent='ϟ';el.style.left=`${from.x+from.width/2}px`;el.style.top=`${from.y+from.height/2}px`;$('#particles').append(el);
@@ -86,8 +88,8 @@ function celebrate(){
   el.animate([{transform:'translate(-50%,-50%) scale(.1)',opacity:0},{transform:`translate(${Math.cos(angle)*65}px,${Math.sin(angle)*55}px) scale(1.15)`,opacity:1,offset:.32},{transform:`translate(${dx}px,${dy}px) scale(.35)`,opacity:0}],{duration:950,delay:i*24,easing:'cubic-bezier(.2,.7,.3,1)',fill:'both'});
  }
  flightTimer=setTimeout(()=>{
-  $('#wallet').classList.add('wallet-pulse');let n=state.balance-rewardPoints(state);
-  const count=()=>{n=Math.min(state.balance,n+1);$('#balance').textContent=n;if(n<state.balance)animationTimer=setTimeout(count,23);else renderRewardStatus();};count();
+  $('#wallet').classList.add('wallet-pulse');let n=walletBalance()-rewardPoints(state);
+  const count=()=>{n=Math.min(walletBalance(),n+1);$('#balance').textContent=n;if(n<walletBalance())animationTimer=setTimeout(count,23);else renderRewardStatus();};count();
  },850);
  cleanupTimer=setTimeout(()=>{$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');},1450);
 }

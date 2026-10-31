@@ -135,4 +135,22 @@ body[data-spark-page=while] .listening-shortcuts>span{display:inline-flex;align-
 body[data-spark-page=while] .listening-shortcuts kbd{padding:0 4px;border:1px solid var(--listen-control);border-radius:4px;background:#f8f7f0;font:inherit;font-variant-numeric:tabular-nums}
 body[data-spark-page=while] .listening-speed select:focus-visible{outline:3px solid var(--listen-focus);outline-offset:3px}
 
+/* Shared quiz feedback language; desktop listening keeps the source audio primary. */
+body[data-spark-page=while] .while-feedback-tools{display:flex;align-items:center;gap:8px;margin-left:auto;flex:none}
+body[data-spark-page=while] .while-point-counter{display:inline-flex;align-items:center;gap:5px;min-width:56px;height:34px;padding:5px 10px;border-radius:9px;background:#fff1bf;color:#705018;font-size:15px;font-variant-numeric:tabular-nums}
+body[data-spark-page=while] .while-point-counter svg,.while-earned svg,.while-point-flight svg{width:18px;height:18px;fill:currentColor;flex:none}
+body[data-spark-page=while] #while-sound{display:grid;place-items:center;width:34px;height:34px;padding:7px;border:1px solid var(--listen-control);border-radius:9px;background:var(--listen-surface);color:var(--listen-muted);cursor:pointer;flex:none}
+body[data-spark-page=while] #while-sound:hover{background:#fff4d1;color:var(--listen-gold-ink)}
+body[data-spark-page=while] #while-sound svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+body[data-spark-page=while] .while-question-point{display:inline-flex;align-items:center;margin-left:3px;padding:2px 7px;border-radius:6px;background:var(--listen-green-bg);color:var(--listen-green);font-size:12px;font-weight:700}
+body[data-spark-page=while] .while-completion{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:14px 16px 14px 8px;background:#fff6d9;border-radius:12px}
+body[data-spark-page=while] .while-completion[hidden]{display:none}
+body[data-spark-page=while] .while-completion img{width:64px;height:64px;object-fit:contain;flex:none}
+body[data-spark-page=while] .while-completion>div{flex:1;min-width:0}
+body[data-spark-page=while] .while-completion strong{font-size:14px;line-height:1.6;color:var(--listen-gold-ink)}
+body[data-spark-page=while] .while-completion p{font-size:12px;line-height:1.65;margin:4px 0 0;color:var(--listen-muted)}
+body[data-spark-page=while] .while-earned{display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border-radius:9px;background:#ffdf79;color:#654719;font-size:17px;font-variant-numeric:tabular-nums;flex:none}
+body[data-spark-page=while] .while-point-flight{position:fixed;z-index:150;display:flex;align-items:center;gap:3px;pointer-events:none;padding:5px 9px;border-radius:9px;background:#ffdf79;color:#654719;box-shadow:0 3px 10px #735b1520;font-size:15px}
+body[data-spark-page=while] .while-phase{min-width:0}
+
 }

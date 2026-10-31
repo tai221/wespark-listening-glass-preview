@@ -1,3 +1,4 @@
+import {mountWhileFeedback} from './while-feedback.mjs';
 import {mountListeningPlayer} from './while-player.mjs';
 import {read,write} from './session.mjs';
 const TRANSCRIPT=[
@@ -43,10 +44,11 @@ const QUESTIONS=[
  {type:'Opinion',title:'Người nói thể hiện thái độ nào với những thay đổi nhỏ?',options:['Cho rằng chúng không tạo khác biệt','Tin rằng chúng có ích'],segments:[6],quote:'Small changes really can make a difference. … I feel encouraged when I see less waste in our home, and I want to keep going.',reason:'“can make a difference” cho thấy người nói tin hành động nhỏ có tác động. “I feel encouraged” và “want to keep going” củng cố thái độ tích cực.',contrast:'Ý “không tạo khác biệt” trái với “really can make a difference”. “may not seem important” chỉ nói về cảm giác ban đầu; phần sau khẳng định tác dụng tích lũy.'}
 ];
 let stored=read().while||{};
-let state={answers:Array.isArray(stored.answers)&&stored.answers.length===4?stored.answers:[null,null,null,null],submitted:!!stored.submitted,reviewComplete:!!stored.reviewComplete,reviewed:Array.isArray(stored.reviewed)?stored.reviewed:[]};
+let state={answers:Array.isArray(stored.answers)&&stored.answers.length===4?stored.answers:[null,null,null,null],submitted:!!stored.submitted,reviewComplete:!!stored.reviewComplete,reviewed:Array.isArray(stored.reviewed)?stored.reviewed:[],awarded:!!stored.awarded,awardedPoints:Number.isInteger(stored.awardedPoints)&&stored.awardedPoints>=0&&stored.awardedPoints<=4?stored.awardedPoints:0};
 const policies={blank:'pending',review:'pending'};
 let activeQuestion=null;
 const audio=$('#source-audio'),questionAudio=$('#question-audio');
+const feedback=mountWhileFeedback(document);
 let playingQuestion=null,playRequest=0;
 function icon(kind){
  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');
@@ -59,7 +61,7 @@ function updateQuestionPlayback(){document.querySelectorAll('[data-play-question
 function stopQuestion(){playRequest++;playingQuestion=null;questionAudio.pause();updateQuestionPlayback();}
 async function playQuestion(i){
  if(playingQuestion===i){stopQuestion();return;}
- stopQuestion();audio.pause();const request=++playRequest;playingQuestion=i;
+ feedback.stop();stopQuestion();audio.pause();const request=++playRequest;playingQuestion=i;
  document.querySelectorAll('.question-audio-error').forEach(node=>node.hidden=true);
  questionAudio.src=`assets/while-audio/question-${i+1}.wav`;questionAudio.playbackRate=audio.playbackRate;questionAudio.volume=audio.volume;questionAudio.muted=audio.muted;updateQuestionPlayback();
  try{await questionAudio.play();}catch{if(request!==playRequest)return;questionPlaybackError(i);}
@@ -68,7 +70,7 @@ function questionPlaybackError(i=playingQuestion){stopQuestion();if(i!==null){co
 questionAudio.addEventListener('ended',stopQuestion);
 questionAudio.addEventListener('error',()=>{if(playingQuestion!==null)questionPlaybackError();});
 questionAudio.addEventListener('pause',()=>{if(playingQuestion!==null){playRequest++;playingQuestion=null;updateQuestionPlayback();}});
-audio.addEventListener('play',stopQuestion);
+audio.addEventListener('play',()=>{feedback.stop();stopQuestion();});
 audio.addEventListener('volumechange',()=>{questionAudio.volume=audio.volume;questionAudio.muted=audio.muted;});
 audio.addEventListener('ratechange',()=>{questionAudio.playbackRate=audio.playbackRate;});
 window.addEventListener('pagehide',stopQuestion);
@@ -77,7 +79,7 @@ function el(tag,className,text){const node=document.createElement(tag);if(classN
 function wrongIndices(){return KEYS.map((key,i)=>state.answers[i]!==key?i:null).filter(i=>i!==null);}
 function reviewedAll(){return wrongIndices().every(i=>state.reviewed.includes(i));}
 function render(){
- stopQuestion();
+ stopQuestion();feedback.sync(state);
  document.body.classList.toggle('review-mode',state.submitted);
  $('#phase-caption').textContent=state.submitted?'Nghe lại & đối chiếu':'Lắng nghe & nắm bắt nội dung';
  $('#question-section-heading').hidden=state.submitted;$('#result-summary').hidden=!state.submitted;$('#transcript-panel').hidden=!state.submitted;
@@ -94,6 +96,7 @@ function renderQuestion(q,i){
  const meta=el('div','q-meta');meta.append(el('span','q-index',i+1),el('span','q-type',q.type));
  if(state.submitted){const result=statusIcon(correct?'right':blank?'blank':'wrong',correct?'Trả lời đúng':blank?'Chưa trả lời':'Trả lời sai');result.classList.add('q-result');meta.append(result);}
  const play=el('button','question-play');play.type='button';play.dataset.playQuestion=i;play.addEventListener('click',()=>playQuestion(i));meta.append(play);
+ if(state.submitted&&correct){const point=el('span','while-question-point','+1');point.setAttribute('aria-label','Cộng 1 SparkPoint');meta.insertBefore(point,play);}
  article.append(meta,el('h3','',q.title));
  const playbackError=el('p','question-audio-error','Chưa phát được đoạn nghe. Bấm nút phát để thử lại.');playbackError.hidden=true;playbackError.setAttribute('role','alert');article.append(playbackError);
  if(!state.submitted){
@@ -134,7 +137,8 @@ function updateProgress(){
  if(!state.submitted){$('#progress-copy').textContent=`Đã trả lời ${answered} / 4 câu`;$('#submit').disabled=policies.blank==='require'&&answered<4;$('#action-reason').textContent=policies.blank==='require'&&answered<4?'Trả lời đủ các câu để nộp bài.':'';return;}
  const wrong=wrongIndices(),seen=wrong.filter(i=>state.reviewed.includes(i)).length;
  $('#progress-copy').textContent=wrong.length?`Đã xem ${seen} / ${wrong.length} câu cần đối chiếu`:'Bạn đã trả lời đúng tất cả. Có thể nghe lại hoặc tiếp tục.';
- const available=reviewedAll();$('#post-link').setAttribute('aria-disabled',String(!available));$('#post-link').classList.toggle('unavailable',!available);$('#post-link').tabIndex=available?0:-1;
+ const available=reviewedAll();
+ if(available&&(!state.reviewComplete||!state.awarded)){state.reviewComplete=true;if(!state.awarded){state.awarded=true;state.awardedPoints=state.submitted?state.answers.filter((a,i)=>a===KEYS[i]).length:0;persist();feedback.complete(state,true);}else{persist();feedback.complete(state,false);}}$('#post-link').setAttribute('aria-disabled',String(!available));$('#post-link').classList.toggle('unavailable',!available);$('#post-link').tabIndex=available?0:-1;
  $('#next-wrong').disabled=available;
  $('#action-reason').textContent=available?'Không cần đạt điểm tối thiểu để tiếp tục.':policies.review==='ack'?'Mở giải thích và bấm “Đã xem” ở các câu chưa đúng.':'Mở giải thích các câu chưa đúng trước khi tiếp tục.';
 }
@@ -143,12 +147,12 @@ $('#submit').addEventListener('click',()=>{
  if(blank){if(policies.blank==='require')return;$('#submit-dialog-copy').textContent=`Còn ${blank} / 4 câu chưa trả lời. Bạn có thể quay lại làm tiếp hoặc nộp với các câu này để trống.`;$('#submit-dialog').showModal();}else submit();
 });
 $('#submit-dialog').addEventListener('close',()=>{if($('#submit-dialog').returnValue==='confirm')submit();});
-function submit(){state.submitted=true;state.reviewComplete=false;state.reviewed=[];activeQuestion=null;audio.pause();persist();render();$('#score-count').tabIndex=-1;$('#score-count').focus();}
+function submit(){if(state.submitted)return;state.submitted=true;state.reviewComplete=false;state.reviewed=[];activeQuestion=null;audio.pause();stopQuestion();feedback.stop();persist();render();feedback.grade(state);$('#score-count').tabIndex=-1;$('#score-count').focus();}
 $('#post-link').addEventListener('click',event=>{if(!reviewedAll()){event.preventDefault();return;}state.reviewComplete=true;persist();});
 $('#next-wrong').addEventListener('click',()=>{const i=wrongIndices().find(i=>!state.reviewed.includes(i));if(i===undefined)return;const details=$(`#explain-${i+1}`);details.open=true;showEvidence(i);details.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'nearest'});details.querySelector('summary').focus({preventScroll:true});});
 $('#blank-policy').addEventListener('change',e=>{policies.blank=e.target.value;updateProgress();});
 $('#review-policy').addEventListener('change',e=>{policies.review=e.target.value;state.reviewed=[];persist();render();});
-function fixture(answers,submitted){state={answers,submitted,reviewComplete:false,reviewed:[]};activeQuestion=null;persist();render();}
+function fixture(answers,submitted){feedback.stop();state={answers,submitted,reviewComplete:false,reviewed:[],awarded:state.awarded,awardedPoints:state.awardedPoints};activeQuestion=null;persist();render();}
 $('#demo-wrong').addEventListener('click',()=>fixture(['A','B','A','A'],true));
 $('#demo-perfect').addEventListener('click',()=>fixture(['A','A','A','B'],true));
 $('#demo-empty').addEventListener('click',()=>fixture([null,null,null,null],false));
