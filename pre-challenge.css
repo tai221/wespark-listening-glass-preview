@@ -62,3 +62,10 @@ body[data-spark-page='pre'] .prep-quiz-actions .button.primary:disabled{backgrou
 .prep-quiz-sound[aria-pressed=false]{color:var(--quiz-muted);background:#f5f3eb}
 .prep-quiz-sound:focus-visible{outline:3px solid var(--quiz-focus);outline-offset:3px}
 }
+
+@media(min-width:1100px){
+.prep-quiz-summary{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px}
+.prep-quiz-reward{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:7px;background:#fff1bf;color:var(--quiz-gold-ink);font-size:12px;line-height:1.6;font-weight:500;white-space:nowrap}
+.prep-quiz-reward svg{width:15px;height:15px;fill:currentColor;stroke:none;flex:none}
+.prep-quiz-reward[data-claimed=true]{background:var(--quiz-success-bg);color:var(--quiz-success)}
+}

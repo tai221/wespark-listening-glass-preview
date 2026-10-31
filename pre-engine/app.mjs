@@ -9,7 +9,7 @@ let saved;try{saved=JSON.parse(sessionStorage.getItem(sessionKey));}catch{}
 let {state,step}=restore(saved);
 let animationTimer,flightTimer,cleanupTimer,savingEnabled=true;
 const game=mountBlast(document,{state:state.blast,onChange(value){state={...state,blast:value};save();},onComplete(){const earn=!state.awarded;state=reward(finish(state));render();$('#finish-title').focus();if(earn)celebrate();}});
-const quizMode=mountQuiz(document,{state:state.quiz,onChange(value){state={...state,quiz:value};save();},onComplete(){const earn=!state.awarded;state=reward(finish(state,'quiz'));render();$('#finish-title').focus();if(earn)celebrate();}});
+const quizMode=mountQuiz(document,{state:state.quiz,rewardPoints:POINTS,rewardClaimed:()=>state.awarded,onChange(value){state={...state,quiz:value};save();},onComplete(){const earn=!state.awarded;state=reward(finish(state,'quiz'));render();$('#finish-title').focus();if(earn)celebrate();}});
 const answerReview=mountQuizReview(document,{onClose(){answerReview.close();$('#result-summary').hidden=false;$('#view-answers').setAttribute('aria-expanded','false');positionListening();$('#finish-title').focus();},onReplay:restartChallenge});
 function positionListening(){const inside=state.challengeMode==='quiz'&&challengeComplete()&&!$('#result-summary').hidden;$(inside?'.result-actions':'main>footer.actions').append($('#listening'));}
 function challengeComplete(){return state.challengeMode==='quiz'?state.quiz.phase==='complete':state.challengeMode==='game'&&state.blast.phase==='complete';}
