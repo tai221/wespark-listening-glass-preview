@@ -8,7 +8,7 @@ export function createQuizSound(document){
   button.setAttribute('aria-pressed',String(enabled));
   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');
   svg.innerHTML='<path d="m11 5-5 4H3v6h3l5 4V5Z"/>'+(enabled?'<path d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/>':'<path d="m16 9 5 6m0-6-5 6"/>');
-  const text=document.createElement('span');text.textContent=`Âm thanh: ${enabled?'Bật':'Tắt'}`;button.replaceChildren(svg,text);
+  button.setAttribute('aria-label','Âm thanh Quiz');button.title=enabled?'Tắt âm báo':'Bật âm báo';button.replaceChildren(svg);
  }
  button.addEventListener('click',()=>{enabled=!enabled;if(!enabled)stop();try{document.defaultView.localStorage.setItem(KEY,enabled?'on':'off');}catch{}render();});
  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});render();
