@@ -150,4 +150,13 @@ body[data-spark-page=while] .while-earned{display:inline-flex;align-items:center
 body[data-spark-page=while] .while-point-flight{position:fixed;z-index:150;display:flex;align-items:center;gap:3px;pointer-events:none;padding:5px 9px;border-radius:9px;background:#ffdf79;color:#654719;box-shadow:0 3px 10px #735b1520;font-size:15px}
 body[data-spark-page=while] .while-phase{min-width:0}
 
+body[data-spark-page=while] #while-sound{display:grid;place-items:center;width:34px;height:34px;padding:7px;border:1px solid var(--listen-control);border-radius:9px;background:var(--listen-surface);color:var(--listen-muted);cursor:pointer;flex:none}
+body[data-spark-page=while] #while-sound:hover{background:#fff4d1;color:var(--listen-gold-ink)}
+body[data-spark-page=while] #while-sound svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+body[data-spark-page=while].while-grading .while-section-toolbar{position:sticky;top:88px;z-index:20;background:var(--listen-surface);padding-block:10px;margin-top:-10px}
+body[data-spark-page=while].while-grading .while-phase{color:var(--listen-gold-ink);font-weight:600}
+body[data-spark-page=while].while-grading .while-answer{pointer-events:none;cursor:default}
+body[data-spark-page=while].while-grading .question-play:disabled{opacity:.4;cursor:default}
+body[data-spark-page=while] .grading-current .q-index{background:var(--listen-gold);color:var(--listen-gold-ink)}
+
 }

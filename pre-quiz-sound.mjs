@@ -12,5 +12,5 @@ export function createQuizSound(document,{id='prep-quiz-sound',label='Âm thanh 
  }
  button.addEventListener('click',()=>{enabled=!enabled;if(!enabled)stop();try{document.defaultView.localStorage.setItem(KEY,enabled?'on':'off');}catch{}render();});
  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});render();
- return {button,sounds,stop,play(correct){if(!enabled)return;stop();try{const attempt=sounds[correct?0:1].play();attempt?.catch(()=>{});}catch{}}};
+ return {button,sounds,stop,play(correct){if(!enabled)return Promise.resolve(false);stop();try{return Promise.resolve(sounds[correct?0:1].play()).then(()=>true,()=>false);}catch{return Promise.resolve(false);}}};
 }

@@ -46,7 +46,7 @@ const QUESTIONS=[
 let stored=read().while||{};
 let state={answers:Array.isArray(stored.answers)&&stored.answers.length===4?stored.answers:[null,null,null,null],submitted:!!stored.submitted,reviewComplete:!!stored.reviewComplete,reviewed:Array.isArray(stored.reviewed)?stored.reviewed:[],awarded:!!stored.awarded,awardedPoints:Number.isInteger(stored.awardedPoints)&&stored.awardedPoints>=0&&stored.awardedPoints<=4?stored.awardedPoints:0};
 const policies={blank:'pending',review:'pending'};
-let activeQuestion=null;
+let activeQuestion=null,grading=false,revealed=0;
 const audio=$('#source-audio'),questionAudio=$('#question-audio');
 const feedback=mountWhileFeedback(document);
 let playingQuestion=null,playRequest=0;
@@ -79,29 +79,29 @@ function el(tag,className,text){const node=document.createElement(tag);if(classN
 function wrongIndices(){return KEYS.map((key,i)=>state.answers[i]!==key?i:null).filter(i=>i!==null);}
 function reviewedAll(){return wrongIndices().every(i=>state.reviewed.includes(i));}
 function render(){
- stopQuestion();feedback.sync(state);
+ stopQuestion();feedback.sync(state,{grading});document.body.classList.toggle('while-grading',grading);$('#question-list').setAttribute('aria-busy',String(grading));
  document.body.classList.toggle('review-mode',state.submitted);
- $('#phase-caption').textContent=state.submitted?'Nghe lại & đối chiếu':'Lắng nghe & nắm bắt nội dung';
- $('#question-section-heading').hidden=state.submitted;$('#result-summary').hidden=!state.submitted;$('#transcript-panel').hidden=!state.submitted;
- $('#submit').hidden=state.submitted;$('#post-link').hidden=!state.submitted;$('#next-wrong').hidden=!state.submitted||wrongIndices().length===0;
+ $('#phase-caption').textContent=grading?'Đang chấm từng câu…':state.submitted?'Nghe lại & đối chiếu':'Lắng nghe & nắm bắt nội dung';
+ $('#question-section-heading').hidden=state.submitted;$('#result-summary').hidden=!state.submitted||grading;$('#transcript-panel').hidden=!state.submitted||grading;
+ $('#submit').hidden=state.submitted;$('#post-link').hidden=!state.submitted||grading;$('#next-wrong').hidden=!state.submitted||grading||wrongIndices().length===0;
  $('#question-list').replaceChildren();
- QUESTIONS.forEach((q,i)=>renderQuestion(q,i));updateQuestionPlayback();
- if(state.submitted){$('#score-count').textContent=`${state.answers.filter((a,i)=>a===KEYS[i]).length} / 4`;renderTranscript();}
+ QUESTIONS.forEach((q,i)=>$('#question-list').append(renderQuestion(q,i)));updateQuestionPlayback();
+ if(state.submitted&&!grading){$('#score-count').textContent=`${state.answers.filter((a,i)=>a===KEYS[i]).length} / 4`;renderTranscript();}
  updateProgress();
 }
 function renderQuestion(q,i){
- const correct=state.answers[i]===KEYS[i],blank=state.answers[i]===null;
+ const correct=state.answers[i]===KEYS[i],blank=state.answers[i]===null,graded=state.submitted&&(!grading||i<revealed);
  const article=el('article','question-card card');article.id=`question-${i+1}`;
- if(state.submitted)article.classList.add(correct?'correct':blank?'blank':'wrong');
+ if(graded)article.classList.add(correct?'correct':blank?'blank':'wrong');
  const meta=el('div','q-meta');meta.append(el('span','q-index',i+1),el('span','q-type',q.type));
- if(state.submitted){const result=statusIcon(correct?'right':blank?'blank':'wrong',correct?'Trả lời đúng':blank?'Chưa trả lời':'Trả lời sai');result.classList.add('q-result');meta.append(result);}
- const play=el('button','question-play');play.type='button';play.dataset.playQuestion=i;play.addEventListener('click',()=>playQuestion(i));meta.append(play);
- if(state.submitted&&correct){const point=el('span','while-question-point','+1');point.setAttribute('aria-label','Cộng 1 SparkPoint');meta.insertBefore(point,play);}
+ if(graded){const result=statusIcon(correct?'right':blank?'blank':'wrong',correct?'Trả lời đúng':blank?'Chưa trả lời':'Trả lời sai');result.classList.add('q-result');meta.append(result);}
+ const play=el('button','question-play');play.type='button';play.dataset.playQuestion=i;play.disabled=grading;play.addEventListener('click',()=>playQuestion(i));meta.append(play);
+ if(graded&&correct){const point=el('span','while-question-point','+1');point.setAttribute('aria-label','Cộng 1 SparkPoint');meta.insertBefore(point,play);}
  article.append(meta,el('h3','',q.title));
  const playbackError=el('p','question-audio-error','Chưa phát được đoạn nghe. Bấm nút phát để thử lại.');playbackError.hidden=true;playbackError.setAttribute('role','alert');article.append(playbackError);
- if(!state.submitted){
+ if(!graded){
   const fieldset=el('fieldset','answer-set');fieldset.append(el('legend','sr-only',`Câu ${i+1}: ${q.title}`));
-  q.options.forEach((text,j)=>{const letter='AB'[j],label=el('label','while-answer'),input=document.createElement('input');input.type='radio';input.name=`q${i+1}`;input.value=letter;input.checked=state.answers[i]===letter;input.addEventListener('change',()=>{state.answers[i]=letter;persist();updateProgress();});label.append(input,el('span','',`${letter}. ${text}`));fieldset.append(label);});article.append(fieldset);
+  q.options.forEach((text,j)=>{const letter='AB'[j],label=el('label','while-answer'),input=document.createElement('input');input.type='radio';input.name=`q${i+1}`;input.value=letter;input.checked=state.answers[i]===letter;input.disabled=state.submitted;input.addEventListener('change',()=>{if(state.submitted)return;state.answers[i]=letter;persist();updateProgress();});label.append(input,el('span','',`${letter}. ${text}`));fieldset.append(label);});article.append(fieldset);
  }else{
   const answers=el('div','answer-review');
   q.options.forEach((text,j)=>{
@@ -120,9 +120,9 @@ function renderQuestion(q,i){
   if(policies.review==='ack'&&!correct){const ack=el('button','button secondary ack-button',state.reviewed.includes(i)?'✓ Đã xem':'Đã xem giải thích');ack.type='button';ack.disabled=state.reviewed.includes(i);ack.addEventListener('click',()=>markReviewed(i,details));copy.append(ack);}
   details.append(summary,copy);
   details.addEventListener('toggle',()=>{if(details.open){activeQuestion=i;highlightQuestion(i);if(policies.review!=='ack'&&!correct)markReviewed(i,details);}});
-  article.append(details);
+  if(!grading)article.append(details);
  }
- $('#question-list').append(article);
+ return article;
 }
 function markReviewed(i,details){if(!state.reviewed.includes(i)){state.reviewed.push(i);persist();const summary=details.querySelector('summary');summary.append(el('span','reviewed-flag','✓ Đã xem'));const ack=details.querySelector('.ack-button');if(ack){ack.textContent='✓ Đã xem';ack.disabled=true;}}updateProgress();}
 function renderTranscript(){
@@ -133,6 +133,7 @@ function renderTranscript(){
 function highlightQuestion(i){document.querySelectorAll('.question-card').forEach((e,j)=>e.classList.toggle('active-question',j===i));document.querySelectorAll('.transcript-segment').forEach((e,j)=>e.classList.toggle('active',QUESTIONS[i].segments.includes(j)));$('#evidence-context').textContent=`Đối chiếu câu ${i+1}`;}
 function showEvidence(i){activeQuestion=i;highlightQuestion(i);const target=$(`#segment-${QUESTIONS[i].segments[0]+1}`);target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'nearest'});target.focus({preventScroll:true});}
 function updateProgress(){
+ if(grading){$('#progress-copy').textContent=`Đang chấm câu ${Math.min(revealed+1,4)} / 4`;$('#action-reason').textContent='';return;}
  const answered=state.answers.filter(Boolean).length;
  if(!state.submitted){$('#progress-copy').textContent=`Đã trả lời ${answered} / 4 câu`;$('#submit').disabled=policies.blank==='require'&&answered<4;$('#action-reason').textContent=policies.blank==='require'&&answered<4?'Trả lời đủ các câu để nộp bài.':'';return;}
  const wrong=wrongIndices(),seen=wrong.filter(i=>state.reviewed.includes(i)).length;
@@ -147,12 +148,13 @@ $('#submit').addEventListener('click',()=>{
  if(blank){if(policies.blank==='require')return;$('#submit-dialog-copy').textContent=`Còn ${blank} / 4 câu chưa trả lời. Bạn có thể quay lại làm tiếp hoặc nộp với các câu này để trống.`;$('#submit-dialog').showModal();}else submit();
 });
 $('#submit-dialog').addEventListener('close',()=>{if($('#submit-dialog').returnValue==='confirm')submit();});
-function submit(){if(state.submitted)return;state.submitted=true;state.reviewComplete=false;state.reviewed=[];activeQuestion=null;audio.pause();stopQuestion();feedback.stop();persist();render();feedback.grade(state);$('#score-count').tabIndex=-1;$('#score-count').focus();}
-$('#post-link').addEventListener('click',event=>{if(!reviewedAll()){event.preventDefault();return;}state.reviewComplete=true;persist();});
-$('#next-wrong').addEventListener('click',()=>{const i=wrongIndices().find(i=>!state.reviewed.includes(i));if(i===undefined)return;const details=$(`#explain-${i+1}`);details.open=true;showEvidence(i);details.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'nearest'});details.querySelector('summary').focus({preventScroll:true});});
+function submit(){if(state.submitted)return;state.submitted=true;state.reviewComplete=false;state.reviewed=[];activeQuestion=null;audio.pause();stopQuestion();feedback.stop();grading=true;revealed=0;persist();render();
+ feedback.grade(state,{onReveal(i){revealed=i+1;const old=$(`#question-${i+1}`);old.replaceWith(renderQuestion(QUESTIONS[i],i));document.querySelectorAll('.grading-current').forEach(n=>n.classList.remove('grading-current'));$(`#question-${i+1}`).classList.add('grading-current');updateQuestionPlayback();$('#phase-caption').textContent=`Đang chấm câu ${i+1} / 4`;$('#progress-copy').textContent=`Đang chấm câu ${i+1} / 4`;},onComplete(){grading=false;render();$('#score-count').tabIndex=-1;$('#score-count').focus();}});}
+$('#post-link').addEventListener('click',event=>{if(grading||!reviewedAll()){event.preventDefault();return;}state.reviewComplete=true;persist();});
+$('#next-wrong').addEventListener('click',()=>{if(grading)return;const i=wrongIndices().find(i=>!state.reviewed.includes(i));if(i===undefined)return;const details=$(`#explain-${i+1}`);details.open=true;showEvidence(i);details.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'nearest'});details.querySelector('summary').focus({preventScroll:true});});
 $('#blank-policy').addEventListener('change',e=>{policies.blank=e.target.value;updateProgress();});
-$('#review-policy').addEventListener('change',e=>{policies.review=e.target.value;state.reviewed=[];persist();render();});
-function fixture(answers,submitted){feedback.stop();state={answers,submitted,reviewComplete:false,reviewed:[],awarded:state.awarded,awardedPoints:state.awardedPoints};activeQuestion=null;persist();render();}
+$('#review-policy').addEventListener('change',e=>{feedback.stop();policies.review=e.target.value;state.reviewed=[];persist();render();});
+function fixture(answers,submitted){feedback.stop();grading=false;revealed=0;state={answers,submitted,reviewComplete:false,reviewed:[],awarded:state.awarded,awardedPoints:state.awardedPoints};activeQuestion=null;persist();render();}
 $('#demo-wrong').addEventListener('click',()=>fixture(['A','B','A','A'],true));
 $('#demo-perfect').addEventListener('click',()=>fixture(['A','A','A','B'],true));
 $('#demo-empty').addEventListener('click',()=>fixture([null,null,null,null],false));
