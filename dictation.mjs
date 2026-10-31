@@ -1,53 +1,91 @@
 import {read,write} from './session.mjs';
-import {UNITS,target,answerMatches,normalize,dictationResult} from './practice-state.mjs';
-const $=s=>document.querySelector(s);
-const emptyDraft=(mode='word')=>({mode,input:'',attempts:0,helped:false,revealed:0,full:false,checked:false,correct:false,compared:false});
-let state={index:0,mode:'word',speed:1,loop:false,drafts:UNITS.map(()=>emptyDraft()),done:{},history:[],...read().dictation};
-if(!state.drafts?.length)state.drafts=UNITS.map(()=>emptyDraft());
-const audio=$('#unit-audio');let reviewingWorkspace=false;
-function persist(){write({dictation:state});}
-function completeUnit(kind){const i=state.index;const result={kind,mode:state.mode,attempts:state.drafts[i].attempts};if(!state.done[i])state.done[i]=result;if(!state.drafts[i].recorded){state.history.push({unit:i,...result});state.drafts[i].recorded=true;}persist();}
-function current(){return state.drafts[state.index];}
-function source(){audio.pause();audio.src=`practice-0${state.index+1}.wav`;audio.playbackRate=state.speed;audio.loop=state.loop;$('#play-unit').textContent='▶ Phát đoạn';$('#audio-status').textContent='';}
+import {DICTATION_UNITS as UNITS} from './dictation-lesson.mjs';
+import {MODES,modeLabels,kindLabels,restoreDictation,createDictation,draft,parts,expected,matches,setInput,hasInput,check,compare,totals,align} from './dictation-state.mjs';
+const $=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
+let state=restoreDictation(read().dictation),view=totals(state).done===UNITS.length?'result':'practice',reviewOpen=false,filter='all',reviewPlaying=null,playRequest=0;
+const audio=$('#unit-audio');
+const paths={play:'m9 5 11 7-11 7V5Z',pause:'M8 5v14m8-14v14',check:'M8 12l3 3 5-6',cross:'m9 9 6 6m0-6-6 6',bulb:'M9 18h6m-5 3h4M8 14a6 6 0 1 1 8 0c-1 1-1 2-1 2H9s0-1-1-2Z',headphones:'M4 14v-3a8 8 0 0 1 16 0v3M3 12h4v8H3Zm14 0h4v8h-4Z',arrow:'m9 6 6 6-6 6'};
+function icon(kind){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');if(['check','cross'].includes(kind)){const c=document.createElementNS(svg.namespaceURI,'circle');for(const [k,v] of Object.entries({cx:12,cy:12,r:9}))c.setAttribute(k,v);svg.append(c);}const path=document.createElementNS(svg.namespaceURI,'path');path.setAttribute('d',paths[kind]||paths.bulb);svg.append(path);return svg;}
+function el(tag,className,text){const n=document.createElement(tag);if(className)n.className=className;if(text!==undefined)n.textContent=String(text);return n;}
+const unit=()=>UNITS[state.index];
+function persist(){state.currentId=unit().id;const old=read().post,complete=Array.isArray(old.complete)?old.complete:[];const finished=totals(state).done===UNITS.length;const next=finished?[...new Set([...complete,'dictation'])]:complete.filter(x=>x!=='dictation');write({dictation:state,...(next.join('|')!==complete.join('|')?{post:{...old,complete:next}}:{})});}
+function source(){playRequest++;reviewPlaying=null;audio.pause();audio.src=unit().audio;audio.load();audio.playbackRate=state.speed;audio.loop=state.loop;audio.setAttribute('aria-label',`Nghe câu ${state.index+1}`);clearAudioError();updatePlayback();}
+function clearAudioError(){for(const id of ['#audio-status','#result-audio-status']){$(id).hidden=true;$(id).textContent='';}}
+function audioError(){const target=$(view==='result'?'#result-audio-status':'#audio-status');target.hidden=false;target.textContent='Chưa phát được câu này. Bấm nghe lại để thử; nội dung bạn nhập vẫn được giữ.';updatePlayback();}
+function updatePlayback(){const playing=!audio.paused&&!audio.ended;$('#play-unit').replaceChildren(icon(playing&&reviewPlaying===null?'pause':'play'),el('span','',playing&&reviewPlaying===null?'Tạm dừng':'Phát câu'));$('#play-unit').setAttribute('aria-label',playing&&reviewPlaying===null?'Tạm dừng câu đang nghe':'Phát câu đang luyện');all('[data-review-play]').forEach(b=>{const on=playing&&reviewPlaying===Number(b.dataset.reviewPlay);b.replaceChildren(icon(on?'pause':'play'));b.setAttribute('aria-label',`${on?'Dừng':'Nghe lại'} câu ${Number(b.dataset.reviewPlay)+1}`);b.setAttribute('aria-pressed',String(on));});}
+async function play(restart=false){const request=++playRequest;try{if(reviewPlaying!==null){reviewPlaying=null;audio.pause();audio.src=unit().audio;audio.load();}audio.playbackRate=state.speed;audio.loop=state.loop;if(audio.error)audio.load();if(restart)audio.currentTime=0;if(audio.paused||restart)await audio.play();else audio.pause();if(request!==playRequest)return;clearAudioError();updatePlayback();}catch{if(request===playRequest)audioError();}}
+async function playReview(index){const request=++playRequest;try{if(reviewPlaying===index&&!audio.paused){audio.pause();reviewPlaying=null;updatePlayback();return;}audio.pause();reviewPlaying=index;audio.src=UNITS[index].audio;audio.load();audio.loop=false;audio.playbackRate=state.speed;await audio.play();if(request!==playRequest)return;clearAudioError();updatePlayback();}catch{if(request===playRequest)audioError();}}
 function render(){
- const unit=UNITS[state.index];if(current().mode!==state.mode)state.drafts[state.index]=emptyDraft(state.mode);const d=current(),expected=target(unit,state.mode),done=Object.keys(state.done).length;
- $('#unit-count').textContent=`Đoạn ${state.index+1} / ${UNITS.length}`;$('#unit-progress').textContent=`Đã luyện ${done} / ${UNITS.length}`;
+ const d=draft(state),count=totals(state),complete=count.done===UNITS.length;
+ document.body.dataset.dictationMode=state.mode;$('#dictation-workspace').hidden=view==='result'&&complete;$('#dictation-completion').hidden=!(view==='result'&&complete);$('#toggle-list').hidden=view==='result'&&complete;
+ $('#unit-count').textContent=`Câu ${String(state.index+1).padStart(2,'0')} / ${UNITS.length}`;$('#unit-progress').textContent=`Đã luyện ${count.done} / ${UNITS.length}`;$('#source-unit-caption').textContent=`Câu ${String(state.index+1).padStart(2,'0')} · Nghe theo nhịp của bạn`;
  $('#unit-heading').textContent=state.mode==='sentence'?'Nghe và chép lại cả câu':state.mode==='phrase'?'Nghe và điền cụm còn thiếu':'Nghe và điền từ còn thiếu';
- $('#answer-label').textContent=state.mode==='sentence'?'Câu bạn nghe được':state.mode==='phrase'?'Cụm từ bạn nghe được':'Từ bạn nghe được';
- document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===state.mode));
- $('#sentence-context').replaceChildren();
- if(state.mode==='sentence')$('#sentence-context').textContent='Nghe đoạn trước khi bắt đầu chép.';
- else{const chunks=unit.text.split(expected);$('#sentence-context').append(document.createTextNode(chunks[0]));const blank=document.createElement('span');blank.className='blank';blank.textContent=state.mode==='word'?'······':'······ ······';$('#sentence-context').append(blank,document.createTextNode(chunks[1]||''));}
- $('#dictation-input').value=d.input;$('#dictation-input').className=d.checked?(d.correct?'correct':'needs-work'):'';
- $('#check').disabled=!d.input.trim();$('#dictation-feedback').replaceChildren();
- if(d.checked){const box=document.createElement('p');box.className='inline-feedback'+(d.correct?' correct':'');box.textContent=d.correct?(d.helped?'✓ Đã đối chiếu đúng · có dùng hỗ trợ.':d.attempts===1?'✓ Đúng ngay lần đầu.':'✓ Bạn đã tự sửa đúng.'):'Chưa khớp. '+mismatchHint(d.input,expected);$('#dictation-feedback').append(box);}
- const words=expected.split(' ');$('#revealed').textContent=d.full?expected:words.slice(0,d.revealed).join(' ');$('#revealed').hidden=!d.full&&!d.revealed;
- $('#compare').hidden=!(d.full&&d.attempts>0&&!d.correct&&!d.compared);
- $('#reveal-word').disabled=d.revealed>=words.length;$('#next-unit').textContent=state.index===2?'Xem tiến độ →':'Đoạn tiếp →';
- $('#unit-buttons').replaceChildren();
- UNITS.forEach((u,i)=>{const li=document.createElement('li'),b=document.createElement('button'),title=document.createElement('strong'),mask=document.createElement('span');b.type='button';if(i===state.index)b.setAttribute('aria-current','step');title.textContent=`Đoạn 0${i+1}`;mask.textContent=u.text.split(' ').map(w=>'•'.repeat(Math.min(5,w.length))).join(' ');b.append(title,mask);if(state.done[i]){const result=document.createElement('span');result.className='unit-result';result.textContent=state.done[i].kind+' · '+({word:'Điền từ',phrase:'Điền cụm',sentence:'Chép câu'}[state.done[i].mode]);b.append(result);}b.addEventListener('click',()=>go(i));li.append(b);$('#unit-buttons').append(li);});
- const all=done===3;$('#dictation-completion').hidden=!all;$('.dictation-grid').hidden=all&&!reviewingWorkspace;$('#toggle-list').hidden=all&&!reviewingWorkspace;$('#dictation-review-workspace').setAttribute('aria-expanded',reviewingWorkspace);$('#dictation-review-workspace').textContent=reviewingWorkspace?'Thu gọn phần đã luyện':'Xem lại phần đã luyện';
- if(all){const assisted=Object.values(state.done).filter(r=>r.kind==='Có hỗ trợ').length;$('#dictation-summary').textContent=`${3-assisted} đoạn tự làm · ${assisted} đoạn có hỗ trợ. Đã luyện 3 / 3 đoạn.`;markPost();}
- persist();
+ $('#mode-description').textContent=state.mode==='sentence'?'Tự viết lại câu bạn nghe được. Chưa cần lo về chữ hoa hay dấu câu.':state.mode==='phrase'?'Ghép những gì bạn nghe được thành một cụm hoàn chỉnh.':'Điền các từ còn thiếu ngay trong câu.';
+ all('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===state.mode)));
+ $('#dictation-input').hidden=state.mode!=='sentence';$('#answer-label').hidden=state.mode!=='sentence';$('#sentence-context').hidden=state.mode==='sentence';$('#dictation-input').value=state.mode==='sentence'?d.values[0]||'':'';
+ $('#dictation-input').className=d.checked?(d.correct?'correct':'needs-work'):'';$('#dictation-input').setAttribute('aria-invalid',String(d.checked&&!d.correct));
+ $('#input-help span').textContent=state.mode==='word'?'Enter kiểm tra · Tab hoặc Space chuyển ô':state.mode==='phrase'?'Enter kiểm tra · Alt + R nghe lại':'Enter kiểm tra · Shift + Enter xuống dòng';
+ renderCloze();renderFeedback();renderAnswer();renderList();
+ $('#check').disabled=!hasInput(d)||(d.checked&&d.correct)||d.compared;$('#check').textContent=d.checked&&!d.correct?'Kiểm tra lại':'Kiểm tra';$('#previous-unit').disabled=state.index===0;$('#next-unit').textContent=state.index===UNITS.length-1?'Xem tiến độ →':'Câu tiếp →';
+ $('#unit-list').hidden=!state.listOpen;$('#toggle-list').setAttribute('aria-expanded',String(state.listOpen));$('#toggle-list').textContent=state.listOpen?'Ẩn danh sách':'Danh sách câu';$('#back-to-results').hidden=!complete;
+ $('#compare').hidden=!(d.full&&d.attempts>0&&hasInput(d)&&!d.correct&&!d.compared);
+ const words=unit().text.split(/\s+/);$('#reveal-word').disabled=state.mode==='sentence'?d.revealed>=words.length:expected(unit(),state.mode).every((word,i)=>d.shown.includes(i)||matches(d.values[i]||'',word));$('#reveal-all').disabled=d.full||d.correct;
+ if(complete)renderCompletion(count);persist();
 }
-function mismatchHint(input,expected){const a=normalize(input).split(' '),b=normalize(expected).split(' ');let i=0;while(a[i]&&a[i]===b[i])i++;return a.length<b.length?`Thiếu hoặc khác lời ở vị trí ${i+1}. Nghe lại rồi sửa; nội dung nhập vẫn được giữ.`:a.length>b.length?`Có từ thừa hoặc khác lời từ vị trí ${i+1}. Nghe lại rồi sửa.`:`Kiểm tra từ ở vị trí ${i+1}, có thể khác chính tả hoặc dạng từ.`;}
-function markPost(){const post=read().post;if(!post.complete.includes('dictation'))write({post:{...post,complete:[...post.complete,'dictation']}});}
-function go(i){state.index=i;source();render();$('#unit-heading').focus();}
-$('#dictation-input').addEventListener('input',e=>{const d=current();d.input=e.target.value;d.checked=false;d.correct=false;d.compared=false;$('#check').disabled=!d.input.trim();$('#dictation-input').className='';$('#dictation-feedback').replaceChildren();persist();});
-$('#check').addEventListener('click',()=>{const d=current();if(!d.input.trim())return;d.attempts++;d.checked=true;d.correct=answerMatches(d.input,target(UNITS[state.index],state.mode));if(dictationResult({input:d.input,expected:target(UNITS[state.index],state.mode),...d}))completeUnit(d.helped?'Có hỗ trợ':d.attempts===1?'Đúng lần đầu':'Tự sửa đúng');render();});
-$('#reveal-word').addEventListener('click',()=>{const d=current();d.helped=true;d.revealed++;if(d.revealed>=target(UNITS[state.index],state.mode).split(' ').length)d.full=true;render();});
-$('#reveal-all').addEventListener('click',()=>{current().helped=true;current().full=true;render();});
-$('#compare').addEventListener('click',()=>{const d=current();if(d.attempts<1||!d.input.trim()||!d.full)return;d.compared=true;completeUnit('Có hỗ trợ');render();$('#dictation-feedback').textContent='✓ Đã đối chiếu đáp án · hoàn tất có hỗ trợ.';});
-$('#next-unit').addEventListener('click',()=>{if(state.index<2)go(state.index+1);else{const missing=UNITS.findIndex((_,i)=>!state.done[i]);if(missing>=0){go(missing);$('#dictation-feedback').textContent='Đoạn này chưa được tính đã luyện. Hãy thử nhập và kiểm tra, rồi tự sửa hoặc đối chiếu đáp án.';}else $('#dictation-completion').scrollIntoView({block:'nearest'});}});
-let pendingMode=null;
-document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.mode===state.mode)return;pendingMode=b.dataset.mode;if(current().input.trim()||current().checked){$('#mode-dialog').returnValue='';$('#mode-dialog').showModal();}else changeMode();}));
-function changeMode(){state.mode=pendingMode;state.drafts[state.index]=emptyDraft(state.mode);pendingMode=null;render();$('#dictation-input').focus();}
-$('#mode-dialog').addEventListener('close',()=>{if($('#mode-dialog').returnValue==='confirm')changeMode();else pendingMode=null;});
-$('#toggle-list').addEventListener('click',()=>{const hide=!$('#unit-list').hidden;$('#unit-list').hidden=hide;$('.dictation-grid').classList.toggle('list-hidden',hide);$('#toggle-list').setAttribute('aria-expanded',!hide);$('#toggle-list').textContent=hide?'Hiện danh sách':'Ẩn danh sách';});
-async function play(restart=false){try{if(restart)audio.currentTime=0;if(audio.paused||restart){await audio.play();$('#play-unit').textContent='Ⅱ Tạm dừng';}else{audio.pause();$('#play-unit').textContent='▶ Phát đoạn';}$('#audio-status').textContent='';}catch{$('#audio-status').textContent='Chưa phát được âm thanh. Thử nghe lại.';}}
-$('#play-unit').addEventListener('click',()=>play());$('#replay-unit').addEventListener('click',()=>play(true));audio.addEventListener('ended',()=>$('#play-unit').textContent='▶ Phát đoạn');
-$('#speed').value=state.speed;$('#loop').checked=state.loop;
-$('#speed').addEventListener('change',e=>{state.speed=Number(e.target.value);audio.playbackRate=state.speed;persist();});$('#loop').addEventListener('change',e=>{state.loop=e.target.checked;audio.loop=state.loop;persist();});
+function renderCloze(){
+ const d=draft(state),context=$('#sentence-context');context.replaceChildren();if(state.mode==='sentence')return;
+ for(const part of parts(unit(),state.mode)){
+  if(part.text!==undefined){context.append(document.createTextNode(part.text));continue;}
+  const wrap=el('span','dictation-gap'),input=document.createElement('input');input.type='text';input.dataset.dictationGap=part.gap;input.value=d.values[part.gap]||'';input.autocomplete='off';input.maxLength=state.mode==='word'?80:180;input.spellcheck=false;input.lang='en';input.placeholder='…';input.style.width=`${Math.min(state.mode==='word'?18:36,Math.max(7,part.expected.length+2))}ch`;
+  input.setAttribute('aria-label',`${state.mode==='word'?'Từ':'Cụm'} còn thiếu ${part.gap+1}`);input.setAttribute('aria-describedby','input-help dictation-feedback');
+  const correct=matches(input.value,part.expected);input.setAttribute('aria-invalid',String(d.checked&&!correct));if(d.checked)wrap.classList.add(correct?'gap-correct':'gap-wrong');
+  const status=el('span','gap-status');if(d.checked){status.append(icon(correct?'check':'cross'));status.setAttribute('role','img');status.setAttribute('aria-label',correct?'Đã khớp':'Cần sửa');}
+  const help=el('button','gap-help');help.type='button';help.dataset.gapHelp=part.gap;help.append(icon('bulb'));help.setAttribute('aria-label',`${d.letterHints.includes(part.gap)?'Hiện đáp án':'Gợi ý chữ đầu'} chỗ trống ${part.gap+1}`);help.title=help.getAttribute('aria-label');help.disabled=d.shown.includes(part.gap)||d.correct;
+  help.addEventListener('click',()=>{d.helped=true;if(d.letterHints.includes(part.gap))d.shown.push(part.gap);else d.letterHints.push(part.gap);render();$(`[data-gap-help="${part.gap}"]`)?.focus();});
+  input.addEventListener('input',readInputs);wrap.append(input,status,help);
+  if(d.shown.includes(part.gap)||d.letterHints.includes(part.gap)){const hint=el('small','gap-hint',d.shown.includes(part.gap)?part.expected:part.expected[0]+' ·'.repeat(Math.max(0,part.expected.length-1)));wrap.append(hint);}
+  context.append(wrap);
+ }
+}
+function readInputs(){
+ const values=state.mode==='sentence'?[$('#dictation-input').value]:all('[data-dictation-gap]').sort((a,b)=>Number(a.dataset.dictationGap)-Number(b.dataset.dictationGap)).map(n=>n.value);const d=setInput(state,values);
+ $('#check').disabled=!hasInput(d);$('#check').textContent='Kiểm tra';$('#dictation-input').className='';$('#dictation-input').setAttribute('aria-invalid','false');all('.dictation-gap').forEach(n=>n.classList.remove('gap-correct','gap-wrong'));all('[data-dictation-gap]').forEach(n=>n.setAttribute('aria-invalid','false'));all('.gap-status').forEach(n=>{n.replaceChildren();n.removeAttribute('role');n.removeAttribute('aria-label');});$('#dictation-feedback').replaceChildren();$('#compare').hidden=!(d.full&&d.attempts>0&&hasInput(d));persist();
+}
+function renderFeedback(){
+ const d=draft(state),root=$('#dictation-feedback');root.replaceChildren();if(!d.checked&&!d.compared)return;
+ const success=d.correct||d.compared,box=el('div',`dictation-feedback-box ${success?'is-correct':'is-wrong'}`),mark=icon(success?'check':'cross'),copy=el('div','feedback-copy');
+ const title=d.compared?'Đã đối chiếu câu này':d.correct?(d.helped?'Bạn đã điền khớp với hỗ trợ':d.attempts===1?'Đúng ngay lần đầu!':'Bạn đã tự sửa đúng!'):'Nghe lại một chút nhé';copy.append(el('strong','',title));
+ if(!success){
+  if(state.mode==='sentence'){const alignment=align(d.input,unit().text),right=alignment.filter(x=>x.kind==='right').length;copy.append(el('p','',`Đã khớp ${right} / ${unit().text.split(/\s+/).length} từ. Chú ý phần được đánh dấu rồi thử lại.`));const line=el('div','dictation-diff');for(const word of alignment){const token=el('span',`dictation-diff-token ${word.kind}`);token.setAttribute('aria-label',`${word.kind==='right'?'Đã khớp':word.kind==='missing'?'Thiếu từ':word.kind==='extra'?'Từ thừa':'Chưa khớp'}: ${word.text}`);if(word.kind!=='missing')token.append(icon(word.kind==='right'?'check':'cross'));token.append(document.createTextNode(word.text));line.append(token);}copy.append(line);
+  }else{const right=expected(unit(),state.mode).filter((x,i)=>matches(d.values[i]||'',x)).length;copy.append(el('p','',`Đã khớp ${right} / ${expected(unit(),state.mode).length} chỗ trống. Nội dung bạn nhập vẫn được giữ.`));}
+  const replay=el('button','text-button','Nghe chậm lại');replay.type='button';replay.addEventListener('click',()=>{state.speed=.75;$('#speed').value='0.75';audio.playbackRate=.75;persist();play(true);});copy.append(replay);
+ }else copy.append(el('p','',d.helped||d.compared?'Câu này được ghi nhận có hỗ trợ. Bạn có thể nghe lại và đối chiếu bên dưới.':'Nghe lại câu đầy đủ hoặc tiếp tục khi bạn đã sẵn sàng.'));
+ box.append(mark,copy);root.append(box);
+}
+function renderAnswer(){const d=draft(state),full=d.correct||d.compared||d.full,partial=state.mode==='sentence'&&d.revealed>0;$('#dictation-answer').hidden=!full&&!partial;$('#revealed').textContent=full?unit().text:unit().text.split(/\s+/).slice(0,d.revealed).join(' ')+' …';$('#dictation-translation').textContent=unit().translation;$('#dictation-translation').hidden=!full;}
+function renderList(){
+ const count=totals(state);$('#list-count').textContent=`${count.done} / ${UNITS.length}`;$('#course-progress').value=count.done;$('#course-progress').setAttribute('aria-valuetext',`Đã luyện ${count.done} trong ${UNITS.length} câu`);$('#unit-filter').value=filter;$('#unit-buttons').replaceChildren();
+ UNITS.forEach((u,i)=>{const result=state.done[u.id];if(filter==='pending'&&result||filter==='assisted'&&result?.kind!=='assisted')return;const li=el('li'),button=el('button');button.type='button';button.dataset.unitIndex=i;button.title=result?u.text:`Câu ${i+1} chưa hoàn tất`;button.setAttribute('aria-label',`Câu ${i+1} · ${result?kindLabels[result.kind]:'Chưa hoàn tất'}`);if(i===state.index)button.setAttribute('aria-current','step');const number=el('span','unit-number',String(i+1).padStart(2,'0')),copy=el('span','unit-list-copy');copy.append(el('strong','',result?u.text:u.text.split(/\s+/).map(w=>'•'.repeat(Math.min(4,w.length))).join(' ')),el('span','unit-status-copy',result?kindLabels[result.kind]:`Câu ${i+1} · Chưa hoàn tất`));const mark=el('span','unit-mark');mark.append(icon(result?(result.kind==='assisted'?'bulb':'check'):'headphones'));button.append(number,copy,mark);button.addEventListener('click',()=>go(i));li.append(button);$('#unit-buttons').append(li);});$('#unit-list-empty').hidden=$('#unit-buttons').children.length>0;
+}
+function renderCompletion(count){
+ $('#dictation-summary').textContent=`Bạn đã luyện hết ${UNITS.length} câu trong bài nghe. Mỗi lần nghe lại đều giúp bạn tiến thêm một chút.`;
+ $('#stat-first').textContent=String(count.first);$('#stat-corrected').textContent=String(count.corrected);$('#stat-assisted').textContent=String(count.assisted);$('#dictation-review-list').hidden=!reviewOpen;$('#dictation-review-workspace').setAttribute('aria-expanded',String(reviewOpen));$('#dictation-review-workspace').textContent=reviewOpen?'Thu gọn phần xem lại':'Xem lại từng câu';
+ const list=$('#dictation-review-list');list.replaceChildren();if(!reviewOpen)return;
+ UNITS.forEach((u,i)=>{const row=el('article','dictation-review-row'),top=el('div','dictation-review-meta');top.append(el('span','',`Câu ${String(i+1).padStart(2,'0')}`),el('span','',kindLabels[state.done[u.id].kind]));const text=el('p','review-sentence',u.text);text.lang='en';const translation=el('p','review-translation',u.translation),actions=el('div','dictation-review-actions'),listen=el('button','dictation-icon-button'),edit=el('button','text-button','Luyện câu này');listen.type='button';listen.dataset.reviewPlay=i;listen.append(icon('play'));listen.addEventListener('click',()=>playReview(i));edit.type='button';edit.addEventListener('click',()=>{state.mode=state.done[u.id].mode;go(i);});actions.append(listen,edit);row.append(top,text,translation,actions);list.append(row);});updatePlayback();
+}
+function go(index){if(index<0||index>=UNITS.length)return;state.index=index;view='practice';$('#navigation-notice').hidden=true;source();render();$('#unit-heading').focus();}
+function submit(){if(!hasInput(draft(state))){$('#dictation-feedback').textContent='Hãy viết điều bạn nghe được rồi kiểm tra nhé.';(state.mode==='sentence'?$('#dictation-input'):$('[data-dictation-gap]')).focus();return;}const before=totals(state).done;check(state);if(before<UNITS.length&&totals(state).done===UNITS.length){view='result';audio.pause();}render();if(view==='result'){$('#dictation-finish-heading').focus();return;}const bad=$('[aria-invalid=true]');if(bad)bad.focus();else $('#next-unit').focus();}
+$('#dictation-input').addEventListener('input',readInputs);$('#check').addEventListener('click',submit);
+all('[data-mode]').forEach(button=>button.addEventListener('click',()=>{if(state.mode===button.dataset.mode)return;state.mode=button.dataset.mode;$('#navigation-notice').hidden=true;render();(state.mode==='sentence'?$('#dictation-input'):$('[data-dictation-gap]')).focus();}));
+$('#previous-unit').addEventListener('click',()=>go(state.index-1));
+$('#next-unit').addEventListener('click',()=>{if(state.index<UNITS.length-1){const skipped=!state.done[unit().id];go(state.index+1);if(skipped){$('#navigation-notice').hidden=false;$('#navigation-notice').textContent='Câu chưa hoàn tất vẫn nằm trong danh sách để bạn quay lại.';}}else{const missing=UNITS.findIndex(u=>!state.done[u.id]);if(missing>=0){go(missing);$('#navigation-notice').hidden=false;$('#navigation-notice').textContent='Cùng quay lại câu chưa hoàn tất này nhé.';}else{view='result';audio.pause();render();$('#dictation-finish-heading').focus();}}});
+$('#reveal-word').addEventListener('click',()=>{const d=draft(state);d.helped=true;if(state.mode==='sentence'){d.revealed++;if(d.revealed>=unit().text.split(/\s+/).length)d.full=true;}else{const i=expected(unit(),state.mode).findIndex((word,j)=>!d.shown.includes(j)&&!matches(d.values[j]||'',word));if(i>=0)d.shown.push(i);}render();});
+$('#reveal-all').addEventListener('click',()=>{const d=draft(state);d.helped=true;d.full=true;render();});$('#compare').addEventListener('click',()=>{const before=totals(state).done;if(!compare(state))return;if(before<UNITS.length&&totals(state).done===UNITS.length)view='result';render();if(view==='result')$('#dictation-finish-heading').focus();});
+$('#toggle-list').addEventListener('click',()=>{state.listOpen=!state.listOpen;render();});$('#unit-filter').addEventListener('change',e=>{filter=e.target.value;renderList();});
+$('#play-unit').addEventListener('click',()=>play());$('#replay-unit').addEventListener('click',()=>play(true));
+$('#speed').value=String(state.speed);$('#loop').checked=state.loop;$('#speed').addEventListener('change',e=>{state.speed=Number(e.target.value);audio.playbackRate=state.speed;persist();});$('#loop').addEventListener('change',e=>{state.loop=e.target.checked;audio.loop=reviewPlaying===null&&state.loop;persist();});
+for(const event of ['play','pause','ended'])audio.addEventListener(event,updatePlayback);audio.addEventListener('error',audioError);audio.addEventListener('canplay',clearAudioError);window.addEventListener('pagehide',()=>{playRequest++;audio.pause();});
+document.addEventListener('keydown',e=>{if(e.isComposing||e.ctrlKey||e.metaKey||$('dialog[open]'))return;if(e.altKey&&(e.code==='KeyR'||e.key.toLowerCase()==='r')){e.preventDefault();play(true);return;}if(e.altKey&&(e.code==='KeyP'||e.key.toLowerCase()==='p')){e.preventDefault();play();return;}if(e.altKey)return;const field=e.target;if(field.matches?.('textarea,[data-dictation-gap]')&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();submit();}if(field.matches?.('[data-dictation-gap]')&&state.mode==='word'){const fields=all('[data-dictation-gap]'),index=fields.indexOf(field);if(e.key===' '&&field.value.trim()&&fields[index+1]){e.preventDefault();fields[index+1].focus();}if(e.key==='Backspace'&&!field.value&&fields[index-1]){e.preventDefault();fields[index-1].focus();}}});
+$('#dictation-review-workspace').addEventListener('click',()=>{reviewOpen=!reviewOpen;renderCompletion(totals(state));});$('#back-to-results').addEventListener('click',()=>{view='result';audio.pause();reviewPlaying=null;render();$('#dictation-finish-heading').focus();});
+$('#dictation-replay').addEventListener('click',()=>{$('#dictation-replay-dialog').returnValue='';$('#dictation-replay-dialog').showModal();});$('#dictation-replay-dialog').addEventListener('close',()=>{if($('#dictation-replay-dialog').returnValue!=='confirm')return;const {mode,speed,loop,listOpen}=state;state={...createDictation(),mode,speed,loop,listOpen};view='practice';reviewOpen=false;filter='all';source();render();$('#unit-heading').focus();});
 source();render();
-
-$('#dictation-review-workspace').addEventListener('click',()=>{reviewingWorkspace=!reviewingWorkspace;render();if(reviewingWorkspace)$('#unit-heading').focus();});

@@ -8,7 +8,7 @@ Public desktop UI prototype for WeSpark Listening.
 - [Listening comprehension](https://tai221.github.io/wespark-listening-glass-preview/while.html)
 - [Practice activities](https://tai221.github.io/wespark-listening-glass-preview/post.html)
 
-Updated 2026-10-30 with Quiz / Spark Vệ Binh, answer review, source-player controls,
+Updated 2026-10-31 with Quiz / Spark Vệ Binh, answer review, source-player controls,
 shared lesson progress, activity-specific Spark illustrations, and aligned
 Dictation, Shadowing and Conversation screens.
 
@@ -20,3 +20,5 @@ Only Listening is published; navigation to other product areas is unavailable.
 Only browser runtime assets are published. Internal plans, research, credentials,
 QA scripts, source artwork and verification logs are excluded. Activity artwork
 was generated with OpenAI ImageGen using the supplied Spark identity references.
+
+Dictation now covers all 28 sentences of the sample lesson with dedicated synthetic clips, inline word/phrase entry, full-sentence dictation, saved drafts, hints, answer comparison, and completion review/replay.

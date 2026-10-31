@@ -22,8 +22,8 @@ export function companionFeedback(stage,session={},ui={}){
  }
  if(stage==='post')return feedback('post-'+complete.join(','),complete.length?`Bạn đã hoàn thành ${complete.map(x=>names[x]).join(', ')}. Có thể chọn cách khác để luyện thêm, hoặc trở về thư viện.`:'Muốn nghe rõ chi tiết, chọn Nghe chép. Muốn luyện nhịp nói, thử Luyện nói theo. Muốn dùng ý tưởng, chọn Hội thoại.');
  if(stage==='dictation'){
-  const draft=state.drafts?.[state.index||0];
-  if(draft?.compared&&state.done?.[state.index||0])return feedback(`dictation-assisted-${state.index}`, 'Bạn đã đối chiếu đoạn này với hỗ trợ. Tiến độ đã được ghi nhận; hãy chú ý phần khác với đáp án.', 'attempt');
+  const draft=state.version===2?state.records?.[state.currentId]?.[state.mode]:state.drafts?.[state.index||0];
+  if(draft?.compared&&state.done?.[state.version===2?state.currentId:state.index||0])return feedback(`dictation-assisted-${state.index}`, 'Bạn đã đối chiếu đoạn này với hỗ trợ. Tiến độ đã được ghi nhận; hãy chú ý phần khác với đáp án.', 'attempt');
   if(draft?.checked)return feedback(`dictation-${state.index}-${draft.attempts}-${draft.correct}`,draft.correct?'Bạn đã đối chiếu đúng đoạn này. Tiếp tục theo nhịp của bạn nhé.':'Chưa khớp cũng là một manh mối. Thử nghe lại rồi sửa phần bạn nhận ra.','attempt');
   return feedback('dictation-'+(state.index||0),'Nghe một đoạn ngắn, viết điều bạn nghe được rồi kiểm tra. Có thể dùng hỗ trợ khi cần.');
  }
