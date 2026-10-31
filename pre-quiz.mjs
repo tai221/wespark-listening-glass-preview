@@ -1,3 +1,4 @@
+import {createQuizSound} from './pre-quiz-sound.mjs';
 import {learningItems} from './pre-learning.mjs';
 
 const words=learningItems.filter(item=>item.type==='word');
@@ -46,8 +47,9 @@ export function quiz(s,event){
 export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplete=()=>{}}={}){
  const pane=document.querySelector('#quiz-mode-pane');
  let s=restoreQuiz(state),active=false;
+ const sound=createQuizSound(document);
  function el(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
- const meta=el('div','prep-quiz-meta'),counter=el('span','prep-quiz-count');meta.append(counter);
+ const meta=el('div','prep-quiz-meta'),counter=el('span','prep-quiz-count');meta.append(counter,sound.button,...sound.sounds);
  const track=el('div','prep-quiz-track'),fill=el('span');track.append(fill);track.setAttribute('role','progressbar');track.setAttribute('aria-label','Số câu đã kiểm tra');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax',String(count));
  const title=el('h2');title.id='quiz-mode-title';title.tabIndex=-1;
  const prompt=el('p','prep-quiz-prompt');prompt.lang='en';
@@ -76,7 +78,7 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
     const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',correct?'m8 12 3 3 5-6':'m9 9 6 6m0-6-6 6');svg.append(circle,path);indicator.append(svg);
     label.append(el('span','prep-quiz-option-status sr-only',correct?'Đáp án đúng': 'Bạn chọn · Chưa đúng'));
    }
-   label.addEventListener('click',()=>{if(!active||s.phase!=='playing'||s.checked[s.index])return;commit(quiz(quiz(s,{type:'select',value:index}),{type:'check'}));button.focus();});
+   label.addEventListener('click',()=>{if(!active||s.phase!=='playing'||s.checked[s.index])return;sound.play(index===q.answer);commit(quiz(quiz(s,{type:'select',value:index}),{type:'check'}));button.focus();});
    options.append(label);
   });
   feedback.replaceChildren();feedback.hidden=!checked;
@@ -90,8 +92,8 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
  });
  render();
  return {
-  activate(value){active=!!value;if(active)render();},
-  reset(value=createQuiz()){s=restoreQuiz(value);render();onChange(s);},
+  activate(value){active=!!value;if(active)render();else sound.stop();},
+  reset(value=createQuiz()){sound.stop();s=restoreQuiz(value);render();onChange(s);},
   getState:()=>s
  };
 }
