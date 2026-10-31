@@ -11,7 +11,7 @@ export function parts(unit,mode){
  const result=[];let end=0;for(const span of spans){if(span.start>end)result.push({text:unit.text.slice(end,span.start)});result.push(span);end=span.end;}if(end<unit.text.length)result.push({text:unit.text.slice(end)});return result;
 }
 export function expected(unit,mode){return mode==='sentence'?[unit.text]:mode==='word'?unit.words:[unit.phrase];}
-const fresh=mode=>({input:'',values:[],attempts:0,helped:false,shown:[],revealed:0,letterHints:[],full:false,checked:false,correct:false,compared:false});
+const fresh=mode=>({input:'',values:[],attempts:0,helped:false,shown:[],revealed:0,letterHints:[],full:false,checked:false,correct:false,compared:false,hadError:false});
 export function draft(state){const id=UNITS[state.index].id;state.currentId=id;state.records[id]||={};return state.records[id][state.mode]||=(fresh(state.mode));}
 export function setInput(state,values){const d=draft(state);d.values=values.map(String);d.input=d.values.join(' ');d.checked=false;d.correct=false;d.compared=false;return d;}
 export function hasInput(d){return !!d.input.trim();}
@@ -26,7 +26,7 @@ export function restoreDictation(saved){
  state.mode=MODES.includes(saved.mode)?saved.mode:'word';state.speed=[.5,.75,1,1.25,1.5].includes(saved.speed)?saved.speed:1;state.loop=saved.loop===true;state.listOpen=saved.listOpen!==false;
  state.index=Number.isInteger(saved.index)?Math.max(0,Math.min(UNITS.length-1,saved.index)):0;
  if(saved.version===2){
-  for(const unit of UNITS){for(const mode of MODES){const old=saved.records?.[unit.id]?.[mode];if(!old||typeof old!=='object')continue;const d=fresh(mode),answers=expected(unit,mode);d.values=answers.map((_,i)=>typeof old.values?.[i]==='string'?old.values[i].slice(0,3000):'');d.input=d.values.join(' ');d.attempts=bounded(old.attempts);d.checked=old.checked===true&&d.attempts>0;d.correct=d.checked&&answers.every((word,i)=>matches(d.values[i],word));d.helped=old.helped===true;d.revealed=Math.min(bounded(old.revealed),unit.text.split(/\s+/).length);d.full=old.full===true;d.shown=Array.isArray(old.shown)?old.shown.filter(i=>Number.isInteger(i)&&i>=0&&i<answers.length):[];d.letterHints=Array.isArray(old.letterHints)?old.letterHints.filter(i=>Number.isInteger(i)&&i>=0&&i<answers.length):[];d.helped||=d.full||d.shown.length>0||d.letterHints.length>0;d.compared=old.compared===true&&d.full&&d.attempts>0&&hasInput(d);state.records[unit.id]||={};state.records[unit.id][mode]=d;}
+  for(const unit of UNITS){for(const mode of MODES){const old=saved.records?.[unit.id]?.[mode];if(!old||typeof old!=='object')continue;const d=fresh(mode),answers=expected(unit,mode);d.values=answers.map((_,i)=>typeof old.values?.[i]==='string'?old.values[i].slice(0,3000):'');d.input=d.values.join(' ');d.attempts=bounded(old.attempts);d.hadError=old.hadError===true||d.attempts>1;d.checked=old.checked===true&&d.attempts>0;d.correct=d.checked&&answers.every((word,i)=>matches(d.values[i],word));d.helped=old.helped===true;d.revealed=Math.min(bounded(old.revealed),unit.text.split(/\s+/).length);d.full=old.full===true;d.shown=Array.isArray(old.shown)?old.shown.filter(i=>Number.isInteger(i)&&i>=0&&i<answers.length):[];d.letterHints=Array.isArray(old.letterHints)?old.letterHints.filter(i=>Number.isInteger(i)&&i>=0&&i<answers.length):[];d.helped||=d.full||d.shown.length>0||d.letterHints.length>0;d.compared=old.compared===true&&d.full&&d.attempts>0&&hasInput(d);state.records[unit.id]||={};state.records[unit.id][mode]=d;}
    const old=saved.done?.[unit.id];if(old&&Object.hasOwn(kindLabels,old.kind)&&MODES.includes(old.mode)&&bounded(old.attempts)>0)state.done[unit.id]={kind:old.kind,mode:old.mode,attempts:bounded(old.attempts)};
   }
  }else{
@@ -45,3 +45,8 @@ export function align(input,answer){
  while(i||j){if(i&&j&&dp[i][j]===dp[i-1][j-1]+(matches(left[i-1],right[j-1])?0:1)){result.unshift({kind:matches(left[i-1],right[j-1])?'right':'wrong',text:left[i-1]});i--;j--;}else if(j&&dp[i][j]===dp[i][j-1]+1){result.unshift({kind:'missing',text:'…'});j--;}else{result.unshift({kind:'extra',text:left[i-1]});i--;}}
  return result;
 }
+
+// Prefixes stay green while a learner is still spelling the expected text.
+export function liveStatus(input,answer){const value=normalizeDictation(input),target=normalizeDictation(answer);return !value?'empty':target.startsWith(value)?'right':'wrong';}
+export function liveTokens(input,answer){const expectedWords=normalizeDictation(answer).split(' ');let index=0;return (input.match(/\s+|\S+/g)||[]).map(text=>{if(/^\s+$/.test(text))return {text,status:'space'};const value=normalizeDictation(text);if(!value)return {text,status:'right'};const status=(expectedWords[index]||'').startsWith(value)?'right':'wrong';index++;return {text,status};});}
+export function assessLive(state){const d=draft(state),answers=expected(UNITS[state.index],state.mode);if(!hasInput(d)){d.checked=false;d.correct=false;return d;}d.checked=true;d.correct=answers.every((word,i)=>matches(d.values[i]||'',word));const error=answers.some((word,i)=>state.mode==='word'?liveStatus(d.values[i]||'',word)==='wrong':liveTokens(d.values[i]||'',word).some(x=>x.status==='wrong'));d.hadError||=error;d.attempts=d.hadError?2:1;if(d.correct)record(state,d.helped?'assisted':d.hadError?'corrected':'first');return d;}

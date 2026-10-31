@@ -22,3 +22,5 @@ QA scripts, source artwork and verification logs are excluded. Activity artwork
 was generated with OpenAI ImageGen using the supplied Spark identity references.
 
 Dictation now covers all 28 sentences of the sample lesson with dedicated synthetic clips, inline word/phrase entry, full-sentence dictation, saved drafts, hints, answer comparison, and completion review/replay.
+
+Dictation gives live red/green feedback while typing and records correct answers automatically, with no Check button.
