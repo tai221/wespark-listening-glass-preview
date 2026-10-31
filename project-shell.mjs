@@ -19,6 +19,9 @@ const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 function mount(){
   const app=document.querySelector('.app'),header=app?.querySelector('.header');
   if(!app||!header||app.classList.contains('project-shell'))return;
+  const clouds=document.createElement('div');clouds.className='paper-clouds';clouds.setAttribute('aria-hidden','true');
+  for(let i=0;i<3;i++){const cloud=document.createElement('span');cloud.className='paper-cloud';clouds.append(cloud);}
+  app.append(clouds);
   const file=location.pathname.split('/').pop()||'index.html';
   const browsing=['index.html','library.html'].includes(file);
   const labels={'index.html':'Góc học tập','library.html':'Thư viện','pre.html':'Chuẩn bị','while.html':'Nghe hiểu','post.html':'Vận dụng','dictation.html':'Nghe chép','shadowing.html':'Luyện nói theo','conversation.html':'Hội thoại'};

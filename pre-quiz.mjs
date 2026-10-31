@@ -49,7 +49,7 @@ export function quiz(s,event){
 export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplete=()=>{}}={}){
  const pane=document.querySelector('#quiz-mode-pane');
  let s=restoreQuiz(state),active=false;
- const sound=createQuizSound(document);
+ const sound=createQuizSound(document,{celebration:true});
  function el(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
  const reducedMotion=document.defaultView.matchMedia('(prefers-reduced-motion: reduce)');
  const flights=new Set();
@@ -78,7 +78,7 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
  }
  function commit(next,{paint=true}={}){
   if(next===s)return;const before=s;s=next;if(paint)render();onChange(s);
-  if(before.phase!=='complete'&&s.phase==='complete')onComplete(s);
+  if(before.phase!=='complete'&&s.phase==='complete'){onComplete(s);sound.celebrate();}
  }
  function render(){
   const q=quizQuestions[s.index],checked=s.checked[s.index],complete=s.phase==='complete';

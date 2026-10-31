@@ -24,3 +24,5 @@ was generated with OpenAI ImageGen using the supplied Spark identity references.
 Dictation now covers all 28 sentences of the sample lesson with dedicated synthetic clips, inline word/phrase entry, full-sentence dictation, saved drafts, hints, answer comparison, and completion review/replay.
 
 Dictation gives live red/green feedback while typing and records correct answers automatically, with no Check button.
+
+Latest update: refined Dictation controls, exact word masks, completed sentence states and layout; Quiz completion celebration sound; yellow paper background with upper-right sun and independently drifting soft clouds. Desktop preview only.

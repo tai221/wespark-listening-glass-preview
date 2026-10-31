@@ -25,7 +25,7 @@ export function companionFeedback(stage,session={},ui={}){
   const draft=state.version===2?state.records?.[state.currentId]?.[state.mode]:state.drafts?.[state.index||0];
   if(draft?.compared&&state.done?.[state.version===2?state.currentId:state.index||0])return feedback(`dictation-assisted-${state.index}`, 'Bạn đã đối chiếu đoạn này với hỗ trợ. Tiến độ đã được ghi nhận; hãy chú ý phần khác với đáp án.', 'attempt');
   if(draft?.checked)return feedback(`dictation-${state.index}-${draft.attempts}-${draft.correct}`,draft.correct?'Bạn đã đối chiếu đúng đoạn này. Tiếp tục theo nhịp của bạn nhé.':'Chưa khớp cũng là một manh mối. Thử nghe lại rồi sửa phần bạn nhận ra.','attempt');
-  return feedback('dictation-'+(state.index||0),'Nghe một đoạn ngắn, viết điều bạn nghe được rồi kiểm tra. Có thể dùng hỗ trợ khi cần.');
+  return feedback('dictation-'+(state.index||0),'Cứ nghe và gõ theo nhịp của bạn. Spark sẽ đánh dấu phần cần sửa.');
  }
  if(stage==='shadowing')return feedback('shadow-'+state.phase+'-'+state.index,state.phase==='feedback'?'Đã có phản hồi. Chọn một điểm để luyện thêm, rồi xác nhận đã xem.':'Nghe mẫu rồi luyện từng đoạn theo nhịp của bạn.',state.phase==='feedback'?'attempt':'guide');
  if(stage==='conversation')return feedback('conversation-'+state.count+'-'+state.started,state.count===3?'Bạn đã trả lời đủ ba lượt. Xem nhận xét cuối để hoàn thành hoạt động.':'Thử dùng ý tưởng từ bài nghe để cùng thống nhất một thay đổi.',state.count?'attempt':'guide');
