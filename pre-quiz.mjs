@@ -11,6 +11,8 @@ export const quizQuestions=[
  {id:'used-to',kind:'pattern',title:'Chọn cụm từ phù hợp để hoàn thành câu.',prompt:'Every evening, our kitchen bin ___ full.',options:['used to being','use to be','used to be'],answer:2,explanation:'“Used to + động từ nguyên mẫu” diễn tả trạng thái trong quá khứ đã thay đổi: “Every evening, our kitchen bin used to be full.”'}
 ];
 const count=quizQuestions.length;
+export const QUIZ_POINTS_PER_CORRECT=1;
+export const quizPoints=s=>scoreOf(s)*QUIZ_POINTS_PER_CORRECT;
 const validAnswer=value=>Number.isInteger(value)&&value>=0&&value<3;
 const scoreOf=s=>s.checked.reduce((total,checked,index)=>total+Number(checked&&s.answers[index]===quizQuestions[index].answer),0);
 export function createQuiz(){return {phase:'playing',index:0,answers:Array(count).fill(null),checked:Array(count).fill(false),score:0};}
@@ -44,14 +46,20 @@ export function quiz(s,event){
  return s;
 }
 
-export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplete=()=>{},rewardPoints=10,rewardClaimed=()=>false}={}){
+export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplete=()=>{}}={}){
  const pane=document.querySelector('#quiz-mode-pane');
  let s=restoreQuiz(state),active=false;
  const sound=createQuizSound(document);
  function el(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
+ const reducedMotion=document.defaultView.matchMedia('(prefers-reduced-motion: reduce)');
+ const flights=new Set();
+ function stopPoints(){for(const {node,animation} of flights){animation.cancel();node.remove();}flights.clear();reward.getAnimations?.().forEach(a=>a.cancel());}
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPoints();});
+ document.defaultView.addEventListener('glass-motion-change',event=>{if(!event.detail.enabled)stopPoints();});
+ reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)stopPoints();});
  const meta=el('div','prep-quiz-meta'),summary=el('div','prep-quiz-summary'),counter=el('span','prep-quiz-count'),reward=el('span','prep-quiz-reward');reward.id='prep-quiz-reward';
  const rewardIcon=document.createElementNS('http://www.w3.org/2000/svg','svg');rewardIcon.setAttribute('viewBox','0 0 24 24');rewardIcon.setAttribute('aria-hidden','true');rewardIcon.innerHTML='<path d="m14 2-9 12h7l-2 8 9-12h-7l2-8Z"/>';
- const rewardLabel=el('span');reward.append(rewardIcon,rewardLabel);summary.append(counter,reward);meta.append(summary,sound.button,...sound.sounds);
+ const rewardLabel=el('span');rewardLabel.id='prep-quiz-points';reward.title='Mỗi câu đúng +1 SparkPoint · Cộng vào tổng khi hoàn tất';reward.setAttribute('role','status');reward.setAttribute('aria-live','polite');reward.setAttribute('aria-atomic','true');reward.append(rewardIcon,rewardLabel,' SparkPoint');summary.append(counter,reward);meta.append(summary,sound.button,...sound.sounds);
  const track=el('div','prep-quiz-track'),fill=el('span');track.append(fill);track.setAttribute('role','progressbar');track.setAttribute('aria-label','Số câu đã kiểm tra');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax',String(count));
  const title=el('h2');title.id='quiz-mode-title';title.tabIndex=-1;
  const prompt=el('p','prep-quiz-prompt');prompt.lang='en';
@@ -59,13 +67,22 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
  const feedback=el('div','prep-quiz-feedback');feedback.id='prep-quiz-feedback';feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');feedback.setAttribute('aria-atomic','true');
  const footer=el('div','prep-quiz-actions'),button=el('button','button primary');button.id='prep-quiz-check';button.type='button';footer.append(button);
  pane.replaceChildren(meta,track,title,prompt,fieldset,feedback,footer);
+ function flyPoint(from){
+  if(!reward.animate||reducedMotion.matches||document.body.dataset.glassMotion==='false'||!from.width)return;
+  const to=reward.getBoundingClientRect(),node=el('span','quiz-point-flight','+1');node.setAttribute('aria-hidden','true');
+  node.style.left=`${from.left+from.width/2}px`;node.style.top=`${from.top+from.height/2}px`;document.body.append(node);
+  const dx=to.left+to.width/2-from.left-from.width/2,dy=to.top+to.height/2-from.top-from.height/2;
+  const animation=node.animate([{transform:'translate(-50%,-50%) scale(.7)',opacity:0},{transform:'translate(-50%,calc(-50% - 24px)) scale(1.1)',opacity:1,offset:.25},{transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px)) scale(.65)`,opacity:0}],{duration:650,easing:'cubic-bezier(.2,.7,.3,1)',fill:'forwards'});
+  const flight={node,animation};flights.add(flight);
+  animation.finished.then(()=>{if(active){reward.animate([{transform:'scale(1)'},{transform:'scale(1.12)',background:'#ffe18a',offset:.45},{transform:'scale(1)'}],{duration:260,easing:'ease-out'});}}).catch(()=>{}).finally(()=>{node.remove();flights.delete(flight);});
+ }
  function commit(next,{paint=true}={}){
   if(next===s)return;const before=s;s=next;if(paint)render();onChange(s);
   if(before.phase!=='complete'&&s.phase==='complete')onComplete(s);
  }
  function render(){
   const q=quizQuestions[s.index],checked=s.checked[s.index],complete=s.phase==='complete';
-  pane.dataset.quizPhase=s.phase;counter.textContent=`Câu ${s.index+1} / ${count}`;reward.dataset.claimed=String(rewardClaimed());rewardLabel.textContent=`${rewardClaimed()?'Đã nhận':'Hoàn thành'} +${rewardPoints} SparkPoint`;
+  pane.dataset.quizPhase=s.phase;counter.textContent=`Câu ${s.index+1} / ${count}`;const points=String(quizPoints(s));if(rewardLabel.textContent!==points)rewardLabel.textContent=points;
   const reviewed=s.checked.filter(Boolean).length;track.setAttribute('aria-valuenow',String(reviewed));fill.style.width=`${reviewed/count*100}%`;
   title.replaceChildren();if(q.term){const term=el('span',null,q.term);term.lang='en';title.append('“',term,'”',q.title);}else title.textContent=q.title;
   prompt.hidden=!q.prompt;prompt.textContent=q.prompt||'';options.replaceChildren();
@@ -80,7 +97,7 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
     const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',correct?'m8 12 3 3 5-6':'m9 9 6 6m0-6-6 6');svg.append(circle,path);indicator.append(svg);
     label.append(el('span','prep-quiz-option-status sr-only',correct?'Đáp án đúng': 'Bạn chọn · Chưa đúng'));
    }
-   label.addEventListener('click',()=>{if(!active||s.phase!=='playing'||s.checked[s.index])return;sound.play(index===q.answer);commit(quiz(quiz(s,{type:'select',value:index}),{type:'check'}));button.focus();});
+   label.addEventListener('click',()=>{if(!active||s.phase!=='playing'||s.checked[s.index])return;const correct=index===q.answer,from=label.getBoundingClientRect();sound.play(correct);commit(quiz(quiz(s,{type:'select',value:index}),{type:'check'}));if(correct)flyPoint(from);button.focus();});
    options.append(label);
   });
   feedback.replaceChildren();feedback.hidden=!checked;
@@ -94,8 +111,8 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
  });
  render();
  return {
-  activate(value){active=!!value;if(active)render();else sound.stop();},
-  reset(value=createQuiz()){sound.stop();s=restoreQuiz(value);render();onChange(s);},
+  activate(value){active=!!value;if(active)render();else{sound.stop();stopPoints();}},
+  reset(value=createQuiz()){sound.stop();stopPoints();s=restoreQuiz(value);render();onChange(s);},
   getState:()=>s
  };
 }

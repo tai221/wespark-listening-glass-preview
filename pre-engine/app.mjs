@@ -1,4 +1,4 @@
-import {POINTS,create,predict,learn,replay,reward,restore,finish,selectMode} from './state.mjs';
+import {rewardPoints,create,predict,learn,replay,reward,restore,finish,selectMode} from './state.mjs';
 import {mountLearning,learningItems} from '../pre-learning.mjs';
 import {mountBlast} from '../pre-blast.mjs';
 import {mountQuiz} from '../pre-quiz.mjs';
@@ -9,7 +9,7 @@ let saved;try{saved=JSON.parse(sessionStorage.getItem(sessionKey));}catch{}
 let {state,step}=restore(saved);
 let animationTimer,flightTimer,cleanupTimer,savingEnabled=true;
 const game=mountBlast(document,{state:state.blast,onChange(value){state={...state,blast:value};save();},onComplete(){const earn=!state.awarded;state=reward(finish(state));render();$('#finish-title').focus();if(earn)celebrate();}});
-const quizMode=mountQuiz(document,{state:state.quiz,rewardPoints:POINTS,rewardClaimed:()=>state.awarded,onChange(value){state={...state,quiz:value};save();},onComplete(){const earn=!state.awarded;state=reward(finish(state,'quiz'));render();$('#finish-title').focus();if(earn)celebrate();}});
+const quizMode=mountQuiz(document,{state:state.quiz,onChange(value){state={...state,quiz:value};save();},onComplete(){const earn=!state.awarded;state=reward(finish(state,'quiz'));render();$('#finish-title').focus();if(earn)celebrate();}});
 const answerReview=mountQuizReview(document,{onClose(){answerReview.close();$('#result-summary').hidden=false;$('#view-answers').setAttribute('aria-expanded','false');positionListening();$('#finish-title').focus();},onReplay:restartChallenge});
 function positionListening(){const inside=state.challengeMode==='quiz'&&challengeComplete()&&!$('#result-summary').hidden;$(inside?'.result-actions':'main>footer.actions').append($('#listening'));}
 function challengeComplete(){return state.challengeMode==='quiz'?state.quiz.phase==='complete':state.challengeMode==='game'&&state.blast.phase==='complete';}
@@ -31,7 +31,7 @@ function render(){
  answerReview.close();$('#result-summary').hidden=false;$('#reviews').hidden=true;$('#view-answers').setAttribute('aria-expanded','false');
  $('#challenge-selector').classList.toggle('has-mode',!!state.challengeMode);$('#challenge-mode-title').textContent=state.challengeMode?'Thử sức':'Bạn muốn thử sức theo cách nào?';document.querySelectorAll('[data-challenge-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.challengeChoice===state.challengeMode)));
  $('#challenge').hidden=state.challengeMode!=='game'||challengeComplete();$('#quiz-mode-pane').hidden=state.challengeMode!=='quiz'||challengeComplete();$('#completion').hidden=!challengeComplete();
- if(challengeComplete()){$('#finish-title').textContent=state.challengeMode==='quiz'?'Hoàn thành rồi!':'Sẵn sàng nghe rồi!';$('#view-answers-label').textContent=state.challengeMode==='quiz'?'Xem lại các câu':'Ôn lại từ và câu';$('#replay-label').textContent=state.challengeMode==='quiz'?'Làm lại Quiz':'Chơi lại Spark Vệ Binh';$('#score-summary').textContent=state.challengeMode==='quiz'?`${state.quiz.score} / 7 câu đúng`:state.blast.legacyComplete?'Đã hoàn tất ở phiên chuẩn bị trước. Bạn có thể chơi lại Spark Vệ Binh; SparkPoint đã nhận vẫn được giữ.':`${state.blast.score} điểm arcade · ${state.blast.misses.length} mục cần ôn · ${state.blast.assisted.length} mục từ vựng có hỗ trợ · ${state.blast.sentenceAssisted.length} mẫu câu có hỗ trợ. Điểm trò chơi không đánh giá năng lực.`;renderReviews();$('#reward-status').textContent=state.awarded?(state.challengeMode==='quiz'?`+${POINTS} SparkPoint · Đã nhận`:'SparkPoint đã được cộng cho lượt chuẩn bị này.'):'';}
+ if(challengeComplete()){$('#reward-pop').firstChild.textContent=`+${rewardPoints(state)}`;$('#finish-title').textContent=state.challengeMode==='quiz'?'Hoàn thành rồi!':'Sẵn sàng nghe rồi!';$('#view-answers-label').textContent=state.challengeMode==='quiz'?'Xem lại các câu':'Ôn lại từ và câu';$('#replay-label').textContent=state.challengeMode==='quiz'?'Làm lại Quiz':'Chơi lại Spark Vệ Binh';$('#score-summary').textContent=state.challengeMode==='quiz'?`${state.quiz.score} / 7 câu đúng`:state.blast.legacyComplete?'Đã hoàn tất ở phiên chuẩn bị trước. Bạn có thể chơi lại Spark Vệ Binh; SparkPoint đã nhận vẫn được giữ.':`${state.blast.score} điểm arcade · ${state.blast.misses.length} mục cần ôn · ${state.blast.assisted.length} mục từ vựng có hỗ trợ · ${state.blast.sentenceAssisted.length} mẫu câu có hỗ trợ. Điểm trò chơi không đánh giá năng lực.`;renderReviews();$('#reward-status').textContent=state.awarded?(state.challengeMode==='quiz'?`+${rewardPoints(state)} SparkPoint · Đã nhận`:'SparkPoint đã được cộng cho lượt chuẩn bị này.'):'';}
  positionListening();
 }
 function renderReviews(){
@@ -58,7 +58,7 @@ window.addEventListener('pageshow',()=>{savingEnabled=true;});
 function clearCelebration(){clearTimeout(animationTimer);clearTimeout(flightTimer);clearTimeout(cleanupTimer);$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');$('#wallet').classList.remove('wallet-pulse');$('#balance').textContent=state.balance;}
 function stopRewardMotion(){
  clearCelebration();
- if(state.finished&&state.awarded){const message=`+${POINTS} SparkPoint · Đã nhận thưởng.`;if($('#reward-status').textContent!==message)$('#reward-status').textContent=message;}
+ if(state.finished&&state.awarded){const message=`+${rewardPoints(state)} SparkPoint · Đã nhận thưởng.`;if($('#reward-status').textContent!==message)$('#reward-status').textContent=message;}
 }
 window.addEventListener('glass-motion-change',event=>{
  if(!event.detail.enabled||document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches||document.body.dataset.sparkLegacyMotion==='false')stopRewardMotion();
@@ -68,8 +68,8 @@ matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',event=>
 function celebrate(){
  clearCelebration();$('#reward-status').textContent='';$('.spark-stage').classList.add('celebrate');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches||document.body.dataset.glassMotion!=='true';
- if(reduced){$('#balance').textContent=state.balance;$('#reward-status').textContent=`+${POINTS} SparkPoint · Đã nhận thưởng.`;return;}
- $('#balance').textContent=state.balance-POINTS;
+ if(reduced||rewardPoints(state)===0){$('#balance').textContent=state.balance;$('#reward-status').textContent=`+${rewardPoints(state)} SparkPoint · Đã nhận thưởng.`;return;}
+ $('#balance').textContent=state.balance-rewardPoints(state);
  const from=$('#spark').getBoundingClientRect(),to=$('#wallet').getBoundingClientRect();
  for(let i=0;i<9;i++){
   const el=document.createElement('span');el.className='flying-spark';el.textContent='ϟ';el.style.left=`${from.x+from.width/2}px`;el.style.top=`${from.y+from.height/2}px`;$('#particles').append(el);
@@ -78,8 +78,8 @@ function celebrate(){
   el.animate([{transform:'translate(-50%,-50%) scale(.1)',opacity:0},{transform:`translate(${Math.cos(angle)*65}px,${Math.sin(angle)*55}px) scale(1.15)`,opacity:1,offset:.32},{transform:`translate(${dx}px,${dy}px) scale(.35)`,opacity:0}],{duration:950,delay:i*24,easing:'cubic-bezier(.2,.7,.3,1)',fill:'both'});
  }
  flightTimer=setTimeout(()=>{
-  $('#wallet').classList.add('wallet-pulse');let n=state.balance-POINTS;
-  const count=()=>{n=Math.min(state.balance,n+1);$('#balance').textContent=n;if(n<state.balance)animationTimer=setTimeout(count,23);else $('#reward-status').textContent=`+${POINTS} SparkPoint · Đã nhận thưởng.`;};count();
+  $('#wallet').classList.add('wallet-pulse');let n=state.balance-rewardPoints(state);
+  const count=()=>{n=Math.min(state.balance,n+1);$('#balance').textContent=n;if(n<state.balance)animationTimer=setTimeout(count,23);else $('#reward-status').textContent=`+${rewardPoints(state)} SparkPoint · Đã nhận thưởng.`;};count();
  },850);
  cleanupTimer=setTimeout(()=>{$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');},1450);
 }
