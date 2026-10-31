@@ -31,7 +31,7 @@ function render(){
  answerReview.close();$('#result-summary').hidden=false;$('#reviews').hidden=true;$('#view-answers').setAttribute('aria-expanded','false');
  $('#challenge-selector').classList.toggle('has-mode',!!state.challengeMode);$('#challenge-mode-title').textContent=state.challengeMode?'Thử sức':'Bạn muốn thử sức theo cách nào?';document.querySelectorAll('[data-challenge-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.challengeChoice===state.challengeMode)));
  $('#challenge').hidden=state.challengeMode!=='game'||challengeComplete();$('#quiz-mode-pane').hidden=state.challengeMode!=='quiz'||challengeComplete();$('#completion').hidden=!challengeComplete();
- if(challengeComplete()){$('#reward-pop').firstChild.textContent=`+${rewardPoints(state)}`;$('#finish-title').textContent=state.challengeMode==='quiz'?'Hoàn thành rồi!':'Sẵn sàng nghe rồi!';$('#view-answers-label').textContent=state.challengeMode==='quiz'?'Xem lại các câu':'Ôn lại từ và câu';$('#replay-label').textContent=state.challengeMode==='quiz'?'Làm lại Quiz':'Chơi lại Spark Vệ Binh';$('#score-summary').textContent=state.challengeMode==='quiz'?`${state.quiz.score} / 7 câu đúng`:state.blast.legacyComplete?'Đã hoàn tất ở phiên chuẩn bị trước. Bạn có thể chơi lại Spark Vệ Binh; SparkPoint đã nhận vẫn được giữ.':`${state.blast.score} điểm arcade · ${state.blast.misses.length} mục cần ôn · ${state.blast.assisted.length} mục từ vựng có hỗ trợ · ${state.blast.sentenceAssisted.length} mẫu câu có hỗ trợ. Điểm trò chơi không đánh giá năng lực.`;renderReviews();$('#reward-status').textContent=state.awarded?(state.challengeMode==='quiz'?`+${rewardPoints(state)} SparkPoint · Đã nhận`:'SparkPoint đã được cộng cho lượt chuẩn bị này.'):'';}
+ if(challengeComplete()){$('#reward-pop').firstChild.textContent=`+${rewardPoints(state)}`;$('#finish-title').textContent=state.challengeMode==='quiz'?'Hoàn thành rồi!':'Sẵn sàng nghe rồi!';$('#view-answers-label').textContent=state.challengeMode==='quiz'?'Xem lại các câu':'Ôn lại từ và câu';$('#replay-label').textContent=state.challengeMode==='quiz'?'Làm lại Quiz':'Chơi lại Spark Vệ Binh';$('#score-summary').textContent=state.challengeMode==='quiz'?`${state.quiz.score} / 7 câu đúng`:state.blast.legacyComplete?'Đã hoàn tất ở phiên chuẩn bị trước. Bạn có thể chơi lại Spark Vệ Binh; Điểm đã nhận vẫn được giữ.':`${state.blast.score} điểm arcade · ${state.blast.misses.length} mục cần ôn · ${state.blast.assisted.length} mục từ vựng có hỗ trợ · ${state.blast.sentenceAssisted.length} mẫu câu có hỗ trợ. Điểm trò chơi không đánh giá năng lực.`;renderReviews();if(state.awarded)renderRewardStatus();else clearRewardStatus();}
  positionListening();
 }
 function renderReviews(){
@@ -55,10 +55,18 @@ $('#replay').addEventListener('click',restartChallenge);
 $('#view-answers').addEventListener('click',()=>{if(state.challengeMode==='quiz'){$('#result-summary').hidden=true;positionListening();answerReview.open(state.quiz);$('#view-answers').setAttribute('aria-expanded','true');}else{$('#reviews').hidden=!$('#reviews').hidden;$('#view-answers').setAttribute('aria-expanded',String(!$('#reviews').hidden));}});
 window.addEventListener('pagehide',()=>{try{if(sessionStorage.getItem(sessionKey)===null)savingEnabled=false;}catch{}game.pause();save();clearCelebration();});
 window.addEventListener('pageshow',()=>{savingEnabled=true;});
+function clearRewardStatus(){const status=$('#reward-status');status.replaceChildren();status.removeAttribute('aria-label');}
+function renderRewardStatus(){
+ const status=$('#reward-status'),points=rewardPoints(state),label=`Đã nhận ${points} SparkPoint`;
+ if(status.getAttribute('aria-label')===label&&status.childElementCount)return;
+ const icon=document.createElementNS('http://www.w3.org/2000/svg','svg');icon.setAttribute('viewBox','0 0 24 24');icon.setAttribute('aria-hidden','true');icon.innerHTML='<path d="m14 2-9 12h7l-2 8 9-12h-7l2-8Z"/>';
+ const amount=document.createElement('strong');amount.textContent=`+${points}`;const received=document.createElement('span');received.textContent='Đã nhận';
+ status.setAttribute('aria-label',label);status.setAttribute('aria-atomic','true');status.replaceChildren(icon,amount,received);
+}
 function clearCelebration(){clearTimeout(animationTimer);clearTimeout(flightTimer);clearTimeout(cleanupTimer);$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');$('#wallet').classList.remove('wallet-pulse');$('#balance').textContent=state.balance;}
 function stopRewardMotion(){
  clearCelebration();
- if(state.finished&&state.awarded){const message=`+${rewardPoints(state)} SparkPoint · Đã nhận thưởng.`;if($('#reward-status').textContent!==message)$('#reward-status').textContent=message;}
+ if(state.finished&&state.awarded)renderRewardStatus();
 }
 window.addEventListener('glass-motion-change',event=>{
  if(!event.detail.enabled||document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches||document.body.dataset.sparkLegacyMotion==='false')stopRewardMotion();
@@ -66,9 +74,9 @@ window.addEventListener('glass-motion-change',event=>{
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopRewardMotion();});
 matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',event=>{if(event.matches)stopRewardMotion();});
 function celebrate(){
- clearCelebration();$('#reward-status').textContent='';$('.spark-stage').classList.add('celebrate');
+ clearCelebration();clearRewardStatus();$('.spark-stage').classList.add('celebrate');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches||document.body.dataset.glassMotion!=='true';
- if(reduced||rewardPoints(state)===0){$('#balance').textContent=state.balance;$('#reward-status').textContent=`+${rewardPoints(state)} SparkPoint · Đã nhận thưởng.`;return;}
+ if(reduced||rewardPoints(state)===0){$('#balance').textContent=state.balance;renderRewardStatus();return;}
  $('#balance').textContent=state.balance-rewardPoints(state);
  const from=$('#spark').getBoundingClientRect(),to=$('#wallet').getBoundingClientRect();
  for(let i=0;i<9;i++){
@@ -79,7 +87,7 @@ function celebrate(){
  }
  flightTimer=setTimeout(()=>{
   $('#wallet').classList.add('wallet-pulse');let n=state.balance-rewardPoints(state);
-  const count=()=>{n=Math.min(state.balance,n+1);$('#balance').textContent=n;if(n<state.balance)animationTimer=setTimeout(count,23);else $('#reward-status').textContent=`+${rewardPoints(state)} SparkPoint · Đã nhận thưởng.`;};count();
+  const count=()=>{n=Math.min(state.balance,n+1);$('#balance').textContent=n;if(n<state.balance)animationTimer=setTimeout(count,23);else renderRewardStatus();};count();
  },850);
  cleanupTimer=setTimeout(()=>{$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');},1450);
 }
