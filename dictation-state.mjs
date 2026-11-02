@@ -30,8 +30,8 @@ export function restoreDictation(saved){
    const old=saved.done?.[unit.id];if(old&&Object.hasOwn(kindLabels,old.kind)&&MODES.includes(old.mode)&&bounded(old.attempts)>0)state.done[unit.id]={kind:old.kind,mode:old.mode,attempts:bounded(old.attempts)};
   }
  }else{
-  const map=[0,2,8],kinds={'Đúng lần đầu':'first','Tự sửa đúng':'corrected','Có hỗ trợ':'assisted'};state.index=map[saved.index]??0;
-  for(const [i,newIndex] of map.entries()){const unit=UNITS[newIndex],old=saved.drafts?.[i];if(old&&typeof old.input==='string'){const mode=MODES.includes(old.mode)?old.mode:state.mode,d=fresh(mode);d.values=expected(unit,mode).map(()=> '');if(mode==='word'){const legacy=['full','wanted','reusable'][i],slot=unit.words.indexOf(legacy);if(slot>=0)d.values[slot]=old.input;}else d.values[0]=old.input;d.input=d.values.join(' ');d.attempts=bounded(old.attempts);d.helped=old.helped===true;d.revealed=Math.min(bounded(old.revealed),unit.text.split(/\s+/).length);d.full=old.full===true;state.records[unit.id]={[mode]:d};}
+  const map=[0,2,8],kinds={'Đúng lần đầu':'first','Tự sửa đúng':'corrected','Có hỗ trợ':'assisted'};state.index=Math.min(UNITS.length-1,map[saved.index]??0);
+  for(const [i,newIndex] of map.entries()){const unit=UNITS[newIndex],old=saved.drafts?.[i];if(!unit)continue;if(old&&typeof old.input==='string'){const mode=MODES.includes(old.mode)?old.mode:state.mode,d=fresh(mode);d.values=expected(unit,mode).map(()=> '');if(mode==='word'){const legacy=['full','wanted','reusable'][i],slot=unit.words.indexOf(legacy);if(slot>=0)d.values[slot]=old.input;}else d.values[0]=old.input;d.input=d.values.join(' ');d.attempts=bounded(old.attempts);d.helped=old.helped===true;d.revealed=Math.min(bounded(old.revealed),unit.text.split(/\s+/).length);d.full=old.full===true;state.records[unit.id]={[mode]:d};}
    const done=saved.done?.[i];if(done&&kinds[done.kind])state.done[unit.id]={kind:kinds[done.kind],mode:MODES.includes(done.mode)?done.mode:state.mode,attempts:Math.max(1,bounded(done.attempts))};
   }
  }

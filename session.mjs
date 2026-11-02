@@ -5,7 +5,9 @@ export function read(){try{const saved=JSON.parse(sessionStorage.getItem(KEY));r
 export function write(patch){memory={...read(),...patch};try{sessionStorage.setItem(KEY,JSON.stringify(memory));}catch{}window.dispatchEvent(new CustomEvent('listening-session-change'));return memory;}
 export function prep(){try{return JSON.parse(sessionStorage.getItem('wespark-listening-glass-pre-v1'))?.state||null;}catch{return null;}}
 export function whileReward(){const value=read().while?.awardedPoints;return Number.isInteger(value)&&value>=0&&value<=4?value:0;}
-export function balance(){return (prep()?.balance??120)+whileReward();}
+export function dictationReward(){return new Set((Array.isArray(read().dictationRewards)?read().dictationRewards:[]).filter(id=>/^sentence-(0[1-9]|1[0-9]|2[0-8])$/.test(id))).size;}
+export function shadowingReward(){return new Set((Array.isArray(read().shadowingRewards)?read().shadowingRewards:[]).filter(index=>Number.isInteger(index)&&index>=0&&index<3)).size;}
+export function balance(){return (prep()?.balance??120)+whileReward()+dictationReward()+shadowingReward();}
 export function reset(){memory=defaults();try{sessionStorage.removeItem(KEY);sessionStorage.removeItem('wespark-listening-glass-pre-v1');}catch{}window.dispatchEvent(new CustomEvent('listening-session-change'));}
 export function hydrate(){document.querySelectorAll('[data-balance]').forEach(e=>e.textContent=balance());renderSaveState();}
 window.addEventListener('listening-session-change',hydrate);

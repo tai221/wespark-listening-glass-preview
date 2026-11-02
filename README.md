@@ -3,14 +3,14 @@
 Public desktop UI prototype for WeSpark Listening.
 
 - [Open the demo](https://tai221.github.io/wespark-listening-glass-preview/)
-- [Lesson library](https://tai221.github.io/wespark-listening-glass-preview/library.html)
-- [Preparation](https://tai221.github.io/wespark-listening-glass-preview/pre.html)
-- [Listening comprehension](https://tai221.github.io/wespark-listening-glass-preview/while.html)
-- [Practice activities](https://tai221.github.io/wespark-listening-glass-preview/post.html)
+- [Dictation — five sentences](https://tai221.github.io/wespark-listening-glass-preview/dictation.html)
+- [Shadowing](https://tai221.github.io/wespark-listening-glass-preview/shadowing.html)
+- [Conversation](https://tai221.github.io/wespark-listening-glass-preview/conversation.html)
 
-Updated 2026-10-31 with Quiz / Spark Vệ Binh, answer review, source-player controls,
-shared lesson progress, activity-specific Spark illustrations, and aligned
-Dictation, Shadowing and Conversation screens.
+Updated 2026-11-02: aligned practice controls, direct Shadowing flow with word-level
+feedback and dictionary popups, one-time SparkPoint rewards, and a standalone
+Dictation completion page with reward transfer to the header wallet.
+Dictation uses five sentences, with review and replay preserving earned points.
 
 Desktop web only. Audio is synthetic. Recording, conversation and AI feedback
 are UI simulations. Progress and illustrative SparkPoint stay in the browser tab;
@@ -18,13 +18,4 @@ there is no connected account, backend, real recording or AI grading service.
 Only Listening is published; navigation to other product areas is unavailable.
 
 Only browser runtime assets are published. Internal plans, research, credentials,
-QA scripts, source artwork and verification logs are excluded. Activity artwork
-was generated with OpenAI ImageGen using the supplied Spark identity references.
-
-Dictation now covers all 28 sentences of the sample lesson with dedicated synthetic clips, inline word/phrase entry, full-sentence dictation, saved drafts, hints, answer comparison, and completion review/replay.
-
-Dictation gives live red/green feedback while typing and records correct answers automatically, with no Check button.
-
-Latest update: refined Dictation controls, exact word masks, completed sentence states and layout; Quiz completion celebration sound; yellow paper background with upper-right sun and independently drifting soft clouds. Desktop preview only.
-
-Background updated to pale travel artwork: airplane with dotted flight path, soft clouds, golden sun and a cropped globe bleeding into the translucent sidebar.
+QA scripts, source artwork and verification logs are excluded.

@@ -1,91 +1,91 @@
 /* Desktop dictation: warm WeSpark surfaces, focused writing, optional sentence list. */
 @media (min-width:1100px){
-body[data-spark-page=dictation]{--dictation-success:#315e39;--dictation-error:#854b37;--dictation-soft:#fbf8ee}
-body[data-spark-page=dictation] .practice-title{margin-bottom:14px}
-body[data-spark-page=dictation] .practice-title h2{font-size:25px;margin:5px 0}
-body[data-spark-page=dictation] .practice-main>[data-spark-slot]{margin-bottom:20px;min-height:48px}
-body[data-spark-page=dictation] .practice-main>[data-spark-slot] .spark-portrait{width:54px;flex-basis:54px}
-body[data-spark-page=dictation] .practice-main>[data-spark-slot] .spark-portrait img{width:54px;height:54px}
-body[data-spark-page=dictation] .dictation-grid{grid-template-columns:minmax(280px,.82fr) minmax(0,1.78fr);gap:22px}
-body[data-spark-page=dictation] .dictation-grid[hidden],body[data-spark-page=dictation] [hidden]{display:none!important}
-body[data-spark-page=dictation] .practice-source-stack{gap:18px}
-body[data-spark-page=dictation] .dictation-source{padding:18px}
-body[data-spark-page=dictation] .dictation-source .source-art{height:128px;margin:-18px -18px 16px}
+body:is([data-spark-page=dictation],[data-dictation-ui]){--dictation-success:#315e39;--dictation-error:#854b37;--dictation-soft:#fbf8ee}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-title{margin-bottom:14px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-title h2{font-size:25px;margin:5px 0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-main>[data-spark-slot]{margin-bottom:20px;min-height:48px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-main>[data-spark-slot] .spark-portrait{width:54px;flex-basis:54px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-main>[data-spark-slot] .spark-portrait img{width:54px;height:54px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-grid{grid-template-columns:minmax(280px,.82fr) minmax(0,1.78fr);gap:22px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-grid[hidden],body:is([data-spark-page=dictation],[data-dictation-ui]) [hidden]{display:none!important}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-source-stack{gap:18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source{padding:18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source .source-art{height:128px;margin:-18px -18px 16px}
 .dictation-source-caption{display:flex;align-items:center;justify-content:space-between;color:var(--practice-muted);font-size:12px}
-body[data-spark-page=dictation] .dictation-source h3{font-size:15px;font-weight:600;line-height:1.5;margin:7px 0}
-body[data-spark-page=dictation] .dictation-source .micro{margin:0 0 12px;font-size:11px;line-height:1.7}
-body[data-spark-page=dictation] .dictation-source audio{display:block;width:100%;height:40px;color-scheme:light}
-body[data-spark-page=dictation] .dictation-source audio::-webkit-media-controls-panel{background-color:#f8f4e6}
-body[data-spark-page=dictation] #audio-status:not([hidden]){padding-top:12px;margin:0;color:var(--dictation-error)}
-body[data-spark-page=dictation] .unit-list{padding:18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source h3{font-size:15px;font-weight:600;line-height:1.5;margin:7px 0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source .micro{margin:0 0 12px;font-size:11px;line-height:1.7}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source audio{display:block;width:100%;height:40px;color-scheme:light}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source audio::-webkit-media-controls-panel{background-color:#f8f4e6}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #audio-status:not([hidden]){padding-top:12px;margin:0;color:var(--dictation-error)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list{padding:18px}
 .dictation-list-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
-body[data-spark-page=dictation] .dictation-list-heading h3{margin:0;font-size:14px;font-weight:600}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-list-heading h3{margin:0;font-size:14px;font-weight:600}
 .dictation-list-heading>span{color:var(--practice-muted);font-size:12px;font-variant-numeric:tabular-nums}
-body[data-spark-page=dictation] #course-progress{display:block;width:100%;height:5px;appearance:none;border:0;border-radius:10px;overflow:hidden;background:#eee9db;margin:0 0 14px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #course-progress{display:block;width:100%;height:5px;appearance:none;border:0;border-radius:10px;overflow:hidden;background:#eee9db;margin:0 0 14px}
 #course-progress::-webkit-progress-bar{background:#eee9db;border-radius:10px}
 #course-progress::-webkit-progress-value{background:#b99b3f;border-radius:10px}
 #course-progress::-moz-progress-bar{background:#b99b3f;border-radius:10px}
-body[data-spark-page=dictation] #unit-filter{width:100%;padding:7px 9px;border:1px solid var(--practice-control);border-radius:8px;background:var(--practice-surface);color:var(--practice-muted);font:inherit;font-size:12px}
-body[data-spark-page=dictation] .unit-list ol{max-height:360px;overflow:auto;scrollbar-width:thin;scrollbar-color:#d5cbaa transparent;margin:12px -5px 0;padding:3px 5px;scroll-padding:5px}
-body[data-spark-page=dictation] .unit-list li{margin-bottom:7px}
-body[data-spark-page=dictation] .unit-list button{display:flex;align-items:center;gap:9px;width:100%;padding:10px 9px;border:1px solid transparent;background:none;border-radius:9px}
-body[data-spark-page=dictation] .unit-list button:hover{background:#f7f3e6;border-color:#e8dfc4}
-body[data-spark-page=dictation] .unit-list button[aria-current]{background:#fff1bf;border-color:#dfc77e}
-body[data-spark-page=dictation] .unit-list .unit-number{display:grid;place-items:center;flex:0 0 25px;width:25px;height:25px;border-radius:7px;background:#f1eee3;color:#76653e;font-size:11px;letter-spacing:0}
-body[data-spark-page=dictation] .unit-list button[aria-current] .unit-number{background:#ffdc70;color:#674718}
-body[data-spark-page=dictation] .unit-list .unit-list-copy{min-width:0;flex:1;text-align:left;letter-spacing:0}
-body[data-spark-page=dictation] .unit-list button strong{font-size:12px;font-weight:500;line-height:1.6;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}
-body[data-spark-page=dictation] .unit-list .unit-status-copy{font-size:10px;letter-spacing:0;line-height:1.7;margin-top:2px}
-body[data-spark-page=dictation] .unit-list .unit-mark{display:flex;flex:0 0 17px;color:#7c785d}
-body[data-spark-page=dictation] .unit-mark svg{width:17px;height:17px}
-body[data-spark-page=dictation] .writing-card{padding:24px 26px}
-body[data-spark-page=dictation] .section-row{margin-bottom:8px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #unit-filter{width:100%;padding:7px 9px;border:1px solid var(--practice-control);border-radius:8px;background:var(--practice-surface);color:var(--practice-muted);font:inherit;font-size:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list ol{max-height:360px;overflow:auto;scrollbar-width:thin;scrollbar-color:#d5cbaa transparent;margin:12px -5px 0;padding:3px 5px;scroll-padding:5px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list li{margin-bottom:7px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button{display:flex;align-items:center;gap:9px;width:100%;padding:10px 9px;border:1px solid transparent;background:none;border-radius:9px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button:hover{background:#f7f3e6;border-color:#e8dfc4}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button[aria-current]{background:#fff1bf;border-color:#dfc77e}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list .unit-number{display:grid;place-items:center;flex:0 0 25px;width:25px;height:25px;border-radius:7px;background:#f1eee3;color:#76653e;font-size:11px;letter-spacing:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button[aria-current] .unit-number{background:#ffdc70;color:#674718}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list .unit-list-copy{min-width:0;flex:1;text-align:left;letter-spacing:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button strong{font-size:12px;font-weight:500;line-height:1.6;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list .unit-status-copy{font-size:10px;letter-spacing:0;line-height:1.7;margin-top:2px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list .unit-mark{display:flex;flex:0 0 17px;color:#7c785d}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-mark svg{width:17px;height:17px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .writing-card{padding:24px 26px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .section-row{margin-bottom:8px}
 .dictation-kicker{font-size:12px;line-height:1.6;font-weight:600;color:var(--practice-gold-ink);letter-spacing:.025em}
 .dictation-progress-copy{font-size:12px;color:var(--practice-muted);font-variant-numeric:tabular-nums}
-body[data-spark-page=dictation] #unit-heading{font-size:20px;line-height:1.5;letter-spacing:-.025em;font-weight:600;margin:0 0 18px}
-body[data-spark-page=dictation] .mode-switch{margin-bottom:8px}
-body[data-spark-page=dictation] #mode-description{font-size:12px;line-height:1.7;margin:0 0 18px;min-height:21px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #unit-heading{font-size:20px;line-height:1.5;letter-spacing:-.025em;font-weight:600;margin:0 0 18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .mode-switch{margin-bottom:8px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #mode-description{font-size:12px;line-height:1.7;margin:0 0 18px;min-height:21px}
 .dictation-player{display:flex;align-items:center;gap:7px;padding:8px;background:var(--dictation-soft);border-radius:12px;margin-bottom:24px}
-body[data-spark-page=dictation] :is(.dictation-icon-button,.dictation-play-button){display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;border:0;border-radius:8px;color:var(--practice-gold-ink);background:transparent;cursor:pointer;font:inherit;font-size:12px;flex:none;padding:7px}
-body[data-spark-page=dictation] .dictation-icon-button{width:34px}
-body[data-spark-page=dictation] .dictation-play-button{padding-inline:12px;background:#ffebaa;font-weight:600;min-width:112px}
-body[data-spark-page=dictation] :is(.dictation-icon-button,.dictation-play-button):hover{background:#ffdf79}
-body[data-spark-page=dictation] .dictation-icon-button:disabled{opacity:.35;cursor:default;background:transparent}
-body[data-spark-page=dictation] svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-body[data-spark-page=dictation] :is(.dictation-icon-button,.dictation-play-button) svg{width:18px;height:18px;flex:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) :is(.dictation-icon-button,.dictation-play-button){display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;border:0;border-radius:8px;color:var(--practice-gold-ink);background:transparent;cursor:pointer;font:inherit;font-size:12px;flex:none;padding:7px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-icon-button{width:34px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-play-button{padding-inline:12px;background:#ffebaa;font-weight:600;min-width:112px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) :is(.dictation-icon-button,.dictation-play-button):hover{background:#ffdf79}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-icon-button:disabled{opacity:.35;cursor:default;background:transparent}
+body:is([data-spark-page=dictation],[data-dictation-ui]) svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body:is([data-spark-page=dictation],[data-dictation-ui]) :is(.dictation-icon-button,.dictation-play-button) svg{width:18px;height:18px;flex:none}
 .dictation-speed{margin-left:auto}
-body[data-spark-page=dictation] #speed{background:transparent;color:var(--practice-gold-ink);border:0;border-radius:7px;font:inherit;font-size:12px;min-height:34px;width:64px;padding:5px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #speed{background:transparent;color:var(--practice-gold-ink);border:0;border-radius:7px;font:inherit;font-size:12px;min-height:34px;width:64px;padding:5px}
 .dictation-loop{display:flex;align-items:center;gap:5px;font-size:11px;white-space:nowrap;color:var(--practice-muted);padding-right:4px;cursor:pointer}
-body[data-spark-page=dictation] .dictation-loop input{width:13px;height:13px;margin:0}
-body[data-spark-page=dictation] .dictation-cloze{font-size:20px;line-height:2.9;color:var(--practice-ink);padding:12px 0 22px;margin:0;min-height:152px;overflow-wrap:break-word}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop input{width:13px;height:13px;margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-cloze{font-size:20px;line-height:2.9;color:var(--practice-ink);padding:12px 0 22px;margin:0;min-height:152px;overflow-wrap:break-word}
 .dictation-gap{position:relative;display:inline-grid;grid-template-columns:minmax(0,1fr) 18px;align-items:center;vertical-align:baseline;max-width:100%;margin:7px 3px 12px;padding-right:18px}
-body[data-spark-page=dictation] .dictation-gap input{display:block;max-width:100%;min-width:0;height:40px;grid-column:1/-1;grid-row:1;padding:6px 26px 6px 9px;border:0;border-bottom:2px solid #bc9e52;border-radius:7px 7px 0 0;background:#fff8df;font:inherit;font-size:18px;color:var(--practice-ink);line-height:1.6;transition:background-color .15s,border-color .15s}
-body[data-spark-page=dictation] .dictation-gap input::placeholder{color:#a18b4f}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input{display:block;max-width:100%;min-width:0;height:40px;grid-column:1/-1;grid-row:1;padding:6px 26px 6px 9px;border:0;border-bottom:2px solid #bc9e52;border-radius:7px 7px 0 0;background:#fff8df;font:inherit;font-size:18px;color:var(--practice-ink);line-height:1.6;transition:background-color .15s,border-color .15s}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input::placeholder{color:#a18b4f}
 .gap-status{grid-column:2;grid-row:1;z-index:1;display:flex;justify-content:center;pointer-events:none}
 .gap-status svg{width:17px;height:17px}
-body[data-spark-page=dictation] .gap-correct input{background:var(--practice-green-bg);border-color:#72a16c}
-body[data-spark-page=dictation] .gap-correct .gap-status{color:var(--dictation-success)}
-body[data-spark-page=dictation] .gap-wrong input{background:var(--practice-red-bg);border-color:#b87c64}
-body[data-spark-page=dictation] .gap-wrong .gap-status{color:var(--dictation-error)}
-body[data-spark-page=dictation] .gap-help{position:absolute;right:-3px;top:8px;display:grid;place-items:center;width:23px;height:25px;padding:4px;border:0;border-radius:6px;background:transparent;color:#8c7843;cursor:pointer}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .gap-correct input{background:var(--practice-green-bg);border-color:#72a16c}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .gap-correct .gap-status{color:var(--dictation-success)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .gap-wrong input{background:var(--practice-red-bg);border-color:#b87c64}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .gap-wrong .gap-status{color:var(--dictation-error)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .gap-help{position:absolute;right:-3px;top:8px;display:grid;place-items:center;width:23px;height:25px;padding:4px;border:0;border-radius:6px;background:transparent;color:#8c7843;cursor:pointer}
 .gap-help svg{width:15px;height:15px}
-body[data-spark-page=dictation] .gap-help:hover{background:#ffebaa;color:#674718}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .gap-help:hover{background:#ffebaa;color:#674718}
 .gap-help:disabled{opacity:.25;cursor:default}
-body[data-spark-page=dictation] .gap-hint{position:absolute;left:3px;top:42px;max-width:100%;font-size:10px;line-height:1.5;color:#87641c;white-space:nowrap;letter-spacing:0}
-body[data-spark-page=dictation] .writing-card>label{font-size:12px;color:var(--practice-muted);margin-bottom:9px}
-body[data-spark-page=dictation] #dictation-input{min-height:154px;max-height:260px;font-size:19px;line-height:1.8;padding:16px;border:1px solid #cec7af;background:#fffefa;border-radius:11px}
-body[data-spark-page=dictation] #dictation-input.needs-work{background:var(--practice-red-bg);border-color:#b67b64}
-body[data-spark-page=dictation] #dictation-input.correct{background:var(--practice-green-bg);border-color:#87ab7c}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .gap-hint{position:absolute;left:3px;top:42px;max-width:100%;font-size:10px;line-height:1.5;color:#87641c;white-space:nowrap;letter-spacing:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .writing-card>label{font-size:12px;color:var(--practice-muted);margin-bottom:9px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-input{min-height:154px;max-height:260px;font-size:19px;line-height:1.8;padding:16px;border:1px solid #cec7af;background:#fffefa;border-radius:11px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-input.needs-work{background:var(--practice-red-bg);border-color:#b67b64}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-input.correct{background:var(--practice-green-bg);border-color:#87ab7c}
 .dictation-input-help{display:flex;align-items:center;gap:6px;font-size:11px!important;color:var(--practice-muted);line-height:1.7;margin:0 0 18px!important}
 .dictation-input-help svg{width:16px;height:16px;flex:none}
-body[data-spark-page=dictation] #dictation-feedback:empty{display:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-feedback:empty{display:none}
 .dictation-feedback-box{display:flex;gap:10px;padding:14px;background:var(--practice-red-bg);border-radius:10px;color:var(--dictation-error);font-size:13px;line-height:1.7;margin:18px 0}
 .dictation-feedback-box>svg{width:21px;height:21px;flex:none;margin-top:1px}
 .dictation-feedback-box.is-correct{background:var(--practice-green-bg);color:var(--dictation-success)}
 .feedback-copy{min-width:0;flex:1}
 .feedback-copy strong{font-size:14px;line-height:1.5;font-weight:600}
-body[data-spark-page=dictation] .feedback-copy p{margin:4px 0 0;font-size:12px;line-height:1.8;color:inherit}
-body[data-spark-page=dictation] .feedback-copy .text-button{font-size:12px;min-height:26px;color:inherit;padding:5px 0 0;text-decoration:underline;text-underline-offset:3px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .feedback-copy p{margin:4px 0 0;font-size:12px;line-height:1.8;color:inherit}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .feedback-copy .text-button{font-size:12px;min-height:26px;color:inherit;padding:5px 0 0;text-decoration:underline;text-underline-offset:3px}
 .dictation-diff{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
 .dictation-diff-token{display:inline-flex;align-items:center;gap:3px;font-size:12px;line-height:1.7;padding:3px 6px;border-radius:6px;background:#ffffffa6;overflow-wrap:anywhere;max-width:100%}
 .dictation-diff-token svg{width:13px;height:13px;flex:none}
@@ -93,26 +93,26 @@ body[data-spark-page=dictation] .feedback-copy .text-button{font-size:12px;min-h
 .dictation-diff-token.wrong,.dictation-diff-token.extra{background:#f4dacf;color:var(--dictation-error)}
 .dictation-diff-token.missing{color:var(--dictation-error);border:1px dashed #c59883;min-width:28px;justify-content:center}
 .dictation-answer{background:#faf7ec;border-radius:10px;padding:16px 18px;margin:18px 0}
-body[data-spark-page=dictation] #revealed{font-size:17px;line-height:1.9;color:var(--practice-ink);margin:0;overflow-wrap:anywhere}
-body[data-spark-page=dictation] #dictation-translation{font-size:12px;line-height:1.8;color:var(--practice-muted);margin:8px 0 0}
-body[data-spark-page=dictation] .support-box{margin-top:18px;padding-top:14px}
-body[data-spark-page=dictation] .support-box summary{display:flex;align-items:center;gap:7px;font-size:12px;list-style:none;cursor:pointer}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #revealed{font-size:17px;line-height:1.9;color:var(--practice-ink);margin:0;overflow-wrap:anywhere}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-translation{font-size:12px;line-height:1.8;color:var(--practice-muted);margin:8px 0 0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .support-box{margin-top:18px;padding-top:14px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .support-box summary{display:flex;align-items:center;gap:7px;font-size:12px;list-style:none;cursor:pointer}
 .support-box summary::-webkit-details-marker{display:none}
 .support-box summary svg{width:16px;height:16px;flex:none}
 .support-box summary:after{content:'+';margin-left:auto;font-size:18px;color:#9c8a59}
 .support-box[open] summary:after{content:'−'}
 .dictation-support-actions{display:flex;gap:20px;padding-top:4px}
-body[data-spark-page=dictation] .support-box .micro{font-size:11px;margin:4px 0 12px}
-body[data-spark-page=dictation] .dictation-actions{margin-top:18px;padding-top:18px;border-top:1px solid var(--practice-line);justify-content:space-between;gap:12px}
-body[data-spark-page=dictation] .dictation-actions .button{min-width:132px}
-body[data-spark-page=dictation] #navigation-notice{font-size:11px;margin:12px 0 0;color:var(--practice-muted)}
-body[data-spark-page=dictation] #back-to-results{display:inline-flex;align-items:center;font-size:12px;margin-top:12px}
-body[data-spark-page=dictation] .dictation-finish{display:block;padding:34px 38px;background:var(--practice-surface);margin-top:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .support-box .micro{font-size:11px;margin:4px 0 12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-actions{margin-top:18px;padding-top:18px;border-top:1px solid var(--practice-line);justify-content:space-between;gap:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-actions .button{min-width:132px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #navigation-notice{font-size:11px;margin:12px 0 0;color:var(--practice-muted)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #back-to-results{display:inline-flex;align-items:center;font-size:12px;margin-top:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-finish{display:block;padding:34px 38px;background:var(--practice-surface);margin-top:0}
 .dictation-finish-hero{display:flex;align-items:center;gap:28px;max-width:740px;margin:0 auto 26px}
 .dictation-finish-art{display:grid;place-items:center;width:180px;height:180px;flex:none;border-radius:50%;background:#fff3bd}
 .dictation-finish-art img{width:180px;height:180px;object-fit:contain}
-body[data-spark-page=dictation] .dictation-finish h2{font-size:28px;line-height:1.4;letter-spacing:-.035em;margin:9px 0 10px}
-body[data-spark-page=dictation] .dictation-finish p{font-size:14px;line-height:1.8;color:var(--practice-muted);margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-finish h2{font-size:28px;line-height:1.4;letter-spacing:-.035em;margin:9px 0 10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-finish p{font-size:14px;line-height:1.8;color:var(--practice-muted);margin:0}
 .dictation-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:720px;margin:0 auto 28px}
 .dictation-stats>div{display:flex;flex-direction:column;gap:6px;align-items:center;padding:19px 10px;background:#f6f4ea;border-radius:11px}
 .dictation-stats>div:first-child{background:#eaf3e5;color:#315e39}
@@ -120,92 +120,340 @@ body[data-spark-page=dictation] .dictation-finish p{font-size:14px;line-height:1
 .dictation-stats strong{font-size:28px;font-weight:600;line-height:1.2;font-variant-numeric:tabular-nums}
 .dictation-stats span{font-size:12px;line-height:1.6}
 .dictation-finish-actions{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap}
-body[data-spark-page=dictation] #dictation-review-list{display:grid;gap:12px;margin-top:30px;padding-top:24px;border-top:1px solid var(--practice-line)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-review-list{display:grid;gap:12px;margin-top:30px;padding-top:24px;border-top:1px solid var(--practice-line)}
 .dictation-review-row{padding:18px 20px;border:1px solid var(--practice-line);border-radius:11px}
 .dictation-review-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:var(--practice-muted);margin-bottom:10px}
-body[data-spark-page=dictation] .dictation-review-row .review-sentence{font-size:17px;line-height:1.8;color:var(--practice-ink)}
-body[data-spark-page=dictation] .dictation-review-row .review-translation{font-size:12px;margin-top:6px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-review-row .review-sentence{font-size:17px;line-height:1.8;color:var(--practice-ink)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-review-row .review-translation{font-size:12px;margin-top:6px}
 .dictation-review-actions{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-top:8px}
-body[data-spark-page=dictation] .dictation-review-actions .dictation-icon-button{border:1px solid var(--practice-control);border-radius:50%}
-body[data-spark-page=dictation] .dictation-review-actions .text-button{font-size:12px}
-body[data-spark-page=dictation] #result-audio-status{margin-top:16px;color:var(--dictation-error);text-align:center}
-@media(prefers-reduced-motion:reduce){body[data-spark-page=dictation] .dictation-gap input{transition:none}}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-review-actions .dictation-icon-button{border:1px solid var(--practice-control);border-radius:50%}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-review-actions .text-button{font-size:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #result-audio-status{margin-top:16px;color:var(--dictation-error);text-align:center}
+@media(prefers-reduced-motion:reduce){body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input{transition:none}}
 /* Keep the primary desktop practice loop visible without a large intro stack. */
-body[data-spark-page=dictation] .practice-lesson-header{padding:16px 22px 12px;margin-bottom:18px}
-body[data-spark-page=dictation] .practice-lesson-heading{padding-bottom:12px}
-body[data-spark-page=dictation] .practice-lesson-heading h1{font-size:21px}
-body[data-spark-page=dictation] .practice-journey{padding-top:8px}
-body[data-spark-page=dictation] .journey[data-lesson-route] .route-art{width:36px;height:36px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-lesson-header{padding:16px 22px 12px;margin-bottom:18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-lesson-heading{padding-bottom:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-lesson-heading h1{font-size:21px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-journey{padding-top:8px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .journey[data-lesson-route] .route-art{width:36px;height:36px}
 .dictation-intro{display:block;margin:0 0 20px}
-body[data-spark-page=dictation] .dictation-intro .practice-title{display:block;margin:0 0 14px}
-body[data-spark-page=dictation] .dictation-title .back-link{min-height:22px;font-size:11px}
-body[data-spark-page=dictation] .dictation-title h2{font-size:23px;margin:3px 0 0}
-body[data-spark-page=dictation] .dictation-title p{display:none}
-body[data-spark-page=dictation] .dictation-intro [data-spark-slot]{display:flex;align-items:center;gap:12px;min-width:0;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none;backdrop-filter:none}
-body[data-spark-page=dictation] .dictation-intro .spark-portrait{width:54px;flex:0 0 54px}
-body[data-spark-page=dictation] .dictation-intro .spark-portrait img{width:54px;height:54px;object-fit:contain;filter:none}
-body[data-spark-page=dictation] .dictation-intro .spark-portrait:before{display:none}
-body[data-spark-page=dictation] .dictation-intro .spark-message{position:relative;flex:0 1 auto;min-width:0;max-width:720px;padding:10px 16px;background:#fff1bf;border:0;border-radius:12px;box-shadow:none}
-body[data-spark-page=dictation] .dictation-intro .spark-message p{font-size:13px;line-height:1.6;margin:0;color:#705121}
-body[data-spark-page=dictation] .dictation-intro .spark-message:before{content:'';position:absolute;left:-5px;top:18px;width:10px;height:10px;background:#fff1bf;transform:rotate(45deg)}
-body[data-spark-page=dictation] .writing-card{padding:20px 24px}
-body[data-spark-page=dictation] #unit-heading{margin-bottom:12px;font-size:19px}
-body[data-spark-page=dictation] #mode-description{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0;padding:0}
-body[data-spark-page=dictation] .mode-switch{margin-bottom:18px}
-body[data-spark-page=dictation] .dictation-player{margin-bottom:16px}
-body[data-spark-page=dictation] .dictation-cloze{min-height:96px;padding:6px 0 12px;font-size:20px;line-height:2.7}
-body[data-spark-page=dictation] .dictation-input-help{margin-bottom:12px!important}
-body[data-spark-page=dictation] .support-box{margin-top:14px;padding-top:10px}
-body[data-spark-page=dictation] .dictation-actions{margin-top:12px;padding-top:14px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro .practice-title{display:block;margin:0 0 14px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-title .back-link{min-height:22px;font-size:11px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-title h2{font-size:23px;margin:3px 0 0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-title p{display:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro [data-spark-slot]{display:flex;align-items:center;gap:12px;min-width:0;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none;backdrop-filter:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro .spark-portrait{width:54px;flex:0 0 54px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro .spark-portrait img{width:54px;height:54px;object-fit:contain;filter:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro .spark-portrait:before{display:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro .spark-message{position:relative;flex:0 1 auto;min-width:0;max-width:720px;padding:10px 16px;background:#fff1bf;border:0;border-radius:12px;box-shadow:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro .spark-message p{font-size:13px;line-height:1.6;margin:0;color:#705121}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro .spark-message:before{content:'';position:absolute;left:-5px;top:18px;width:10px;height:10px;background:#fff1bf;transform:rotate(45deg)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .writing-card{padding:20px 24px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #unit-heading{margin-bottom:12px;font-size:19px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #mode-description{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0;padding:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .mode-switch{margin-bottom:18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player{margin-bottom:16px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-cloze{min-height:96px;padding:6px 0 12px;font-size:20px;line-height:2.7}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-input-help{margin-bottom:12px!important}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .support-box{margin-top:14px;padding-top:10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-actions{margin-top:12px;padding-top:14px}
 
 /* Live typing: color the text in place without replacing the editable control. */
-body[data-spark-page=dictation] .dictation-live-editor{display:grid;position:relative;min-width:0;margin-bottom:10px}
-body[data-spark-page=dictation] .dictation-live-editor #dictation-input,
-body[data-spark-page=dictation] #dictation-input-highlight{grid-area:1/1;box-sizing:border-box;width:100%;min-height:154px;max-height:260px;padding:16px;border:1px solid transparent;border-radius:11px;font-family:inherit;font-size:19px;font-weight:400;line-height:1.8;letter-spacing:normal;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal;text-align:left;tab-size:8;margin:0}
-body[data-spark-page=dictation] #dictation-input-highlight{pointer-events:none;z-index:2;overflow:hidden;align-self:stretch;color:var(--dictation-success)}
-body[data-spark-page=dictation] .dictation-live-editor #dictation-input{color:transparent;-webkit-text-fill-color:transparent;caret-color:var(--practice-ink);position:relative;z-index:1;background:#fffefa;resize:none;height:190px;max-height:190px;overflow:auto}
-body[data-spark-page=dictation] #dictation-input-highlight{height:190px;min-height:190px;max-height:190px}
-body[data-spark-page=dictation] .dictation-live-editor #dictation-input::placeholder{color:#898c7e;-webkit-text-fill-color:#898c7e}
-body[data-spark-page=dictation] .dictation-gap input{color:transparent;-webkit-text-fill-color:transparent;caret-color:var(--practice-ink)}
-body[data-spark-page=dictation] .dictation-gap input::placeholder{color:#a18b4f;-webkit-text-fill-color:#a18b4f}
-body[data-spark-page=dictation] .gap-highlight{grid-column:1/-1;grid-row:1;z-index:1;min-width:0;max-width:100%;height:40px;pointer-events:none;overflow:hidden;white-space:pre;padding:6px 26px 6px 9px;border:0;border-bottom:2px solid transparent;font-family:inherit;font-size:18px;font-weight:400;line-height:1.6;text-align:left;letter-spacing:normal;color:var(--dictation-success)}
-body[data-spark-page=dictation] .gap-status{z-index:2}
-body[data-spark-page=dictation] .live-right{color:var(--dictation-success)}
-body[data-spark-page=dictation] .live-wrong{color:var(--dictation-error);text-decoration-line:underline;text-decoration-style:wavy;text-decoration-color:#b87c64;text-underline-offset:4px}
-body[data-spark-page=dictation] .dictation-live-note{font-size:12px;color:var(--practice-muted);line-height:1.7}
-body[data-spark-page=dictation] .dictation-actions #next-unit{background:var(--practice-gold);border-color:var(--practice-gold);color:var(--practice-gold-ink);font-weight:600}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-editor{display:grid;position:relative;min-width:0;margin-bottom:10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-editor #dictation-input,
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-input-highlight{grid-area:1/1;box-sizing:border-box;width:100%;min-height:154px;max-height:260px;padding:16px;border:1px solid transparent;border-radius:11px;font-family:inherit;font-size:19px;font-weight:400;line-height:1.8;letter-spacing:normal;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal;text-align:left;tab-size:8;margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-input-highlight{pointer-events:none;z-index:2;overflow:hidden;align-self:stretch;color:var(--dictation-success)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-editor #dictation-input{color:transparent;-webkit-text-fill-color:transparent;caret-color:var(--practice-ink);position:relative;z-index:1;background:#fffefa;resize:none;height:190px;max-height:190px;overflow:auto}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-input-highlight{height:190px;min-height:190px;max-height:190px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-editor #dictation-input::placeholder{color:#898c7e;-webkit-text-fill-color:#898c7e}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input{color:transparent;-webkit-text-fill-color:transparent;caret-color:var(--practice-ink)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input::placeholder{color:#a18b4f;-webkit-text-fill-color:#a18b4f}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .gap-highlight{grid-column:1/-1;grid-row:1;z-index:1;min-width:0;max-width:100%;height:40px;pointer-events:none;overflow:hidden;white-space:pre;padding:6px 26px 6px 9px;border:0;border-bottom:2px solid transparent;font-family:inherit;font-size:18px;font-weight:400;line-height:1.6;text-align:left;letter-spacing:normal;color:var(--dictation-success)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .gap-status{z-index:2}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .live-right{color:var(--dictation-success)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .live-wrong{color:var(--dictation-error);text-decoration-line:underline;text-decoration-style:wavy;text-decoration-color:#b87c64;text-underline-offset:4px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-note{font-size:12px;color:var(--practice-muted);line-height:1.7}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-actions #next-unit{background:var(--practice-gold);border-color:var(--practice-gold);color:var(--practice-gold-ink);font-weight:600}
 
 /* Local copy reduction: keep controls, progress, and the Vietnamese translation. */
-body[data-spark-page=dictation] #unit-heading{position:absolute;width:1px;height:1px;padding:0;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-body[data-spark-page=dictation] .dictation-actions{justify-content:flex-end}
-body[data-spark-page=dictation] #dictation-translation{margin-top:0;font-size:14px;color:var(--practice-ink)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #unit-heading{position:absolute;width:1px;height:1px;padding:0;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-actions{justify-content:flex-end}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-translation{margin-top:0;font-size:14px;color:var(--practice-ink)}
 
 /* Completed sentences remain visibly checked, including assisted completion. */
-body[data-spark-page=dictation] .unit-list button.unit-complete{border:2px solid #79a66f;background:#f4f9ef;padding:9px 8px;box-shadow:0 2px 0 #79a66f33}
-body[data-spark-page=dictation] .unit-list button.unit-complete:hover{border-color:#548947;background:#edf5e7}
-body[data-spark-page=dictation] .unit-list button.unit-complete[aria-current]{border-color:#548947;background:#edf5e7}
-body[data-spark-page=dictation] .unit-list button.unit-complete .unit-number{background:#e2efdc;color:#315e39}
-body[data-spark-page=dictation] .unit-list button.unit-complete .unit-mark{color:#408235;flex-basis:21px}
-body[data-spark-page=dictation] .unit-list button.unit-complete .unit-mark svg{width:21px;height:21px;stroke-width:2}
-body[data-spark-page=dictation] .unit-list button.unit-complete .unit-list-copy strong{white-space:normal;overflow:visible;text-overflow:clip;font-size:13px;line-height:1.7}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button.unit-complete{border:2px solid #79a66f;background:#f4f9ef;padding:9px 8px;box-shadow:0 2px 0 #79a66f33}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button.unit-complete:hover{border-color:#548947;background:#edf5e7}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button.unit-complete[aria-current]{border-color:#548947;background:#edf5e7}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button.unit-complete .unit-number{background:#e2efdc;color:#315e39}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button.unit-complete .unit-mark{color:#408235;flex-basis:21px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button.unit-complete .unit-mark svg{width:21px;height:21px;stroke-width:2}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button.unit-complete .unit-list-copy strong{white-space:normal;overflow:visible;text-overflow:clip;font-size:13px;line-height:1.7}
 
-body[data-spark-page=dictation] .unit-list .unit-help-mark{display:flex;align-items:center;justify-content:center;flex:0 0 18px;color:#87641c;letter-spacing:0}
-body[data-spark-page=dictation] .unit-list .unit-help-mark svg{width:18px;height:18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list .unit-help-mark{display:flex;align-items:center;justify-content:center;flex:0 0 18px;color:#87641c;letter-spacing:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list .unit-help-mark svg{width:18px;height:18px}
 
-body[data-spark-page=dictation] .dictation-bottom-nav{display:flex;align-items:center;margin-top:24px;padding-top:18px;border-top:1px solid var(--practice-line)}
-body[data-spark-page=dictation] .dictation-bottom-nav .button{display:inline-flex;align-items:center;gap:8px;text-decoration:none}
-body[data-spark-page=dictation] .dictation-bottom-nav svg{width:18px;height:18px;flex:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-bottom-nav{display:flex;align-items:center;margin-top:24px;padding-top:18px;border-top:1px solid var(--practice-line)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-bottom-nav .button{display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-bottom-nav svg{width:18px;height:18px;flex:none}
 
-body[data-spark-page=dictation] .unit-list button .unit-list-copy strong{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
-body[data-spark-page=dictation] .unit-list button:not(.unit-complete) .unit-list-copy strong{letter-spacing:.06em;line-height:1.8}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button .unit-list-copy strong{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button:not(.unit-complete) .unit-list-copy strong{letter-spacing:normal;line-height:1.8}
 
 /* Compact source controls and centered, spaced answer-length masks. */
-body[data-spark-page=dictation] .dictation-player .dictation-play-button{min-width:36px;width:36px;padding:7px}
-body[data-spark-page=dictation] .dictation-gap input::placeholder{text-align:center;letter-spacing:.16em}
-body[data-spark-page=dictation] .dictation-live-editor #dictation-input::placeholder{text-align:center;letter-spacing:.12em;word-spacing:.2em}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player .dictation-play-button{min-width:36px;width:36px;padding:7px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input::placeholder{text-align:center;letter-spacing:.16em}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-editor #dictation-input::placeholder{text-align:left;letter-spacing:.12em;word-spacing:.2em}
 
 /* Placeholder text uses the whole input width; status space is reserved only while typing. */
-body[data-spark-page=dictation] .dictation-gap input:placeholder-shown{text-align:center;padding-inline:9px}
-body[data-spark-page=dictation] .dictation-live-editor #dictation-input:placeholder-shown{text-align:center}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input:placeholder-shown{text-align:center;padding-inline:9px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-editor #dictation-input:placeholder-shown{text-align:left}
 
+}
+
+/* Pending sentences stay visually concealed without answer-length asterisks. */
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list .unit-preview-blurred{filter:blur(3px);opacity:.85;user-select:none;pointer-events:none}
+}
+
+/* Main keyboard cues live beside their actions; the full map stays collapsed. */
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player{gap:10px;padding:12px 12px 29px;align-items:flex-start;flex-wrap:wrap}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button{position:relative;display:flex;align-items:flex-start;justify-content:center;min-width:84px;width:84px;height:56px;padding:7px 8px 24px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button.dictation-play-button{min-width:84px;width:84px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button::before{content:attr(data-action);position:absolute;left:0;right:0;bottom:2px;text-align:center;font-size:11px;font-weight:600;white-space:nowrap}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button::after{content:attr(data-shortcut);position:absolute;top:calc(100% + 5px);left:50%;transform:translateX(-50%);white-space:nowrap;font-size:10px;font-weight:500;line-height:17px;padding:0 5px;border:1px solid #dfd8c4;border-radius:4px;color:#665b43;background:#fffdf5}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed,body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop{margin-top:14px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts{margin:12px 0 20px;color:#62665b;font-size:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts summary{display:flex;align-items:center;gap:9px;width:fit-content;min-height:28px;cursor:pointer}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts summary::before{content:'+';font-size:16px;width:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts[open] summary::before{content:'−'}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts kbd{font-family:inherit;font-size:10px;white-space:nowrap;background:#f6f3e9;border:1px solid #dfd8c4;border-radius:4px;padding:2px 5px;color:#665b43}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts dl{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin:14px 0;padding:16px;background:#faf8f0;border-radius:10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts dl>div{display:flex;justify-content:space-between;align-items:center;gap:8px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts dd{margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts p{font-size:11px;line-height:1.8;margin:0}
+}
+
+/* Icon actions retain key badges without repeated visible descriptions. */
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button{height:36px;padding:7px 8px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button::before{content:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed,body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop{margin-top:4px}
+}
+
+/* Active word is marked only by its brighter underline. */
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input:is(:focus,:focus-visible){outline:none!important;outline-offset:0!important;border-bottom-color:#e4b533;box-shadow:inset 0 -1px 0 #e4b533}
+}
+
+/* Keep the typed text, caret and feedback mirror centered on the same compact field. */
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap{grid-template-columns:minmax(0,1fr) 18px;column-gap:2px;padding-right:0;margin:7px 0 10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input,
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input:placeholder-shown,
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap .gap-highlight{grid-column:1;grid-row:1;padding-inline:14px;text-align:center}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap .gap-help{position:static;grid-column:2;grid-row:1;width:18px;height:25px;padding:2px;align-self:center}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap .gap-status{grid-column:1;grid-row:1;justify-self:end;width:17px;margin-right:2px}
+}
+
+/* UI/UX Pro Max alignment · 2026-11-01. Shared Listening material, desktop only. */
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]){--dictation-success:var(--practice-green);--dictation-error:var(--practice-red);--dictation-soft:#faf8f0;--dictation-radius:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-lesson-header{padding:18px 24px 14px;margin-bottom:20px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-lesson-heading{padding-bottom:14px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-lesson-heading h1{font-size:24px;line-height:1.35;letter-spacing:-.025em}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .journey[data-lesson-route] .route-art{width:44px;height:44px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro{margin-bottom:20px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-intro .practice-title{margin-bottom:10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-title h2{font-size:24px;line-height:1.4;font-weight:600}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .project-shell .dictation-grid{grid-template-columns:minmax(280px,310px) minmax(0,1fr);gap:24px;align-items:start}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .practice-source-stack{gap:20px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source{padding:16px 18px 18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source .source-art{height:112px;min-height:0;margin:-16px -18px 12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source-caption{font-size:12px;line-height:1.5;margin-bottom:10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source audio{height:40px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list{padding:18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-list-heading{margin-bottom:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-list-heading h3{font-size:14px;line-height:1.5}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #unit-filter{height:36px;padding:6px 10px;border-color:var(--practice-control);font-size:12px;color:var(--practice-muted)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list ol{max-height:392px;margin-top:12px;padding:3px 4px;scrollbar-color:#c9c3ad transparent}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list li{margin-bottom:8px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button{gap:10px;min-height:64px;padding:10px 8px;border-radius:10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list .unit-number{flex-basis:28px;width:28px;height:28px;font-size:12px;font-weight:500}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button .unit-list-copy strong{font-size:13px;font-weight:500;line-height:1.65}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list .unit-status-copy{font-size:11px;line-height:1.6}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button.unit-complete{border-width:2px;padding:9px 7px;box-shadow:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list button .unit-mark{flex-basis:20px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-mark svg{width:20px;height:20px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .writing-card{padding:24px 28px;border-radius:16px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .section-row{margin:0 0 16px;align-items:center}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-kicker{font-size:13px;line-height:1.5;letter-spacing:0;font-weight:600}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-progress-copy{font-size:12px;line-height:1.5}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .mode-switch{margin-bottom:16px;border-color:var(--practice-line)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .mode-switch button{min-height:38px;font-size:13px;line-height:1.5}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player{min-height:80px;margin:0 0 8px;padding:10px 12px 28px;gap:8px;border-radius:var(--dictation-radius);background:var(--dictation-soft);align-items:flex-start}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button,
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button.dictation-play-button{width:68px;min-width:68px;height:36px;border-radius:8px;transition:background-color .15s ease}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button:disabled{opacity:.45}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button::after{font-size:10px;line-height:17px;padding:0 4px;background:var(--practice-surface);color:#665b43;border-color:#d8d0b9}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed{margin-left:auto;margin-top:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #speed{min-height:36px;width:66px;padding:6px;font-size:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop{min-height:36px;margin-top:0;padding:0 2px;font-size:12px;gap:6px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop input{width:14px;height:14px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts{margin:0 0 12px;font-size:12px;line-height:1.6}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts summary{min-height:32px;gap:7px;color:var(--practice-muted)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts summary:hover{color:var(--practice-gold-ink)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-shortcuts dl{padding:16px;gap:12px 24px;margin:8px 0 16px;background:var(--dictation-soft);border-radius:10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-cloze{min-height:132px;padding:16px 0 24px;font-size:20px;line-height:2.6;letter-spacing:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap{margin-block:6px 10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input,
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap .gap-highlight{font-size:18px;line-height:1.6}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-editor{margin:12px 0 20px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-feedback-box{margin:0 0 16px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.6;align-items:center}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-feedback-box>svg{width:18px;height:18px;margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-answer{padding:16px 18px;margin:0 0 20px;background:var(--dictation-soft);border-radius:10px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #dictation-translation{font-size:14px;line-height:1.8;color:var(--practice-ink);margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-translation-label{font-size:12px;font-weight:600;color:var(--practice-muted);margin-right:4px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-support-actions{padding-top:16px;border-top:1px solid var(--practice-line);gap:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #reveal-all{min-height:36px;padding:6px 0;font-size:13px;line-height:1.6}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #reveal-all:disabled{color:var(--practice-muted);opacity:.5;text-decoration:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-bottom-nav{margin-top:24px;padding-top:20px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-finish{padding:36px 40px;border-radius:16px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-finish-hero{gap:28px;margin-bottom:28px;max-width:760px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-finish-art{width:176px;height:176px;background:#fff3c8}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-finish-art img{width:176px;height:176px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-finish h2{font-size:28px;line-height:1.4;letter-spacing:-.025em;color:var(--practice-ink)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-stats{gap:16px;margin-bottom:28px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-stats>div{padding:20px 12px;border-radius:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-stats strong{font-size:28px;line-height:1.25}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-stats span{font-size:13px;line-height:1.6}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-finish-actions{gap:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-review-row{padding:20px;border-color:var(--practice-line);border-radius:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-review-meta{font-size:12px;line-height:1.6;margin-bottom:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-review-row .review-sentence{font-size:18px;line-height:1.8;margin:0 0 8px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-review-row .review-translation{font-size:14px;line-height:1.8;color:var(--practice-muted);margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-review-actions{margin-top:16px}
+}
+@media(min-width:1100px) and (prefers-reduced-motion:reduce){body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button{transition:none}}
+
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input::placeholder{color:#806b32;-webkit-text-fill-color:#806b32}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap .gap-help{position:relative;top:auto;right:auto}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap .gap-help::after{content:'';position:absolute;inset:-4px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button::after{font-size:11px}
+}
+
+
+/* Quieter practice loop; preserve the familiar source/list left and writing right. */
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source{padding:16px 18px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source-heading{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source-heading .source-art{flex:none;width:52px;height:40px;min-height:0;margin:0;border-radius:8px;overflow:hidden}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source-heading #source-unit-caption{font-size:13px;font-weight:500;color:var(--practice-ink);margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .unit-list ol{position:relative}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player{margin-bottom:16px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #next-unit[data-ready=true]{background:var(--practice-gold);color:var(--practice-gold-ink)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #next-unit[data-ready=true]:hover{background:#ffd253}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player:has(#next-unit[data-ready=true]) #play-unit{background:#f1ecdc}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-cloze{min-height:112px;padding-top:12px;padding-bottom:20px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-feedback-box{background:transparent;padding:0;margin:0 0 12px;font-size:13px;gap:8px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-answer{margin-bottom:16px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-quiet-tools{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;border-top:1px solid var(--practice-line);padding-top:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-quiet-tools .dictation-support-actions{border:0;padding:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-quiet-tools .dictation-shortcuts{margin:0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-quiet-tools .dictation-shortcuts[open]{flex-basis:100%}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-quiet-tools .dictation-shortcuts summary{min-height:36px;margin-left:auto}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-quiet-tools .dictation-shortcuts dl{margin:8px 0 0}
+}
+
+/* Tactile playback controls and one quiet paper surface for the sentence. */
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player{padding:12px 14px 32px;min-height:84px;gap:10px;border-radius:12px;background:#f8f6ee}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button,
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button.dictation-play-button{width:54px;min-width:54px;height:40px;padding:9px;border:1px solid #e5deca;border-radius:9px;background:var(--practice-surface)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button:hover:not(:disabled){background:#fff2c5;border-color:#c5ac69}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button:disabled{background:transparent;border-color:transparent;opacity:.4}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button.dictation-play-button{background:var(--practice-gold);border-color:var(--practice-gold)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button svg{width:19px;height:19px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player>button::after{top:calc(100% + 6px);border:0;background:transparent;padding:0;line-height:16px;font-size:10px;color:var(--practice-muted)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player #next-unit[data-ready=true]{background:var(--practice-gold);border-color:var(--practice-gold)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player:has(#next-unit[data-ready=true]) #play-unit{background:#f2eddd;border-color:#e5deca}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed{display:flex;align-items:center;gap:3px;min-height:40px;margin-top:0;margin-left:auto;padding:0 6px 0 10px;border:1px solid #e5deca;border-radius:9px;background:var(--practice-surface);color:var(--practice-gold-ink)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed>svg{width:16px;height:16px;flex:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #speed{width:66px;min-height:38px;padding:6px 4px;font-size:13px;font-weight:500;background:transparent;cursor:pointer}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed:hover{border-color:#c5ac69}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop{position:relative;display:flex;align-items:center;gap:10px;min-height:40px;margin:0;padding:0 11px;border:1px solid #e5deca;border-radius:9px;background:var(--practice-surface);font-size:12px;font-weight:500;color:var(--practice-muted);cursor:pointer}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player .dictation-loop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:pointer}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop-switch{position:relative;display:block;width:28px;height:16px;flex:none;border-radius:8px;background:#878c78;pointer-events:none;transition:background-color .15s ease}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop-switch::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fffefb;box-shadow:0 1px 2px #34382f26;transition:transform .15s ease}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop:has(input:checked){background:#fff4d0;border-color:#d5ba72;color:var(--practice-gold-ink)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop input:checked~.dictation-loop-switch{background:#a67a1f}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop input:checked~.dictation-loop-switch::after{transform:translateX(12px)}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop:hover{border-color:#c5ac69}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop:has(input:focus-visible){outline:3px solid var(--practice-focus);outline-offset:3px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-cloze{min-height:112px;padding:20px 22px;margin:0 0 20px;border-radius:12px;background:#f6f4ea;line-height:2.6}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-editor{background:#f6f4ea;border-radius:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-live-editor #dictation-input{background:transparent}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #reveal-all{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:9px 14px;border:1px solid #d8d0b9;border-radius:9px;background:var(--practice-surface);color:var(--practice-gold-ink);font-size:13px;font-weight:500;line-height:1.5;text-decoration:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #reveal-all svg{width:17px;height:17px;flex:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #reveal-all:hover:not(:disabled){background:#fff5d6;border-color:#c5ac69}
+body:is([data-spark-page=dictation],[data-dictation-ui]) #reveal-all:active:not(:disabled){background:#ffedb1}
+}
+@media(min-width:1100px) and (prefers-reduced-motion:reduce){body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop-switch,body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-loop-switch::after{transition:none}}
+
+@media(min-width:1100px){body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-quiet-tools:has(#reveal-all[hidden]){display:none}}
+
+/* Left-start caret in every answer mode; restore a large, full-width media preview. */
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input,
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input:placeholder-shown,
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap .gap-highlight,
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-gap input::placeholder{text-align:left}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source-heading{display:block;margin-bottom:12px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source-heading .source-art{display:block;width:calc(100% + 36px);height:auto;aspect-ratio:16/9;min-height:0;margin:-16px -18px 12px;border-radius:16px 16px 0 0}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-source-heading .source-art img{display:block;width:100%;height:100%;object-fit:cover}
+}
+
+/* Keep the compact speed picker immediately before the right-hand controls. */
+@media(min-width:1024px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed{order:1;flex:none;box-sizing:border-box;width:auto;min-height:40px;height:40px;margin:0 0 0 auto;padding:0 6px;gap:4px;border:1px solid #e5deca;border-radius:9px;background:var(--practice-surface);color:var(--practice-gold-ink);display:flex;align-items:center}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed>svg{width:18px;height:18px;flex:none}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed :is(#speed,#shadow-speed){box-sizing:border-box;appearance:none;flex:none;width:44px;min-width:0;min-height:38px;height:38px;padding:4px 14px 4px 0;font-size:13px;font-weight:500;border:0;border-radius:0;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23674718' stroke-width='1.5'%3E%3Cpath d='m2 4 4 4 4-4'/%3E%3C/svg%3E") right center/12px 12px no-repeat;color:inherit;cursor:pointer}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-player .dictation-loop{order:2;margin-left:0}
+}
+
+@media(min-width:1024px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed:has(option[value="1"]:checked) :is(#speed,#shadow-speed){width:28px}
+body:is([data-spark-page=dictation],[data-dictation-ui]) .dictation-speed:has(:is(option[value="0.5"],option[value="1.5"]):checked) :is(#speed,#shadow-speed){width:36px}
+}
+
+@media(min-width:1100px){
+body:is([data-spark-page=dictation],[data-dictation-ui]) :is(#dictation-point-counter,#shadow-point-counter){display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;background:#fff2c5;color:#795719;font-size:14px;font-variant-numeric:tabular-nums;margin-left:auto}
+body:is([data-spark-page=dictation],[data-dictation-ui]) :is(#dictation-point-counter,#shadow-point-counter) svg,.dictation-point-flight svg{width:18px;height:18px;fill:#f3c747;stroke:#9b711c;stroke-width:1.5}
+.dictation-point-flight{position:fixed;z-index:1000;pointer-events:none;display:flex;align-items:center;gap:4px;color:#795719;background:#fff2c5;padding:5px 9px;border-radius:8px;font:600 16px 'Be Vietnam Pro',sans-serif}
+}
+
+/* Completion: Spark leads one warm celebration; results read as a single record. */
+@media(min-width:1100px){
+body[data-spark-page=dictation] .dictation-finish{padding:32px 48px 28px;background:var(--practice-surface);box-shadow:var(--practice-shadow);border:0;overflow:hidden}
+body[data-spark-page=dictation] .dictation-finish-hero{display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px;max-width:820px;margin:0 auto 24px;align-items:center}
+body[data-spark-page=dictation] .dictation-finish-art{width:240px;height:224px;border-radius:0;background:transparent}
+body[data-spark-page=dictation] .dictation-finish-art img{width:228px;height:228px;object-fit:contain}
+body[data-spark-page=dictation] .dictation-finish h2{max-width:20ch;font-size:30px;line-height:1.35;font-weight:700;letter-spacing:-.025em;margin:0 0 14px;text-wrap:balance}
+body[data-spark-page=dictation] #dictation-summary{font-size:14px;line-height:1.6;margin:0 0 18px;color:var(--practice-muted)}
+body[data-spark-page=dictation] .dictation-finish-total{font-size:24px;font-weight:600;line-height:1.4;color:var(--practice-ink);font-variant-numeric:tabular-nums;margin-right:6px}
+body[data-spark-page=dictation] .dictation-finish-reward{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;background:#fff1bf;color:var(--practice-gold-ink);border-radius:9px}
+body[data-spark-page=dictation] .dictation-finish-reward svg{width:20px;height:20px;fill:#edbd3d;stroke:#916719;stroke-width:1.5}
+body[data-spark-page=dictation] .dictation-finish-reward strong{font-size:20px;line-height:1.4;font-weight:600;font-variant-numeric:tabular-nums}
+body[data-spark-page=dictation] .dictation-finish-reward>span{font-size:12px;margin-left:5px}
+body[data-spark-page=dictation] .dictation-stats{max-width:820px;margin:0 auto 24px;padding:20px 0;border-block:1px solid var(--practice-line);gap:0}
+body[data-spark-page=dictation] .dictation-stats>div,body[data-spark-page=dictation] .dictation-stats>div:first-child,body[data-spark-page=dictation] .dictation-stats>div:last-child{background:transparent;padding:0 20px;border-radius:0;color:var(--practice-ink);gap:5px}
+body[data-spark-page=dictation] .dictation-stats>div+div{border-left:1px solid var(--practice-line)}
+body[data-spark-page=dictation] .dictation-stats strong{font-size:26px;line-height:1.3;font-weight:600}
+body[data-spark-page=dictation] .dictation-stats span{font-size:13px;color:var(--practice-muted)}
+body[data-spark-page=dictation] .dictation-finish-actions{max-width:820px;justify-content:flex-start;margin:0 auto;gap:12px}
+body[data-spark-page=dictation] .dictation-finish-actions .button{min-height:44px}
+body[data-spark-page=dictation] .dictation-finish-actions #dictation-replay{margin-left:auto;padding:10px 4px;min-height:44px;font-size:13px}
+body[data-spark-page=dictation] #dictation-review-list{max-width:820px;margin:24px auto 0;padding-top:24px}
+body[data-spark-page=dictation] .dictation-review-row{border:0;border-radius:0;padding:20px 0;border-bottom:1px solid var(--practice-line)}
 }

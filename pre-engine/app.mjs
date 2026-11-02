@@ -1,4 +1,4 @@
-import {whileReward} from '../session.mjs';
+import {whileReward,dictationReward} from '../session.mjs';
 import {rewardPoints,create,predict,learn,replay,reward,restore,finish,selectMode} from './state.mjs';
 import {mountLearning,learningItems} from '../pre-learning.mjs';
 import {mountBlast} from '../pre-blast.mjs';
@@ -64,7 +64,7 @@ function renderRewardStatus(){
  const amount=document.createElement('strong');amount.textContent=`+${points}`;const received=document.createElement('span');received.textContent='Đã nhận';
  status.setAttribute('aria-label',label);status.setAttribute('aria-atomic','true');status.replaceChildren(icon,amount,received);
 }
-function walletBalance(){return state.balance+whileReward();}
+function walletBalance(){return state.balance+whileReward()+dictationReward();}
 function clearCelebration(){clearTimeout(animationTimer);clearTimeout(flightTimer);clearTimeout(cleanupTimer);$('#particles').replaceChildren();$('.spark-stage').classList.remove('celebrate');$('#wallet').classList.remove('wallet-pulse');$('#balance').textContent=walletBalance();}
 function stopRewardMotion(){
  clearCelebration();

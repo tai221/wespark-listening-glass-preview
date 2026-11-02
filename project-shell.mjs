@@ -24,7 +24,7 @@ function mount(){
   app.append(clouds);
   const file=location.pathname.split('/').pop()||'index.html';
   const browsing=['index.html','library.html'].includes(file);
-  const labels={'index.html':'Góc học tập','library.html':'Thư viện','pre.html':'Chuẩn bị','while.html':'Nghe hiểu','post.html':'Vận dụng','dictation.html':'Nghe chép','shadowing.html':'Luyện nói theo','conversation.html':'Hội thoại'};
+  const labels={'index.html':'Góc học tập','library.html':'Thư viện','pre.html':'Chuẩn bị','while.html':'Nghe hiểu','post.html':'Vận dụng','dictation.html':'Nghe chép','dictation-complete.html':'Kết quả nghe chép','shadowing.html':'Luyện nói theo','conversation.html':'Hội thoại'};
   const brand=header.querySelector('.brand'),journey=header.querySelector('.journey');
   const wallet=header.querySelector('.wallet')||document.createElement('div');
   if(!wallet.classList.contains('wallet')){
@@ -38,7 +38,7 @@ function mount(){
   const sidebar=document.createElement('aside');sidebar.id='project-sidebar';sidebar.className='project-sidebar';sidebar.setAttribute('aria-label','Điều hướng chính');
   const groups=[
     ['Kế hoạch',[['plan','OKRs của tôi','../key-okrs-management.html']]],
-    ['Học tập',[['listen','Listening','library.html'],['speak','Speaking','../key-speaking-library.html'],['book','Từ vựng','http://localhost:3000/tu-vung']]],
+    ['Học tập',[['listen','Listening','library.html'],['speak','Speaking','../key-speaking-library.html'],['book','Từ vựng','#preview-unavailable']]],
     ['Theo dõi',[['progress','Hồ sơ học tập','../key-profile.html']]],
     ['Phần thưởng',[['gift','Spark & quà','../key-spark.html']]],
   ];

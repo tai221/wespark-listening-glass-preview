@@ -1,4 +1,4 @@
-export const DICTATION_UNITS=Object.freeze([
+const LESSON_SENTENCES=Object.freeze([
   {
     "id": "sentence-01",
     "text": "Every evening, our kitchen bin used to be full.",
@@ -308,3 +308,6 @@ export const DICTATION_UNITS=Object.freeze([
     "audio": "assets/dictation-audio/sentence-28.wav"
   }
 ]);
+
+// The local practice uses the first five sentences of this lesson.
+export const DICTATION_UNITS=Object.freeze(LESSON_SENTENCES.slice(0,5));

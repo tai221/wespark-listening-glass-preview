@@ -1,0 +1,123 @@
+/* Conversation uses the shared WeSpark desktop practice tokens. */
+@media (min-width:1100px){
+body[data-spark-page=conversation] .dictation-intro .spark-wave{display:none}
+body[data-spark-page=conversation] .dictation-bottom-nav svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body[data-spark-page=conversation] .conversation-grid{grid-template-columns:minmax(0,1fr) 300px;gap:20px}
+body[data-spark-page=conversation] .conversation-workspace.card{padding:0;overflow:hidden}
+body[data-spark-page=conversation] .conversation-content-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px 0}
+body[data-spark-page=conversation] .conversation-content-heading .eyebrow{margin:0;font-size:14px;line-height:1.5;font-weight:600;color:var(--practice-gold-ink)}
+body[data-spark-page=conversation] .conversation-content-heading #conversation-progress{font-size:13px;line-height:1.5;font-weight:500;color:var(--practice-muted);font-variant-numeric:tabular-nums}
+body[data-spark-page=conversation] .conversation-workspace #conversation-intro{padding-top:0}
+body[data-spark-page=conversation] .conversation-workspace .card{padding:24px;border:0;border-radius:0;box-shadow:none;background:none}
+body[data-spark-page=conversation] .conversation-task-art{display:none}
+body[data-spark-page=conversation] .conversation-scene{display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;align-items:center;margin:22px 0 28px}
+body[data-spark-page=conversation] .conversation-scene-image{display:block;width:240px;height:212px;object-fit:cover;border-radius:12px}
+body[data-spark-page=conversation] .task-card h3{max-width:30ch;font-size:25px;line-height:1.4;font-weight:600;letter-spacing:-.025em;margin:0 0 12px;text-wrap:balance}
+body[data-spark-page=conversation] .conversation-scenario{max-width:65ch;margin:0;color:var(--practice-muted);font-size:14px;line-height:1.8}
+body[data-spark-page=conversation] .task-card svg{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body[data-spark-page=conversation] .conversation-role{display:flex;align-items:flex-start;gap:12px;margin:18px 0 0;font-size:13px;line-height:1.7;color:var(--practice-ink)}
+body[data-spark-page=conversation] .conversation-role svg{color:var(--practice-gold-ink);margin-top:2px}
+body[data-spark-page=conversation] .conversation-role strong{display:block;font-weight:600;margin-bottom:2px}
+body[data-spark-page=conversation] .conversation-mission{border-top:1px solid var(--practice-line);padding-top:22px}
+body[data-spark-page=conversation] .conversation-mission h4{font-size:14px;line-height:1.6;font-weight:600;margin:0 0 18px}
+body[data-spark-page=conversation] .conversation-brief{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;list-style:none;padding:0;margin:0 0 26px}
+body[data-spark-page=conversation] .conversation-brief li{display:flex;align-items:flex-start;gap:12px;font-size:13px;line-height:1.7}
+body[data-spark-page=conversation] .conversation-brief li>svg{color:var(--practice-gold-ink);margin-top:2px}
+body[data-spark-page=conversation] .conversation-brief strong{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+body[data-spark-page=conversation] .conversation-brief p{margin:0;color:var(--practice-muted);font-size:13px;line-height:1.7}
+body[data-spark-page=conversation] .conversation-start-row{display:flex;align-items:center;justify-content:space-between;gap:32px;border-top:1px solid var(--practice-line);padding-top:24px}
+body[data-spark-page=conversation] .conversation-start-row>.button{flex:none;min-height:48px;padding-inline:24px}
+body[data-spark-page=conversation] .conversation-format{display:flex;align-items:center;gap:10px;font-size:12px;line-height:1.7;color:var(--practice-muted);margin:0}
+body[data-spark-page=conversation] .conversation-format strong{display:block;font-weight:500;color:var(--practice-ink)}
+body[data-spark-page=conversation] .conversation-grid:has(#conversation-intro:not([hidden])){grid-template-columns:minmax(0,1fr)}
+body[data-spark-page=conversation] .conversation-grid:has(#conversation-intro:not([hidden])) .conversation-support .card{padding:14px 24px}
+body[data-spark-page=conversation] .conversation-grid:has(#conversation-intro:not([hidden])) .conversation-support details[open]{max-width:760px}
+body[data-spark-page=conversation] .conversation-support{gap:16px}
+body[data-spark-page=conversation] .conversation-support .card{padding:18px}
+body[data-spark-page=conversation] .conversation-support summary{display:list-item;min-height:28px;font-size:14px;line-height:1.6;border-radius:4px}
+body[data-spark-page=conversation] .conversation-support summary:hover{color:var(--practice-gold-ink)}
+body[data-spark-page=conversation] .conversation-support summary h3{display:inline;font:inherit;margin:0;color:inherit}
+body[data-spark-page=conversation] .conversation-support h4{font-size:12px;line-height:1.6;font-weight:600;color:var(--practice-ink);margin:16px 0 6px}
+body[data-spark-page=conversation] .conversation-support p{font-size:13px;line-height:1.7;margin:8px 0}
+body[data-spark-page=conversation] .conversation-support p[lang=en]{padding:10px 12px;margin:6px 0;background:#f8f6eb;color:var(--practice-ink);border-radius:8px;line-height:1.9}
+body[data-spark-page=conversation] .conversation-support .micro{font-size:12px}
+body[data-spark-page=conversation] .chat-messages{max-height:330px;gap:14px;overscroll-behavior:contain;scroll-padding:8px}
+body[data-spark-page=conversation] .chat-message{max-width:90%;background:#f8f6eb;border-radius:14px 14px 14px 4px}
+body[data-spark-page=conversation] .chat-message.user{background:#fff1bf;border-radius:14px 14px 4px 14px}
+body[data-spark-page=conversation] .chat-message p{font-size:17px;line-height:1.7;overflow-wrap:anywhere}
+body[data-spark-page=conversation] .chat-message .text-button{margin-top:10px;min-height:32px}
+body[data-spark-page=conversation] .conversation-workspace .voice-workspace{margin-top:20px;padding:18px 20px}
+body[data-spark-page=conversation] .voice-state{font-size:15px}
+body[data-spark-page=conversation] .voice-workspace .button{min-width:172px}
+body[data-spark-page=conversation] .voice-workspace.recording{border-color:var(--practice-red);background:var(--practice-red-bg)}
+body[data-spark-page=conversation] .conversation-workspace .practice-actions{margin-top:16px;padding-top:12px}
+body[data-spark-page=conversation] .final-feedback>h3,body[data-spark-page=conversation] #conversation-partial h3{font-size:22px;line-height:1.5;margin:12px 0 20px;font-weight:600}
+body[data-spark-page=conversation] .feedback-item{margin-top:16px;padding-top:16px}
+body[data-spark-page=conversation] .feedback-item h4{font-size:14px;line-height:1.6;margin:0 0 8px;font-weight:600}
+body[data-spark-page=conversation] .feedback-item p{font-size:14px;line-height:1.75;margin:8px 0}
+body[data-spark-page=conversation] .feedback-item p[lang=en]{padding:12px 14px;background:#f8f6eb;color:var(--practice-ink);border-radius:8px;font-size:16px}
+body[data-spark-page=conversation] :is(.card,.voice-workspace){overflow-wrap:break-word}
+/* A stable transcript above a persistent voice composer. */
+body[data-spark-page=conversation] .conversation-workspace #conversation-chat{padding:0}
+body[data-spark-page=conversation] .conversation-workspace:has(#conversation-chat:not([hidden])) .conversation-content-heading{padding-bottom:16px;border-bottom:1px solid var(--practice-line)}
+body[data-spark-page=conversation] .conversation-room{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px}
+body[data-spark-page=conversation] .conversation-room-person{display:flex;align-items:center;gap:12px;min-width:0}
+body[data-spark-page=conversation] .conversation-room-person img{object-fit:contain;width:48px;height:48px}
+body[data-spark-page=conversation] .conversation-room h3{font-size:15px;font-weight:600;line-height:1.5;margin:0}
+body[data-spark-page=conversation] .conversation-room h3 span{font-size:10px;font-weight:500;padding:2px 5px;border-radius:4px;background:#f0eee4;color:var(--practice-muted);margin-left:6px;vertical-align:middle}
+body[data-spark-page=conversation] .conversation-room p{font-size:12px;line-height:1.6;color:var(--practice-muted);margin:3px 0 0}
+body[data-spark-page=conversation] .conversation-room .text-button{font-size:12px;flex:none}
+body[data-spark-page=conversation] .chat-messages{display:flex;flex-direction:column;height:320px;max-height:320px;overflow-y:auto;padding:22px 24px;gap:22px;background:#faf8f1;scrollbar-gutter:stable}
+body[data-spark-page=conversation] .chat-message,body[data-spark-page=conversation] .chat-message.user{display:flex;align-items:flex-end;gap:10px;width:100%;max-width:100%;padding:0;border:0;border-radius:0;background:none;box-shadow:none;margin:0}
+body[data-spark-page=conversation] .chat-message.user{flex-direction:row-reverse}
+body[data-spark-page=conversation] .chat-avatar{display:grid;place-items:center;flex:0 0 32px;width:32px;height:36px;color:var(--practice-gold-ink)}
+body[data-spark-page=conversation] .chat-avatar img{width:36px;height:36px;object-fit:contain}
+body[data-spark-page=conversation] .chat-avatar svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body[data-spark-page=conversation] .chat-bubble{max-width:80%;padding:13px 16px;background:var(--practice-surface);border:1px solid var(--practice-line);border-radius:14px 14px 14px 4px}
+body[data-spark-page=conversation] .chat-message.user .chat-bubble{background:#fff1bf;border-color:#ebd694;border-radius:14px 14px 4px 14px}
+body[data-spark-page=conversation] .chat-message .speaker{font-size:11px;font-weight:500;margin-bottom:5px}
+body[data-spark-page=conversation] .chat-message p,body[data-spark-page=conversation] .chat-message.user p{font-size:15px;line-height:1.75;margin:0}
+body[data-spark-page=conversation] .chat-listen{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:3px 6px;margin:8px 0 0 -6px;border:0;border-radius:6px;background:none;color:var(--practice-gold-ink);font-size:11px;cursor:pointer}
+body[data-spark-page=conversation] .chat-listen:hover{background:#fff1bf}
+body[data-spark-page=conversation] .chat-listen svg,body[data-spark-page=conversation] .voice-compose-actions svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body[data-spark-page=conversation] .conversation-workspace .voice-workspace{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0;padding:18px 24px;border:0;border-top:1px solid var(--practice-line);border-radius:0;background:var(--practice-surface);min-height:110px}
+body[data-spark-page=conversation] .voice-compose-copy{display:flex;align-items:center;gap:14px;min-width:0}
+body[data-spark-page=conversation] .voice-state{font-size:14px;line-height:1.6}
+body[data-spark-page=conversation] .voice-workspace .micro{margin:4px 0 0;font-size:12px;line-height:1.6;max-width:40ch}
+body[data-spark-page=conversation] .voice-compose-actions{flex:none}
+body[data-spark-page=conversation] .voice-workspace .button{min-width:158px;font-size:13px;min-height:46px}
+body[data-spark-page=conversation] .voice-indicator{display:flex;align-items:center;justify-content:center;gap:3px;width:40px;height:40px;flex:none;border-radius:50%;background:#f5f2e8;color:var(--practice-gold-ink)}
+body[data-spark-page=conversation] .voice-indicator i{width:3px;height:8px;border-radius:2px;background:currentColor}
+body[data-spark-page=conversation] .voice-indicator i:nth-child(2n){height:16px}
+body[data-spark-page=conversation] .voice-indicator i:nth-child(3){height:22px}
+body[data-spark-page=conversation] .voice-workspace.recording{background:var(--practice-red-bg)}
+body[data-spark-page=conversation] .voice-workspace.recording .voice-indicator{background:#f4ded5;color:var(--practice-red)}
+body[data-spark-page=conversation] .voice-workspace[data-phase=processing] .voice-indicator{background:#fff1bf}
+body[data-spark-page=conversation] .voice-workspace:is([data-phase=mic-error],[data-phase=silence],[data-phase=processing-error]) .voice-state{color:var(--practice-red)}
+body[data-spark-page=conversation] .conversation-grid:has(#conversation-chat:not([hidden])) .conversation-support{position:sticky;top:24px}
+body[data-spark-page=conversation] .practice-main:has(#conversation-chat:not([hidden]))>.dictation-intro{margin-bottom:16px}
+body[data-spark-page=conversation] .practice-main:has(#conversation-chat:not([hidden])) .dictation-intro>[data-spark-slot]{display:none}
+body[data-spark-page=conversation] .conversation-workspace .voice-workspace{justify-content:center;min-height:96px;padding:16px 24px 26px}
+body[data-spark-page=conversation] .voice-workspace:is([data-phase=ready],[data-phase=recording]) .voice-compose-copy{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+body[data-spark-page=conversation] .voice-workspace .voice-indicator{display:none}
+body[data-spark-page=conversation] .voice-compose-actions{padding-bottom:14px}
+body[data-spark-page=conversation] .voice-workspace :is(#conversation-record,#conversation-stop){position:relative;width:54px;min-width:54px;height:44px;padding:10px;border-radius:9px}
+body[data-spark-page=conversation] .voice-compose-actions :is(#conversation-record,#conversation-stop) svg{width:22px;height:22px}
+body[data-spark-page=conversation] .voice-compose-actions kbd{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);font-family:inherit;font-size:10px;font-weight:500;line-height:16px;color:var(--practice-muted)}
+body[data-spark-page=conversation] .voice-workspace[data-phase=processing] .voice-compose-actions{display:none}
+body[data-spark-page=conversation] .chat-message{align-items:flex-start}
+body[data-spark-page=conversation] .chat-avatar{margin-top:8px}
+body[data-spark-page=conversation] .chat-message-content{max-width:80%;min-width:0}
+body[data-spark-page=conversation] .chat-message-content .chat-bubble{max-width:100%}
+body[data-spark-page=conversation] .chat-message-tools{display:flex;justify-content:flex-end;gap:7px;margin-top:7px}
+body[data-spark-page=conversation] .chat-message-tools button{display:grid;place-items:center;width:30px;height:30px;min-height:30px;padding:6px;margin:0;border:1px solid var(--practice-line);border-radius:50%;background:var(--practice-surface);color:var(--practice-muted);cursor:pointer}
+body[data-spark-page=conversation] .chat-message-tools button:hover,body[data-spark-page=conversation] .chat-message-tools button[aria-expanded=true]{background:#fff1bf;border-color:#d8bd77;color:var(--practice-gold-ink)}
+body[data-spark-page=conversation] .chat-message-tools svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body[data-spark-page=conversation] .chat-message .chat-translation{margin-top:10px;font-size:13px;line-height:1.7;color:var(--practice-muted);padding:0 4px}
+body[data-spark-page=conversation] .voice-workspace[data-phase=recording] #conversation-stop{animation:conversation-recording-pulse 1.35s ease-in-out infinite}
+@keyframes conversation-recording-pulse{
+0%,100%{box-shadow:0 0 0 0 #854b3738;filter:brightness(1)}
+50%{box-shadow:0 0 0 7px #854b3700;filter:brightness(1.12)}
+}
+@media(prefers-reduced-motion:reduce){body[data-spark-page=conversation] #conversation-stop{animation:none!important}}
+}
