@@ -81,7 +81,8 @@ function reviewedAll(){return wrongIndices().every(i=>state.reviewed.includes(i)
 function render(){
  stopQuestion();feedback.sync(state,{grading});document.body.classList.toggle('while-grading',grading);$('#question-list').setAttribute('aria-busy',String(grading));
  document.body.classList.toggle('review-mode',state.submitted);
- $('#phase-caption').textContent=grading?'Đang chấm từng câu…':state.submitted?'Nghe lại & đối chiếu':'Lắng nghe & nắm bắt nội dung';
+ $('#phase-caption').hidden=!state.submitted;
+ $('#phase-caption').textContent=grading?'Đang chấm từng câu…':state.submitted?'Nghe lại & đối chiếu':'';
  $('#question-section-heading').hidden=state.submitted;$('#result-summary').hidden=!state.submitted||grading;$('#transcript-panel').hidden=!state.submitted||grading;
  $('#submit').hidden=state.submitted;$('#post-link').hidden=!state.submitted||grading;$('#next-wrong').hidden=!state.submitted||grading||wrongIndices().length===0;
  $('#question-list').replaceChildren();
@@ -95,7 +96,8 @@ function renderQuestion(q,i){
  if(graded)article.classList.add(correct?'correct':blank?'blank':'wrong');
  const meta=el('div','q-meta');meta.append(el('span','q-index',i+1),el('span','q-type',q.type));
  if(graded){const result=statusIcon(correct?'right':blank?'blank':'wrong',correct?'Trả lời đúng':blank?'Chưa trả lời':'Trả lời sai');result.classList.add('q-result');meta.append(result);}
- const play=el('button','question-play');play.type='button';play.dataset.playQuestion=i;play.disabled=grading;play.addEventListener('click',()=>playQuestion(i));meta.append(play);
+ const play=state.submitted&&!grading?el('button','question-play'):null;
+ if(play){play.type='button';play.dataset.playQuestion=i;play.addEventListener('click',()=>playQuestion(i));meta.append(play);}
  if(graded&&correct){const point=el('span','while-question-point','+1');point.setAttribute('aria-label','Cộng 1 SparkPoint');meta.insertBefore(point,play);}
  article.append(meta,el('h3','',q.title));
  const playbackError=el('p','question-audio-error','Chưa phát được đoạn nghe. Bấm nút phát để thử lại.');playbackError.hidden=true;playbackError.setAttribute('role','alert');article.append(playbackError);
