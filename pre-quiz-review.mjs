@@ -1,8 +1,8 @@
-import {quizQuestions,restoreQuiz} from './pre-quiz.mjs';
+import {questionSet,restoreQuiz} from './pre-quiz.mjs';
 
 export function mountQuizReview(document,{onClose=()=>{},onReplay=()=>{}}={}){
  const pane=document.querySelector('#quiz-review-pane');
- let snapshot,index=0;
+ let snapshot,index=0,quizQuestions=[];
  function el(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
  function action(text,handler,className='button'){const button=el('button',className,text);button.type='button';button.addEventListener('click',handler);return button;}
  function statusIcon(correct){
@@ -40,7 +40,7 @@ export function mountQuizReview(document,{onClose=()=>{},onReplay=()=>{}}={}){
   content.append(meta,questionTitle,prompt,choices,explanation,pager);layout.append(sidebar,content);pane.append(heading,layout);
  }
  return {
-  open(quizState){snapshot=restoreQuiz(quizState);if(snapshot.phase!=='complete'){close();return false;}const mistake=quizQuestions.findIndex((q,i)=>snapshot.answers[i]!==q.answer);index=mistake<0?0:mistake;render();pane.hidden=false;pane.querySelector('#quiz-review-title').focus();return true;},
+  open(quizState){snapshot=restoreQuiz(quizState);quizQuestions=questionSet(snapshot);if(snapshot.phase!=='complete'){close();return false;}const mistake=quizQuestions.findIndex((q,i)=>snapshot.answers[i]!==q.answer);index=mistake<0?0:mistake;render();pane.hidden=false;pane.querySelector('#quiz-review-title').focus();return true;},
   close
  };
 }

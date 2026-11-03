@@ -1,0 +1,412 @@
+{
+  "welcome": {
+    "text": "Cứ đoán nhé, không chấm đúng sai đâu.",
+    "src": "assets/spark-voice/welcome-elevenlabs.mp3",
+    "duration": 2.507755,
+    "words": [
+      {
+        "text": "Cứ",
+        "start": 0.035,
+        "end": 0.2645
+      },
+      {
+        "text": "đoán",
+        "start": 0.2645,
+        "end": 0.5706
+      },
+      {
+        "text": "nhé,",
+        "start": 0.5706,
+        "end": 0.8919
+      },
+      {
+        "text": "không",
+        "start": 0.8919,
+        "end": 1.2745
+      },
+      {
+        "text": "chấm",
+        "start": 1.2745,
+        "end": 1.5806
+      },
+      {
+        "text": "đúng",
+        "start": 1.5806,
+        "end": 1.8865
+      },
+      {
+        "text": "sai",
+        "start": 1.8865,
+        "end": 2.1222
+      },
+      {
+        "text": "đâu.",
+        "start": 2.1222,
+        "end": 2.315
+      }
+    ]
+  },
+  "daily-habits": {
+    "text": "Thói quen hằng ngày à? Cùng nghe xem những thay đổi nhỏ tạo nên điều gì nhé.",
+    "src": "assets/spark-voice/daily-habits.wav",
+    "duration": 5.265578,
+    "words": [
+      {
+        "text": "Thói",
+        "start": 0,
+        "end": 0.3182
+      },
+      {
+        "text": "quen",
+        "start": 0.3182,
+        "end": 0.6363
+      },
+      {
+        "text": "hằng",
+        "start": 0.6363,
+        "end": 0.9545
+      },
+      {
+        "text": "ngày",
+        "start": 0.9545,
+        "end": 1.2726
+      },
+      {
+        "text": "à?",
+        "start": 1.2726,
+        "end": 1.7181
+      },
+      {
+        "text": "Cùng",
+        "start": 1.7181,
+        "end": 2.0362
+      },
+      {
+        "text": "nghe",
+        "start": 2.0362,
+        "end": 2.3544
+      },
+      {
+        "text": "xem",
+        "start": 2.3544,
+        "end": 2.593
+      },
+      {
+        "text": "những",
+        "start": 2.593,
+        "end": 2.9907
+      },
+      {
+        "text": "thay",
+        "start": 2.9907,
+        "end": 3.3089
+      },
+      {
+        "text": "đổi",
+        "start": 3.3089,
+        "end": 3.5475
+      },
+      {
+        "text": "nhỏ",
+        "start": 3.5475,
+        "end": 3.7861
+      },
+      {
+        "text": "tạo",
+        "start": 3.7861,
+        "end": 4.0247
+      },
+      {
+        "text": "nên",
+        "start": 4.0247,
+        "end": 4.2634
+      },
+      {
+        "text": "điều",
+        "start": 4.2634,
+        "end": 4.5815
+      },
+      {
+        "text": "gì",
+        "start": 4.5815,
+        "end": 4.8202
+      },
+      {
+        "text": "nhé.",
+        "start": 4.8202,
+        "end": 5.265578
+      }
+    ]
+  },
+  "technology": {
+    "text": "Công nghệ xanh à? Cùng nghe xem câu chuyện có nhắc đến ý tưởng này không nhé.",
+    "src": "assets/spark-voice/technology.wav",
+    "duration": 5.175646,
+    "words": [
+      {
+        "text": "Công",
+        "start": 0,
+        "end": 0.3018
+      },
+      {
+        "text": "nghệ",
+        "start": 0.3018,
+        "end": 0.6036
+      },
+      {
+        "text": "xanh",
+        "start": 0.6036,
+        "end": 0.9054
+      },
+      {
+        "text": "à?",
+        "start": 0.9054,
+        "end": 1.3279
+      },
+      {
+        "text": "Cùng",
+        "start": 1.3279,
+        "end": 1.6296
+      },
+      {
+        "text": "nghe",
+        "start": 1.6296,
+        "end": 1.9314
+      },
+      {
+        "text": "xem",
+        "start": 1.9314,
+        "end": 2.1578
+      },
+      {
+        "text": "câu",
+        "start": 2.1578,
+        "end": 2.3841
+      },
+      {
+        "text": "chuyện",
+        "start": 2.3841,
+        "end": 2.7915
+      },
+      {
+        "text": "có",
+        "start": 2.7915,
+        "end": 3.0179
+      },
+      {
+        "text": "nhắc",
+        "start": 3.0179,
+        "end": 3.3197
+      },
+      {
+        "text": "đến",
+        "start": 3.3197,
+        "end": 3.546
+      },
+      {
+        "text": "ý",
+        "start": 3.546,
+        "end": 3.7723
+      },
+      {
+        "text": "tưởng",
+        "start": 3.7723,
+        "end": 4.1496
+      },
+      {
+        "text": "này",
+        "start": 4.1496,
+        "end": 4.3759
+      },
+      {
+        "text": "không",
+        "start": 4.3759,
+        "end": 4.7531
+      },
+      {
+        "text": "nhé.",
+        "start": 4.7531,
+        "end": 5.1756
+      }
+    ]
+  },
+  "community": {
+    "text": "Dự án cộng đồng à? Cùng nghe và khám phá câu chuyện nhé.",
+    "src": "assets/spark-voice/community.wav",
+    "duration": 4.173968,
+    "words": [
+      {
+        "text": "Dự",
+        "start": 0,
+        "end": 0.2427
+      },
+      {
+        "text": "án",
+        "start": 0.2427,
+        "end": 0.4853
+      },
+      {
+        "text": "cộng",
+        "start": 0.4853,
+        "end": 0.8089
+      },
+      {
+        "text": "đồng",
+        "start": 0.8089,
+        "end": 1.1325
+      },
+      {
+        "text": "à?",
+        "start": 1.1325,
+        "end": 1.5855
+      },
+      {
+        "text": "Cùng",
+        "start": 1.5855,
+        "end": 1.909
+      },
+      {
+        "text": "nghe",
+        "start": 1.909,
+        "end": 2.2326
+      },
+      {
+        "text": "và",
+        "start": 2.2326,
+        "end": 2.4753
+      },
+      {
+        "text": "khám",
+        "start": 2.4753,
+        "end": 2.7988
+      },
+      {
+        "text": "phá",
+        "start": 2.7988,
+        "end": 3.0415
+      },
+      {
+        "text": "câu",
+        "start": 3.0415,
+        "end": 3.2842
+      },
+      {
+        "text": "chuyện",
+        "start": 3.2842,
+        "end": 3.721
+      },
+      {
+        "text": "nhé.",
+        "start": 3.721,
+        "end": 4.173968
+      }
+    ]
+  },
+  "learning": {
+    "text": "Cùng học từ và câu nhé. Chọn cần luyện hoặc đã nhớ cho từng mục, rồi mình cùng ôn lại.",
+    "src": "assets/spark-voice/learning-vien-elevenlabs.mp3",
+    "duration": 7.000816,
+    "words": [
+      {
+        "text": "Cùng",
+        "start": 0.06,
+        "end": 0.425054
+      },
+      {
+        "text": "học",
+        "start": 0.425054,
+        "end": 0.698844
+      },
+      {
+        "text": "từ",
+        "start": 0.698844,
+        "end": 0.972634
+      },
+      {
+        "text": "và",
+        "start": 0.972634,
+        "end": 1.246425
+      },
+      {
+        "text": "câu",
+        "start": 1.246425,
+        "end": 1.520215
+      },
+      {
+        "text": "nhé.",
+        "start": 1.520215,
+        "end": 2.03129
+      },
+      {
+        "text": "Chọn",
+        "start": 2.03129,
+        "end": 2.396344
+      },
+      {
+        "text": "cần",
+        "start": 2.396344,
+        "end": 2.670134
+      },
+      {
+        "text": "luyện",
+        "start": 2.670134,
+        "end": 3.126452
+      },
+      {
+        "text": "hoặc",
+        "start": 3.126452,
+        "end": 3.491505
+      },
+      {
+        "text": "đã",
+        "start": 3.491505,
+        "end": 3.765296
+      },
+      {
+        "text": "nhớ",
+        "start": 3.765296,
+        "end": 4.039086
+      },
+      {
+        "text": "cho",
+        "start": 4.039086,
+        "end": 4.312876
+      },
+      {
+        "text": "từng",
+        "start": 4.312876,
+        "end": 4.67793
+      },
+      {
+        "text": "mục,",
+        "start": 4.67793,
+        "end": 5.061237
+      },
+      {
+        "text": "rồi",
+        "start": 5.061237,
+        "end": 5.335027
+      },
+      {
+        "text": "mình",
+        "start": 5.335027,
+        "end": 5.700081
+      },
+      {
+        "text": "cùng",
+        "start": 5.700081,
+        "end": 6.065134
+      },
+      {
+        "text": "ôn",
+        "start": 6.065134,
+        "end": 6.338925
+      },
+      {
+        "text": "lại.",
+        "start": 6.338925,
+        "end": 6.85
+      }
+    ]
+  }
+}

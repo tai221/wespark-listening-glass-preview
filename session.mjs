@@ -1,9 +1,11 @@
+import {restore,canListen} from './pre-engine/state.mjs';
 const KEY='wespark-listening-glass-v1';
 const defaults=()=>({while:{answers:[null,null,null,null],submitted:false,reviewed:[]},post:{choice:null,skipped:false,complete:[]},dictation:{},shadowing:{},conversation:{}});
 let memory=defaults();
 export function read(){try{const saved=JSON.parse(sessionStorage.getItem(KEY));return {...defaults(),...(saved||{})};}catch{return memory;}}
 export function write(patch){memory={...read(),...patch};try{sessionStorage.setItem(KEY,JSON.stringify(memory));}catch{}window.dispatchEvent(new CustomEvent('listening-session-change'));return memory;}
 export function prep(){try{return JSON.parse(sessionStorage.getItem('wespark-listening-glass-pre-v1'))?.state||null;}catch{return null;}}
+export function preparationAccessible(){try{const saved=JSON.parse(sessionStorage.getItem('wespark-listening-glass-pre-v1'));return !!saved&&canListen(restore(saved).state);}catch{return false;}}
 export function whileReward(){const value=read().while?.awardedPoints;return Number.isInteger(value)&&value>=0&&value<=4?value:0;}
 export function dictationReward(){return new Set((Array.isArray(read().dictationRewards)?read().dictationRewards:[]).filter(id=>/^sentence-(0[1-9]|1[0-9]|2[0-8])$/.test(id))).size;}
 export function shadowingReward(){return new Set((Array.isArray(read().shadowingRewards)?read().shadowingRewards:[]).filter(index=>Number.isInteger(index)&&index>=0&&index<3)).size;}
