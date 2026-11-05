@@ -21,15 +21,14 @@ if(companion)new MutationObserver(()=>{if(companion.dataset.sparkMotion==='false
 const completedPreview=new URLSearchParams(location.search).get('preview')==='completed';
 const session=read(),pre=prep();
 if(completedPreview)session.post={...session.post,complete:['dictation']};
-let stage='pre.html?review=restored-20261029',state='Chưa học',resume='';
-if(preparationAccessible()){state='Đang học · Nghe hiểu';stage='while.html';resume='Tiếp tục phần Nghe hiểu.';}
-else if(pre?.prediction){state='Đang học · Chuẩn bị';resume='Tiếp tục phần Chuẩn bị.';}
-if(session.while?.submitted){state='Đang học · Xem lại';stage='while.html';resume='Xem lại kết quả nghe hiểu.';}
-if(session.while?.reviewComplete){state='Đang học · Vận dụng';stage='post.html';resume='Chọn hoạt động để vận dụng điều vừa nghe.';}
-if(session.post.choice){state='Đang học · Vận dụng';stage=`${session.post.choice}.html`;resume='Tiếp tục hoạt động Vận dụng.';}
-if(session.post.skipped){state='Đã bỏ qua phần Vận dụng';stage='post.html';resume='Bạn có thể quay lại chọn một hoạt động.';}
-if(session.post.complete.length){state='Đã hoàn thành luyện tập';stage='post.html';resume='Bạn đã hoàn thành một hoạt động. Có thể luyện thêm nếu muốn.';}
-if(resume){$('#resume').hidden=false;$('#resume-copy').textContent=resume;$('#resume-link').href=stage;$('#resume-link').textContent=session.post.complete.length?'Luyện thêm →':'Tiếp tục →';}
+let stage='pre.html?review=restored-20261029',state='Chưa học';
+if(preparationAccessible()){state='Đang học · Nghe hiểu';stage='while.html';}
+else if(pre?.prediction){state='Đang học · Chuẩn bị';}
+if(session.while?.submitted){state='Đang học · Xem lại';stage='while.html';}
+if(session.while?.reviewComplete){state='Đang học · Vận dụng';stage='post.html';}
+if(session.post.choice){state='Đang học · Vận dụng';stage=`${session.post.choice}.html`;}
+if(session.post.skipped){state='Đã bỏ qua phần Vận dụng';stage='post.html';}
+if(session.post.complete.length){state='Đã hoàn thành luyện tập';stage='post.html';}
 function render(){
  const query=$('#search').value.trim().toLocaleLowerCase('vi');
  const filtered=lessons.filter(l=>(!query||l.title.toLocaleLowerCase('vi').includes(query))&&(!$('#topic').value||l.topic===$('#topic').value)&&(!$('#level').value||l.level===$('#level').value)&&(!$('#media').value||l.media===$('#media').value));
