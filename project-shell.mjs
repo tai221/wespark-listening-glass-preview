@@ -4,6 +4,7 @@ import {balance,read,write,prep} from './session.mjs';
 import {updateLessonJourney} from './lesson-journey.mjs';
 import {createSoundButton,mountContextSound} from './ui-sound.mjs';
 import {mountLessonShell} from './lesson-shell.mjs';
+import {createBackgroundButton} from './background-toggle.mjs';
 const desktop = matchMedia('(min-width:1100px)');
 const icons = {
   panel:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16m5-11-3 3 3 3"/>',
@@ -63,7 +64,7 @@ function mount(){
   const current=document.createElement('span');current.setAttribute('aria-current','page');current.textContent=labels[file]||'Listening';
   breadcrumb.append(library);const separator=document.createElement('span');separator.className='project-crumb-separator';separator.textContent='/';separator.setAttribute('aria-hidden','true');breadcrumb.append(separator,current);
   const utilities=document.createElement('div');utilities.className='project-utilities';
-  utilities.append(soundButton);
+  utilities.append(backgroundButton,soundButton);
   if(wallet){wallet.setAttribute('role','link');wallet.tabIndex=0;wallet.title='Xem Spark & quà';wallet.setAttribute('aria-label','SparkPoint · Xem Spark và quà');const open=()=>{location.href='../key-spark.html';};wallet.addEventListener('click',open);wallet.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();open();}});utilities.append(wallet);}
   const bell=document.createElement('button');bell.type='button';bell.className='project-notification-button';bell.title='Thông báo';bell.setAttribute('aria-label','Thông báo');bell.setAttribute('aria-controls','project-notifications');bell.setAttribute('aria-expanded','false');bell.setAttribute('popovertarget','project-notifications');bell.innerHTML=icon('bell');utilities.append(bell);
   const notifications=document.createElement('section');notifications.id='project-notifications';notifications.className='project-notifications';notifications.setAttribute('popover','auto');notifications.setAttribute('aria-labelledby','project-notifications-title');
@@ -85,7 +86,9 @@ function mount(){
   toggle.addEventListener('click',()=>setExpanded(app.dataset.sidebar!=='expanded'));setExpanded(browsing);
 }
 const soundButton=createSoundButton(document);
+const backgroundButton=createBackgroundButton(document);
 document.querySelector('.app .header')?.append(soundButton);mountContextSound(document);
 if(['pre','while','post','dictation','shadowing','conversation'].includes(document.body.dataset.sparkPage))mountLessonShell(document,{soundButton,read,write,preparationAccessible});
 else if(desktop.matches)mount();
 desktop.addEventListener('change',e=>{if(e.matches)mount();});
+soundButton.before(backgroundButton);

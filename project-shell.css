@@ -1,3 +1,9 @@
+/* Only the page scenery changes; learning surfaces retain their existing styles. */
+html body[data-listening-background="off"],
+html body[data-listening-background="off"] .app.project-shell,
+html body[data-listening-background="off"] .app.lesson-shell{background:#fff!important}
+html body[data-listening-background="off"]::before,
+html body[data-listening-background="off"] .paper-clouds{display:none!important}
 .project-sound-button{display:grid;place-items:center;width:38px;height:38px;padding:8px;border:1px solid transparent;border-radius:10px;background:transparent;color:#64675b;cursor:pointer}
 .project-sound-button svg{width:20px;height:20px}.project-sound-button:hover{background:#fff5da;color:#765016;border-color:#f1e4bc}.project-sound-button[aria-pressed=false]{background:#f3f1e9;color:#62665b}.project-sound-button:focus-visible{outline:2px solid #87611f;outline-offset:3px}
 @media(min-width:1100px){
