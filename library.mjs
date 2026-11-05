@@ -1,3 +1,4 @@
+import {preparationAccessible} from './session.mjs';
 import {read,prep} from './session.mjs';
 const $=s=>document.querySelector(s);
 const lessons=[
@@ -21,7 +22,7 @@ const completedPreview=new URLSearchParams(location.search).get('preview')==='co
 const session=read(),pre=prep();
 if(completedPreview)session.post={...session.post,complete:['dictation']};
 let stage='pre.html?review=restored-20261029',state='Chưa học',resume='';
-if(pre?.finished){state='Đang học · Nghe hiểu';stage='while.html';resume='Tiếp tục phần Nghe hiểu.';}
+if(preparationAccessible()){state='Đang học · Nghe hiểu';stage='while.html';resume='Tiếp tục phần Nghe hiểu.';}
 else if(pre?.prediction){state='Đang học · Chuẩn bị';resume='Tiếp tục phần Chuẩn bị.';}
 if(session.while?.submitted){state='Đang học · Xem lại';stage='while.html';resume='Xem lại kết quả nghe hiểu.';}
 if(session.while?.reviewComplete){state='Đang học · Vận dụng';stage='post.html';resume='Chọn hoạt động để vận dụng điều vừa nghe.';}

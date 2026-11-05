@@ -1,0 +1,15 @@
+body:is([data-pre-step='0'],[data-pre-step='1']) main>[data-dialogue-active]{min-height:94px;gap:14px;margin-bottom:18px}
+[data-dialogue-active] .spark-speak{flex:none;display:grid;place-items:center;width:90px;height:94px;padding:0;border:0;background:transparent;border-radius:16px;cursor:pointer;color:#705121}
+body:is([data-pre-step='0'],[data-pre-step='1']) main>[data-dialogue-active] .spark-portrait{width:84px;flex-basis:84px;transform-origin:50% 85%;animation:none!important}
+body:is([data-pre-step='0'],[data-pre-step='1']) main>[data-dialogue-active] .spark-portrait img{width:84px;height:84px;object-fit:contain;animation:none!important}
+[data-dialogue-active] .spark-speak:hover{background:#fff1bf80}
+[data-dialogue-active] .spark-speak:focus-visible{outline:2px solid #87611f;outline-offset:2px}
+body:is([data-pre-step='0'],[data-pre-step='1']) main>[data-dialogue-active] .spark-message{max-width:780px;padding:14px 20px;background:#fff1bf;border-radius:16px;min-height:76px;display:flex;flex-direction:column;justify-content:center}
+body:is([data-pre-step='0'],[data-pre-step='1']) main>[data-dialogue-active] .spark-message p{font-size:15px;font-weight:500;line-height:1.65;color:#705121}
+.spark-speak:not([data-dialogue-active] .spark-speak){border:0;background:transparent;padding:0;pointer-events:none}
+.spark-spoken-copy [data-spoken-word]{border-radius:3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+body:is([data-pre-step='0'],[data-pre-step='1']) main>[data-dialogue-active][data-dialogue-moving=true][data-dialogue-state=idle] .spark-portrait img{animation:spark-dialogue-breathe 4.8s ease-in-out infinite!important}
+body:is([data-pre-step='0'],[data-pre-step='1']) main>[data-dialogue-active][data-dialogue-moving=true][data-dialogue-state=speaking] .spark-portrait{animation:spark-dialogue-speak 680ms ease-in-out infinite!important}
+@keyframes spark-dialogue-breathe{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(-2px) scaleY(1.018)}}
+@keyframes spark-dialogue-speak{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg) translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){body:is([data-pre-step='0'],[data-pre-step='1']) main>[data-dialogue-active] .spark-portrait,body:is([data-pre-step='0'],[data-pre-step='1']) main>[data-dialogue-active] .spark-portrait img{animation:none!important}}

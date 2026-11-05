@@ -94,7 +94,7 @@ function renderQuestion(q,i){
  const correct=state.answers[i]===KEYS[i],blank=state.answers[i]===null,graded=state.submitted&&(!grading||i<revealed);
  const article=el('article','question-card card');article.id=`question-${i+1}`;
  if(graded)article.classList.add(correct?'correct':blank?'blank':'wrong');
- const meta=el('div','q-meta');meta.append(el('span','q-index',i+1),el('span','q-type',q.type));
+ const meta=el('div','q-meta');meta.append(el('span','q-index',i+1));
  if(graded){const result=statusIcon(correct?'right':blank?'blank':'wrong',correct?'Trả lời đúng':blank?'Chưa trả lời':'Trả lời sai');result.classList.add('q-result');meta.append(result);}
  const play=state.submitted&&!grading?el('button','question-play'):null;
  if(play){play.type='button';play.dataset.playQuestion=i;play.addEventListener('click',()=>playQuestion(i));meta.append(play);}
@@ -142,8 +142,8 @@ function updateProgress(){
  $('#progress-copy').textContent=wrong.length?`Đã xem ${seen} / ${wrong.length} câu cần đối chiếu`:'Bạn đã trả lời đúng tất cả. Có thể nghe lại hoặc tiếp tục.';
  const available=reviewedAll();
  if(available&&(!state.reviewComplete||!state.awarded)){state.reviewComplete=true;if(!state.awarded){state.awarded=true;state.awardedPoints=state.submitted?state.answers.filter((a,i)=>a===KEYS[i]).length:0;persist();feedback.complete(state,true);}else{persist();feedback.complete(state,false);}}$('#post-link').setAttribute('aria-disabled',String(!available));$('#post-link').classList.toggle('unavailable',!available);$('#post-link').tabIndex=available?0:-1;
- $('#next-wrong').disabled=available;
- $('#action-reason').textContent=available?'Không cần đạt điểm tối thiểu để tiếp tục.':policies.review==='ack'?'Mở giải thích và bấm “Đã xem” ở các câu chưa đúng.':'Mở giải thích các câu chưa đúng trước khi tiếp tục.';
+ $('#next-wrong').disabled=available;$('#next-wrong').hidden=available;
+ $('#action-reason').textContent=available?'':policies.review==='ack'?'Mở giải thích và bấm “Đã xem” ở các câu chưa đúng.':'Mở giải thích các câu chưa đúng trước khi tiếp tục.';
 }
 $('#submit').addEventListener('click',()=>{
  const blank=state.answers.filter(a=>a===null).length;

@@ -1,6 +1,7 @@
-import {blast,createBlast,targets,sentences,duration} from './pre-blast-state.mjs';
+import {blast,createBlast,blastTargets,blastSentences,duration} from './pre-blast-state.mjs';
 export function mountBlast(document,{state=createBlast(),onChange=()=>{},onComplete=()=>{},autoTick=true}={}){
  const win=document.defaultView,$=s=>document.querySelector(s),audio=$('#sample-audio');
+ let targets=blastTargets(state),sentences=blastSentences(state);
  let s=state,active=false,composing=false,playing=false,request=0,lastTime=0,frame,dead=false,shotAnimations=[];
  const reduced=win.matchMedia('(prefers-reduced-motion: reduce)');
  const isStatic=()=>reduced.matches||document.body.dataset.glassMotion==='false'||document.body.dataset.sparkLegacyMotion==='false';
@@ -14,7 +15,7 @@ export function mountBlast(document,{state=createBlast(),onChange=()=>{},onCompl
  function render(){
   for(const [id,phase] of [['blast-ready','ready'],['blast-play-area','playing'],['blast-review','review'],['blast-sentences','sentence']])$('#'+id).hidden=s.phase!==phase||s.paused;
   $('#blast-paused').hidden=!s.paused;
-  $('#blast-score').textContent=s.score;$('#blast-combo').textContent=s.combo;$('#blast-shields').textContent=s.shields;$('#blast-count').textContent=`${s.results.length} / 7`;
+  $('#blast-score').textContent=s.score;$('#blast-combo').textContent=s.combo;$('#blast-shields').textContent=s.shields;$('#blast-count').textContent=`${s.results.length} / ${targets.length}`;
   $('#challenge').dataset.blastPhase=s.paused?'paused':s.phase;
   $('#blast-input').disabled=s.paused||s.phase!=='playing';
   if(s.phase==='playing'){
@@ -35,11 +36,11 @@ export function mountBlast(document,{state=createBlast(),onChange=()=>{},onCompl
   }
   if(s.phase==='sentence'){
    const q=sentences[s.sentenceIndex],correct=s.sentenceFeedback==='correct';
-   $('#blast-sentence-count').textContent=`Mẫu câu ${s.sentenceIndex+1} / 2`;
+   $('#blast-sentence-count').textContent=`Mẫu câu ${s.sentenceIndex+1} / ${sentences.length}`;
    if($('#blast-sentence-prompt').textContent!==q.prompt)$('#blast-sentence-prompt').textContent=q.prompt;
    $('#blast-sentence-input').value=s.sentenceDraft||'';
    $('#blast-sentence-meaning').textContent=q.meaning;
-   $('#blast-sentence-input').disabled=correct||s.paused;$('#blast-check').hidden=correct;$('#blast-next').hidden=!correct;$('#blast-next').textContent=s.sentenceIndex===1?'Hoàn tất →':'Câu tiếp →';
+   $('#blast-sentence-input').disabled=correct||s.paused;$('#blast-check').hidden=correct;$('#blast-next').hidden=!correct;$('#blast-next').textContent=s.sentenceIndex===sentences.length-1?'Hoàn tất →':'Câu tiếp →';
    $('#blast-sentence-hint').hidden=correct;
    $('#blast-sentence-feedback').textContent=correct?`Đúng rồi. ${q.explanation}${s.sentenceAssisted.includes(s.sentenceIndex)?' · Có hỗ trợ.':''}`:s.sentenceAssisted.includes(s.sentenceIndex)?`Gợi ý: ${q.answer}. ${q.explanation}`:s.sentenceFeedback==='retry'?'Chưa khớp. Bạn có thể sửa và kiểm tra lại không giới hạn.':'';
   }
@@ -70,7 +71,7 @@ export function mountBlast(document,{state=createBlast(),onChange=()=>{},onCompl
  }
  const listeners=[];
  function listen(el,event,fn){el.addEventListener(event,fn);listeners.push(()=>el.removeEventListener(event,fn));}
- listen($('#blast-start'),'click',()=>{if(!active)return;act('start');focus('#blast-input');});
+ listen($('#blast-start'),'click',()=>{if(!active)return;act('start');focus(s.phase==='sentence'?'#blast-sentence-input':'#blast-input');});
  listen($('#blast-input'),'input',input);
  listen($('#blast-input'),'compositionstart',()=>{composing=true;});listen($('#blast-input'),'compositionend',()=>{composing=false;input();});
  listen($('#blast-play'),'click',play);
@@ -96,5 +97,5 @@ export function mountBlast(document,{state=createBlast(),onChange=()=>{},onCompl
  function travelDistance(){const arena=$('#blast-arena').getBoundingClientRect(),floor=$('.blast-floor').getBoundingClientRect(),target=$('#blast-target').getBoundingClientRect();return Math.max(0,floor.top-arena.top-$('#blast-target').offsetTop-target.height);}
  function tick(now){if(dead)return;if(active&&!s.paused&&s.phase==='playing'&&!document.hidden&&!playing){const delta=lastTime?Math.min(now-lastTime,250):0;const old=s;const next=blast(s,{type:'tick',value:delta,static:isStatic()});if(next!==s){const transition=next.index!==s.index||next.phase!==s.phase;commit(next,{paint:transition,persist:transition});if(s.phase!==old.phase)changedTarget(old);}if(s.phase==='playing')$('#blast-target').style.transform=`translateY(${isStatic()||targets[s.index].kind==='audio'?0:s.elapsed/duration(targets[s.index])*travelDistance()}px)`;lastTime=now;}else lastTime=0;if(autoTick)frame=win.requestAnimationFrame(tick);}
  render();if(autoTick)frame=win.requestAnimationFrame(tick);
- return {activate(value){if(active&&!value)pause();active=value;lastTime=0;if(value)render();},pause,reset(value=createBlast()){stopAudio();s=value;$('#blast-input').value='';$('#blast-sentence-input').value='';$('#blast-hit').textContent='';render();onChange(s);},getState:()=>s,destroy(){dead=true;stopAudio();win.cancelAnimationFrame(frame);listeners.forEach(off=>off());}};
+ return {activate(value){if(active&&!value)pause();active=value;lastTime=0;if(value)render();},pause,reset(value=createBlast()){stopAudio();s=value;targets=blastTargets(s);sentences=blastSentences(s);$('#blast-input').value='';$('#blast-sentence-input').value='';$('#blast-hit').textContent='';render();onChange(s);},getState:()=>s,destroy(){dead=true;stopAudio();win.cancelAnimationFrame(frame);listeners.forEach(off=>off());}};
 }

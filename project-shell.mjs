@@ -1,6 +1,9 @@
+import {preparationAccessible} from './session.mjs';
 // Shared desktop navigation; existing lesson nodes and state hooks are retained.
-import {balance,read,prep} from './session.mjs';
+import {balance,read,write,prep} from './session.mjs';
 import {updateLessonJourney} from './lesson-journey.mjs';
+import {createSoundButton,mountContextSound} from './ui-sound.mjs';
+import {mountLessonShell} from './lesson-shell.mjs';
 const desktop = matchMedia('(min-width:1100px)');
 const icons = {
   panel:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16m5-11-3 3 3 3"/>',
@@ -17,6 +20,7 @@ const icons = {
 };
 const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;
 function mount(){
+  if(document.body.hasAttribute('data-lesson-shell'))return;
   const app=document.querySelector('.app'),header=app?.querySelector('.header');
   if(!app||!header||app.classList.contains('project-shell'))return;
   const clouds=document.createElement('div');clouds.className='paper-clouds';clouds.setAttribute('aria-hidden','true');
@@ -24,6 +28,7 @@ function mount(){
   app.append(clouds);
   const file=location.pathname.split('/').pop()||'index.html';
   const browsing=['index.html','library.html'].includes(file);
+  if(browsing)try{sessionStorage.removeItem('wespark-lesson-sidebar-v1');}catch{}
   const labels={'index.html':'Góc học tập','library.html':'Thư viện','pre.html':'Chuẩn bị','while.html':'Nghe hiểu','post.html':'Vận dụng','dictation.html':'Nghe chép','dictation-complete.html':'Kết quả nghe chép','shadowing.html':'Luyện nói theo','conversation.html':'Hội thoại'};
   const brand=header.querySelector('.brand'),journey=header.querySelector('.journey');
   const wallet=header.querySelector('.wallet')||document.createElement('div');
@@ -38,7 +43,7 @@ function mount(){
   const sidebar=document.createElement('aside');sidebar.id='project-sidebar';sidebar.className='project-sidebar';sidebar.setAttribute('aria-label','Điều hướng chính');
   const groups=[
     ['Kế hoạch',[['plan','OKRs của tôi','../key-okrs-management.html']]],
-    ['Học tập',[['listen','Listening','library.html'],['speak','Speaking','../key-speaking-library.html'],['book','Từ vựng','#preview-unavailable']]],
+    ['Học tập',[['listen','Listening','library.html'],['speak','Speaking','../key-speaking-library.html'],['book','Từ vựng','http://localhost:3000/tu-vung']]],
     ['Theo dõi',[['progress','Hồ sơ học tập','../key-profile.html']]],
     ['Phần thưởng',[['gift','Spark & quà','../key-spark.html']]],
   ];
@@ -58,6 +63,7 @@ function mount(){
   const current=document.createElement('span');current.setAttribute('aria-current','page');current.textContent=labels[file]||'Listening';
   breadcrumb.append(library);const separator=document.createElement('span');separator.className='project-crumb-separator';separator.textContent='/';separator.setAttribute('aria-hidden','true');breadcrumb.append(separator,current);
   const utilities=document.createElement('div');utilities.className='project-utilities';
+  utilities.append(soundButton);
   if(wallet){wallet.setAttribute('role','link');wallet.tabIndex=0;wallet.title='Xem Spark & quà';wallet.setAttribute('aria-label','SparkPoint · Xem Spark và quà');const open=()=>{location.href='../key-spark.html';};wallet.addEventListener('click',open);wallet.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();open();}});utilities.append(wallet);}
   const bell=document.createElement('button');bell.type='button';bell.className='project-notification-button';bell.title='Thông báo';bell.setAttribute('aria-label','Thông báo');bell.setAttribute('aria-controls','project-notifications');bell.setAttribute('aria-expanded','false');bell.setAttribute('popovertarget','project-notifications');bell.innerHTML=icon('bell');utilities.append(bell);
   const notifications=document.createElement('section');notifications.id='project-notifications';notifications.className='project-notifications';notifications.setAttribute('popover','auto');notifications.setAttribute('aria-labelledby','project-notifications-title');
@@ -73,10 +79,13 @@ function mount(){
   header.replaceChildren(identity,breadcrumb,utilities);header.classList.add('project-header');
   layout.append(sidebar,workspace);app.append(layout);app.classList.add('project-shell');
   const lessonRoute=app.querySelector('.journey');
-  function updateRoute(){const session=read();updateLessonJourney(lessonRoute,{stage:document.body.dataset.sparkPage==='pre'?'pre':document.body.dataset.sparkPage==='while'?'while':'post',prepComplete:!!prep()?.finished,whileComplete:!!session.while?.reviewComplete,postComplete:!!session.post?.complete?.length});}
+  function updateRoute(){const session=read();updateLessonJourney(lessonRoute,{stage:document.body.dataset.sparkPage==='pre'?'pre':document.body.dataset.sparkPage==='while'?'while':'post',prepComplete:preparationAccessible(),whileComplete:!!session.while?.reviewComplete,postComplete:!!session.post?.complete?.length});}
   if(lessonRoute){updateRoute();window.addEventListener('listening-session-change',updateRoute);window.addEventListener('lesson-preparation-change',updateRoute);}
   function setExpanded(expanded){app.dataset.sidebar=expanded?'expanded':'collapsed';toggle.setAttribute('aria-expanded',String(expanded));toggle.setAttribute('aria-label',expanded?'Thu gọn menu':'Mở rộng menu');toggle.title=expanded?'Thu gọn menu':'Mở rộng menu';}
   toggle.addEventListener('click',()=>setExpanded(app.dataset.sidebar!=='expanded'));setExpanded(browsing);
 }
-if(desktop.matches)mount();
+const soundButton=createSoundButton(document);
+document.querySelector('.app .header')?.append(soundButton);mountContextSound(document);
+if(['pre','while','post','dictation','shadowing','conversation'].includes(document.body.dataset.sparkPage))mountLessonShell(document,{soundButton,read,write,preparationAccessible});
+else if(desktop.matches)mount();
 desktop.addEventListener('change',e=>{if(e.matches)mount();});

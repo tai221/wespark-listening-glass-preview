@@ -10,14 +10,15 @@ export const quizQuestions=[
  {id:'can',kind:'pattern',title:'Chọn cụm từ phù hợp để hoàn thành câu.',prompt:'We ___ today.',options:['can starting','can start','can started'],answer:1,explanation:'Sau “can” dùng động từ nguyên mẫu: “We can start today” — Chúng ta có thể bắt đầu hôm nay.'},
  {id:'used-to',kind:'pattern',title:'Chọn cụm từ phù hợp để hoàn thành câu.',prompt:'Every evening, our kitchen bin ___ full.',options:['used to being','use to be','used to be'],answer:2,explanation:'“Used to + động từ nguyên mẫu” diễn tả trạng thái trong quá khứ đã thay đổi: “Every evening, our kitchen bin used to be full.”'}
 ];
+export const questionSet=s=>quizQuestions.filter(q=>(s.ids||quizQuestions.map(q=>q.id)).includes(q.id));
 const count=quizQuestions.length;
 export const QUIZ_POINTS_PER_CORRECT=1;
 export const quizPoints=s=>scoreOf(s)*QUIZ_POINTS_PER_CORRECT;
 const validAnswer=value=>Number.isInteger(value)&&value>=0&&value<3;
-const scoreOf=s=>s.checked.reduce((total,checked,index)=>total+Number(checked&&s.answers[index]===quizQuestions[index].answer),0);
-export function createQuiz(){return {phase:'playing',index:0,answers:Array(count).fill(null),checked:Array(count).fill(false),score:0};}
-export function restoreQuiz(value){
- const s=createQuiz();if(!value||typeof value!=='object')return s;
+const scoreOf=s=>s.checked.reduce((total,checked,index)=>total+Number(checked&&s.answers[index]===questionSet(s)[index].answer),0);
+export function createQuiz(ids=quizQuestions.map(q=>q.id)){ids=Array.isArray(ids)?ids:quizQuestions.map(q=>q.id);ids=quizQuestions.filter(q=>ids.includes(q.id)).map(q=>q.id);return {ids,phase:ids.length?'playing':'complete',index:0,answers:Array(ids.length).fill(null),checked:Array(ids.length).fill(false),score:0};}
+export function restoreQuiz(value,ids=value?.ids){
+ const s=createQuiz(ids),count=s.ids.length;if(value?.ids&&JSON.stringify(value.ids)!==JSON.stringify(s.ids))return s;if(!value||typeof value!=='object')return s;
  let reviewed=0;
  for(let index=0;index<count;index++){
   const answer=value.answers?.[index];if(!validAnswer(answer))break;
@@ -32,7 +33,7 @@ export function restoreQuiz(value){
 }
 export function quiz(s,event){
  if(s.phase==='complete')return s;
- const index=s.index;
+ const index=s.index,count=s.answers.length;
  if(event.type==='select'&&!s.checked[index]&&validAnswer(event.value)){
   const answers=[...s.answers];answers[index]=event.value;return {...s,answers};
  }
@@ -59,7 +60,7 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
  reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)stopPoints();});
  const meta=el('div','prep-quiz-meta'),summary=el('div','prep-quiz-summary'),counter=el('span','prep-quiz-count'),reward=el('span','prep-quiz-reward');reward.id='prep-quiz-reward';
  const rewardIcon=document.createElementNS('http://www.w3.org/2000/svg','svg');rewardIcon.setAttribute('viewBox','0 0 24 24');rewardIcon.setAttribute('aria-hidden','true');rewardIcon.innerHTML='<path d="m14 2-9 12h7l-2 8 9-12h-7l2-8Z"/>';
- const rewardLabel=el('span');rewardLabel.id='prep-quiz-points';reward.title='Mỗi câu đúng +1 SparkPoint · Cộng vào tổng khi hoàn tất';reward.setAttribute('role','status');reward.setAttribute('aria-live','polite');reward.setAttribute('aria-atomic','true');reward.append(rewardIcon,rewardLabel);summary.append(counter,reward);meta.append(summary,sound.button,...sound.sounds);
+ const rewardLabel=el('span');rewardLabel.id='prep-quiz-points';reward.title='Mỗi câu đúng +1 SparkPoint · Cộng vào tổng khi hoàn tất';reward.setAttribute('role','status');reward.setAttribute('aria-live','polite');reward.setAttribute('aria-atomic','true');reward.append(rewardIcon,rewardLabel);summary.append(counter,reward);meta.append(summary,...sound.sounds);
  const track=el('div','prep-quiz-track'),fill=el('span');track.append(fill);track.setAttribute('role','progressbar');track.setAttribute('aria-label','Số câu đã kiểm tra');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax',String(count));
  const title=el('h2');title.id='quiz-mode-title';title.tabIndex=-1;
  const prompt=el('p','prep-quiz-prompt');prompt.lang='en';
@@ -81,7 +82,8 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
   if(before.phase!=='complete'&&s.phase==='complete'){onComplete(s);sound.celebrate();}
  }
  function render(){
-  const q=quizQuestions[s.index],checked=s.checked[s.index],complete=s.phase==='complete';
+  const count=s.answers.length,q=questionSet(s)[s.index],checked=s.checked[s.index],complete=s.phase==='complete';
+  if(!q)return;track.setAttribute('aria-valuemax',String(count));
   pane.dataset.quizPhase=s.phase;counter.textContent=`Câu ${s.index+1} / ${count}`;const points=String(quizPoints(s));if(rewardLabel.textContent!==points)rewardLabel.textContent=points;reward.setAttribute('aria-label',`${points} SparkPoint trong lượt Quiz`);
   const reviewed=s.checked.filter(Boolean).length;track.setAttribute('aria-valuenow',String(reviewed));fill.style.width=`${reviewed/count*100}%`;
   title.replaceChildren();if(q.term){const term=el('span',null,q.term);term.lang='en';title.append('“',term,'”',q.title);}else title.textContent=q.title;

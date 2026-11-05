@@ -56,6 +56,10 @@ async function mount(){
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');let enabled=true,inView=true,previous=null,animations=[],queued=false;const seenCompletions=new Set();
  try{enabled=sessionStorage.getItem('wespark-listening-glass-motion')!=='off';}catch{}
  const media=[...document.querySelectorAll('audio,video')];
+ let contextDialogue=null;
+ if(stage==='pre'){
+  try{const [{mountSparkDialogue},response]=await Promise.all([import('./spark-dialogue.mjs'),fetch('assets/spark-voice/manifest.json')]);if(response.ok)contextDialogue=mountSparkDialogue(document,{clips:await response.json(),motionAllowed:()=>enabled&&!reduced.matches});}catch{}
+ }
  function busy(){return media.some(a=>!a.paused&&!a.ended)||['recording','processing'].includes(read()[stage]?.phase)||!!window.speechSynthesis?.speaking;}
  const legacyAllowed=()=>motionAllowed({enabled,visible:!document.hidden,inView:true,reduced:reduced.matches,busy:busy()});
  function gateLegacy(){
@@ -80,6 +84,8 @@ async function mount(){
  }
  function update(){queued=false;
   const panel=document.querySelector('[data-panel]:not([hidden])'),quizActive=panel?.dataset.panel==='2';
+  toggle.setAttribute('aria-pressed',String(enabled));toggle.textContent=enabled?'Chuyển động: Bật':'Chuyển động: Tắt';
+  if(contextDialogue){const contextActive=['0','1'].includes(panel?.dataset.panel);contextDialogue.activate(contextActive,panel?.dataset.panel==='1'?'learning':'welcome');if(contextActive){previous=null;gateLegacy();replay.disabled=true;replay.title='Bấm Spark trong bài để nghe lại';window.dispatchEvent(new CustomEvent('glass-motion-change',{detail:{enabled}}));return;}}
   const next=companionFeedback(stage,read(),{playing:media.some(a=>!a.paused&&!a.ended)||!!window.speechSynthesis?.speaking,panel:Number(panel?.dataset.panel||0),finished:quizActive&&!!document.querySelector('#completion:not([hidden])'),blastPhase:quizActive?document.querySelector('#challenge')?.dataset.blastPhase:'',feedback:''});
   const kind=transitionMotion(previous,next,seenCompletions);if(next.key!==previous?.key){setCopy(next.text);if(!slot.classList.contains('spark-conversation'))image.src=companionArtwork(stage,next);slot.dataset.sparkKind=next.kind;}
   // Initial complete state gets readable restored feedback, never another celebration.

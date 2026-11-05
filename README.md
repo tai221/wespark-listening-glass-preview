@@ -2,12 +2,14 @@
 
 Public desktop UI prototype for WeSpark Listening.
 
+Updated 2026-11-03: preparation includes 12 vocabulary phrases and two sentence patterns, reversible recall assessments, selective Quiz/Game, optional practice when all items are remembered, a two-colour recall distribution, graphic vocabulary illustrations and speaking Spark.
+
 - [Open the demo](https://tai221.github.io/wespark-listening-glass-preview/)
 - [Dictation — five sentences](https://tai221.github.io/wespark-listening-glass-preview/dictation.html)
 - [Shadowing](https://tai221.github.io/wespark-listening-glass-preview/shadowing.html)
 - [Conversation](https://tai221.github.io/wespark-listening-glass-preview/conversation.html)
 
-Updated 2026-11-03: conversation review now includes pronunciation, session-wide
+Previous update 2026-11-03: conversation review now includes pronunciation, session-wide
 CEFR vocabulary statistics, inline grammar corrections, average speech speed,
 and three intonation views. Added task/context sidebar, per-question hints,
 completed-session replay and review navigation.
