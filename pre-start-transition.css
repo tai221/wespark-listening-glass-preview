@@ -1,0 +1,12 @@
+/* Brilliant's falling mascot/trail is adapted with the original Spark and warm WeSpark palette. */
+.challenge-transition{position:fixed;inset:0;z-index:10000;overflow:hidden;background:#fffdf6;opacity:1;transition:opacity 260ms ease-in-out;cursor:wait}
+.challenge-transition.is-leaving{opacity:0}
+.challenge-transition-flight{position:absolute;left:calc(50% - 56px);top:calc(50% - 56px);width:112px;height:112px;animation:challenge-spark-fall 820ms cubic-bezier(.42,0,.58,1) both}
+.challenge-transition-flight img{position:relative;display:block;width:112px;height:112px;object-fit:contain}
+.challenge-transition-trail{position:absolute;bottom:62px;left:25px;width:62px;height:300px;background:linear-gradient(to bottom,transparent,#ffeb9c66 65%,#f8d650b3);transform-origin:bottom;animation:challenge-trail 820ms ease-in-out both}
+.challenge-transition-flight::before,.challenge-transition-flight::after{content:"";position:absolute;top:-100px;left:-58px;width:3px;height:90px;background:linear-gradient(transparent,#edc85155);border-radius:100%;transform:rotate(1deg)}
+.challenge-transition-flight::after{left:auto;right:-72px;top:28px;height:60px}
+@keyframes challenge-spark-fall{0%{opacity:0;transform:translateY(-190px) scale(.88)}18%{opacity:1}65%{opacity:1;transform:translateY(26px) scale(1)}100%{opacity:0;transform:translateY(200px) scale(.94)}}
+@keyframes challenge-trail{0%{opacity:0;transform:scaleY(.3)}25%,70%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1.25)}}
+@media(prefers-reduced-motion:reduce){.challenge-transition{display:none;transition:none}.challenge-transition-flight,.challenge-transition-trail{animation:none}}
+body[data-glass-motion="false"] .challenge-transition{display:none}

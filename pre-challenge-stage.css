@@ -1,0 +1,125 @@
+/* One selected surface for scope cards and practice modes; icon colours retain their meaning. */
+#challenge-selector :is(.challenge-scope-choice,.challenge-mode-options button){--choice-fill:#fff2cc;--choice-edge:#c6a15a;--choice-line:#dcc48f;--choice-glint:#fffaf0;--choice-shadow:#a17a2720}
+/* UI/UX Pro Max: shared Listening canvas, type and action components; reference-led Spark art retained. */
+#challenge-selector{--stage-ink:var(--quiz-ink,#34382f);--stage-muted:var(--quiz-muted,#62665b);--stage-gold:var(--quiz-gold,#ffdc70);--stage-purple:#9d65e9;display:block;max-width:none;margin:0 auto 20px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:var(--stage-ink)}
+#challenge-selector .challenge-selector-heading{position:relative;display:flex;align-items:center;min-height:164px;margin:0;padding:0 24px 20px;isolation:isolate}
+#challenge-selector .challenge-intro{position:relative;z-index:2;max-width:65%}
+#challenge-selector .challenge-kicker{display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:5px 13px;margin:0 0 10px;border-radius:30px;background:#fff1bf;color:var(--quiz-gold-ink);font-size:12px;font-weight:650;box-shadow:0 4px 10px #d6a43918}
+.challenge-kicker svg{width:18px;height:18px;fill:#ffce4e;stroke:#8a5609;stroke-width:1.8;stroke-linejoin:round}
+#challenge-selector .challenge-selector-heading h2{font-size:28px;line-height:1.4;font-weight:600;letter-spacing:-.025em;color:var(--stage-ink);margin:0 0 10px}
+#challenge-selector .challenge-selector-heading p{font-size:14px;line-height:1.65;color:var(--stage-muted);min-height:0;margin:0}
+.challenge-hero-art{position:absolute;width:380px;height:194px;right:24px;bottom:0;overflow:hidden;pointer-events:none}
+.challenge-hero-art img{position:absolute;width:278px;height:278px;object-fit:contain;right:46px;top:-13px;filter:drop-shadow(0 9px 12px #ad7e3320);z-index:2;transform:rotate(-5deg)}
+.hero-swoosh{position:absolute;width:330px;height:120px;right:5px;bottom:8px;border:18px solid #ffe16e;border-right-color:transparent;border-top-color:transparent;border-radius:50%;transform:rotate(-16deg);opacity:.65}
+.hero-check{position:absolute;left:15px;top:50px;display:grid;place-items:center;width:55px;height:66px;background:linear-gradient(145deg,#fff,#ebf9fa);border:2px solid white;border-radius:13px;transform:rotate(-16deg);box-shadow:0 8px 20px #645b8a14}
+.hero-check svg{width:30px;height:30px;fill:#54d861;stroke:white;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.hero-wave{position:absolute;right:1px;top:100px;display:flex;align-items:center;justify-content:center;gap:4px;width:82px;height:42px;background:linear-gradient(135deg,#ecdcff,#bb8cf2);border:2px solid #ffffffbb;border-radius:12px;transform:rotate(-9deg);box-shadow:0 8px 16px #9163c421;z-index:3}.hero-wave i{width:4px;height:10px;background:#fff9;border-radius:3px}.hero-wave i:nth-child(2n){height:19px}.hero-wave i:nth-child(3n){height:27px}
+#challenge-selector .challenge-workspace{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);column-gap:24px;row-gap:24px;padding:24px;border:1px solid #fff;border-radius:16px;background:var(--quiz-surface,#fffefb);box-shadow:var(--pre-elevation,0 8px 22px #735b1510,0 2px 5px #735b1508);overflow:hidden}
+#challenge-selector .challenge-scope{position:relative;min-width:0;margin:0;padding:0;border:0;z-index:1}
+#challenge-selector .challenge-scope legend,#challenge-selector .challenge-modes-label{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:600;line-height:1.5;letter-spacing:-.025em;color:var(--stage-ink);margin:0 0 3px!important;padding:0;min-height:34px}
+.challenge-section-symbol{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;flex:none}.challenge-section-symbol svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.scope-symbol{color:#e5a100;background:linear-gradient(150deg,#fff9e5,#ffefba);box-shadow:0 4px 10px #edb42216}.mode-symbol{color:#a05fdf;background:linear-gradient(150deg,#fcf5ff,#ecd9ff);box-shadow:0 4px 10px #a461dd16}
+#challenge-selector .challenge-scope-row{display:flex;flex-direction:column;gap:0;align-items:stretch}
+#challenge-selector #challenge-scope-hint,#challenge-selector .challenge-modes-hint{order:-1;min-height:0;margin:0 0 20px 48px;font-size:13px;line-height:1.6;color:var(--stage-muted)}
+#challenge-selector .challenge-scope-options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#challenge-selector .challenge-scope-choice{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:0;min-height:218px;padding:18px 18px 16px;border:1px solid var(--quiz-line);border-radius:16px;background:var(--quiz-surface);box-shadow:0 2px 0 #e5e0d4;color:var(--stage-ink);cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s,background-color .18s}
+#challenge-selector .challenge-scope-choice input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:inherit;z-index:3}
+.challenge-sprite{display:block;flex:none;background-image:url('assets/challenge-icons-v1.webp');background-size:200% 200%;background-repeat:no-repeat}.sprite-book{background-position:0 0}.sprite-medal{background-position:100% 0}.sprite-target{background-position:0 100%}.sprite-rocket{background-position:100% 100%}
+#challenge-selector .challenge-scope-choice .scope-art{position:absolute;left:14px;top:9px;width:104px;height:104px;object-fit:contain;pointer-events:none}
+#challenge-selector .scope-card-title{font-size:18px;font-weight:600;line-height:1.5;margin:0 0 2px;letter-spacing:-.025em}
+#challenge-selector .scope-card-detail{font-size:13px;line-height:1.6;color:var(--stage-muted)}
+#challenge-selector .challenge-scope-choice strong{font-size:15px;line-height:1.5;font-weight:600;font-variant-numeric:tabular-nums;margin:7px 0 10px;color:var(--stage-muted)}#challenge-selector .challenge-scope-choice strong::after{content:' mục';font-size:13px;font-weight:400;color:inherit}
+.scope-meter{display:block;width:100%;height:7px;background:#e6e3eb;border-radius:8px;overflow:hidden}.scope-meter i{display:block;width:calc(var(--scope-share,0) * 100%);height:100%;min-width:0;border-radius:inherit;background:linear-gradient(90deg,#b18bef,#d5b9fc)}
+#challenge-selector .challenge-scope-choice:has(input:checked){border-color:var(--choice-line);background:var(--choice-fill);transform:translateY(-4px);box-shadow:0 6px 0 var(--choice-edge),0 10px 18px var(--choice-shadow),inset 0 1px 0 var(--choice-glint)}#challenge-selector .challenge-scope-choice:has(input:checked) .scope-meter{background:#f1d992}#challenge-selector .challenge-scope-choice:has(input:checked) .scope-meter i{background:linear-gradient(90deg,#ffb500,#ffdc55)}
+#challenge-selector .challenge-scope-choice:hover:not(:has(input:disabled)){transform:translateY(-2px);box-shadow:0 4px 0 #e0d6ba,0 7px 14px #735b1512}#challenge-selector .challenge-scope-choice:has(input:focus-visible){outline:3px solid #956918;outline-offset:4px}
+#challenge-selector .challenge-scope-choice:has(input:disabled){background:#faf9f7;border-color:#eeece6;color:#78737f;box-shadow:none;cursor:default}#challenge-selector .challenge-scope-choice:has(input:disabled) .challenge-sprite{filter:grayscale(.75);opacity:.55}
+#challenge-selector #challenge-scope-status{position:static;width:auto;height:auto;clip:auto;white-space:normal;margin:15px 0 0;padding:0;min-height:21px;color:var(--quiz-gold-ink);font-size:13px;font-weight:600;line-height:1.6}
+#challenge-selector .challenge-mode-options{position:relative;display:flex;flex-direction:column;gap:12px;align-self:start;z-index:1;padding:0;border:0;border-radius:0;background:none}
+#challenge-selector .challenge-mode-options::before{content:'';position:absolute;left:-12px;top:4px;bottom:0;width:1px;background:linear-gradient(transparent,#e8e2ec 15%,#e8e2ec 85%,transparent)}
+#challenge-selector .challenge-modes-label{margin-bottom:-9px!important}#challenge-selector .challenge-modes-hint{order:0;margin-bottom:6px}
+#challenge-selector .challenge-mode-options button{position:relative;display:flex;align-items:center;gap:14px;min-height:100px;padding:15px 18px 15px 12px;text-align:left;font:inherit;color:var(--stage-ink);border:1px solid #e5daef;border-radius:16px;background:linear-gradient(120deg,#fcfaff,#f5eeff);box-shadow:0 5px 14px #9b6bd916,inset 0 0 0 2px #fff;cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s}
+#challenge-selector .challenge-mode-options button[data-challenge-choice=quiz]{border-color:#f5e3ad;background:linear-gradient(120deg,#fffcf1,#fff7d9);box-shadow:0 5px 14px #d1a62912,inset 0 0 0 2px #fff}
+#challenge-selector .challenge-mode-options button .challenge-sprite{flex:0 0 70px;width:70px;height:70px;margin:-8px 0;filter:drop-shadow(0 4px 5px #57418212)}
+#challenge-selector .challenge-mode-options button>span:not(.challenge-sprite){flex:1;min-width:0}#challenge-selector .challenge-mode-options strong{display:block;font-size:20px;font-weight:600;line-height:1.4;letter-spacing:-.025em;margin:0 0 6px}#challenge-selector .challenge-mode-options small{display:block;font-size:13px;line-height:1.6;color:var(--stage-muted);font-weight:400}
+#challenge-selector .challenge-mode-options button[aria-pressed=true]{border-color:var(--choice-line);background:var(--choice-fill);transform:translateY(-4px);box-shadow:0 6px 0 var(--choice-edge),0 10px 18px var(--choice-shadow),inset 0 1px 0 var(--choice-glint)}#challenge-selector .challenge-mode-options button[data-challenge-choice=game][aria-pressed=true]{border-color:var(--choice-line);background:var(--choice-fill);box-shadow:0 6px 0 var(--choice-edge),0 10px 18px var(--choice-shadow),inset 0 1px 0 var(--choice-glint)}
+#challenge-selector .challenge-mode-options button:hover:not(:disabled){transform:translateY(-1px)}#challenge-selector .challenge-mode-options button:focus-visible{outline:3px solid #956918;outline-offset:4px}#challenge-selector .challenge-mode-options button:disabled{opacity:1;filter:grayscale(.8);color:#78737f;cursor:default;box-shadow:none}
+.challenge-launch{position:relative;grid-column:1/-1;display:flex;justify-content:center;z-index:2;margin-top:1px}
+/* Launch is decorated by the same shared component as Post and lesson navigation. */
+#challenge-start{min-width:300px}
+#challenge-selector button:focus-visible,#challenge-selector label:has(input:focus-visible){outline:3px solid var(--quiz-focus,#8b6718)!important;outline-offset:3px!important}
+#challenge-selector ::selection{background:#ffedb1;color:var(--stage-ink)}
+.challenge-waves{position:absolute;left:0;right:0;bottom:0;width:100%;height:65px;pointer-events:none;z-index:0;opacity:.65}
+#challenge-selector.has-mode .challenge-selector-heading{min-height:0;padding:0;margin:0}#challenge-selector.has-mode .challenge-intro{max-width:none}#challenge-selector.has-mode .challenge-kicker,#challenge-selector.has-mode .challenge-hero-art,#challenge-selector.has-mode .challenge-waves,#challenge-selector.has-mode .challenge-launch{display:none}
+#challenge-selector.has-mode .challenge-selector-heading h2{font-size:20px;color:var(--quiz-ink);line-height:1.4;margin:0}#challenge-selector.has-mode .challenge-selector-heading p{font-size:13px;line-height:1.6}
+#challenge-selector.has-mode .challenge-workspace{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:12px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;overflow:visible}
+#challenge-selector.has-mode .challenge-scope{flex:1;min-width:0}#challenge-selector.has-mode .challenge-scope legend,#challenge-selector.has-mode .scope-card-detail,#challenge-selector.has-mode .scope-meter,#challenge-selector.has-mode .challenge-scope-choice .scope-art,#challenge-selector.has-mode .challenge-section-symbol,#challenge-selector.has-mode .challenge-modes-label,#challenge-selector.has-mode .challenge-modes-hint{display:none!important}
+#challenge-selector.has-mode .challenge-scope-row{display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:10px}#challenge-selector.has-mode .challenge-scope-options{display:flex;gap:8px}#challenge-selector.has-mode .challenge-scope-choice{flex-direction:row;align-items:center;gap:8px;min-height:40px;padding:8px 12px;border-width:1px;border-radius:10px;box-shadow:none;transform:none}#challenge-selector.has-mode .scope-card-title,#challenge-selector.has-mode .challenge-scope-choice strong{font-size:13px;line-height:1.5;margin:0}#challenge-selector.has-mode .challenge-scope-choice strong::after{font-size:12px}#challenge-selector.has-mode #challenge-scope-hint{order:1;margin:0;font-size:12px;max-width:300px}#challenge-selector.has-mode #challenge-scope-status{display:none}
+#challenge-selector.has-mode .challenge-mode-options{flex-direction:row;align-self:center;gap:4px;padding:4px;border:1px solid var(--quiz-line);border-radius:12px;background:#fffefa}#challenge-selector.has-mode .challenge-mode-options::before{display:none}#challenge-selector.has-mode .challenge-mode-options button{min-height:36px;padding:8px 14px;border:0;border-radius:8px;box-shadow:none;background:transparent;transform:none}#challenge-selector.has-mode .challenge-mode-options strong{font-size:13px;margin:0;letter-spacing:0}#challenge-selector.has-mode .challenge-mode-options button[aria-pressed=true]{background:#ffedb1;box-shadow:none}#challenge-selector.has-mode .challenge-mode-options button[data-challenge-choice=game][aria-pressed=true]{background:#f0e4ff;box-shadow:none}#challenge-selector.has-mode .challenge-mode-options .challenge-sprite,#challenge-selector.has-mode .challenge-mode-options small,#challenge-selector.has-mode .challenge-mode-options button>svg{display:none}
+body[data-pre-step='2'][data-challenge-mode='choose'] .app main>footer.actions{max-width:none;margin-top:16px}
+@media(min-width:900px) and (max-width:1150px){#challenge-selector .challenge-selector-heading{min-height:158px;padding-left:24px}#challenge-selector .challenge-selector-heading h2{font-size:28px}.challenge-hero-art{height:178px;right:0;width:330px}.challenge-hero-art img{right:30px;top:-3px;width:250px;height:250px}#challenge-selector .challenge-workspace{padding:24px;column-gap:24px}#challenge-selector .challenge-mode-options::before{left:-12px}#challenge-selector .challenge-mode-options strong{font-size:18px}#challenge-selector .challenge-mode-options button .challenge-sprite{flex-basis:56px;width:56px;height:56px}#challenge-selector .challenge-scope-choice{padding:15px;min-height:212px}#challenge-selector .scope-card-title{font-size:17px}}
+@media(prefers-reduced-motion:reduce){#challenge-selector button,#challenge-selector label{transition:none!important;transform:none!important}}
+
+/* Align the chooser to the 1200px lesson canvas used by While/Post. Game keeps its wider arena. */
+body[data-lesson-shell][data-spark-page=pre][data-pre-step='2']:is([data-challenge-mode='choose'],[data-challenge-mode='quiz']) .lesson-content>main{max-width:1200px}
+
+/* Selection is a raised pastel surface; native input/aria state remains accessible. */
+#challenge-selector:not(.has-mode) .challenge-scope-choice:has(input:checked):hover{transform:translateY(-5px);box-shadow:0 7px 0 var(--choice-edge),0 12px 20px var(--choice-shadow),inset 0 1px 0 var(--choice-glint)}
+#challenge-selector:not(.has-mode) .challenge-mode-options button[aria-pressed=true]:hover{transform:translateY(-5px)}
+#challenge-selector:not(.has-mode) .challenge-scope-choice:has(input:checked):active,#challenge-selector:not(.has-mode) .challenge-mode-options button[aria-pressed=true]:active{transform:translateY(-1px);box-shadow:0 3px 0 var(--choice-edge)}
+#challenge-selector:not(.has-mode) .challenge-mode-options button[data-challenge-choice=game][aria-pressed=true]:active{box-shadow:0 3px 0 var(--choice-edge)}
+#challenge-selector.has-mode .challenge-scope-choice:has(input:checked),#challenge-selector.has-mode .challenge-mode-options button[aria-pressed=true]{background:var(--choice-fill);transform:translateY(-2px);box-shadow:0 3px 0 var(--choice-edge)}
+#challenge-selector.has-mode .challenge-mode-options button[data-challenge-choice=game][aria-pressed=true]{background:var(--choice-fill);box-shadow:0 3px 0 var(--choice-edge)}
+#challenge-selector .challenge-scope-choice:has(input:disabled),#challenge-selector .challenge-mode-options button:disabled{transform:none;box-shadow:none}
+
+/* Compact chooser: 40% content scope, 60% practice modes. */
+body[data-lesson-shell][data-spark-page=pre][data-pre-step='2'][data-challenge-mode='choose'] .lesson-content>main{max-width:1120px}
+#challenge-selector:not(.has-mode) .challenge-selector-heading{min-height:142px;padding-bottom:16px}
+#challenge-selector:not(.has-mode) .challenge-hero-art{height:170px;width:340px}
+#challenge-selector:not(.has-mode) .challenge-hero-art img{width:246px;height:246px;right:42px;top:-8px}
+#challenge-selector:not(.has-mode) .challenge-workspace{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);padding:22px;row-gap:18px}
+#challenge-selector:not(.has-mode) .challenge-scope-options{gap:12px}
+#challenge-selector:not(.has-mode) .challenge-scope-choice{min-height:194px;padding:14px}
+#challenge-selector:not(.has-mode) .challenge-scope-choice .scope-art{width:82px;height:82px;left:10px;top:7px}
+#challenge-selector:not(.has-mode) .scope-card-title{font-size:16px}
+#challenge-selector:not(.has-mode) .scope-card-detail{font-size:12px}
+#challenge-selector:not(.has-mode) .challenge-scope-choice strong{margin:6px 0 8px;font-size:14px}
+#challenge-selector:not(.has-mode) .challenge-mode-options button{min-height:112px;padding:17px 20px 17px 14px;gap:16px}
+#challenge-selector:not(.has-mode) .challenge-mode-options button .challenge-sprite{width:78px;height:78px;flex-basis:78px}
+#challenge-selector:not(.has-mode) #challenge-scope-status{margin-top:12px}
+body[data-lesson-shell] .lesson-content #challenge-start.lesson-footer-primary{min-width:180px;min-height:42px;padding:8px 20px;border-radius:14px;box-shadow:0 4px 0 #d4a52d}
+body[data-lesson-shell] .lesson-content #challenge-start.lesson-footer-primary:active:not(:disabled){box-shadow:0 2px 0 #d4a52d;transform:translateY(2px)}
+body[data-lesson-shell] .lesson-content #challenge-start.lesson-footer-primary:disabled{box-shadow:0 3px 0 #dcd8cb}
+
+#challenge-selector .challenge-scope-choice:has([data-challenge-group=remembered]:checked) .scope-meter{background:#f1d992}
+#challenge-selector .challenge-scope-choice:has([data-challenge-group=remembered]:checked) .scope-meter i{background:linear-gradient(90deg,#ffb500,#ffdc55)}
+
+/* Taste refinement: the lesson's own mascot and controls carry the identity. */
+#challenge-selector:not(.has-mode) .challenge-selector-heading{min-height:132px;padding:0 22px 24px}
+#challenge-selector:not(.has-mode) .challenge-selector-heading h2{margin-bottom:8px}
+#challenge-selector:not(.has-mode) .challenge-hero-art{height:156px;width:260px;right:24px}
+#challenge-selector:not(.has-mode) .challenge-hero-art img{width:228px;height:228px;right:0;top:-12px;transform:none;filter:none}
+#challenge-selector:not(.has-mode) .challenge-workspace{row-gap:20px;background:#fffefa;border-color:#eeeade;box-shadow:0 5px 18px #67522c0a}
+#challenge-selector .challenge-mode-options::before{display:none}
+#challenge-selector:not(.has-mode) .challenge-scope legend,#challenge-selector:not(.has-mode) .challenge-modes-label{min-height:27px;font-size:17px;letter-spacing:-.02em}
+#challenge-selector:not(.has-mode) #challenge-scope-hint{margin:0 0 18px;font-size:13px}
+#challenge-selector:not(.has-mode) .challenge-modes-label{margin:0!important}
+#challenge-selector:not(.has-mode) .challenge-modes-hint{margin:-8px 0 6px;font-size:13px}
+#challenge-selector:not(.has-mode) .challenge-scope-choice{min-height:180px;justify-content:flex-start;background:#fffefa;border-color:#dfdfd5;box-shadow:none;padding:14px}
+#challenge-selector:not(.has-mode) .challenge-scope-choice strong{position:absolute;right:14px;top:16px;margin:0;font-size:14px;font-weight:500;color:#62665b}
+#challenge-selector:not(.has-mode) .challenge-scope-choice strong::after{font-size:12px}
+#challenge-selector:not(.has-mode) .scope-card-title{margin:86px 0 3px;font-weight:600}
+#challenge-selector:not(.has-mode) .scope-card-detail{font-size:12px;line-height:1.6}
+#challenge-selector:not(.has-mode) .challenge-mode-options button{min-height:104px;background:#fffefa;border-color:#dfdfd5;box-shadow:none;padding:14px 20px 14px 12px}
+#challenge-selector:not(.has-mode) .challenge-mode-options strong{font-size:19px;letter-spacing:-.02em;margin-bottom:4px}
+#challenge-selector:not(.has-mode) .challenge-mode-options button .challenge-sprite{filter:none}
+#challenge-selector:not(.has-mode) .challenge-scope-choice:has(input:checked),#challenge-selector:not(.has-mode) .challenge-mode-options button[aria-pressed=true]{background:var(--choice-fill);border-color:var(--choice-line);box-shadow:0 4px 0 var(--choice-edge),0 7px 12px #a17a2712;transform:translateY(-3px)}
+#challenge-selector:not(.has-mode) .challenge-scope-choice:hover:not(:has(input:disabled)),#challenge-selector:not(.has-mode) .challenge-mode-options button:hover:not(:disabled){border-color:#c9bd9f;background:#faf7ef;transform:translateY(-2px);box-shadow:0 2px 0 #e4ddcd}
+#challenge-selector:not(.has-mode) .challenge-scope-choice:has(input:checked):hover,#challenge-selector:not(.has-mode) .challenge-mode-options button[aria-pressed=true]:hover{background:var(--choice-fill);border-color:var(--choice-edge);box-shadow:0 5px 0 var(--choice-edge),0 8px 14px #a17a2718;transform:translateY(-4px)}
+#challenge-selector:not(.has-mode) .challenge-scope-choice:has(input:checked):active,#challenge-selector:not(.has-mode) .challenge-mode-options button[aria-pressed=true]:active{transform:translateY(-1px);box-shadow:0 2px 0 var(--choice-edge)}
+#challenge-selector:not(.has-mode) .challenge-scope-choice:has(input:disabled),#challenge-selector:not(.has-mode) .challenge-mode-options button:disabled{background:#f6f5ef;border-color:#e5e3d9;box-shadow:none;transform:none}
+#challenge-selector:not(.has-mode) .challenge-scope-choice:has(input:disabled) .scope-art{filter:grayscale(1);opacity:.5}
+#challenge-selector:not(.has-mode) #challenge-scope-status{font-size:12px;font-weight:500;color:var(--stage-muted);margin-top:13px}
+#challenge-selector:not(.has-mode) .challenge-launch{margin-top:0}
+
+/* Four flat vector illustrations, one 64-unit grid and 2-unit rounded stroke. */
+#challenge-selector .challenge-mode-options button .challenge-mode-icon{display:block;width:78px;height:78px;flex:0 0 78px;object-fit:contain;margin:-8px 0;pointer-events:none}
+#challenge-selector.has-mode .challenge-mode-options .challenge-mode-icon{display:none}

@@ -1,0 +1,34 @@
+/* Taste component pass: a compact choice directly above its Quiz/Game action. */
+#learning-practice-scope{width:100%;min-width:0;border:0;padding:0;margin:0;text-align:left;color:var(--quiz-ink)}
+#learning-practice-scope legend{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#learning-practice-scope #challenge-scope-hint{min-height:0;margin:0 0 16px;font-size:12px;line-height:1.5;text-align:center;color:var(--quiz-muted)}
+#learning-practice-scope .challenge-scope-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#learning-practice-scope .challenge-scope-choice{position:relative;display:grid;grid-template-columns:26px minmax(0,1fr);column-gap:8px;row-gap:2px;align-content:center;align-items:center;min-width:0;min-height:68px;padding:10px 12px;border:1px solid #deded3;border-radius:12px;background:#fffefa;cursor:pointer;transition:transform 150ms ease,box-shadow 150ms ease,background-color 150ms ease,border-color 150ms ease}
+#learning-practice-scope input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;z-index:1;cursor:inherit}
+#learning-practice-scope .scope-state-icon{display:flex;align-items:center;justify-content:center;width:26px;height:26px;grid-row:1/3;pointer-events:none}
+#learning-practice-scope .scope-state-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#learning-practice-scope .scope-practice{color:#8b5b16}
+#learning-practice-scope .scope-remembered{color:#356948}
+#learning-practice-scope .scope-card-title{font-size:14px;line-height:1.5;font-weight:600;white-space:nowrap}
+#learning-practice-scope .scope-card-detail{display:none}
+#learning-practice-scope strong{font-size:14px;line-height:1.5;font-weight:600;font-variant-numeric:tabular-nums;color:var(--quiz-ink)}
+#learning-practice-scope strong::after{content:' mục';font-size:12px;font-weight:400;color:var(--quiz-muted)}
+#learning-practice-scope label:hover:not(:has(input:disabled)){border-color:#c3bba3;background:#faf8f0;transform:translateY(-1px)}
+#learning-practice-scope label:has(input:checked){background:#fff2cc;border-color:#dcc48f;transform:translateY(-3px);box-shadow:0 4px 0 #c6a15a}
+#learning-practice-scope label:has(input:checked):hover{background:#fff2cc;border-color:#c6a15a;transform:translateY(-4px);box-shadow:0 5px 0 #c6a15a}
+#learning-practice-scope label:has(input:checked):active{transform:translateY(-1px);box-shadow:0 2px 0 #c6a15a}
+#learning-practice-scope label:has(input:focus-visible){outline:3px solid var(--quiz-focus);outline-offset:4px}
+#learning-practice-scope label:has(input:disabled){background:#f5f4ee;border-color:#e6e3d9;color:#888a7f;cursor:default;box-shadow:none;transform:none}
+#learning-practice-scope label:has(input:disabled) .scope-state-icon{filter:grayscale(1);opacity:.5}
+#learning-practice-scope label:has(input:disabled) strong{color:#888a7f}
+#learning-practice-scope #challenge-scope-status{min-height:0;margin:14px 0 0;font-size:12px;line-height:1.5;text-align:center;color:var(--quiz-muted)}
+body[data-pre-step='1'] #learning-recall-summary{gap:16px;padding:24px 12px}
+body[data-pre-step='1'] #learning-recall-summary h2{max-width:100%;margin:0;font-size:24px;font-weight:600;line-height:1.4;letter-spacing:-.025em}
+body[data-pre-step='1'] #learning-recall-summary .recall-invitation{min-height:0;margin:-8px 0 12px;font-size:14px;line-height:1.6;max-width:340px;color:var(--quiz-muted)}
+body[data-pre-step='1'] #recall-summary-actions{width:100%;max-width:300px;gap:16px}
+.challenge-mode-options button:disabled{opacity:.5;cursor:default}
+@media(prefers-reduced-motion:reduce){#learning-practice-scope label{transition:none;transform:none!important}}
+
+/* The one visible instruction sits under the summary title, before the choices. */
+#learning-practice-scope #challenge-scope-hint{position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+body[data-pre-step='1'] #learning-recall-summary .recall-invitation{max-width:320px;margin:-8px 0 8px;text-wrap:pretty}

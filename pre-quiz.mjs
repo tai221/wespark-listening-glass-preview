@@ -1,3 +1,4 @@
+import {mountQuizGuide} from './quiz-spark-guide.mjs';
 import {createQuizSound} from './pre-quiz-sound.mjs';
 import {learningItems} from './pre-learning.mjs';
 
@@ -53,9 +54,30 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
  const sound=createQuizSound(document,{celebration:true});
  function el(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
  const reducedMotion=document.defaultView.matchMedia('(prefers-reduced-motion: reduce)');
- const flights=new Set();
- function stopPoints(){for(const {node,animation} of flights){animation.cancel();node.remove();}flights.clear();reward.getAnimations?.().forEach(a=>a.cancel());}
+ const flights=new Set(),slides=new Set();let slideRequest=0;
+ function stopSlides(){slideRequest++;pane.inert=false;for(const animation of slides)animation.cancel();slides.clear();}
+ function slideQuestion(){
+  stopSlides();if(!active||document.hidden||reducedMotion.matches||document.body.dataset.glassMotion!=='true'||!title.animate)return;
+  for(const node of [guide.slot,title,prompt,fieldset,feedback,footer]){
+   if(node.hidden)continue;
+   const animation=node.animate([{transform:'translateX(64px)',opacity:.2},{transform:'translateX(0)',opacity:1}],{duration:480,easing:'cubic-bezier(.22,.61,.36,1)'});
+   slides.add(animation);animation.finished.then(()=>slides.delete(animation),()=>slides.delete(animation));
+  }
+ }
+ function nextQuestion(){
+  const next=quiz(s,{type:'next'});
+  if(next===s)return;
+  if(next.phase==='complete'||!title.animate||reducedMotion.matches||document.body.dataset.glassMotion!=='true'||document.hidden){commit(next);if(s.phase==='playing')title.focus();return;}
+  stopSlides();const token=++slideRequest;pane.inert=true;
+  const outgoing=[guide.slot,title,prompt,fieldset,feedback,footer].filter(node=>!node.hidden).map(node=>{
+   const animation=node.animate([{transform:'translateX(0)',opacity:1},{transform:'translateX(64px)',opacity:0}],{duration:320,easing:'cubic-bezier(.4,0,.6,1)',fill:'forwards'});
+   slides.add(animation);return animation.finished;
+  });
+  Promise.all(outgoing).then(()=>{if(token!==slideRequest||!active)return;commit(next);title.focus();slideQuestion();}).catch(()=>{});
+ }
+ function stopPoints(){stopSlides();for(const {node,animation} of flights){animation.cancel();node.remove();}flights.clear();reward.getAnimations?.().forEach(a=>a.cancel());}
  document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPoints();});
+ document.defaultView.addEventListener('pagehide',stopPoints);
  document.defaultView.addEventListener('glass-motion-change',event=>{if(!event.detail.enabled)stopPoints();});
  reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)stopPoints();});
  const meta=el('div','prep-quiz-meta'),summary=el('div','prep-quiz-summary'),counter=el('span','prep-quiz-count'),reward=el('span','prep-quiz-reward');reward.id='prep-quiz-reward';
@@ -64,10 +86,14 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
  const track=el('div','prep-quiz-track'),fill=el('span');track.append(fill);track.setAttribute('role','progressbar');track.setAttribute('aria-label','Số câu đã kiểm tra');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax',String(count));
  const title=el('h2');title.id='quiz-mode-title';title.tabIndex=-1;
  const prompt=el('p','prep-quiz-prompt');prompt.lang='en';
- const fieldset=el('fieldset','prep-quiz-fieldset'),legend=el('legend',null,'Bấm đáp án để xem đúng/sai.'),options=el('div','prep-quiz-options');fieldset.append(legend,options);
+ const fieldset=el('fieldset','prep-quiz-fieldset'),legend=el('legend','sr-only','Chọn đáp án'),options=el('div','prep-quiz-options');fieldset.append(legend,options);
  const feedback=el('div','prep-quiz-feedback');feedback.id='prep-quiz-feedback';feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');feedback.setAttribute('aria-atomic','true');
  const footer=el('div','prep-quiz-actions'),button=el('button','button primary');button.id='prep-quiz-check';button.type='button';footer.append(button);
- pane.replaceChildren(meta,track,title,prompt,fieldset,feedback,footer);
+ const guide=mountQuizGuide(document,pane);
+ const body=el('div','prep-quiz-body'),question=el('div','prep-quiz-question');
+ const content=el('div','prep-quiz-question-content');
+ content.append(title,prompt,fieldset,feedback);question.append(content,footer);body.append(guide.slot,question);
+ pane.replaceChildren(meta,track,body);
  function flyPoint(from){
   if(!reward.animate||reducedMotion.matches||document.body.dataset.glassMotion==='false'||!from.width)return;
   const to=reward.getBoundingClientRect(),node=el('span','quiz-point-flight','+1');node.setAttribute('aria-hidden','true');
@@ -78,11 +104,12 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
   animation.finished.then(()=>{if(active){reward.animate([{transform:'scale(1)'},{transform:'scale(1.12)',background:'#ffe18a',offset:.45},{transform:'scale(1)'}],{duration:260,easing:'ease-out'});}}).catch(()=>{}).finally(()=>{node.remove();flights.delete(flight);});
  }
  function commit(next,{paint=true}={}){
-  if(next===s)return;const before=s;s=next;if(paint)render();onChange(s);
+  if(next===s)return;stopSlides();const before=s;s=next;if(paint)render();onChange(s);
   if(before.phase!=='complete'&&s.phase==='complete'){onComplete(s);sound.celebrate();}
  }
  function render(){
   const count=s.answers.length,q=questionSet(s)[s.index],checked=s.checked[s.index],complete=s.phase==='complete';
+  guide.update(active&&!complete,q,checked,s.answers[s.index]===q?.answer);
   if(!q)return;track.setAttribute('aria-valuemax',String(count));
   pane.dataset.quizPhase=s.phase;counter.textContent=`Câu ${s.index+1} / ${count}`;const points=String(quizPoints(s));if(rewardLabel.textContent!==points)rewardLabel.textContent=points;reward.setAttribute('aria-label',`${points} SparkPoint trong lượt Quiz`);
   const reviewed=s.checked.filter(Boolean).length;track.setAttribute('aria-valuenow',String(reviewed));fill.style.width=`${reviewed/count*100}%`;
@@ -104,17 +131,16 @@ export function mountQuiz(document,{state=createQuiz(),onChange=()=>{},onComplet
   });
   feedback.replaceChildren();feedback.hidden=!checked;
   if(checked){feedback.append(el('strong',null,s.answers[s.index]===q.answer?'Đúng rồi.':'Nhớ điểm này nhé.'),el('p',null,`Đáp án: ${q.options[q.answer]}. ${q.explanation}`));}
-  button.hidden=!checked;button.textContent=s.index===count-1?'Hoàn tất Quiz →':'Câu tiếp →';button.disabled=complete||!checked;
+  footer.hidden=!checked;button.hidden=!checked;button.textContent=s.index===count-1?'Hoàn tất Quiz →':'Câu tiếp →';button.disabled=complete||!checked;
  }
  button.addEventListener('click',()=>{
-  if(!active||s.phase!=='playing'||!s.checked[s.index])return;
-  const checked=s.checked[s.index];commit(quiz(s,{type:'next'}));
-  if(checked&&s.phase==='playing')title.focus();
+  if(!active||pane.inert||s.phase!=='playing'||!s.checked[s.index])return;
+  nextQuestion();
  });
  render();
  return {
-  activate(value){active=!!value;if(active)render();else{sound.stop();stopPoints();}},
-  reset(value=createQuiz()){sound.stop();stopPoints();s=restoreQuiz(value);render();onChange(s);},
+  activate(value){active=!!value;if(active)render();else{guide.update(false);sound.stop();stopPoints();}},
+  reset(value=createQuiz()){guide.reset();sound.stop();stopPoints();s=restoreQuiz(value);render();onChange(s);},
   getState:()=>s
  };
 }

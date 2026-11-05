@@ -55,7 +55,7 @@ body[data-spark-page='pre'] .prep-quiz-actions .button.primary:disabled{backgrou
 #quiz-mode-pane>.prep-quiz-meta{justify-content:flex-end}
 
 /* Optional answer feedback sounds; shared desktop Quiz controls. */
-@media(min-width:1100px){
+@media(min-width:1000px){
 .prep-quiz-sound{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:none;padding:7px;border:1px solid var(--quiz-line);border-radius:8px;background:var(--quiz-surface);color:var(--quiz-muted);font:inherit;font-size:12px;line-height:1.6;cursor:pointer}
 .prep-quiz-sound:hover{background:var(--quiz-hover);border-color:#bda36b}
 .prep-quiz-sound svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
@@ -63,15 +63,18 @@ body[data-spark-page='pre'] .prep-quiz-actions .button.primary:disabled{backgrou
 .prep-quiz-sound:focus-visible{outline:3px solid var(--quiz-focus);outline-offset:3px}
 }
 
-@media(min-width:1100px){
+@media(min-width:1000px){
 .prep-quiz-summary{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px}
 .prep-quiz-reward{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:7px;background:#fff1bf;color:var(--quiz-gold-ink);font-size:12px;line-height:1.6;font-weight:500;white-space:nowrap}
 .prep-quiz-reward svg{width:15px;height:15px;fill:currentColor;stroke:none;flex:none}
 .prep-quiz-reward[data-claimed=true]{background:var(--quiz-success-bg);color:var(--quiz-success)}
 }
 
-@media(min-width:1100px){
+@media(min-width:1000px){
 .prep-quiz-reward{background:#fff1bf;color:var(--quiz-gold-ink);font-variant-numeric:tabular-nums;transform-origin:center}
 #prep-quiz-points{font-size:16px;font-weight:700;line-height:1.25;min-width:1ch;text-align:center}
 .quiz-point-flight{position:fixed;z-index:1000;pointer-events:none;color:#674718;background:#ffdc70;border:1px solid #e7bd4e;border-radius:999px;padding:5px 10px;font-family:inherit;font-size:18px;font-weight:700;box-shadow:0 4px 12px #735b1526}
 }
+
+
+.challenge-mode-options[hidden]{display:none!important}

@@ -25,7 +25,7 @@ export function mountLearning(document,items=learningItems,{assessments={},onAss
  content.append(...detail.childNodes);detail.append(content);
  const summary=document.createElement('section');summary.id='learning-recall-summary';summary.hidden=true;summary.setAttribute('aria-labelledby','recall-summary-title');
  summary.innerHTML='<h2 id="recall-summary-title" tabindex="-1">Cùng ôn lại nhé!</h2><p id="recall-summary-terms" lang="en"></p><div id="recall-summary-actions"></div>';
- detail.append(summary);summary.insertBefore($('#recall-invitation'),$('#recall-summary-actions'));
+ detail.append(summary);summary.insertBefore($('#recall-invitation'),$('#recall-summary-actions'));const scope=$('#learning-practice-scope');if(scope)$('#recall-summary-actions').prepend(scope);
  const reduced=document.defaultView.matchMedia('(prefers-reduced-motion: reduce)');
  function stopSlide(){activeSlide?.cancel();activeSlide=undefined;}
  function slide(node,direction=1){

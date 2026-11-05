@@ -28,7 +28,7 @@ export function companionFeedback(stage,session={},ui={}){
   return feedback('dictation-'+(state.index||0),'Cứ nghe và gõ theo nhịp của bạn. Spark sẽ đánh dấu phần cần sửa.');
  }
  if(stage==='shadowing')return feedback('shadow-'+state.phase+'-'+state.index,state.phase==='feedback'?'Chọn một điểm trong nhận xét để luyện thêm, hoặc chuyển sang đoạn tiếp theo.':'Nghe mẫu rồi luyện từng đoạn theo nhịp của bạn.',state.phase==='feedback'?'attempt':'guide');
- if(stage==='conversation')return feedback('conversation-'+state.count+'-'+state.started,state.count===3?'Bạn đã trả lời đủ ba lượt. Xem nhận xét cuối để hoàn thành hoạt động.':'Thử dùng ý tưởng từ bài nghe để cùng thống nhất một thay đổi.',state.count?'attempt':'guide');
+ if(stage==='conversation')return feedback('conversation-'+state.count+'-'+state.started,state.count===3?'Bạn đã trả lời đủ ba lượt. Xem nhận xét cuối để hoàn thành hoạt động.':'Dùng một ý từ bài nghe nhé.',state.count?'attempt':'guide');
  return feedback('guide','Cùng tiến từng bước nhỏ nhé.');
 }
 export function companionArtwork(stage,feedback){
