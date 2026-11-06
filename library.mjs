@@ -29,9 +29,36 @@ if(session.while?.reviewComplete){state='Đang học · Vận dụng';stage='pos
 if(session.post.choice){state='Đang học · Vận dụng';stage=`${session.post.choice}.html`;}
 if(session.post.skipped){state='Đã bỏ qua phần Vận dụng';stage='post.html';}
 if(session.post.complete.length){state='Đã hoàn thành luyện tập';stage='post.html';}
+const filterLabels={topic:'Chủ đề',level:'Trình độ',media:'Nguồn'};
+const filterOptions={topic:{'':'Tất cả',...topicLabels},media:{'':'Tất cả'},level:{'':'Tất cả'}};
+for(const id of ['topic','level','media']){
+ const select=$('#'+id),field=select.closest('label');
+ const group=document.createElement('fieldset');group.className=`filter-group filter-${id}`;
+ const legend=document.createElement('legend');legend.textContent=filterLabels[id];
+ const choices=document.createElement('div');choices.className='filter-choices';
+ for(const option of select.options){
+  const button=document.createElement('button');button.type='button';button.className='filter-pill';
+  button.textContent=filterOptions[id][option.value]||option.textContent;
+  if(option.value===''){
+   const label={media:'Tất cả nguồn',topic:'Tất cả chủ đề',level:'Tất cả trình độ'}[id];
+   button.setAttribute('aria-label',label);button.title=label;
+   button.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>';
+  }
+  button.dataset.value=option.value;button.setAttribute('aria-pressed',String(select.value===option.value));
+  button.addEventListener('click',()=>{select.value=option.value;select.dispatchEvent(new Event('input',{bubbles:true}));});
+  choices.append(button);
+ }
+ select.hidden=true;group.append(legend,choices,select);field.replaceWith(group);
+}
+$('.filter-topic').before($('.filter-media'));
+
+function syncFilterPills(){
+ for(const id of ['topic','level','media'])document.querySelectorAll(`.filter-${id} .filter-pill`).forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.value===$('#'+id).value)));
+ $('#clear').disabled=!['topic','level','media'].some(id=>$('#'+id).value.trim());
+}
 function render(){
- const query=$('#search').value.trim().toLocaleLowerCase('vi');
- const filtered=lessons.filter(l=>(!query||l.title.toLocaleLowerCase('vi').includes(query))&&(!$('#topic').value||l.topic===$('#topic').value)&&(!$('#level').value||l.level===$('#level').value)&&(!$('#media').value||l.media===$('#media').value));
+ syncFilterPills();
+ const filtered=lessons.filter(l=>(!$('#topic').value||l.topic===$('#topic').value)&&(!$('#level').value||l.level===$('#level').value)&&(!$('#media').value||l.media===$('#media').value));
  $('#lessons').replaceChildren();$('#empty').hidden=!!filtered.length;$('#result-count').textContent=`${filtered.length} bài học phù hợp`;
  for(const l of filtered){
   const article=document.createElement('article');article.className='lesson-card card';
@@ -57,6 +84,6 @@ function render(){
  }
  hasRendered=true;
 }
-function clear(){['search','topic','level','media'].forEach(id=>$('#'+id).value='');render();}
-['search','topic','level','media'].forEach(id=>$('#'+id).addEventListener('input',render));
+function clear(){['topic','level','media'].forEach(id=>$('#'+id).value='');render();}
+['topic','level','media'].forEach(id=>$('#'+id).addEventListener('input',render));
 $('#clear').addEventListener('click',clear);$('#reset-empty').addEventListener('click',clear);$('#close-detail').addEventListener('click',()=>$('#lesson-detail').close());render();
