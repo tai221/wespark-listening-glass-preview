@@ -1,0 +1,37 @@
+@import url('../lesson-shell.css');
+/* Listening owns the shared frame and rail; only Speaking's legacy cascade is adapted. */
+@media(min-width:1100px){
+ body[data-speaking-lesson]{margin:0;padding:0!important;background:#fffbee}
+ body[data-speaking-lesson] .browser.app.lesson-shell{width:100%!important;max-width:none;min-width:0;min-height:100dvh;margin:0!important;border:0;border-radius:0;overflow:clip;box-shadow:none;background:#fffbee url('../assets/backgrounds/travel-clouds-desktop-v1.webp') right 64px/cover no-repeat fixed}
+ body[data-speaking-lesson]>.review-toolbar,body[data-speaking-lesson]>.artifact,body[data-speaking-lesson]>.artifact-foot{display:none!important}
+ body[data-speaking-lesson] .lesson-topbar{position:sticky;top:0}
+ body[data-speaking-lesson] .lesson-top-identity .speaking-shell-level{background:#e2eefb;color:#2e5c8a}
+ body[data-speaking-lesson] .lesson-content>main{max-width:1200px;width:100%;margin:0 auto;padding:28px 36px 40px}
+ body[data-speaking-lesson] .lesson-content>.footer{width:100%;max-width:1200px;padding:8px 36px 28px;margin:0 auto;border:0;background:transparent;gap:16px}
+ body[data-speaking-lesson] .lesson-sidebar .lesson-substeps a{font-size:12px}
+ body[data-speaking-lesson] .lesson-top-tools .wallet{text-decoration:none}
+ body[data-speaking-lesson] .speaking-page-heading{margin-bottom:22px}
+ body[data-speaking-lesson] .lesson-sidebar [hidden]{display:none!important}
+ body[data-speaking-lesson]{--lesson-focus:#87611f;--lesson-copy:#51594b;--lesson-space:24px;scroll-padding-top:96px}
+ body[data-speaking-lesson] .lesson-content :is(a,button,input,summary,label[for]){scroll-margin-top:96px;scroll-margin-bottom:24px}
+ body[data-speaking-lesson] .speaking-page-heading h1{font-size:24px;line-height:1.4}
+ body[data-speaking-lesson] .speaking-page-heading .intro{font-size:14px;line-height:1.7;max-width:72ch;color:var(--lesson-copy)}
+ body[data-speaking-lesson] .speaking-record-grid{gap:24px}
+ body[data-speaking-lesson] .speaking-question-rail{padding:20px}
+ body[data-speaking-lesson] .speaking-question-rail>a{font-size:13px;line-height:1.6;padding:12px;border-radius:10px}
+ body[data-speaking-lesson] .speaking-question-rail>a[aria-current]{background:#fff0bc;border-color:#d4b35c;color:#674718;font-weight:600}
+ body[data-speaking-lesson] .speaking-question-status{font-size:12px;line-height:1.5;font-weight:400}
+ body[data-speaking-lesson] .practice .question-help{font-size:14px;line-height:1.75;max-width:65ch}
+ body[data-speaking-lesson] .lesson-sidebar>nav{width:304px;padding:16px}
+ body[data-speaking-lesson] .lesson-sidebar .lesson-substeps{padding-top:8px;gap:4px}
+ body[data-speaking-lesson] .lesson-sidebar .lesson-substeps a{min-height:40px;font-size:13px;line-height:1.5;padding:8px 12px}
+ body[data-speaking-lesson] .lesson-substeps a[aria-current]{background:#fff0bc;color:#654719;font-weight:650;box-shadow:inset 0 0 0 1px #dfc575}
+ body[data-speaking-lesson] .lesson-content .lesson-footer-button{min-height:44px;padding:10px 14px;border-radius:14px;font-size:13px;gap:8px;box-shadow:0 4px 0 #dcd5bd}
+ body[data-speaking-lesson] .lesson-content .lesson-footer-button.lesson-footer-primary{min-height:46px;background:#ffe27b;box-shadow:0 4px 0 #d4a52d;color:#795313}
+ body[data-speaking-lesson] .lesson-content .lesson-footer-button:hover:not(:disabled){box-shadow:0 4px 0 #dcd5bd}
+ body[data-speaking-lesson] .lesson-content .lesson-footer-button.lesson-footer-primary:hover:not(:disabled){background:#ffdc64;box-shadow:0 4px 0 #d4a52d}
+ body[data-speaking-lesson] .lesson-content .lesson-footer-button:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #dcd5bd}
+ body[data-speaking-lesson] .lesson-content .lesson-footer-button.lesson-footer-primary:active:not(:disabled){box-shadow:0 1px 0 #d4a52d}
+ body[data-speaking-lesson] .lesson-content .lesson-footer-button:disabled{background:#eeece3;color:#777568;box-shadow:0 3px 0 #dcd8cb;opacity:1;cursor:default}
+ body[data-speaking-lesson] .lesson-content .lesson-footer-button:focus-visible{outline:3px solid var(--lesson-focus)!important;outline-offset:4px!important}
+}

@@ -44,7 +44,7 @@ function mount(){
   const sidebar=document.createElement('aside');sidebar.id='project-sidebar';sidebar.className='project-sidebar';sidebar.setAttribute('aria-label','Điều hướng chính');
   const groups=[
     ['Kế hoạch',[['plan','OKRs của tôi','../key-okrs-management.html']]],
-    ['Học tập',[['listen','Listening','library.html'],['speak','Speaking','../key-speaking-library.html'],['book','Từ vựng','#preview-unavailable']]],
+    ['Học tập',[['listen','Listening','library.html'],['speak','Speaking','speaking/key-speaking-library.html'],['book','Từ vựng','#preview-unavailable']]],
     ['Theo dõi',[['progress','Hồ sơ học tập','../key-profile.html']]],
     ['Phần thưởng',[['gift','Spark & quà','../key-spark.html']]],
   ];

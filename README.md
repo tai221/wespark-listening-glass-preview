@@ -16,7 +16,12 @@ Desktop web only. Learner recordings stay in the browser tab where supported;
 conversation replies and feedback are scripted demo data, not AI grading.
 Lesson audio uses synthetic speech. Progress and illustrative SparkPoint stay
 in the browser; there is no connected account or backend.
-Only Listening is published; other product areas are unavailable.
+Listening and Speaking are published; other product areas are unavailable.
 
 Only browser runtime assets are published. Internal plans, research, credentials,
 QA scripts, source artwork and verification logs are excluded.
+
+## Speaking
+
+[Speaking library](https://tai221.github.io/wespark-listening-glass-preview/speaking/key-speaking-library.html).
+Connected both ways through the Listening/Speaking sidebar menus. Hometown includes vocabulary, Quiz and the speaking-flow preview. Speaking recording/feedback remains scripted demo UI; there is no microphone upload or AI grading.

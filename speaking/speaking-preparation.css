@@ -1,0 +1,84 @@
+@import url('../pre-learning.css');
+@import url('../pre-learning-cards.css');
+@import url('../pre-practice-scope.css');
+@import url('../pre-challenge.css');
+@import url('../pre-results.css');
+@import url('../spark-dialogue.css');
+@import url('../quiz-spark-guide.css');
+/* Loaded only by the two Speaking preparation routes. Listening sources stay unchanged. */
+body[data-speaking-preparation]{--pre-ink:#34382f;--pre-muted:#686a5e;--pre-surface:#fffefb;--pre-line:#e6e2d6;--quiz-ink:#34382f;--quiz-muted:#686a5e;--quiz-focus:#87621e;--recall-practice:#80520e;--recall-remembered:#315e3d}
+body[data-speaking-preparation] [hidden]{display:none!important}
+body[data-speaking-preparation] .lesson-content>main{max-width:1200px;padding-top:24px}
+body[data-speaking-preparation='learning'] .learning-workspace{height:600px;min-height:600px;border:0;gap:24px}
+body[data-speaking-preparation='learning'] .learning-detail{height:600px;overflow:auto;padding:24px}
+body[data-speaking-preparation='learning'] .learning-library{height:600px}
+body[data-speaking-preparation='learning'] .learning-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;flex-shrink:0}
+body[data-speaking-preparation='learning'] .learning-library-heading{min-height:52px;margin-bottom:20px}
+body[data-speaking-preparation='learning'] .learning-list section[data-learning-group]{row-gap:18px}
+body[data-speaking-preparation='learning'] .learning-list section[data-learning-group='single']{column-gap:18px}
+body[data-speaking-preparation='learning'] .learning-list section[data-learning-group='single']>.learning-card-wrapper>button.learning-card{min-height:112px}
+body[data-speaking-preparation='learning'] .learning-list section[data-learning-group='single']>.learning-card-wrapper>button>.learning-card-art{height:66px}
+body[data-speaking-preparation='learning'] .learning-list section+section{margin-top:18px}
+body[data-speaking-preparation='learning'] .learning-list section[data-learning-group='pattern']>.learning-card-wrapper>button.learning-card{min-height:112px}
+body[data-speaking-preparation='learning'] .learning-list section[data-learning-group='pattern']>.learning-card-wrapper>button>.learning-card-art{height:64px;padding:0 12px;justify-content:center}
+body[data-speaking-preparation='learning'] .learning-list section[data-learning-group='pattern'] .learning-card-art>span{font-size:17px;white-space:normal}
+body[data-speaking-preparation='learning'] .learning-list section>.learning-card-wrapper>button.learning-card{min-height:160px}
+body[data-speaking-preparation='learning'] .learning-list section>.learning-card-wrapper>button>.learning-card-art{height:108px;padding:0}
+body[data-speaking-preparation='learning'] .learning-card-art img{width:100%;height:100%;object-fit:contain}
+body[data-speaking-preparation='learning'] .learning-card-actions{top:8px;right:8px}
+body[data-speaking-preparation='learning'] .learning-word-stage{background:none;padding-right:150px;min-height:188px}
+body[data-speaking-preparation='learning'] .learning-illustration{width:132px;height:132px;right:0;top:50%;object-fit:contain;border-radius:16px}
+body[data-speaking-preparation='learning'] .learning-detail[data-learning-type='word'] #learning-heading{font-size:29px;text-wrap:balance}
+body[data-speaking-preparation='learning'] .learning-word-meta{font-size:13px}
+/* Match Listening's final desktop example treatment, rather than its base green inset. */
+body[data-speaking-preparation='learning'] .learning-example-block{padding:16px 0 0;margin:0;border:0;border-top:1px solid #ebe7da;border-radius:0;background:transparent}
+body[data-speaking-preparation='learning'] .learning-example-block h3{font-family:inherit;font-size:13px;font-weight:500;line-height:1.6;color:var(--pre-muted);margin:0 0 8px}
+body[data-speaking-preparation='learning'] .learning-example-block h3 svg{width:18px;height:18px;color:#7e814e}
+body[data-speaking-preparation='learning'] .learning-detail .learning-example{font-size:21px;font-weight:500;line-height:1.7;color:var(--pre-ink);margin:0 0 12px}
+body[data-speaking-preparation='learning'] .learning-example mark{background:#fff0b6;padding:2px 4px;color:#58431b}
+body[data-speaking-preparation='learning'] .learning-detail .learning-translation{font-size:14px;line-height:1.8;color:var(--pre-muted);margin:0}
+body[data-speaking-preparation='learning'] .learning-detail-content{display:flex;flex-direction:column;min-height:100%}
+body[data-speaking-preparation='learning'] .learning-assessment-actions{margin-top:auto;justify-content:center}
+body[data-speaking-preparation='learning'] .learning-detail #learning-audio:disabled{background:#f5f3eb;color:#8a877c;border-color:#ddd9cd;cursor:default;box-shadow:none}
+body[data-speaking-preparation='learning'] .learning-detail #learning-audio:disabled:hover{background:#f5f3eb;border-color:#ddd9cd}
+body[data-speaking-preparation='learning'] #learning-recall-summary{min-height:100%;justify-content:center;padding:24px 0}
+body[data-speaking-preparation='learning'] #recall-summary-actions{max-width:none;display:flex;flex-direction:column;align-items:center;width:100%;gap:24px}
+body[data-speaking-preparation='learning'] #learning-practice-scope{max-width:360px}
+.speaking-summary-buttons{display:flex;justify-content:center;gap:16px}
+body[data-speaking-preparation='learning'] #recall-summary-actions .button{width:164px;min-width:164px;max-width:164px;padding:10px;display:inline-flex;justify-content:center;align-items:center;gap:8px;font-size:13px}
+body[data-speaking-preparation] .button svg{width:20px;height:20px;flex:none}
+body[data-speaking-preparation] .button{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;cursor:pointer}
+body[data-speaking-preparation] .button:disabled{cursor:default}
+body[data-speaking-preparation='quiz'] .challenge-mode-options button:disabled{opacity:1;background:#f4f2e9;border-color:#e1ded1;color:#79796a;box-shadow:none;transform:none}
+body[data-speaking-preparation='quiz'] .challenge-mode-options button:disabled img{filter:grayscale(.6);opacity:.65}
+.challenge-mode-options em{display:inline-block;font-size:11px;font-style:normal;padding:3px 8px;margin-left:6px;border-radius:10px;background:#e8e4d7;color:#6c6a60;vertical-align:middle}
+/* Preserve Listening's spacing against Speaking's global heading/paragraph reset. */
+body[data-speaking-preparation='quiz'] .challenge-selector-heading h2{margin:0 0 8px}
+body[data-speaking-preparation='quiz'] .challenge-selector-heading p{min-height:42px;margin:0 0 24px}
+body[data-speaking-preparation='quiz'] .challenge-selector.has-mode .challenge-selector-heading h2{margin:0}
+body[data-speaking-preparation='quiz'] .challenge-selector.has-mode .challenge-selector-heading p{margin:6px 0 0}
+body[data-speaking-preparation='quiz'] #quiz-mode-pane{padding:28px 32px}
+body[data-speaking-preparation='quiz'] .prep-quiz-fieldset legend.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+body[data-speaking-preparation='quiz'] .speaking-result-hero h2{margin:0 0 16px}
+body[data-speaking-preparation='quiz'] .speaking-result-hero p+p{margin-top:8px}
+.speaking-quiz-continuation{display:flex;justify-content:flex-end;margin-top:28px}
+.speaking-quiz-result{padding:36px;border:1px solid #e6e2d6;border-radius:16px;background:#fffefb}
+.speaking-result-hero{display:flex;align-items:center;justify-content:space-between;gap:32px}
+.speaking-result-hero h2{font-size:28px;margin:0 0 16px;color:#34382f}
+.speaking-result-hero p{color:#686a5e;font-size:15px;line-height:1.7}
+.speaking-result-hero .speaking-result-score{font-size:26px;font-weight:700;color:#356948}
+body[data-speaking-preparation] .result-actions{display:flex;gap:16px;justify-content:flex-start;margin-top:28px}
+.speaking-answer-review{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.speaking-answer-review article{padding:20px;background:#f6f5ee;border-radius:12px}
+.speaking-answer-review h3{margin:0 0 12px;font-size:17px}
+.speaking-answer-review p{margin:8px 0;font-size:13px;line-height:1.6}
+@media(prefers-reduced-motion:reduce){body[data-speaking-preparation] *,body[data-speaking-preparation] *:before,body[data-speaking-preparation] *:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Speaking uses the approved learning dialogue, including actual-audio-driven Spark frames. */
+body[data-speaking-preparation='learning'] main>.speaking-learning-guide{display:flex;align-items:center;gap:14px;min-height:94px;margin:0 0 18px;padding:0;border:0;background:transparent;box-shadow:none}
+body[data-speaking-preparation='learning'] .speaking-learning-guide .spark-portrait{width:84px;flex:none}
+body[data-speaking-preparation='learning'] .speaking-learning-guide .spark-portrait img{display:block;width:84px;height:84px;object-fit:contain}
+body[data-speaking-preparation='learning'] .speaking-learning-guide .spark-message{max-width:780px;min-height:76px;padding:14px 20px;background:#fff1bf;border:0;border-radius:16px;display:flex;flex-direction:column;justify-content:center}
+body[data-speaking-preparation='learning'] .speaking-learning-guide .spark-message:before{display:none}
+body[data-speaking-preparation='learning'] .speaking-learning-guide .spark-message p{margin:0;font-size:15px;font-weight:500;line-height:1.65;color:#705121}
+body[data-speaking-preparation='learning'] .speaking-learning-guide .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
