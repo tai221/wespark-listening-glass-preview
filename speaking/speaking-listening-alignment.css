@@ -1,0 +1,389 @@
+/* Speaking uses Listening's established desktop materials and interaction states.
+   Sources: lesson-shell.css, practice-desktop.css, conversation-desktop.css.
+   Behavior, criterion meanings, the raised microphone and two V2 branches stay intact. */
+@media(min-width:1100px){
+body[data-speaking-glass]{--sp-ink:#34382f;--sp-muted:#62665b;--sp-line:#ebe7da;--sp-surface:#fffefb;--sp-soft:#f5f4ec;--sp-primary:#ffe27b;--sp-primary-ink:#795313;--sp-primary-edge:#d4a52d;--sp-focus:#87611f;--sp-correct:#17633a;--sp-correct-bg:#dff2e3;--sp-error:#b42318;--sp-error-bg:#fde5e3;--sp-caution:#805c16;--sp-caution-bg:#fff0c7;--sp-upgrade:#315e86;--sp-upgrade-bg:#e5effb;color:var(--sp-ink)}
+body[data-speaking-glass] ::selection{background:#ffedb1;color:var(--sp-ink)}
+body[data-speaking-glass] :is(button,a,summary,input,select,textarea):focus-visible{outline:3px solid var(--sp-focus)!important;outline-offset:3px!important}
+body[data-speaking-glass] :is(select,input,textarea){caret-color:var(--sp-primary-ink)}
+body[data-speaking-glass] :is(.lesson-content,.sf-evidence,.cycle-result .detail,.cycle-targets){scrollbar-width:thin;scrollbar-color:#d5cba9 transparent}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content>main{max-width:1240px;padding:28px 32px 32px;color:var(--sp-ink)}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content>main.speaking-cycle{max-width:1240px;padding:28px 32px 32px}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content>.footer{max-width:1240px;padding:12px 32px 32px}
+body[data-speaking-glass][data-speaking-lesson] .lesson-top-identity .speaking-shell-level{background:#fff0bc;color:#73531d}
+body[data-speaking-glass][data-speaking-lesson] .lesson-sidebar>nav{width:296px;padding:14px 14px 14px 16px}
+body[data-speaking-glass][data-speaking-lesson] .lesson-sidebar .lesson-substeps{padding-top:6px;gap:2px}
+body[data-speaking-glass][data-speaking-lesson] .lesson-sidebar .lesson-substeps a{min-height:36px;padding:7px 9px;font-size:12px}
+body[data-speaking-glass][data-speaking-lesson] .lesson-substeps a[aria-current]{box-shadow:none}
+body[data-speaking-glass] :is(.speaking-page-heading h1,.practice-top h1,.sf-heading h1,.cycle-result h1){font-size:24px;font-weight:600;line-height:1.4;letter-spacing:-.025em;color:var(--sp-ink)}
+body[data-speaking-glass] :is(.speaking-page-heading .intro,.behavior-note,.sf-heading p,.cycle-stage){color:var(--sp-muted)}
+body[data-speaking-glass] .speaking-page-heading{margin-bottom:24px}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content>main.speaking-cycle.sf-host{max-width:1240px;padding:28px 32px 32px}
+/* Four Speaking groups retain their identity, using Listening review's quiet controls. */
+body[data-speaking-glass] main :is(.sf-groups,.cycle-result .groups){display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:0;border:0;background:transparent;border-radius:0;box-shadow:none}
+body[data-speaking-glass] main :is(.sf-group,.cycle-result .group){display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:10px 12px;border:1px solid var(--sp-line);border-radius:8px;background:var(--sp-surface);color:var(--sp-muted);box-shadow:none;text-align:left;font-size:12px;line-height:1.5;font-weight:500;transition:background 150ms ease,border-color 150ms ease,color 150ms ease}
+body[data-speaking-glass] main :is(.sf-group,.cycle-result .group) strong{font-size:15px;font-weight:650}
+body[data-speaking-glass] main .sf-group span{font-size:12px;line-height:1.5}
+body[data-speaking-glass] main :is(.sf-group,.cycle-result .group)[aria-pressed=true]{background:#fff9e5;border-color:#b89540;color:#674718;box-shadow:none;font-weight:600}
+body[data-speaking-glass] main :is(.sf-group,.cycle-result .group):hover:not([aria-pressed=true]){background:#f8f6eb;border-color:#d8caa7}
+body[data-speaking-glass] main :is(.sf-criteria,.cycle-result .subnav){display:flex;gap:20px;padding:0;min-height:38px;align-items:stretch}
+body[data-speaking-glass] main .sf-layerbar{padding:16px 0 12px;min-height:0}
+body[data-speaking-glass] main :is(.sf-criteria,.cycle-result .subnav) button{padding:7px 2px;border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;color:var(--sp-muted);font-size:12px;line-height:1.7;font-weight:500}
+body[data-speaking-glass] main :is(.sf-criteria,.cycle-result .subnav) button[aria-pressed=true]{background:transparent;border-bottom-color:#b89540;color:#674718;font-weight:600}
+body[data-speaking-glass] main :is(.sf-criteria,.cycle-result .subnav) button:hover{background:transparent;color:#674718}
+body[data-speaking-glass] main .cycle-result .subnav{margin:12px 24px 0}
+body[data-speaking-glass] main .cycle-result .workspace{background:var(--sp-surface);border-radius:12px;overflow:visible}
+body[data-speaking-glass] main .cycle-result .workspace>.groups{padding:0;margin-bottom:4px}
+body[data-speaking-glass] main .cycle-result .workspace>.groups button{border-radius:8px}
+body[data-speaking-glass] main .sf-reading{padding:24px;border-radius:12px;background:var(--sp-surface);box-shadow:none}
+body[data-speaking-glass] main :is(.sf-transcript,.cycle-result[data-behavior=new] .speech){font-size:22px;line-height:1.9;letter-spacing:0;color:var(--sp-ink);font-weight:400}
+body[data-speaking-glass] main .cycle-result[data-behavior=repair] .speech{font-size:18px;line-height:1.9;letter-spacing:0;color:var(--sp-ink)}
+body[data-speaking-glass] main .cycle-result :is(.original,.retelling){padding:20px 24px 24px}
+body[data-speaking-glass] main .cycle-result .retelling{border-color:var(--sp-line)}
+body[data-speaking-glass] main :is(.sf-question-heading h2,.cycle-result .version-title strong){font-weight:600;color:var(--sp-ink)}
+body[data-speaking-glass] main :is(.sf-legend,.cycle-result .legend){color:var(--sp-muted);font-size:11px;gap:16px;border-color:var(--sp-line)}
+body[data-speaking-glass] main .sf-idea{font-size:18px;line-height:1.8}
+body[data-speaking-glass] main .sf-idea-role{font-weight:600}
+/* Listening grammar's red/green source cues, with existing Speaking meanings retained. */
+body[data-speaking-glass] main :is(.sf-mark.sf-error,.sf-mark.sf-repeat,.cycle-result .mark.bad){color:var(--sp-error);background:var(--sp-error-bg);text-decoration-color:var(--sp-error)}
+body[data-speaking-glass] main :is(.sf-mark.sf-positive,.cycle-result .mark.good){color:var(--sp-correct);background:var(--sp-correct-bg);text-decoration-color:var(--sp-correct)}
+body[data-speaking-glass] main :is(.sf-mark.sf-upgrade,.sf-mark.sf-kit,.cycle-result .mark.visual-upgrade){color:var(--sp-upgrade);background:var(--sp-upgrade-bg)}
+body[data-speaking-glass] main :is(.sf-mark.sf-unclear,.sf-mark.sf-missing,.sf-mark.sf-filler,.cycle-result .mark.unclear:not(.visual-upgrade)){color:var(--sp-caution);background:var(--sp-caution-bg)}
+body[data-speaking-glass] main :is(.sf-mark,.cycle-result .mark) del{color:var(--sp-error);background:var(--sp-error-bg);font-weight:400}
+body[data-speaking-glass] main :is(.sf-mark,.cycle-result .mark) ins{color:var(--sp-correct);background:var(--sp-correct-bg);font-weight:600}
+body[data-speaking-glass] main .sf-mark:has(ins){background:transparent}
+body[data-speaking-glass] main :is(.sf-evidence,.cycle-result .detail){padding:18px 48px 18px 20px;border-radius:10px;background:var(--sp-soft);box-shadow:none;color:var(--sp-ink)}
+body[data-speaking-glass] main .cycle-result .detail{padding:18px 24px}
+body[data-speaking-glass] main :is(.sf-evidence h3,.cycle-result .detail h2){font-size:14px;line-height:1.6;font-weight:600}
+body[data-speaking-glass] main :is(.sf-evidence p,.cycle-result .detail p){font-size:13px;line-height:1.8;color:var(--sp-muted)}
+body[data-speaking-glass] main .cycle-result .overall-comment{font-size:14px;line-height:1.7;color:var(--sp-ink)}
+body[data-speaking-glass] main .cycle-result .overall-comment>span:first-child{background:none;border:0;box-shadow:none;padding:0}
+body[data-speaking-glass] main .cycle-result .unassessed h2{font-size:13px;font-weight:600}
+body[data-speaking-glass] main .cycle-result .unassessed button{background:#fff9e5;border-color:#e3d5af;border-radius:8px;font-weight:500}
+/* Raised action family: Listening's dimensions, colors and hover/press behavior. */
+body[data-speaking-glass][data-speaking-lesson] .lesson-content :is(.lesson-footer-button,.sf-button){min-height:48px;padding:10px 14px;border-radius:17px;border:0;background:var(--sp-surface);color:#79613b;font-size:14px;font-weight:600;line-height:1.5;box-shadow:0 5px 0 #dcd5bd;gap:10px}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content :is(.lesson-footer-primary,.sf-button.sf-primary){background:var(--sp-primary);color:var(--sp-primary-ink);box-shadow:0 5px 0 var(--sp-primary-edge)}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content :is(.lesson-footer-button,.sf-button):hover:not(:disabled){background:#fff8e7;box-shadow:0 5px 0 #dcd5bd}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content :is(.lesson-footer-primary,.sf-button.sf-primary):hover:not(:disabled){background:#ffdc64;box-shadow:0 5px 0 var(--sp-primary-edge)}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content :is(.lesson-footer-button,.sf-button):active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 #dcd5bd}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content :is(.lesson-footer-primary,.sf-button.sf-primary):active:not(:disabled){box-shadow:0 2px 0 var(--sp-primary-edge)}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content :is(.lesson-footer-button,.sf-button):disabled{background:#eeece3;color:#8a8778;box-shadow:0 3px 0 #dcd8cb;opacity:1;cursor:default}
+body[data-speaking-glass] main.speaking-cycle :is(.cycle-result .arrow,.practice-back,.practice-navigation button,.practice-start[data-action=submit]){width:52px;min-width:52px;height:48px;min-height:48px;padding:10px;border:0;border-radius:17px;background:var(--sp-surface);color:#79613b;box-shadow:0 5px 0 #dcd5bd}
+body[data-speaking-glass] main.speaking-cycle .cycle-result .arrow{background:var(--sp-primary);color:var(--sp-primary-ink);box-shadow:0 5px 0 var(--sp-primary-edge)}
+body[data-speaking-glass] main.speaking-cycle .cycle-result .arrow:hover{background:#ffdc64;box-shadow:0 5px 0 var(--sp-primary-edge)}
+body[data-speaking-glass] main.speaking-cycle .cycle-result .arrow:active{transform:translateY(3px);box-shadow:0 2px 0 var(--sp-primary-edge)}
+body[data-speaking-glass] main.speaking-cycle .cycle-result .arrow svg{width:22px;height:22px;stroke-width:2.2}
+body[data-speaking-glass] main.speaking-cycle .practice-bottom :is(.practice-kit-toggle,.practice-secondary){min-height:44px;padding:10px 14px;border-radius:14px;background:var(--sp-surface);color:#79613b;font-size:13px;font-weight:600;box-shadow:0 4px 0 #dcd5bd}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=review] .practice-start{width:52px;min-width:52px;min-height:48px;border-radius:17px;background:var(--sp-primary);color:var(--sp-primary-ink);box-shadow:0 5px 0 var(--sp-primary-edge)}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=review] .practice-start:hover{background:#ffdc64;box-shadow:0 5px 0 var(--sp-primary-edge)}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=review] .practice-start:active{box-shadow:0 2px 0 var(--sp-primary-edge)}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=ready] .voice-medallion{background:var(--sp-primary);color:var(--sp-primary-ink);border-color:#fff0b7;box-shadow:inset 0 3px 0 #fff6d5,0 8px 0 var(--sp-primary-edge),0 18px 28px #a87b2026}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=ready] .voice-medallion:hover{background:#ffdc64;box-shadow:inset 0 3px 0 #fff6d5,0 10px 0 var(--sp-primary-edge),0 20px 32px #a87b2030}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=ready] .voice-medallion:active{box-shadow:inset 0 2px 0 #fff0b7,0 2px 0 var(--sp-primary-edge),0 8px 16px #a87b2020}
+body[data-speaking-glass] main .cycle-top{margin-bottom:20px;gap:12px;font-size:12px}
+body[data-speaking-glass] main .cycle-questions button{min-height:34px;padding:6px 11px;border-radius:8px;border-color:var(--sp-line);background:var(--sp-surface);color:var(--sp-muted);font-weight:500}
+body[data-speaking-glass] main .cycle-questions button[aria-current=step]{background:#fff0bc;border-color:#d4b35c;color:#674718;font-weight:600}
+body[data-speaking-glass] main .cycle-questions button:disabled{background:#f1efe6;border-color:#e9e4d5;color:#827f70}
+body[data-speaking-glass] main .cycle-sample{background:#f1efe5;color:var(--sp-muted);font-weight:500}
+body[data-speaking-glass] main .cycle-demo>div{background:var(--sp-surface);border-color:#e8e1c9;border-radius:12px;box-shadow:0 12px 32px #51431818;padding:18px}
+body[data-speaking-glass] main .cycle-demo label+label{margin-top:12px}
+body[data-speaking-glass] main .cycle-demo select{border-color:#d8d6c8;border-radius:8px;background:var(--sp-surface);font-size:12px;min-height:36px}
+body[data-speaking-glass] main .cycle-targets{padding:12px 14px;border-radius:10px;background:var(--sp-soft);color:var(--sp-muted);max-width:270px}
+body[data-speaking-glass] main .cycle-completion{background:var(--sp-surface);border-radius:16px;color:var(--sp-ink);padding:28px 32px}
+body[data-speaking-glass] main .cycle-completion h1{font-size:24px;font-weight:600}
+body[data-speaking-glass] main .cycle-completion :is(p,dt,li span){color:var(--sp-muted)}
+body[data-speaking-glass] main .cycle-completion .cycle-library{background:var(--sp-primary);color:var(--sp-primary-ink);border:0;border-radius:17px;padding:11px 14px;min-height:48px;box-shadow:0 5px 0 var(--sp-primary-edge)}
+body[data-speaking-glass] main.speaking-cycle .practice-navigation button:disabled{background:#eeece3;color:#8a8778;box-shadow:0 3px 0 #dcd8cb;opacity:1;cursor:default;transform:none}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=review] .practice-start:active{transform:translateY(3px)}
+body[data-speaking-glass][data-speaking-lesson] .lesson-content :is(.lesson-footer-primary,.sf-button.sf-primary){min-height:50px}
+body[data-speaking-glass] main.speaking-cycle :is(.practice-back,.practice-navigation button):hover:not(:disabled){background:#fff8e7;box-shadow:0 5px 0 #dcd5bd}
+body[data-speaking-glass] main.speaking-cycle :is(.practice-back,.practice-navigation button):active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 #dcd5bd}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=recording] .practice-start{min-width:0;min-height:48px;padding:10px 18px;border-radius:17px;background:#f5f4ec;color:#535a47;font-size:14px;line-height:1.5;font-weight:600;box-shadow:0 5px 0 #dcd5bd}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=recording] .practice-start:hover{background:#eeece3;box-shadow:0 5px 0 #dcd5bd}
+body[data-speaking-glass] main.speaking-cycle[data-record-state=recording] .practice-start:active{transform:translateY(3px);box-shadow:0 2px 0 #dcd5bd}
+body[data-speaking-glass] main.speaking-cycle .practice-secondary{min-height:44px;padding:10px 14px;border-radius:14px;background:var(--sp-surface);color:#79613b;font-size:13px;line-height:1.5;font-weight:600;box-shadow:0 4px 0 #dcd5bd}
+body[data-speaking-glass] main.speaking-cycle .practice-secondary:hover{background:#fff8e7;box-shadow:0 4px 0 #dcd5bd}
+body[data-speaking-glass] main.speaking-cycle :is(.practice-secondary,.practice-kit-toggle):active{transform:translateY(3px);box-shadow:0 1px 0 #dcd5bd}
+/* Preparation and library already inherit Listening layouts; finish their controls only. */
+body[data-speaking-glass] :is(.kit-panel,.mindmap,.reference,.speaking-question-rail){border-radius:12px;box-shadow:none;background:var(--sp-surface)}
+body[data-speaking-glass] .mindmap .slot.reference{background:var(--sp-soft);border:0;border-radius:8px;box-shadow:none}
+body[data-speaking-library] .speaking-library-review :is(a,button):focus-visible{outline-color:var(--sp-focus)}
+body[data-speaking-library] .lesson-body>.button.primary{background:var(--sp-primary);color:var(--sp-primary-ink)}
+body[data-speaking-glass] .speaking-library-heading h1{font-size:28px;line-height:1.4}
+}
+@media(min-width:1100px) and (max-width:1300px){body[data-speaking-glass][data-speaking-lesson] .lesson-content>main,body[data-speaking-glass][data-speaking-lesson] .lesson-content>main.speaking-cycle,body[data-speaking-glass][data-speaking-lesson] .lesson-content>main.speaking-cycle.sf-host{padding-inline:24px}body[data-speaking-glass] main :is(.sf-group,.cycle-result .group){padding-inline:9px;gap:6px}body[data-speaking-glass] main .sf-group span{font-size:11px}}
+@media(prefers-reduced-motion:reduce){body[data-speaking-glass] main :is(.sf-group,.cycle-result .group,.sf-button,.cycle-result .arrow,.voice-medallion){transition:none!important}}
+
+/* Desktop Speaking size scale: shared hierarchy across preparation, recording and feedback. */
+@media(min-width:1100px){
+ body[data-speaking-glass]{--sp-text-small:12px;--sp-text-ui:14px;--sp-text-body:16px;--sp-text-speech:18px;--sp-text-heading:24px;--sp-control-height:48px;--sp-icon:20px;--sp-mic-size:128px}
+ body[data-speaking-glass] :is(.speaking-page-heading h1,.sf-heading h1,.cycle-result h1,.cycle-completion h1){font-size:var(--sp-text-heading);line-height:1.4}
+ body[data-speaking-glass] main :is(.sf-transcript,.cycle-result[data-behavior=new] .speech,.cycle-result[data-behavior=repair] .speech){font-size:var(--sp-text-speech);line-height:1.85}
+ body[data-speaking-glass] main .sf-idea{font-size:var(--sp-text-body);line-height:1.8}
+ body[data-speaking-glass] main :is(.sf-group,.cycle-result .group){min-height:48px;padding:8px 12px}
+ body[data-speaking-glass] main :is(.sf-group,.cycle-result .group) strong{font-size:var(--sp-text-ui)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-scene{width:100%;max-width:960px;margin-inline:auto;min-height:460px;height:clamp(460px,calc(100dvh - 400px),480px);max-height:none;padding:24px;border-radius:20px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-scene::before{border-radius:0 0 18px 18px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-prompt{min-height:80px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice #practice-question{max-width:760px;margin:0 auto;font-size:var(--sp-text-heading);line-height:1.4;font-weight:650;letter-spacing:-.025em}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-voice{min-height:180px;padding:24px 0;gap:16px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-medallion{width:var(--sp-mic-size);height:var(--sp-mic-size)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-medallion svg{width:56px;height:56px;stroke-width:1.5}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-recording-label{font-size:var(--sp-text-ui);gap:8px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-recording-label span{width:8px;height:8px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-wave{height:72px;gap:4px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-wave i:nth-child(n){width:4px;height:calc(var(--bar-height) * .65)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-timer{font-size:var(--sp-text-heading);line-height:1.4}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice[data-record-state=review] .voice-timer{font-size:var(--sp-text-body)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-playback{gap:16px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-play{width:44px;height:44px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-play svg{width:var(--sp-icon);height:var(--sp-icon)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-status{height:auto;margin:0;max-width:65ch;font-size:var(--sp-text-ui);line-height:1.6}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-status:empty{display:none}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-controls{min-height:var(--sp-control-height);gap:12px;margin:0}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-start{min-height:var(--sp-control-height);font-size:var(--sp-text-ui)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-bottom{min-height:var(--sp-control-height);margin-top:24px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice :is(.practice-kit-toggle,.practice-secondary){min-height:44px;padding:10px 14px;font-size:var(--sp-text-ui);line-height:1.5}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice :is(.practice-kit-toggle,.practice-secondary) svg{width:var(--sp-icon);height:var(--sp-icon)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice :is(.practice-navigation button,.practice-start[data-action=submit]) svg{width:22px;height:22px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-kit-panel{width:288px;left:24px;bottom:96px;padding:20px;border-radius:12px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-kit-heading h3{font-size:var(--sp-text-body)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-kit-panel h4{font-size:var(--sp-text-ui);margin:16px 0 8px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-phrases p{font-size:var(--sp-text-body);line-height:1.6;margin-top:12px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-phrases span{font-size:var(--sp-text-small);line-height:1.6}
+ body[data-speaking-glass] main.speaking-cycle .cycle-targets{top:112px;left:24px;max-width:232px;max-height:236px;padding:12px;font-size:var(--sp-text-small);line-height:1.6}
+}
+
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice[data-record-state=recording] .practice-start{width:54px;height:44px;min-width:54px;min-height:44px;padding:10px;border:1px solid #854b37;border-radius:9px;background:#854b37;color:#fff;box-shadow:none;animation:speaking-stop-pulse 1.35s ease-in-out infinite}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice[data-record-state=recording] .practice-start svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice[data-record-state=recording] .practice-start:hover{background:#733e2c;box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice[data-record-state=recording] .practice-start:active{background:#733e2c;box-shadow:none;transform:translateY(1px)}
+}
+
+@keyframes speaking-stop-pulse{0%,100%{box-shadow:0 0 0 0 #854b3738;filter:brightness(1)}50%{box-shadow:0 0 0 7px #854b3700;filter:brightness(1.12)}}
+@media(prefers-reduced-motion:reduce){body[data-speaking-glass] main.speaking-cycle[data-record-state=recording] .practice-start{animation:none!important}}
+
+/* Feedback shares the recorder's content width and a compact, content-driven layout. */
+@media(min-width:1100px){
+ body[data-speaking-glass] main .sf-workspace{width:100%;max-width:960px;margin-inline:auto}
+ body[data-speaking-glass] main .sf-content{display:grid;gap:16px}
+ body[data-speaking-glass] main .sf-layerbar{padding:0;min-height:0;margin:0}
+ body[data-speaking-glass] main .sf-layerbar:has(.sf-criteria>button:only-child){display:none}
+ body[data-speaking-glass] main .sf-criteria{min-height:36px;gap:20px}
+ body[data-speaking-glass] main .sf-criteria button{font-size:var(--sp-text-small);min-height:36px}
+ body[data-speaking-glass] main .sf-reading{min-height:0;padding:24px;border-radius:12px}
+ body[data-speaking-glass] main .sf-question-heading{gap:0;margin:0 0 16px}
+ body[data-speaking-glass] main .sf-question-heading>span:first-child{display:none}
+ body[data-speaking-glass] main .sf-question-heading h2{margin:0;font-size:var(--sp-text-body);line-height:1.5;font-weight:600}
+ body[data-speaking-glass] main .sf-transcript{font-size:var(--sp-text-speech);line-height:1.85;margin:0;max-width:72ch}
+ body[data-speaking-glass] main .sf-legend{margin:24px 0 0;gap:12px 20px;font-size:var(--sp-text-small);line-height:1.6}
+ body[data-speaking-glass] main .sf-evidence{width:100%;max-width:none;margin-top:20px;padding:16px 48px 16px 20px}
+ body[data-speaking-glass] main .sf-reading .sf-evidence p{font-size:var(--sp-text-ui);line-height:1.7}
+ body[data-speaking-glass] main .sf-bottom{padding:20px 0 4px;gap:16px}
+ body[data-speaking-glass] main .sf-live:empty{display:none}
+ body[data-speaking-glass] main .sf-idea-flow{max-width:none;gap:12px}
+ body[data-speaking-glass] main .sf-idea-role{flex-basis:104px;font-size:var(--sp-text-small)}
+ body[data-speaking-glass] main .sf-idea-issues{margin:20px 0 16px;gap:8px}
+ body[data-speaking-glass] main .sf-development{padding-top:0;font-size:var(--sp-text-ui)}
+ body[data-speaking-glass] main .cycle-result{width:100%;max-width:960px;margin-inline:auto}
+ body[data-speaking-glass] main .cycle-result .subnav:has(>button:only-child){display:none}
+ body[data-speaking-glass] main .cycle-result .workspace>.groups{margin-bottom:16px}
+ body[data-speaking-glass] main .cycle-result .legend{font-size:var(--sp-text-small)}
+}
+
+/* Taste / Framed sheet: the annotated answer is the working surface, not a stack of cards.
+   960 = 28 + 904 + 28; tabs, question, speech, explanation and action share those edges.
+   The approved Listening shell and raised primary action remain the visual authority. */
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-workspace,.cycle-result){width:100%;max-width:960px;margin-inline:auto;padding:0;border-radius:0;background:transparent;box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-feedback-sheet{margin-top:20px;padding:20px 28px 24px;border-radius:16px;background:var(--sp-surface)}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-content{gap:0}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-groups,.cycle-result .groups){grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-group,.cycle-result .group){position:relative;justify-content:center;gap:10px;min-height:52px;margin:0;padding:10px 12px;border:1px solid #ffffff;border-radius:999px;background:#fcfbf8;box-shadow:0 5px 16px #79613b0a;color:#65656b;font-size:14px;font-weight:600;line-height:1.5}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-group,.cycle-result .group) strong{display:none}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-group span{font-size:14px;line-height:1.5}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-group,.cycle-result .group)[aria-pressed=true]{background:linear-gradient(180deg,#fff8db 0%,#ffecab 100%);color:#302a19;border-color:#fff9e3;box-shadow:0 3px 0 #f4d16f,0 5px 12px #e7b94626,inset 0 1px 2px #fffdf4;font-weight:650}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-group,.cycle-result .group):hover:not([aria-pressed=true]){background:#f5f0e4;color:var(--sp-primary-ink)}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-group,.cycle-result .group) .speaking-criterion-icon{display:block;flex:0 0 20px;width:20px;height:20px}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-group,.cycle-result .group):focus-visible{outline:3px solid #976800;outline-offset:3px}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-group,.cycle-result .group)[aria-pressed=true] .speaking-criterion-icon{color:#ae790b}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-layerbar,.cycle-result .subnav){min-height:0;margin:14px 0 0;padding:0}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-criteria,.cycle-result .subnav){gap:24px}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-criteria,.cycle-result .subnav) button{min-height:36px;font-size:14px;line-height:1.5;padding:6px 0}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-reading{min-height:0;margin:0;padding:24px 0 0;background:transparent;border:0;border-radius:0;box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-question-heading{margin-bottom:20px}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-question-heading h2{font-size:16px;font-weight:600;line-height:1.5}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-transcript{max-width:74ch;font-size:18px;line-height:1.9}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-legend{margin-top:20px;padding-top:0;border-top:0;gap:12px 20px;font-size:12px}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-evidence{max-width:none;margin-top:20px;padding:20px 48px 20px 20px;border-radius:10px;background:var(--sp-soft)}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-evidence h3{font-size:16px;line-height:1.5;margin-bottom:8px;font-weight:600}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-reading .sf-evidence p{font-size:14px;line-height:1.75}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-evidence-kind{font-size:12px;font-weight:500;margin-bottom:4px}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-bottom{margin-top:24px;padding:20px 0 0;border-top:1px solid var(--sp-line)}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-idea-flow{gap:14px}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-idea{gap:16px}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-idea-role{flex-basis:104px;font-weight:500}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-issue{font-weight:600}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-reading .sf-button[data-action=development]{min-height:36px;padding:4px 0;border-radius:0;background:transparent;box-shadow:none;font-size:14px;font-weight:600;color:var(--sp-primary-ink)}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-reading .sf-button[data-action=development]:hover{background:transparent;box-shadow:none;text-decoration:underline;text-underline-offset:4px}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-reading .sf-button[data-action=development]:active{transform:none;box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-development{max-width:none;margin-top:12px;padding:16px 20px;background:var(--sp-soft);border-radius:10px}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-development p:last-child{margin-bottom:0}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result h1{font-size:20px;font-weight:600;margin:0 0 12px}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .workspace{border:0;border-radius:0;background:transparent;box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .workspace>.groups{margin:0;padding:0}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .workspace>.groups .group{border-radius:999px}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .answer-layout{gap:24px}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result :is(.original,.retelling){padding:24px 0 20px}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result[data-behavior=repair] .retelling{padding-left:24px;border-left:1px solid var(--sp-line)}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .speech{min-height:0;font-size:18px;line-height:1.9}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .version-title{margin-bottom:14px;flex-wrap:wrap;gap:4px 10px}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .version-title strong{font-size:14px;font-weight:600}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .version-title span{font-size:12px}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .legend{padding:16px 0 0;border-top:0;gap:12px 20px;flex-wrap:wrap;font-size:12px}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .detail{margin-top:20px;padding:20px;background:var(--sp-soft);border:0}
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result>.footer{margin-top:24px;padding:20px 0 0;border-top:1px solid var(--sp-line)}
+}
+
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-footer{width:100%;max-width:960px;margin:20px auto 0;padding:0 0 5px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-footer .practice-navigation{display:flex;justify-content:space-between;width:100%;gap:12px}
+}
+
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-footer .practice-prev{display:inline-flex;align-items:center;justify-content:center;width:auto;min-width:0;min-height:48px;height:auto;padding:10px 14px;gap:10px;border-radius:17px;background:var(--sp-surface);color:#79613b;font-size:14px;font-weight:600;line-height:1.5;box-shadow:0 5px 0 #dcd5bd}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-footer .practice-back-arrow{display:grid;place-items:center;width:30px;height:26px;margin-left:-2px;padding-right:9px;border-right:2px solid #e7d9ba}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-footer .practice-back-arrow svg{width:22px;height:22px;stroke-width:2.2}
+}
+
+/* Shared breathing room beneath the lesson header. */
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] .lesson-content>main,
+ body[data-speaking-glass][data-speaking-lesson] .lesson-content>main.speaking-cycle,
+ body[data-speaking-glass][data-speaking-lesson] .lesson-content>main.speaking-cycle.sf-host{padding-top:100px}
+}
+
+/* Spark's megaphone is the question's content-audio control, independent of UI sound. */
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-question-row{display:flex;align-items:center;justify-content:center;gap:16px;width:100%;margin:0 auto}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-question-row #practice-question{min-width:0;margin:0;flex:0 1 auto}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-spark{position:relative;display:grid;place-items:center;flex:0 0 80px;width:80px;height:80px;min-height:80px;padding:0;border:0;border-radius:12px;background:transparent;box-shadow:none;cursor:pointer;transition:transform .15s ease}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-spark img{display:block;width:80px;height:80px;object-fit:contain}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-spark:hover:not(:disabled){background:transparent;transform:translateY(-2px)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-spark:active:not(:disabled){transform:translateY(1px)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-spark:disabled{opacity:.55;cursor:default}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-spark[data-playing=true]::after{content:'';position:absolute;right:2px;bottom:18px;width:7px;height:7px;border-radius:50%;background:var(--sp-correct)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-audio-status{margin:6px 0 0;font-size:12px;line-height:1.6;color:var(--sp-error)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-audio-status:empty{display:none}
+}
+@media(prefers-reduced-motion:reduce){body[data-speaking-glass] main.speaking-cycle.speaking-practice .question-spark{transition:none;transform:none!important}}
+
+/* Lighter recording and playback controls, with comfortable pointer targets. */
+@media(min-width:1100px){
+ body[data-speaking-glass]{--sp-mic-size:104px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-medallion svg{width:44px;height:44px;stroke-width:1.4}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice[data-record-state=ready] .voice-medallion{border-width:2px;box-shadow:inset 0 2px 0 #fff6d5,0 5px 0 var(--sp-primary-edge),0 10px 18px #a87b201a}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice[data-record-state=ready] .voice-medallion:hover{transform:translateY(-1px);box-shadow:inset 0 2px 0 #fff6d5,0 6px 0 var(--sp-primary-edge),0 12px 20px #a87b2020}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice[data-record-state=ready] .voice-medallion:active{transform:translateY(3px);box-shadow:inset 0 1px 0 #fff6d5,0 2px 0 var(--sp-primary-edge),0 5px 10px #a87b2015}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-voice{gap:12px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-wave{height:48px;gap:3px;color:#c69a3d}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-wave i:nth-child(n){width:3px;height:calc(var(--bar-height) * .4);border-radius:3px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-recording-label{font-size:12px;font-weight:500;gap:7px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-recording-label span{width:6px;height:6px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-timer{font-size:18px;font-weight:500;line-height:1.5}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice[data-record-state=review] .voice-timer{font-size:14px;font-weight:400}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-playback{gap:12px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-play{width:44px;height:44px;background:transparent;color:var(--sp-primary-ink);box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-play svg{width:18px;height:18px;stroke-width:1.7}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-play:hover{background:var(--sp-caution-bg);box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .voice-play:active{transform:translateY(1px);box-shadow:none}
+}
+
+/* Read the question first; the microphone is revealed when the clip ends. */
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-prompt{display:flex;flex-direction:column;justify-content:center}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .practice-question-row{gap:12px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;padding:10px;border:0;border-radius:10px;background:transparent;color:var(--sp-primary-ink);box-shadow:none;cursor:pointer}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker svg{display:block;width:24px;height:24px;stroke-width:1.7}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker:hover:not(:disabled){background:var(--sp-caution-bg);box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker:active:not(:disabled){transform:translateY(1px)}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker:disabled{opacity:.5;cursor:default}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker .speaker-wave{opacity:.45}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker[data-playing=true] .speaker-wave{animation:question-speaker-wave .9s ease-in-out infinite}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker[data-playing=true] .wave-far{animation-delay:.18s}
+}
+@keyframes question-speaker-wave{0%,100%{opacity:.25}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){body[data-speaking-glass] main.speaking-cycle.speaking-practice .question-speaker .speaker-wave{animation:none!important}body[data-speaking-glass] main.speaking-cycle.speaking-practice .question-speaker[data-playing=true] .speaker-wave{opacity:1}}
+
+/* A small 3D megaphone adds character; animated waves still reflect real playback. */
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker{position:relative;flex-basis:52px;width:52px;height:52px;padding:2px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker img{display:block;width:48px;height:48px;object-fit:contain}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker .question-sound-waves{position:absolute;right:-7px;top:14px;width:12px;height:24px;color:#b38b32}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker .speaker-wave{opacity:0}
+}
+@media(prefers-reduced-motion:reduce){body[data-speaking-glass] main.speaking-cycle.speaking-practice .question-speaker[data-playing=true] .speaker-wave{opacity:1}}
+
+/* Compact in-context correction. The floating surface never reserves a detail row. */
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-mark,.cycle-result .mark){padding:3px 9px;margin:0 1px;border:1px solid transparent;border-radius:999px;text-decoration:none;background:#e7f1fe;color:#175e9f;font-weight:600;box-decoration-break:clone;-webkit-box-decoration-break:clone;box-shadow:none}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-mark.sf-error,.sf-mark.sf-mistake,.sf-mark.sf-repeat,.cycle-result .mark.bad){background:#ffe9e6;color:#ae302a;text-decoration:none}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-mark.sf-positive,.sf-mark.sf-good,.cycle-result .mark.good){background:#e6f6e9;color:#24663c;text-decoration:none}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-mark.sf-filler,.sf-mark.sf-missing,.sf-mark.sf-unclear,.cycle-result .mark.unclear){background:#fff3d9;color:#805b16;text-decoration:none}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-mark:hover,.sf-mark[aria-expanded=true],.cycle-result .mark.selected){border-color:currentColor;outline:none;box-shadow:0 2px 5px #493b1710}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-mark,.cycle-result .mark):focus-visible{outline:2px solid #976800;outline-offset:3px}
+ body[data-speaking-glass][data-speaking-lesson] main :is(#sf-evidence,#detail).sc-popover{position:fixed;inset:auto;margin:0;width:max-content;min-width:260px;max-width:360px;padding:16px 20px;border:1px solid #e9e3dc;border-radius:18px;background:#fffefd;color:#34352e;box-shadow:0 7px 20px #493b171a;overflow:visible;font-family:inherit;font-size:14px;line-height:1.5;animation:none}
+ body[data-speaking-glass][data-speaking-lesson] main :is(#sf-evidence,#detail).sc-popover[hidden]{display:none}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-popover::before{content:"";position:absolute;left:var(--sc-tip);top:-7px;width:12px;height:12px;background:#fffefd;border-top:1px solid #e9e3dc;border-left:1px solid #e9e3dc;transform:translateX(-50%) rotate(45deg)}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-popover[data-side=above]::before{top:auto;bottom:-7px;transform:translateX(-50%) rotate(225deg)}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-heading{display:flex;align-items:center;gap:10px}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-heading strong{font-size:14px;font-weight:650}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-status{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-error{background:#ffe5e2;color:#b82c27}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-good{background:#e1f4e5;color:#277044}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-suggestion{background:#e4efff;color:#175e9f}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-popover svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:8px 0 0 36px}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-replacement{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:#e6f6e9;color:#24663c;font-weight:650;overflow-wrap:anywhere}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-popover .sc-note{margin:8px 0 0 36px;font-size:14px;line-height:1.5}
+ body[data-speaking-glass][data-speaking-lesson] main .sc-optional{display:block;margin:6px 0 0 36px;font-size:12px;color:#175e9f}
+}
+
+/* White-and-gold 3D speaker follows the supplied reference. */
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker{flex-basis:68px;width:68px;height:48px;padding:2px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker img{width:64px;height:44px}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker .question-sound-waves{top:12px}
+}
+
+/* Playback lights the three existing gold marks on the speaker body itself. */
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker .question-sound-waves{left:2px;right:auto;top:2px;width:64px;height:44px;pointer-events:none;overflow:hidden}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker[data-playing=true] .speaker-wave{animation:question-internal-wave 1.2s ease-in-out infinite}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker[data-playing=true] .wave-middle{animation-delay:.15s}
+ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-practice .question-speaker[data-playing=true] .wave-far{animation-delay:.3s}
+}
+@keyframes question-internal-wave{0%,100%{opacity:0;filter:brightness(1)}20%{opacity:1;filter:brightness(.65)}50%{opacity:1;filter:brightness(1.5)}80%{opacity:0;filter:brightness(1)}}
+@media(prefers-reduced-motion:reduce){body[data-speaking-glass] main.speaking-cycle.speaking-practice .question-speaker .speaker-wave{animation:none!important;opacity:0!important}}
+
+/* Marks and legends use the same semantic palette; pause dashes sit on the text baseline. */
+@media(min-width:1100px){
+ body[data-speaking-glass][data-speaking-lesson] main{
+  --sf-error-ink:#ae302a;--sf-error-fill:#ffe9e6;
+  --sf-positive-ink:#24663c;--sf-positive-fill:#e6f6e9;
+  --sf-suggestion-ink:#175e9f;--sf-suggestion-fill:#e7f1fe;
+  --sf-caution-ink:#805b16;--sf-caution-fill:#fff3d9;
+ }
+ body[data-speaking-glass][data-speaking-lesson] main [data-tone=error]{--sf-tone-ink:var(--sf-error-ink);--sf-tone-fill:var(--sf-error-fill)}
+ body[data-speaking-glass][data-speaking-lesson] main [data-tone=positive]{--sf-tone-ink:var(--sf-positive-ink);--sf-tone-fill:var(--sf-positive-fill)}
+ body[data-speaking-glass][data-speaking-lesson] main [data-tone=suggestion]{--sf-tone-ink:var(--sf-suggestion-ink);--sf-tone-fill:var(--sf-suggestion-fill)}
+ body[data-speaking-glass][data-speaking-lesson] main [data-tone=caution]{--sf-tone-ink:var(--sf-caution-ink);--sf-tone-fill:var(--sf-caution-fill)}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-mark,.cycle-result .mark)[data-tone]{color:var(--sf-tone-ink);background:var(--sf-tone-fill);text-decoration:none}
+ body[data-speaking-glass][data-speaking-lesson] main :is(.sf-key,.criterion-key)[data-tone]{display:inline-flex;align-items:baseline;gap:6px;color:var(--sf-tone-ink)}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-key[data-tone]::before,
+ body[data-speaking-glass][data-speaking-lesson] main .cycle-result .legend [data-tone] i{flex:none;background:currentColor}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-mark .sf-pause-stroke{vertical-align:baseline;background:currentColor}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-mark:has(.sf-pause-stroke){white-space:nowrap}
+ body[data-speaking-glass][data-speaking-lesson] main .sf-status-dash{display:inline-block;flex:none;width:12px;height:3px;border-radius:2px;background:currentColor;vertical-align:baseline;margin-left:5px}
+}

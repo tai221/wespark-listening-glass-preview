@@ -35,3 +35,31 @@
  body[data-speaking-lesson] .lesson-content .lesson-footer-button:disabled{background:#eeece3;color:#777568;box-shadow:0 3px 0 #dcd8cb;opacity:1;cursor:default}
  body[data-speaking-lesson] .lesson-content .lesson-footer-button:focus-visible{outline:3px solid var(--lesson-focus)!important;outline-offset:4px!important}
 }
+
+/* Question progress belongs to the lesson identity, after the B1 tag. */
+@media(min-width:1100px){
+ body[data-speaking-lesson] .lesson-top-identity .lesson-fallback-tags{align-items:center;gap:8px}
+ body[data-speaking-lesson] .lesson-top-identity .speaking-question-progress{display:flex;align-items:center;gap:6px;margin-left:6px;padding-left:14px;border-left:1px solid #d8d5c9}
+ body[data-speaking-lesson] .speaking-question-progress button{display:inline-flex;align-items:center;justify-content:center;gap:3px;min-width:44px;min-height:36px;padding:6px 9px;border:1px solid transparent;border-radius:10px;background:#ecece7;color:#60635a;font:700 12px/1.2 var(--font-body,'Be Vietnam Pro',sans-serif);box-shadow:none;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+ body[data-speaking-lesson] .speaking-question-progress button svg{width:13px;height:13px;flex:none}
+ body[data-speaking-lesson] .speaking-question-progress button[data-question-state="done"]{background:#dff2e3;color:#17633a}
+ body[data-speaking-lesson] .speaking-question-progress button[data-question-state="current"]{background:#fff0bc;color:#654719}
+ body[data-speaking-lesson] .speaking-question-progress button[data-focused="true"]{border-color:#a77b20;outline:2px solid #e8c35f;outline-offset:2px}
+ body[data-speaking-lesson] .speaking-question-progress button:hover:not(:disabled){border-color:#9d916f}
+ body[data-speaking-lesson] .speaking-question-progress button:focus-visible{outline:3px solid #87611f;outline-offset:3px}
+ body[data-speaking-lesson] .speaking-question-progress button:disabled{background:#ecece7;color:#66685f;opacity:1;cursor:default}
+}
+@media(prefers-reduced-motion:reduce){body[data-speaking-lesson] .speaking-question-progress button{transition:none}}
+
+/* Single activities are top-level steps; only the feedback cycle has children. */
+@media(min-width:1100px){
+ body[data-speaking-lesson] .lesson-sidebar .lesson-stage-link{grid-template-columns:28px minmax(0,1fr);column-gap:10px;padding:12px}
+ body[data-speaking-lesson] .lesson-sidebar .lesson-stage-heading{align-items:start;flex-wrap:wrap;gap:3px 8px}
+ body[data-speaking-lesson] .lesson-sidebar .lesson-stage-heading strong{font-size:14px;line-height:1.5}
+ body[data-speaking-lesson] .lesson-sidebar .lesson-substeps{padding:8px 0 0 38px;gap:4px}
+ body[data-speaking-lesson] .lesson-sidebar .lesson-substeps a{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;min-height:40px;padding:8px 10px;font-size:13px;line-height:1.5}
+ body[data-speaking-lesson] .lesson-sidebar .speaking-substep-icon{display:grid;place-items:center;width:18px;height:18px}
+ body[data-speaking-lesson] .lesson-sidebar .speaking-substep-icon svg{display:block;width:18px;height:18px;stroke-width:1.7}
+ body[data-speaking-lesson] .lesson-sidebar .lesson-substeps a[aria-disabled=true]{color:#707267;background:transparent;cursor:default}
+ body[data-speaking-lesson] .lesson-sidebar .lesson-substeps a[aria-disabled=true]:hover{background:transparent}
+}

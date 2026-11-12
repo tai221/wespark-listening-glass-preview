@@ -1,8 +1,10 @@
+import {speakingPreparationEntry} from './speaking-preparation-visibility.mjs';
 import {mountSpeakingPreparation} from './speaking-preparation.mjs';
 import {syncSpeakingLibrary} from './speaking-library.mjs';
+import {mountSpeakingCycle} from './speaking-cycle.mjs?v=20261111';
 // Family-specific desktop compositions. The existing radio/hash lesson fixtures remain local.
 const assets='../assets/';
-const routeFiles=['key-speaking-vocabulary.html','key-speaking-produce.html','key-speaking-feedback.html','key-error-bank.html'];
+const routeFiles=[speakingPreparationEntry(),'key-speaking-produce.html','key-speaking-feedback.html','key-error-bank.html'];
 const routeLabels=['Chuẩn bị','Tự nói','Góp ý','Luyện & ôn'];
 const routeArt=['spark-journey/prepare-v1.webp','spark-activities/conversation-v1.webp','spark-reading.webp','spark-journey/practice-v1.webp'];
 const glyphs={mic:'<rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11v1a7 7 0 0 0 14 0v-1m-7 8v3m-4 0h8"/>',stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',play:'<path d="m9 5 11 7-11 7Z"/>',replay:'<path d="M3 11a9 9 0 1 1 2 7M3 4v7h7"/>',check:'<path d="m5 12 4 4L20 5"/>',warning:'<path d="M12 8v5m0 4h.01"/><path d="M10 3 2 18a2 2 0 0 0 2 3h16a2 2 0 0 0 2-3L14 3a2 2 0 0 0-4 0Z"/>',audio:'<path d="m11 4-6 5H2v6h3l6 5ZM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/>'};
@@ -48,20 +50,6 @@ function library(main){
  filters.addEventListener('input',filter);filters.addEventListener('change',filter);meta.querySelector('button').addEventListener('click',()=>{input.value='';selects.forEach(el=>el.selectedIndex=0);filter();input.focus();});
  main.querySelector('.question-strip')?.remove();
 }
-function recorder(main){
- const first=main.querySelector('.produce-first');if(!first)return;
- const states=[...first.querySelectorAll('.practice > .state')];
- [...main.querySelectorAll('.produce-alt')].forEach((section,index)=>{const old=section.querySelector('.r1-record');const count=index+2;states.forEach(source=>{const copy=source.cloneNode(true);if(copy.classList.contains('submitted')){copy.querySelector('h3').textContent=`Bản ghi câu ${count} đã nộp · Mẫu`;copy.querySelector('p').textContent=count===2?'Tiếp tục câu hỏi cuối trước khi xem góp ý cho bộ câu hỏi.':'Bạn đã đi qua bộ câu hỏi trong bản thử. Tiếp tục để xem phản hồi mẫu.';copy.querySelector('.quiet').textContent='Bản thử không lưu âm thanh hoặc kết quả. Phản hồi là ví dụ để xem giao diện.';const next=copy.querySelector('a.button.primary');next.href=count===2?'#question-3':'key-speaking-feedback.html';next.textContent=count===2?'Câu tiếp theo →':'Xem phản hồi mẫu →';}old.before(copy);});old.remove();});
- const container=node('div','speaking-record-grid'),rail=node('aside','speaking-question-rail'),stage=node('div','speaking-record-stage');rail.setAttribute('aria-label','Danh sách câu hỏi');rail.append(node('h2','','Câu hỏi trong bài'));
- const submitted=new Set();let previousQuestion=location.hash||'#question-1';
- const questions=[...main.querySelectorAll('.practice > h2')].slice(0,3);questions.forEach((question,index)=>{const link=node('a');link.href=`#question-${index+1}`;const label=node('span','',question.textContent);label.append(node('small','speaking-question-status','Chưa nộp'));link.append(node('i','',String(index+1).padStart(2,'0')),label);rail.append(link);});rail.append(node('p','','Góp ý xuất hiện sau bộ câu hỏi. Bạn có thể nghe lại và ghi lại trước khi nộp.'));
- first.before(container);container.append(rail,stage);stage.append(first,...main.querySelectorAll('.produce-alt'));
- main.querySelectorAll('.workspace').forEach(workspace=>{const practice=workspace.querySelector('.practice');let kit=workspace.querySelector('.kit');if(!kit)return;if(kit.tagName!=='DETAILS'){const details=node('details','kit');details.append(node('summary','','Speaking Kit'));const body=node('div','kit-body');while(kit.firstChild)body.append(kit.firstChild);details.append(body);kit.replaceWith(details);kit=details;}kit.removeAttribute('open');practice.append(kit);const help=practice.querySelector('.question-help');if(help)help.innerHTML=help.innerHTML.replace('Speaking Kit ở bên cạnh nếu bạn cần gợi ý.','Mở Speaking Kit bên dưới nếu cần gợi ý.');});
- function updateRail(){const hash=location.hash||'#question-1';rail.querySelectorAll('a').forEach(a=>{if(a.hash===hash)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');const status=a.querySelector('.speaking-question-status');status.textContent=submitted.has(a.hash)?'Đã nộp':a.dataset.visited?'Chưa nộp · Có thể quay lại':'Chưa nộp';});}
- document.querySelector('#state-submitted')?.addEventListener('change',()=>{submitted.add(location.hash||'#question-1');updateRail();});
- function current(){const hash=location.hash||'#question-1';const previous=[...rail.querySelectorAll('a')].find(a=>a.hash===previousQuestion);if(previous&&hash!==previousQuestion)previous.dataset.visited='true';previousQuestion=hash;updateRail();document.querySelector('#state-ready')?.click();}
- window.addEventListener('hashchange',current);current();
-}
 function drill(main){
  main.querySelectorAll('.target br').forEach(br=>br.replaceWith(document.createTextNode(' ')));
  const layout=main.querySelector('.layout'),practice=layout?.querySelector('.practice'),aside=layout?.querySelector('aside');if(!layout||!practice||!aside)return;
@@ -84,19 +72,30 @@ function accessibleControls(root){
  root.querySelectorAll('.mic,.status-icon').forEach(el=>{if(el.querySelector('svg'))return;el.innerHTML=svg(el.closest('.recording')?'stop':el.closest('.error,.insufficient')?'warning':el.closest('.positive,.submitted,.review')?'check':'mic');});
 }
 export function enhanceSpeaking(workspace,file){
+ if(!document.querySelector('link[data-speaking-listening-alignment]')){const link=document.createElement('link');link.rel='stylesheet';link.dataset.speakingListeningAlignment='';link.href=new URL('./speaking-listening-alignment.css',import.meta.url).href;document.head.append(link);}
  lessonHeader(workspace);const main=workspace.querySelector('main');if(!main)return;
  main.querySelectorAll('.eyebrow').forEach(el=>el.remove());
  pageHeading(main,file);
  if(file==='key-speaking-library.html')syncSpeakingLibrary(main);
  if(file==='key-speaking-vocabulary.html'||file==='key-speaking-game.html')mountSpeakingPreparation(main,file);
- if(file==='key-speaking-produce.html')recorder(main);
- if(file==='key-speaking-mindmap.html')functionalMindmap(main);
+ if(file==='key-speaking-mindmap.html'){
+  functionalMindmap(main);
+  const back=workspace.querySelector(':scope > .footer a:not(.primary)'),next=workspace.querySelector(':scope > .footer a.primary');
+  if(back){back.href='key-speaking-library.html';back.textContent='← Thư viện';}
+  if(next){next.href='key-speaking-produce.html';next.textContent='Bắt đầu nói →';}
+  const bankIntro=main.querySelector('.wordbank>p');if(bankIntro)bankIntro.textContent='Chọn cụm từ để sắp xếp ý trước khi nói.';
+ }
  if(file==='key-speaking-drill-repeat.html')drill(main);
- if(file==='key-speaking-completion.html')completion(main);
  main.querySelectorAll('.steps a').forEach(a=>a.textContent=a.textContent.replace(/^\d+\s*·\s*/,''));
  const previews=[...document.querySelectorAll('body > .previewbar')],extra=main.querySelector('.r1-drill-links');
  if(previews.length||extra){const tools=node('details','speaking-preview-tools');tools.append(node('summary','','Trạng thái mẫu · Dành cho xem thử'));const content=node('div');content.append(...previews);if(extra)content.append(extra);tools.append(content);const review=document.querySelector('.review-inner');if(review)review.insertBefore(tools,review.querySelector(':scope > .review-menu'));else document.querySelector('.browser').before(tools);}
- demoNotes(main);accessibleControls(workspace);cleanSpeakingCopy(workspace);main.tabIndex=-1;document.body.dataset.speakingReady=file;
+ demoNotes(main);accessibleControls(workspace);cleanSpeakingCopy(workspace);
+ if(['produce','feedback','feedback-detail','version2','compare','completion'].some(page=>file===`key-speaking-${page}.html`)){
+  workspace.querySelectorAll(':scope > .footer').forEach(el=>el.remove());
+  document.querySelectorAll('input[name=record-state],input[id^=state-],input[name=issue]').forEach(el=>el.remove());
+  mountSpeakingCycle(main,file);
+ }
+ main.tabIndex=-1;document.body.dataset.speakingReady=file;
 }
 
 // Product-facing copy only; review fixtures remain in the DOM for local QA.

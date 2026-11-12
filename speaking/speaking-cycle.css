@@ -1,0 +1,99 @@
+/* The approved lesson shell and recorder remain the visual source. */
+body.speaking-cycle-page main.speaking-cycle{width:100%;max-width:1240px;min-width:0;margin:0 auto;padding:18px 32px 30px;box-sizing:border-box;color:#383b2c;}
+.speaking-cycle .cycle-top{display:flex;align-items:center;gap:14px;margin-bottom:16px;position:relative;z-index:6;font-size:12px;line-height:1.45;}
+.speaking-cycle .cycle-questions{display:flex;gap:6px;}
+.speaking-cycle .cycle-questions button{min-height:36px;padding:7px 12px;border:1px solid #ddd4bd;border-radius:8px;background:#fffdf5;color:#625331;font:inherit;cursor:pointer;}
+.speaking-cycle .cycle-questions button[aria-current=step]{background:#ffe28a;border-color:#cda737;font-weight:700;}
+.speaking-cycle .cycle-questions button:hover:not(:disabled){background:#fff0bd;}
+.speaking-cycle .cycle-questions button:disabled{background:#efebe1;color:#80775e;cursor:default;border-color:#e5dfd1;}
+.speaking-cycle .cycle-stage{font-weight:650;color:#665331;white-space:nowrap;}
+.speaking-cycle .cycle-sample{margin-left:auto;color:#62583d;white-space:nowrap;font-size:11px;background:#f0ebdc;padding:5px 8px;border-radius:5px;}
+.speaking-cycle .cycle-demo{position:relative;color:#6b5a35;font-size:11px;}
+.speaking-cycle .cycle-demo summary{cursor:pointer;padding:7px 0;white-space:nowrap;text-decoration:underline;text-underline-offset:3px;}
+.speaking-cycle .cycle-demo>div{position:absolute;right:0;top:34px;width:265px;padding:17px;background:#fffdf5;border:1px solid #d8cdaf;border-radius:12px;box-shadow:0 10px 24px #5f471c20;}
+.speaking-cycle .cycle-demo label{display:flex;gap:7px;flex-direction:column;font-weight:650;font-size:12px;}
+.speaking-cycle .cycle-demo select{padding:8px;border:1px solid #c6b98f;border-radius:6px;background:#fffef9;color:#554524;font:inherit;}
+.speaking-cycle .cycle-demo p{line-height:1.6;}
+.speaking-cycle .cycle-demo button{min-height:35px;padding:6px 10px;border:1px solid #cbbd99;border-radius:7px;background:#f6efdd;color:#625331;font:inherit;cursor:pointer;}
+.speaking-cycle :is(.cycle-top,.cycle-completion) :is(button,a,summary,select):focus-visible{outline:3px solid #976800;outline-offset:4px;}
+body.speaking-cycle-page main.speaking-practice .practice-top{height:48px;margin-bottom:14px;}
+.speaking-cycle.speaking-practice .practice-progress,.speaking-cycle.speaking-practice .practice-count{display:none;}
+body.speaking-cycle-page main.speaking-practice .practice-scene{min-height:520px;height:calc(100dvh - 250px);max-height:670px;padding-top:25px;}
+.speaking-cycle.speaking-practice .practice-top h1{font-size:23px;}
+.speaking-cycle.speaking-practice .practice-prompt{min-height:122px;}
+.speaking-cycle.speaking-practice #practice-question{margin-top:18px;font-size:36px;}
+.speaking-cycle.speaking-practice .practice-voice{min-height:180px;padding:20px 0 10px;}
+.speaking-cycle .cycle-targets{position:absolute;top:146px;left:26px;max-width:270px;max-height:280px;overflow:auto;font-size:11px;color:#625331;z-index:2;}
+.speaking-cycle .cycle-targets summary{cursor:pointer;font-weight:700;padding:7px 0;}
+.speaking-cycle .cycle-targets ul{margin:0;padding:0 0 0 16px;}
+.speaking-cycle .cycle-targets li{padding:5px 0;line-height:1.5;}
+.speaking-cycle .cycle-targets strong,.speaking-cycle .cycle-targets li span{display:block;}
+.speaking-cycle .cycle-result{margin:0 0 20px;padding:24px 28px 18px;background:#fffefa;border-radius:16px;color:#383b2c;}
+.speaking-cycle .cycle-result-summary{display:flex;align-items:center;gap:28px;margin-bottom:20px;font-size:15px;}
+.speaking-cycle .cycle-outcome{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:650;line-height:1.5;}
+.speaking-cycle .cycle-outcome svg{width:18px;height:18px;flex:none;}
+.speaking-cycle .cycle-outcome-correct{color:#30653c;}
+.speaking-cycle .cycle-outcome-repeat{color:#a63e35;}
+.speaking-cycle .cycle-outcome-missing{color:#755c28;}
+.speaking-cycle .cycle-result-summary .cycle-outcome{font-size:15px;}
+.speaking-cycle .cycle-result-summary strong{font-variant-numeric:tabular-nums;}
+.speaking-cycle .cycle-result-table{width:100%;border-collapse:collapse;table-layout:fixed;text-align:left;font-size:14px;line-height:1.5;}
+.speaking-cycle .cycle-result-table thead th{padding:0 18px 10px;color:#6a6757;font-size:12px;font-weight:650;border-bottom:1px solid #ddd8c8;}
+.speaking-cycle .cycle-result-table th:first-child{width:28%;padding-left:0;}
+.speaking-cycle .cycle-result-table th:nth-child(2){width:30%;}
+.speaking-cycle .cycle-result-table tbody :is(th,td){padding:12px 18px;vertical-align:top;border-bottom:1px solid #eee9db;overflow-wrap:anywhere;}
+.speaking-cycle .cycle-result-table tbody th{font-size:14px;font-weight:600;background:transparent;}
+.speaking-cycle .cycle-result-table tbody tr:last-child :is(th,td){border-bottom:0;}
+.speaking-cycle .cycle-result-table .cycle-before{color:#6a6757;}
+.speaking-cycle .cycle-after{display:inline;margin-left:12px;}
+.speaking-cycle .cycle-result-foot{border-top:1px solid #eee9db;padding-top:12px;margin-top:2px;color:#6a6757;font-size:12px;line-height:1.6;}
+.speaking-cycle .cycle-result-foot p{margin:3px 0;max-width:75ch;}
+.speaking-cycle .cycle-v2-transcript{margin-top:9px;}
+.speaking-cycle .cycle-v2-transcript summary,.speaking-cycle .cycle-original>summary{cursor:pointer;color:#625331;font-weight:600;}
+.speaking-cycle .cycle-v2-transcript p{font-size:16px;line-height:1.8;padding-top:8px;}
+.speaking-cycle .cycle-original{margin:0 0 12px;}
+.speaking-cycle .cycle-original>summary{padding:12px 0;font-size:14px;}
+.speaking-cycle .cycle-original>.sf-content{padding-top:12px;}
+.speaking-cycle :is(.cycle-original,.cycle-v2-transcript)>summary:focus-visible{outline:3px solid #976800;outline-offset:4px;border-radius:4px;}
+.speaking-cycle .cycle-visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+.speaking-cycle .cycle-completion{max-width:850px;margin:42px auto;padding:32px 38px;background:#fffefa;border-radius:16px;font-size:14px;line-height:1.7;}
+.speaking-cycle .cycle-completion h1{font-size:29px;margin:0 0 12px;letter-spacing:-.025em;}
+.speaking-cycle .cycle-completion p{max-width:74ch;}
+.speaking-cycle .cycle-completion dl{display:flex;gap:45px;margin:26px 0;}
+.speaking-cycle .cycle-completion dt{font-size:12px;color:#6b6653;}
+.speaking-cycle .cycle-completion dd{font-size:25px;font-weight:700;margin:3px 0;font-variant-numeric:tabular-nums;}
+.speaking-cycle .cycle-completion ul{list-style:none;margin:22px 0;padding:0;}
+.speaking-cycle .cycle-completion li{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:12px 0;border-top:1px solid #e7e0cf;}
+.speaking-cycle .cycle-completion li span{font-size:11px;color:#6b6653;}
+.speaking-cycle .cycle-completion button{border:0;background:none;padding:7px 0;font:inherit;font-weight:650;color:#6a511e;cursor:pointer;display:flex;align-items:center;gap:10px;}
+.speaking-cycle .cycle-completion svg{width:18px;height:18px;}
+.speaking-cycle .cycle-library{display:inline-flex;align-items:center;gap:12px;background:#ffdf72;color:#644b15;border:1px solid #e4be4a;border-radius:10px;padding:9px 14px;box-shadow:0 3px 0 #cda737;text-decoration:none;font-weight:700;font-size:13px;}
+.speaking-cycle .cycle-library svg{border-left:1px solid #ad893a;padding-left:9px;box-sizing:content-box;}
+.speaking-cycle .cycle-library:hover{background:#ffda5c;box-shadow:0 3px 0 #cda737;}
+.speaking-cycle .cycle-library:active{transform:translateY(2px);box-shadow:0 1px 0 #cda737;}
+.speaking-cycle .cycle-storage-warning{font-size:12px;color:#8b382e;}
+@media(min-width:1100px) and (max-height:820px){body.speaking-cycle-page main.speaking-practice .practice-scene{min-height:490px;height:calc(100dvh - 235px);padding-top:20px;}body.speaking-cycle-page main.speaking-cycle{padding-top:12px;}.speaking-cycle .cycle-top{margin-bottom:10px;gap:10px;}.speaking-cycle.speaking-practice #practice-question{font-size:32px;}.speaking-cycle .cycle-targets{max-width:245px;top:137px;max-height:230px;}.speaking-cycle .cycle-sample{font-size:10px;}}
+
+.speaking-cycle .sf-heading .sf-sample{display:none;}
+
+.speaking-cycle .cycle-original-note{font-size:12px;color:#6a6757;margin:0 0 12px;}
+
+/* Review controls live in the header; lesson content stays learner-facing. */
+.speaking-cycle .cycle-top:empty{display:none}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo{position:relative;color:#62665b;font:500 12px/1.5 'Be Vietnam Pro',sans-serif}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo summary{display:flex;align-items:center;gap:7px;min-height:36px;padding:7px 10px;border:1px solid #e7e1d1;border-radius:9px;background:#fffefa;cursor:pointer;list-style:none;white-space:nowrap}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo summary::-webkit-details-marker{display:none}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo summary::after{content:'';width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin:-3px 1px 0 3px}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo[open] summary{background:#fff3cb;color:#654719;border-color:#dac98e}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo>div{position:absolute;right:0;top:calc(100% + 10px);width:300px;max-height:calc(100dvh - 110px);overflow:auto;padding:18px;border:1px solid #e7e1d1;border-radius:12px;background:#fffef9;box-shadow:0 12px 32px #51431818}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo label{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;font-weight:600}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo select{width:100%;min-height:40px;padding:8px;border:1px solid #c6b98f;border-radius:8px;background:#fffefa;color:#554524;font:inherit}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo p{color:#62665b;line-height:1.7;margin:12px 0}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo button{min-height:38px;padding:8px 12px;border:1px solid #d8cfb6;border-radius:8px;background:#f8f4e9;color:#654719;font:inherit;cursor:pointer}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo summary:hover,body[data-speaking-lesson] .lesson-top-tools .cycle-demo button:hover{background:#fff3cb}
+body[data-speaking-lesson] .lesson-top-tools .cycle-demo :is(summary,select,button):focus-visible{outline:3px solid #87611f;outline-offset:3px}
+
+/* The lesson shell already provides navigation and question context. */
+body.speaking-cycle-page main.speaking-practice .practice-top{display:none}
+
+body.speaking-cycle-page main.speaking-practice .practice-number{display:none}

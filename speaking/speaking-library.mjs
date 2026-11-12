@@ -1,3 +1,4 @@
+import {speakingPreparationEntry} from './speaking-preparation-visibility.mjs';
 import {createBackgroundButton} from '../background-toggle.mjs';
 import {createSoundButton} from '../ui-sound.mjs';
 import {balance} from '../session.mjs';
@@ -39,7 +40,7 @@ export function syncSpeakingLibrary(main){
  const cards=speakingLessons.map(lesson=>{
   const card=element('article','lesson-card card'),title=element('h2','');title.textContent=lesson.title;
   const action=element(lesson.href?'a':'button',lesson.href?'button primary':'button');
-  if(lesson.href){action.href=lesson.href;action.replaceChildren(document.createTextNode('Bắt đầu'),Object.assign(element('span','speaking-card-arrow'),{innerHTML:icon('arrow')}));}
+  if(lesson.href){action.href=lesson.href==='key-speaking-vocabulary.html'?speakingPreparationEntry():lesson.href;action.replaceChildren(document.createTextNode('Bắt đầu'),Object.assign(element('span','speaking-card-arrow'),{innerHTML:icon('arrow')}));}
   else{action.type='button';action.disabled=true;action.textContent='Sắp có';}
   const art=element('div','lesson-art'),img=element('img','');img.src=`assets/speaking-covers/${lesson.id}-rustic-v2.webp`;img.alt='';img.width=320;img.height=240;art.append(img);
   if(lesson.plan){const plan=element('span','plan-tag');plan.textContent='OKRs';plan.title='Bài thuộc kế hoạch OKRs của bạn';art.append(plan);}
