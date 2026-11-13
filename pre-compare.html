@@ -25,14 +25,14 @@ iframe[hidden]{display:none}
 <button type="button" data-version="classic" aria-pressed="false" aria-controls="classic">Bản cũ</button>
 <button type="button" data-version="reference" aria-pressed="true" aria-controls="reference">Bản mới</button>
 </div>
-<a id="open-version" href="pre-reference.html?v=soft-panels-v8" target="_blank" rel="noopener">Mở bản này ở tab riêng</a>
+<a id="open-version" href="pre-reference.html?v=desktop-fit-20261113" target="_blank" rel="noopener">Mở bản này ở tab riêng</a>
 </nav>
 <main class="comparison-stage">
 <iframe id="classic" title="Bản cũ · Học từ và câu" src="pre-classic-preview.html" hidden></iframe>
-<iframe id="reference" title="Bản mới · Học từ và câu" src="pre-reference.html?v=soft-panels-v8"></iframe>
+<iframe id="reference" title="Bản mới · Học từ và câu" src="pre-reference.html?v=desktop-fit-20261113"></iframe>
 </main>
 <script>
-const sources={classic:'pre-classic-preview.html',reference:'pre-reference.html?v=soft-panels-v8'};
+const sources={classic:'pre-classic-preview.html',reference:'pre-reference.html?v=desktop-fit-20261113'};
 document.querySelectorAll('[data-version]').forEach(button=>button.addEventListener('click',()=>{
   const selected=button.dataset.version;
   document.querySelectorAll('[data-version]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));

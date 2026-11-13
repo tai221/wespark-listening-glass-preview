@@ -1,0 +1,73 @@
+/* Reference tick palette: light leaf green with a readable green mark. */
+body[data-visual-version='reference']{
+  --remembered-fill:#b8d9a8;
+  --remembered-hover:#a9ce97;
+  --remembered-ink:#39692f;
+  --remembered-text:#315b28;
+  --remembered-line:#80ab6c;
+  --remembered-bar:#6f9e58;
+  --practice-fill:#dfbd85;
+  --practice-hover:#d6af72;
+  --practice-ink:#7b5b30;
+  --practice-text:#664a28;
+  --practice-line:#b48d53;
+  --practice-bar:#ad8545;
+}
+body[data-visual-version='reference'] .learning-list .learning-card-actions button[data-assessment='remembered'][aria-pressed='false'],
+body[data-visual-version='reference'] .learning-detail .learning-assessment-actions button[data-assessment='remembered'][aria-pressed='false']{
+  background:#fff;color:var(--remembered-ink);border-color:#cadcc2;
+}
+body[data-visual-version='reference'] .learning-list .learning-card-actions button[data-assessment='remembered'][aria-pressed='false']:hover,
+body[data-visual-version='reference'] .learning-detail .learning-assessment-actions button[data-assessment='remembered'][aria-pressed='false']:hover{
+  background:#f1f8ed;border-color:var(--remembered-line);
+}
+body[data-visual-version='reference'] .learning-list .learning-card-actions button[data-assessment='remembered'][aria-pressed='true'],
+body[data-visual-version='reference'] .learning-detail .learning-assessment-actions button[data-assessment='remembered'][aria-pressed='true']{
+  background:var(--remembered-fill);color:var(--remembered-ink);border-color:var(--remembered-line);
+}
+body[data-visual-version='reference'] .learning-list .learning-card-actions button[data-assessment='remembered'][aria-pressed='true']:hover,
+body[data-visual-version='reference'] .learning-detail .learning-assessment-actions button[data-assessment='remembered'][aria-pressed='true']:hover{
+  background:var(--remembered-hover);border-color:#91b67f;
+}
+body[data-visual-version='reference'][data-pre-step='1'] .learning-detail .learning-assessment-actions button[data-assessment='remembered']{border-bottom-color:#9aba8b;color:var(--remembered-text)}
+body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>.learning-card-wrapper>button.learning-card[data-assessment-status='remembered']:not([aria-current]){border-color:var(--remembered-line)}
+body[data-visual-version='reference'][data-pre-step='1'] .learning-progress-track i.progress-remembered,
+body[data-visual-version='reference'][data-pre-step='1'] .progress-remembered-label:before{background:var(--remembered-bar)}
+body[data-visual-version='reference'][data-pre-step='1'] .progress-remembered-label{color:var(--remembered-text)}
+body[data-visual-version='reference'] #learning-practice-scope .scope-remembered{color:var(--remembered-ink)}
+body[data-visual-version='reference'] #learning-practice-scope .challenge-scope-choice:has(input[data-challenge-group='remembered']:checked){
+  background:var(--remembered-fill);border-color:var(--remembered-line);box-shadow:0 4px 0 #9aba8b;
+}
+body[data-visual-version='reference'] #learning-practice-scope .challenge-scope-choice:has(input[data-challenge-group='remembered']:checked):hover{background:var(--remembered-hover);box-shadow:0 5px 0 #9aba8b}
+body[data-visual-version='reference'] #learning-practice-scope .challenge-scope-choice:has(input[data-challenge-group='remembered']:checked):active{box-shadow:0 2px 0 #9aba8b}
+body[data-visual-version='reference'] .lesson-rail-marker.is-complete:not([aria-current]),
+body[data-visual-version='reference'] .lesson-stage-link.is-complete:not([aria-current]) .lesson-stage-number{
+  background:var(--remembered-fill);border-color:var(--remembered-line);color:var(--remembered-ink);
+}
+
+/* Needs-practice uses the same light surface / darker mark relationship. */
+body[data-visual-version='reference'] .learning-list .learning-card-actions button[data-assessment='practice'][aria-pressed='false'],
+body[data-visual-version='reference'] .learning-detail .learning-assessment-actions button[data-assessment='practice'][aria-pressed='false']{
+  background:#fff;color:var(--practice-ink);border-color:#dfcfb4;
+}
+body[data-visual-version='reference'] .learning-list .learning-card-actions button[data-assessment='practice'][aria-pressed='false']:hover,
+body[data-visual-version='reference'] .learning-detail .learning-assessment-actions button[data-assessment='practice'][aria-pressed='false']:hover{
+  background:#fbf5e9;border-color:var(--practice-line);
+}
+body[data-visual-version='reference'] .learning-list .learning-card-actions button[data-assessment='practice'][aria-pressed='true'],
+body[data-visual-version='reference'] .learning-detail .learning-assessment-actions button[data-assessment='practice'][aria-pressed='true']{
+  background:var(--practice-fill);color:var(--practice-ink);border-color:var(--practice-line);
+}
+body[data-visual-version='reference'] .learning-list .learning-card-actions button[data-assessment='practice'][aria-pressed='true']:hover,
+body[data-visual-version='reference'] .learning-detail .learning-assessment-actions button[data-assessment='practice'][aria-pressed='true']:hover{
+  background:var(--practice-hover);border-color:#b69257;
+}
+body[data-visual-version='reference'][data-pre-step='1'] .learning-detail .learning-assessment-actions button[data-assessment='practice']{border-bottom-color:#baa071;color:var(--practice-text)}
+body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>.learning-card-wrapper>button.learning-card[data-assessment-status='practice']:not([aria-current]){border-color:var(--practice-line)}
+body[data-visual-version='reference'][data-pre-step='1'] .learning-progress-track i.progress-practice,
+body[data-visual-version='reference'][data-pre-step='1'] .progress-practice-label:before{background:var(--practice-bar)}
+body[data-visual-version='reference'][data-pre-step='1'] .progress-practice-label{color:var(--practice-text)}
+body[data-visual-version='reference'] #learning-practice-scope .scope-practice{color:var(--practice-ink)}
+body[data-visual-version='reference'] #learning-practice-scope .challenge-scope-choice:has(input[data-challenge-group='practice']:checked){background:var(--practice-fill);border-color:var(--practice-line);box-shadow:0 4px 0 #baa071}
+body[data-visual-version='reference'] #learning-practice-scope .challenge-scope-choice:has(input[data-challenge-group='practice']:checked):hover{background:var(--practice-hover);box-shadow:0 5px 0 #baa071}
+body[data-visual-version='reference'] #learning-practice-scope .challenge-scope-choice:has(input[data-challenge-group='practice']:checked):active{box-shadow:0 2px 0 #baa071}
