@@ -88,22 +88,22 @@ body[data-visual-version='reference'] ::selection{background:#ffe28a;color:#1720
 /* One atlas, shared between each mini card and its matching detail illustration. */
 body[data-visual-version='reference'][data-pre-step='1'] .learning-illustration[data-reference-art],
 body[data-visual-version='reference'] .learning-card-art[data-reference-art]:before{
-  background-image:url('assets/vocabulary/reference-atlas-soft-transparent-v2.png');background-repeat:no-repeat;
-  background-size:400% 300%;background-position:var(--art-x) var(--art-y);
+  background-image:url('assets/vocabulary/reference-atlas-2d-soft-panels-v8.png');background-repeat:no-repeat;
+  background-size:520% 390%;background-position:var(--art-x) var(--art-y);
 }
 body[data-visual-version='reference'] .learning-card-art[data-reference-art]:before{content:'';display:block;width:92px;height:92px;flex:none}
 body[data-visual-version='reference'] .learning-card-art[data-reference-art] img{display:none}
-body[data-visual-version='reference'] [data-reference-art='reduce-waste']{--art-x:0%;--art-y:0%}
-body[data-visual-version='reference'] [data-reference-art='small-changes']{--art-x:33.333333%;--art-y:0%}
-body[data-visual-version='reference'] [data-reference-art='reusable-bag']{--art-x:66.666667%;--art-y:0%}
-body[data-visual-version='reference'] [data-reference-art='throw-away']{--art-x:100%;--art-y:0%}
-body[data-visual-version='reference'] [data-reference-art='make-a-difference']{--art-x:0%;--art-y:50%}
-body[data-visual-version='reference'] [data-reference-art='recycling-bin']{--art-x:33.333333%;--art-y:50%}
-body[data-visual-version='reference'] [data-reference-art='plastic-bottle']{--art-x:66.666667%;--art-y:50%}
-body[data-visual-version='reference'] [data-reference-art='cloth-bag']{--art-x:100%;--art-y:50%}
-body[data-visual-version='reference'] [data-reference-art='fresh-produce']{--art-x:0%;--art-y:100%}
-body[data-visual-version='reference'] [data-reference-art='plant-a-tree']{--art-x:33.333333%;--art-y:100%}
-body[data-visual-version='reference'] [data-reference-art='disposable-cup']{--art-x:66.666667%;--art-y:100%}
-body[data-visual-version='reference'] [data-reference-art='eco-friendly-habits']{--art-x:100%;--art-y:100%}
+body[data-visual-version='reference'] [data-reference-art='reduce-waste']{--art-x:3.571429%;--art-y:5.172414%}
+body[data-visual-version='reference'] [data-reference-art='small-changes']{--art-x:34.523810%;--art-y:5.172414%}
+body[data-visual-version='reference'] [data-reference-art='reusable-bag']{--art-x:65.476190%;--art-y:5.172414%}
+body[data-visual-version='reference'] [data-reference-art='throw-away']{--art-x:96.428571%;--art-y:5.172414%}
+body[data-visual-version='reference'] [data-reference-art='make-a-difference']{--art-x:3.571429%;--art-y:50%}
+body[data-visual-version='reference'] [data-reference-art='recycling-bin']{--art-x:34.523810%;--art-y:50%}
+body[data-visual-version='reference'] [data-reference-art='plastic-bottle']{--art-x:65.476190%;--art-y:50%}
+body[data-visual-version='reference'] [data-reference-art='cloth-bag']{--art-x:96.428571%;--art-y:50%}
+body[data-visual-version='reference'] [data-reference-art='fresh-produce']{--art-x:3.571429%;--art-y:94.827586%}
+body[data-visual-version='reference'] [data-reference-art='plant-a-tree']{--art-x:34.523810%;--art-y:94.827586%}
+body[data-visual-version='reference'] [data-reference-art='disposable-cup']{--art-x:65.476190%;--art-y:94.827586%}
+body[data-visual-version='reference'] [data-reference-art='eco-friendly-habits']{--art-x:96.428571%;--art-y:94.827586%}
 }
 @media(prefers-reduced-motion:reduce){body[data-visual-version='reference'] .learning-card{transition:none!important;transform:none!important}}
