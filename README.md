@@ -25,3 +25,10 @@ QA scripts, source artwork and verification logs are excluded.
 
 [Speaking library](https://tai221.github.io/wespark-listening-glass-preview/speaking/key-speaking-library.html).
 Connected both ways through the Listening/Speaking sidebar menus. Hometown includes vocabulary, Quiz and the speaking-flow preview. Speaking recording/feedback remains scripted demo UI; there is no microphone upload or AI grading.
+
+## Vocabulary visual comparison
+
+- [Compare the classic and new vocabulary UI](https://tai221.github.io/wespark-listening-glass-preview/pre-compare.html)
+- [Open the new illustrated version](https://tai221.github.io/wespark-listening-glass-preview/pre-reference.html)
+
+Desktop visual study published 2026-11-13: background, ink, typography, card borders, shadows, corners and illustrations. Both previews open directly at vocabulary learning and keep separate assessment progress.
