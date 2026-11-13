@@ -41,7 +41,8 @@ body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>
   transition:background 150ms ease,border-color 150ms ease,box-shadow 150ms ease,transform 150ms ease;
 }
 body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>.learning-card-wrapper>button.learning-card>.learning-card-art{
-  height:96px;padding:0;justify-content:center;background-color:#fffaf0;
+  height:96px;padding:0;justify-content:center;
+  background:transparent url('assets/backgrounds/vocabulary-card-cream.svg') center bottom/100% 88px no-repeat;
 }
 body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>.learning-card-wrapper>button.learning-card>span:last-child{
   min-height:42px;padding:8px 5px;font-size:14px;line-height:1.45;font-weight:800;
@@ -53,8 +54,9 @@ body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>
   transform:translateY(2px);box-shadow:0 1px 1px #17203430;
 }
 body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>.learning-card-wrapper>button.learning-card[aria-current='true']{
-  border:2px solid #ad7208;background:#ffe6a0;color:#4d340d;box-shadow:0 3px 1px #ba8e3b65,0 5px 10px #ba8e3b12;
+  border:2px solid #ad7208;background:#fff;color:#4d340d;box-shadow:0 3px 1px #ba8e3b65,0 5px 10px #ba8e3b12;
 }
+body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>.learning-card-wrapper>button.learning-card[aria-current='true']>span:last-child{background:#ffe6a0}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>.learning-card-wrapper>button.learning-card[data-assessment-status='remembered']:not([aria-current]){border-color:#3c7250}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-list section>.learning-card-wrapper>button.learning-card[data-assessment-status='practice']:not([aria-current]){border-color:#a16d18}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-card-actions{top:7px;right:7px;gap:4px}
@@ -69,7 +71,7 @@ body[data-visual-version='reference'][data-pre-step='1'] .learning-detail{
 body[data-visual-version='reference'][data-pre-step='1'] .learning-word-stage{padding-right:152px;min-height:192px}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-detail[data-learning-type='word'] #learning-heading{color:var(--reference-ink);font-weight:800;font-size:34px;line-height:1.25;letter-spacing:-.04em}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-detail[data-learning-type='pattern'] #learning-heading{color:var(--reference-ink);font-weight:800;font-size:28px}
-body[data-visual-version='reference'][data-pre-step='1'] .learning-illustration{width:150px;height:150px;right:-4px;top:45%;border-radius:16px}
+body[data-visual-version='reference'][data-pre-step='1'] .learning-illustration{width:150px;height:150px;right:-4px;top:45%;border-radius:0;background-color:transparent}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-word-meta{color:var(--reference-muted);font-size:13px;line-height:1.8}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-detail .learning-meaning{color:#315e3c;font-weight:750;font-size:18px}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-example-block{border-color:#eee8db}
@@ -86,7 +88,7 @@ body[data-visual-version='reference'] ::selection{background:#ffe28a;color:#1720
 /* One atlas, shared between each mini card and its matching detail illustration. */
 body[data-visual-version='reference'][data-pre-step='1'] .learning-illustration[data-reference-art],
 body[data-visual-version='reference'] .learning-card-art[data-reference-art]:before{
-  background-image:url('assets/vocabulary/reference-atlas.png');background-repeat:no-repeat;
+  background-image:url('assets/vocabulary/reference-atlas-soft-transparent-v2.png');background-repeat:no-repeat;
   background-size:400% 300%;background-position:var(--art-x) var(--art-y);
 }
 body[data-visual-version='reference'] .learning-card-art[data-reference-art]:before{content:'';display:block;width:92px;height:92px;flex:none}
