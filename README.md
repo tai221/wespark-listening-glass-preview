@@ -32,3 +32,10 @@ Connected both ways through the Listening/Speaking sidebar menus. Hometown inclu
 - [Open the new illustrated version](https://tai221.github.io/wespark-listening-glass-preview/pre-reference.html)
 
 Desktop visual study published 2026-11-13: background, ink, typography, card borders, shadows, corners and illustrations. Both previews open directly at vocabulary learning and keep separate assessment progress.
+
+## Listening library comparison
+
+- [Compare old and new library UI](https://tai221.github.io/wespark-listening-glass-preview/library-compare.html)
+- [Open the new library](https://tai221.github.io/wespark-listening-glass-preview/library-reference.html)
+
+Updated 2026-11-14: Plus Jakarta Sans, lightly softened scenery, warm translucent demo frame, YouTube demo thumbnails and 2D audio illustrations. Selected YouTube videos supply topic-matched demo covers; lesson transcripts and durations remain prototype fixtures. Thumbnail provenance is in assets/lesson-covers/library-reference-media-sources.json.

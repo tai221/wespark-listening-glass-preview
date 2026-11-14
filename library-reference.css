@@ -1,0 +1,48 @@
+/* Library-only visual variant. Existing library layout/data/flows are shared. */
+@font-face{font-family:LibraryJakarta;src:url('assets/fonts/reference-jakarta-latin.woff2') format('woff2');font-weight:200 800;font-display:swap}
+@font-face{font-family:LibraryJakarta;src:url('assets/fonts/reference-jakarta-latin-ext.woff2') format('woff2');font-weight:200 800;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:LibraryJakarta;src:url('assets/fonts/reference-jakarta-vietnamese.woff2') format('woff2');font-weight:200 800;font-display:swap;unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+
+/* Typography-only comparison. All surfaces and controls inherit the original design. */
+body[data-library-version="rules-v1"]{--ink:#172034;--muted:#555b68;color:#172034}
+body[data-library-version="rules-v1"],
+body[data-library-version="rules-v1"] :is(h1,h2,h3,h4,p,button,input,select,textarea,a,span,small,strong,legend,label,dialog){font-family:LibraryJakarta,"Be Vietnam Pro",sans-serif!important}
+body[data-library-version="rules-v1"] .library-intro .page-heading h1{color:#172034;font-weight:800;letter-spacing:-.035em}
+body[data-library-version="rules-v1"] .library-intro .page-heading p{color:#555b68;line-height:1.8}
+body[data-library-version="rules-v1"] .project-shell .lesson-body h2{color:#172034;font-weight:750;letter-spacing:-.025em;line-height:1.4}
+body[data-library-version="rules-v1"] .project-shell .lesson-body .lesson-summary{color:#555b68;font-size:13px;line-height:1.65}
+body[data-library-version="rules-v1"] .results-heading{color:#555b68}
+body[data-library-version="rules-v1"] .library-filters .filter-pill{font-weight:600}
+body[data-library-version="rules-v1"] .library-filters .filter-pill[aria-pressed="true"]{font-weight:750}
+body[data-library-version="rules-v1"] .lesson-format{font-size:11px}
+body[data-library-version="rules-v1"] .project-shell .lesson-body>.button{font-size:13px;font-weight:750;line-height:1.5}
+body[data-library-version="rules-v1"] .demo-scene :is(h3,strong){color:#172034}
+body[data-library-version="rules-v1"] .demo-vocab p{color:#555b68}
+body[data-library-version="rules-v1"] :is(.dialog,.empty) h2{color:#172034}
+body[data-library-version="rules-v1"] :is(.dialog,.empty) :is(p,.muted){color:#555b68}
+
+/* Quiet scenery: retain the travel artwork as a faint backdrop. */
+body[data-library-version="rules-v1"]{background:#faf8f1}
+body[data-library-version="rules-v1"] .app.project-shell{
+  background-color:#fffdf6;
+  background-image:linear-gradient(to bottom,rgba(255,253,247,.22),rgba(255,253,247,.16)),url("assets/backgrounds/travel-clouds-desktop-v1.webp");
+}
+body[data-library-version="rules-v1"] .paper-clouds{opacity:.2}
+body[data-library-version="rules-v1"][data-glass-motion="true"]:not([data-glass-playing="true"]) .paper-clouds{opacity:.2}
+
+/* Audio artwork is a transparent 2D asset over a separate quiet surface. */
+body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type]{height:auto;aspect-ratio:16/9}
+body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type="audio"]{background:#fbf5e6!important}
+body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type="audio"][data-topic="Sport"]{background:#eef4eb!important}
+body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type="audio"] img{object-fit:contain;padding:8px 16px 20px}
+body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type="video"] img{object-fit:cover}
+
+/* One frame contains the animated preview and its playback controls. */
+body[data-library-version="rules-v1"] .library-intro .lesson-demo{
+  background:linear-gradient(145deg,#fffefad9,#fff9e980 58%,#fffdf554);
+  border:1px solid #ffffffc7;border-radius:16px;
+  box-shadow:inset 0 1px 0 #fff,0 7px 22px #97743217;
+  backdrop-filter:blur(6px) saturate(1.04);-webkit-backdrop-filter:blur(6px) saturate(1.04);
+}
+body[data-library-version="rules-v1"] .lesson-demo .demo-context .demo-cover{inset:6px 6px auto;width:calc(100% - 12px);border-radius:11px}
+body[data-library-version="rules-v1"] .lesson-demo[data-scene="0"] .demo-cover{height:240px}

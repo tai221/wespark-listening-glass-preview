@@ -1,0 +1,29 @@
+{
+  "planet": {
+    "videoId": "_6xlNyWPpB8",
+    "url": "https://www.youtube.com/watch?v=_6xlNyWPpB8",
+    "sourceTitle": "What really happens to the plastic you throw away - Emma Bryce",
+    "channel": "TED-Ed",
+    "thumbnailUrl": "https://i.ytimg.com/vi/_6xlNyWPpB8/maxresdefault.jpg",
+    "asset": "planet-youtube-v1.jpg",
+    "usage": "Topic-matched demo cover only; existing prototype transcript and duration are not this source video."
+  },
+  "sport": {
+    "videoId": "atPNphv-NEI",
+    "url": "https://www.youtube.com/watch?v=atPNphv-NEI",
+    "sourceTitle": "Sport against poverty - 6 Minute English",
+    "channel": "BBC Learning English",
+    "thumbnailUrl": "https://i.ytimg.com/vi/atPNphv-NEI/maxresdefault.jpg",
+    "asset": "sport-youtube-v1.jpg",
+    "usage": "Topic-matched demo cover only; existing prototype transcript and duration are not this source video."
+  },
+  "garden": {
+    "videoId": "X3SP1Fub3bw",
+    "url": "https://www.youtube.com/watch?v=X3SP1Fub3bw",
+    "sourceTitle": "How to Start Your First Garden (COMPLETE GUIDE)",
+    "channel": "Epic Gardening",
+    "thumbnailUrl": "https://i.ytimg.com/vi/X3SP1Fub3bw/maxresdefault.jpg",
+    "asset": "garden-youtube-v1.jpg",
+    "usage": "Topic-matched demo cover only; existing prototype transcript and duration are not this source video."
+  }
+}

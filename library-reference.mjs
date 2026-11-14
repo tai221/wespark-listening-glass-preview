@@ -1,0 +1,24 @@
+// Share the original lesson behavior; isolate cover changes to this version.
+import './library.mjs?v=library-filters-horizontal-20261106';
+
+const videos={planet:'_6xlNyWPpB8',sport:'atPNphv-NEI',garden:'X3SP1Fub3bw'};
+const grid=document.querySelector('#lessons');
+function updateCovers(){
+  for(const card of grid.querySelectorAll('.lesson-card')){
+    const image=card.querySelector('.lesson-art>img');
+    const id=image?.getAttribute('src')?.match(/\/([a-z]+)-v1\.webp$/)?.[1];
+    if(!id)continue;
+    const art=image.parentElement;
+    if(videos[id]){
+      art.dataset.coverType='video';
+      card.dataset.youtubeSource=`https://www.youtube.com/watch?v=${videos[id]}`;
+      image.src=`assets/lesson-covers/${id}-youtube-v1.jpg`;
+      image.title='Thumbnail từ video YouTube minh họa cùng chủ đề';
+    }else{
+      art.dataset.coverType='audio';
+      image.src=`assets/lesson-covers/${id}-2d-v1.png`;
+    }
+  }
+}
+updateCovers();
+new MutationObserver(updateCovers).observe(grid,{childList:true});

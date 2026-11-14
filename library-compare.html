@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WeSpark · So sánh giao diện thư viện Listening</title>
+<link rel="icon" href="data:,">
+<style>
+@font-face{font-family:CompareInter;src:url('assets/fonts/inter-latin.woff2')}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 CompareInter,Arial,sans-serif;color:#172034;background:#fff}
+.comparison-toolbar{height:60px;padding:0 24px;display:flex;align-items:center;gap:24px;border-bottom:1px solid #e8e2d4;background:#fffdf6}
+.comparison-toolbar strong{font-size:14px}.comparison-options{display:flex;gap:6px}
+.comparison-toolbar button{font:inherit;padding:7px 16px;min-height:38px;border:1px solid #ddd5c2;border-radius:10px;background:#fff;color:#535767;cursor:pointer}
+.comparison-toolbar button[aria-pressed='true']{background:#ffe49a;border-color:#c69a35;color:#49320d;font-weight:700}
+.comparison-toolbar button:hover{border-color:#9e7a2b}.comparison-toolbar a{margin-left:auto;color:#674a13;text-underline-offset:3px;font-size:13px}
+.comparison-toolbar :focus-visible{outline:3px solid #a36c08;outline-offset:3px}
+.comparison-stage{position:relative;height:calc(100dvh - 60px)}iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+iframe[hidden]{display:none}
+</style>
+</head>
+<body>
+<nav class="comparison-toolbar" aria-label="So sánh phiên bản giao diện">
+<strong>Thư viện Listening</strong>
+<div class="comparison-options" role="group" aria-label="Phiên bản hiển thị">
+<button type="button" data-version="classic" aria-pressed="false" aria-controls="classic">Bản cũ</button>
+<button type="button" data-version="reference" aria-pressed="true" aria-controls="reference">Bản mới</button>
+</div>
+<a id="open-version" href="library-reference.html" target="_blank" rel="noopener">Mở bản này ở tab riêng</a>
+</nav>
+<main class="comparison-stage">
+<iframe id="classic" title="Bản cũ · Thư viện Listening" src="library.html" hidden></iframe>
+<iframe id="reference" title="Bản mới · Thư viện Listening" src="library-reference.html"></iframe>
+</main>
+<script>
+const sources={classic:'library.html',reference:'library-reference.html'};
+document.querySelectorAll('[data-version]').forEach(button=>button.addEventListener('click',()=>{
+  const selected=button.dataset.version;
+  document.querySelectorAll('[data-version]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+  document.querySelectorAll('iframe').forEach(frame=>frame.hidden=frame.id!==selected);
+  document.querySelector('#open-version').href=sources[selected];
+}));
+</script>
+</body>
+</html>
