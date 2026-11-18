@@ -88,7 +88,7 @@ body[data-visual-version='reference'] ::selection{background:#ffe28a;color:#1720
 /* One atlas, shared between each mini card and its matching detail illustration. */
 body[data-visual-version='reference'][data-pre-step='1'] .learning-illustration[data-reference-art],
 body[data-visual-version='reference'] .learning-card-art[data-reference-art]:before{
-  background-image:url('assets/vocabulary/reference-atlas-2d-soft-panels-v8.png');background-repeat:no-repeat;
+  background-image:url('assets/vocabulary/reference-atlas-2d-cream-yellow-v9.png');background-repeat:no-repeat;
   background-size:520% 390%;background-position:var(--art-x) var(--art-y);
 }
 body[data-visual-version='reference'] .learning-card-art[data-reference-art]:before{content:'';display:block;width:92px;height:92px;flex:none}

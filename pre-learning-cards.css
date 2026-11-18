@@ -306,3 +306,7 @@ body[data-pre-step='1'] .progress-remembered-label::before{background:#356948}
 body[data-pre-step='1'] .progress-practice-label::before{background:#c18a25}
 body[data-pre-step='1'] .learning-progress[data-complete='true'] .learning-progress-copy strong{color:var(--study-ink)}
 }
+
+/* Same all-items grid icon as the lesson-library filters. */
+.learning-filters button[data-learning-filter='all']{display:inline-flex;align-items:center;justify-content:center;width:40px;min-width:40px;height:40px;padding:8px;flex:none}
+.learning-filters button[data-learning-filter='all'] svg{display:block;width:20px;height:20px;flex:none}

@@ -1,0 +1,2 @@
+/* Preserve the approved static learning banner and context-only live Spark. */
+#live-spark-companion[hidden],[data-reference-banner][hidden]{display:none!important}

@@ -1,6 +1,11 @@
 // Share the original lesson behavior; isolate cover changes to this version.
 import './library.mjs?v=library-filters-horizontal-20261106';
 
+const heading=document.querySelector('.library-intro h1');
+const markedTitle=document.createElement('span');
+markedTitle.className='library-title-mark';markedTitle.textContent='Listening';
+heading.replaceChildren(document.createTextNode('Thư viện '),markedTitle);
+
 const videos={planet:'_6xlNyWPpB8',sport:'atPNphv-NEI',garden:'X3SP1Fub3bw'};
 const grid=document.querySelector('#lessons');
 function updateCovers(){
@@ -9,6 +14,9 @@ function updateCovers(){
     const id=image?.getAttribute('src')?.match(/\/([a-z]+)-v1\.webp$/)?.[1];
     if(!id)continue;
     const art=image.parentElement;
+    const title=card.querySelector('h2').textContent;
+    const action=card.querySelector('.lesson-body>.button');
+    action.setAttribute('aria-label',`${action.textContent.replace(/\s*→\s*$/,'')} · ${title}`);
     if(videos[id]){
       art.dataset.coverType='video';
       card.dataset.youtubeSource=`https://www.youtube.com/watch?v=${videos[id]}`;

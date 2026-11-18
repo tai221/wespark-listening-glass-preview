@@ -17,7 +17,7 @@
 .comparison-stage{position:relative;height:calc(100dvh - 60px)}iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
 iframe[hidden]{display:none}
 </style>
-</head>
+<link rel="stylesheet" href="public-preview.css"><script type="module" src="public-preview.mjs"></script></head>
 <body>
 <nav class="comparison-toolbar" aria-label="So sánh phiên bản giao diện">
 <strong>Thư viện Listening</strong>
@@ -28,11 +28,11 @@ iframe[hidden]{display:none}
 <a id="open-version" href="library-reference.html" target="_blank" rel="noopener">Mở bản này ở tab riêng</a>
 </nav>
 <main class="comparison-stage">
-<iframe id="classic" title="Bản cũ · Thư viện Listening" src="library.html" hidden></iframe>
+<iframe id="classic" title="Bản cũ · Thư viện Listening" src="library-classic-preview.html" hidden></iframe>
 <iframe id="reference" title="Bản mới · Thư viện Listening" src="library-reference.html"></iframe>
 </main>
 <script>
-const sources={classic:'library.html',reference:'library-reference.html'};
+const sources={classic:'library-classic-preview.html',reference:'library-reference.html'};
 document.querySelectorAll('[data-version]').forEach(button=>button.addEventListener('click',()=>{
   const selected=button.dataset.version;
   document.querySelectorAll('[data-version]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));

@@ -1,5 +1,5 @@
 /* Temporary static reference banner; loaded only by the new comparison version. */
-body[data-visual-version='reference'] main>[data-spark-slot].reference-mascot-banner{
+body[data-visual-version='reference'] main>.reference-mascot-banner{
   position:relative;display:grid;grid-template-columns:176px minmax(0,1fr) 148px;
   align-items:center;gap:18px;min-height:176px;height:176px;
   margin:0 0 24px;padding:0 18px;overflow:hidden;

@@ -6,7 +6,7 @@ body[data-visual-version='reference'][data-pre-step='1'] .lesson-topbar{flex:non
 body[data-visual-version='reference'][data-pre-step='1'] .lesson-body{flex:1;min-height:0;padding-block:0}
 body[data-visual-version='reference'][data-pre-step='1'] .lesson-content{display:flex;min-width:0;min-height:0;overflow:hidden}
 body[data-visual-version='reference'][data-pre-step='1'] .lesson-content>main{display:flex;flex-direction:column;min-height:0;height:100%;padding-block:16px 14px;box-sizing:border-box}
-body[data-visual-version='reference'][data-pre-step='1'] main>[data-spark-slot].reference-mascot-banner{
+body[data-visual-version='reference'][data-pre-step='1'] main>.reference-mascot-banner{
   flex:none;grid-template-columns:var(--fit-banner-size) minmax(0,1fr) calc(var(--fit-banner-size) - 20px);
   min-height:0;height:var(--fit-banner-size);gap:16px;margin-bottom:18px;border-radius:20px;
 }
@@ -29,7 +29,7 @@ body[data-visual-version='reference'][data-pre-step='1'] #learning-recall-summar
 body[data-visual-version='reference'][data-pre-step='1'] main>.actions{flex:none;min-height:46px;margin:12px 0 4px}
 }
 @media(min-width:1000px) and (max-height:800px){
-body[data-visual-version='reference'][data-pre-step='1'] main>[data-spark-slot].reference-mascot-banner{margin-bottom:14px}
+body[data-visual-version='reference'][data-pre-step='1'] main>.reference-mascot-banner{margin-bottom:14px}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-library-heading h2{font-size:22px}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-detail{padding:18px}
 body[data-visual-version='reference'][data-pre-step='1'] .learning-word-stage{min-height:140px;padding-right:132px;padding-bottom:12px}

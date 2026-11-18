@@ -21,14 +21,18 @@ body[data-library-version="rules-v1"] .demo-vocab p{color:#555b68}
 body[data-library-version="rules-v1"] :is(.dialog,.empty) h2{color:#172034}
 body[data-library-version="rules-v1"] :is(.dialog,.empty) :is(p,.muted){color:#555b68}
 
-/* Quiet scenery: retain the travel artwork as a faint backdrop. */
-body[data-library-version="rules-v1"]{background:#faf8f1}
-body[data-library-version="rules-v1"] .app.project-shell{
-  background-color:#fffdf6;
-  background-image:linear-gradient(to bottom,rgba(255,253,247,.22),rgba(255,253,247,.16)),url("assets/backgrounds/travel-clouds-desktop-v1.webp");
-}
-body[data-library-version="rules-v1"] .paper-clouds{opacity:.2}
-body[data-library-version="rules-v1"][data-glass-motion="true"]:not([data-glass-playing="true"]) .paper-clouds{opacity:.2}
+/* White canvas with decoration limited to the sidebar and title. */
+body[data-library-version="rules-v1"]{background:#fff}
+body[data-library-version="rules-v1"] .app.project-shell{background:#fff}
+body[data-library-version="rules-v1"]::before,
+body[data-library-version="rules-v1"] .paper-clouds{display:none}
+body[data-library-version="rules-v1"] .project-shell .project-header{background:#fff}
+body[data-library-version="rules-v1"] .project-shell .project-sidebar{border:1px solid #dce0e6;border-bottom:0;border-radius:24px 24px 0 0;background:#fff url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 240 190%27 preserveAspectRatio=%27none%27%3E%3Cpath d=%27M0 24C70-17 100 7 138 76S209 161 240 128V190H0Z%27 fill=%27%23fff7e4%27/%3E%3Cpath d=%27M0 106C79 105 104 186 166 175S212 160 240 165V190H0Z%27 fill=%27%23ffedba%27/%3E%3C/svg%3E") left bottom/100% 165px no-repeat}
+body[data-library-version="rules-v1"] .project-nav-item[aria-current]{position:relative;background:#ffedb3;box-shadow:none;border-color:transparent;color:#58431f}
+body[data-library-version="rules-v1"] .project-nav-item[aria-current]::before{content:"";position:absolute;left:-14px;top:6px;bottom:6px;width:5px;border-radius:0 5px 5px 0;background:#ffd064}
+body[data-library-version="rules-v1"] .library-title-mark{position:relative;display:inline-block}
+body[data-library-version="rules-v1"] .library-title-mark::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 220 16%27%3E%3Cpath d=%27M4 11Q90-1 214 7M91 13Q143 6 181 10%27 fill=%27none%27 stroke=%27%23efbc39%27 stroke-width=%274%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/100% 100% no-repeat}
+body[data-library-version="rules-v1"] .library-title-mark::before{content:"";position:absolute;right:-35px;top:-18px;width:31px;height:35px;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 36 40%27%3E%3Cpath d=%27M8 17L15 4M17 24L30 15M20 34L33 35%27 fill=%27none%27 stroke=%27%23efbc39%27 stroke-width=%274.5%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat}
 
 /* Audio artwork is a transparent 2D asset over a separate quiet surface. */
 body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type]{height:auto;aspect-ratio:16/9}
@@ -36,6 +40,14 @@ body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type
 body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type="audio"][data-topic="Sport"]{background:#eef4eb!important}
 body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type="audio"] img{object-fit:contain;padding:8px 16px 20px}
 body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type="video"] img{object-fit:cover}
+
+/* Match the reference card outline and shallow bottom edge. */
+body[data-library-version="rules-v1"] .project-shell .lesson-card,
+body[data-library-version="rules-v1"] .project-shell .lesson-card:hover{
+  border:1.5px solid #384052;border-radius:20px;
+  box-shadow:0 3px 1px #17203430,0 5px 10px #17203408;
+  transform:none;
+}
 
 /* One frame contains the animated preview and its playback controls. */
 body[data-library-version="rules-v1"] .library-intro .lesson-demo{
@@ -46,3 +58,30 @@ body[data-library-version="rules-v1"] .library-intro .lesson-demo{
 }
 body[data-library-version="rules-v1"] .lesson-demo .demo-context .demo-cover{inset:6px 6px auto;width:calc(100% - 12px);border-radius:11px}
 body[data-library-version="rules-v1"] .lesson-demo[data-scene="0"] .demo-cover{height:240px}
+
+/* Horizontal lesson cards follow the latest supplied library reference. */
+body[data-library-version="rules-v1"] .project-shell .lesson-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 18px}
+body[data-library-version="rules-v1"] .project-shell .lesson-card{display:grid;grid-template-columns:minmax(0,34%) minmax(0,1fr);gap:12px;padding:12px;width:100%;min-width:0;aspect-ratio:2.35;min-height:158px;background:#fff;cursor:default}
+body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type]{height:100%;aspect-ratio:auto;min-height:0;border-radius:12px}
+body[data-library-version="rules-v1"] .project-shell .lesson-art[data-cover-type="audio"] img{padding:4px;object-fit:contain}
+body[data-library-version="rules-v1"] .project-shell .lesson-body{position:relative;display:flex;flex-direction:column;padding:0;min-width:0;gap:5px}
+body[data-library-version="rules-v1"] .project-shell .lesson-body h2{font-size:14px;line-height:1.25;min-height:34px;margin:0 18px 0 0;letter-spacing:-.02em;font-weight:800}
+body[data-library-version="rules-v1"] .project-shell .lesson-body .lesson-state-icon{right:0;top:0;width:16px;height:16px}
+body[data-library-version="rules-v1"] .project-shell .lesson-state-icon svg{width:16px;height:16px}
+body[data-library-version="rules-v1"] .project-shell .lesson-tags{gap:4px;min-height:18px;margin:0;flex-wrap:nowrap}
+body[data-library-version="rules-v1"] .project-shell .lesson-tags>span{font-size:10px;line-height:14px;padding:2px 5px;gap:3px;white-space:nowrap}
+body[data-library-version="rules-v1"] .project-shell .lesson-tags svg{width:11px;height:11px}
+body[data-library-version="rules-v1"] .project-shell .lesson-body .lesson-summary{font-size:11px;line-height:15px;min-height:0;margin:0;gap:0}
+body[data-library-version="rules-v1"] .project-shell .lesson-summary svg{display:none}
+body[data-library-version="rules-v1"] .project-shell .lesson-body>.button{min-height:30px;padding:5px 6px;font-size:11px;line-height:18px;border-radius:10px;margin-top:auto}
+body[data-library-version="rules-v1"] .lesson-format{right:4px;bottom:4px;font-size:10px;padding:3px 4px;gap:3px}
+body[data-library-version="rules-v1"] .lesson-format>svg:first-child,
+body[data-library-version="rules-v1"] .lesson-format>span:first-of-type,
+body[data-library-version="rules-v1"] .lesson-format-separator,
+body[data-library-version="rules-v1"] .lesson-format>svg{display:none}
+body[data-library-version="rules-v1"] .project-shell .lesson-art>.plan-tag{display:none}
+@media(min-width:1600px){
+body[data-library-version="rules-v1"] .project-shell .lesson-body h2{font-size:16px}
+body[data-library-version="rules-v1"] .project-shell .lesson-body .lesson-summary{font-size:12px;line-height:17px}
+body[data-library-version="rules-v1"] .project-shell .lesson-body>.button{font-size:12px;min-height:34px}
+}
