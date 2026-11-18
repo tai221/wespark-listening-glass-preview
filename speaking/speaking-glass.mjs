@@ -1,5 +1,6 @@
 import {enhanceSpeaking} from './speaking-layout.mjs';
 import {mountSpeakingLessonShell} from './speaking-lesson-shell.mjs';
+import {mountSpeakingStageTransitions} from './speaking-stage-transition.mjs';
 // Desktop shell adapter; move existing lesson nodes to preserve radio/hash state hooks.
 const desktop=matchMedia('(min-width:1100px)');
 const paths={panel:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16m5-11-3 3 3 3"/>',plan:'<rect x="5" y="5" width="14" height="16" rx="2"/><path d="M9 5V3h6v2M9 11h6m-6 5h4"/>',listen:'<path d="M4 14v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="12" width="4" height="8" rx="2"/><rect x="17" y="12" width="4" height="8" rx="2"/>',speak:'<rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11v1a7 7 0 0 0 14 0v-1m-7 8v3m-4 0h8"/>',book:'<path d="M12 5c-3-2-6-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-3-1-6-1-9 1Zm0 0v15"/>',progress:'<path d="M4 4v16h16M8 15l4-5 4 2 4-7"/>',gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13m0-13C4 8 6 1 9 3l3 5Zm0 0c8 0 6-7 3-5l-3 5Z"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>'};
@@ -38,5 +39,9 @@ function mount(){
  document.querySelectorAll('a[href="key-listening-library.html"]').forEach(a=>a.href='../library.html');
  enhanceSpeaking(workspace,file);
  mountSpeakingLessonShell(app,workspace,file);
+ if(['key-speaking-mindmap.html','key-speaking-produce.html','key-speaking-feedback.html'].includes(file)){
+  const flowStyle=document.createElement('link');flowStyle.rel='stylesheet';flowStyle.href=new URL('./speaking-flow.css',import.meta.url).href;document.head.append(flowStyle);
+ }
+ mountSpeakingStageTransitions();
 }
 if(desktop.matches)mount();desktop.addEventListener('change',event=>{if(event.matches)mount();});

@@ -23,7 +23,10 @@ const svg=path=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 const node=(tag,cls)=>Object.assign(document.createElement(tag),{className:cls});
 
 export function mountSpeakingLessonShell(app,workspace,file){
- const stage=stages.find(stage=>stage.pages.some(([id])=>fileFor(id)===file))||(file==='key-speaking-completion.html'?stages[2]:null);
+ const isMindmap=file==='key-speaking-mindmap.html';
+ const isDrill=file==='key-speaking-drill-repeat.html';
+ const lessonStages=isDrill?[{key:'drill',label:'Luyện lại',description:'Nhắc lại câu đã sửa từ buổi trước.',icon:icons.retry,pages:[['drill-repeat','Luyện lại']]},stages[0]]:stages;
+ const stage=lessonStages.find(stage=>stage.pages.some(([id])=>fileFor(id)===file))||(file==='key-speaking-completion.html'?stages[2]:null);
  if(!stage)return;
  document.body.dataset.lessonShell='';document.body.dataset.speakingLesson='';
  // Lesson HTML loads this before rendering; the cached link keeps the per-page cascade.
@@ -37,16 +40,17 @@ export function mountSpeakingLessonShell(app,workspace,file){
  lessonState.questions.forEach((question,index)=>{
   const button=node('button','');button.type='button';button.textContent=`Q${index+1}`;
   button.dataset.questionState=question.completed?'done':index>lessonState.current?'locked':'current';
-  button.disabled=index>lessonState.current;
-  const focused=index===lessonState.current&&lessonState.stage!=='completion';
+  button.disabled=!isMindmap&&index>lessonState.current;
+  const focused=isMindmap?index===0:index===lessonState.current&&lessonState.stage!=='completion';
+  if(isMindmap)button.dataset.questionState=index===0?'current':'available';
   button.dataset.focused=String(focused);if(focused)button.setAttribute('aria-current','step');
-  const label=`Câu ${index+1} · ${question.completed?'Hoàn thành · Xem lại':button.disabled?'Chưa mở':'Đang học'}`;
+  const label=isMindmap?`Câu ${index+1} · Xem nhánh Mind Map`:`Câu ${index+1} · ${question.completed?'Hoàn thành · Xem lại':button.disabled?'Chưa mở':'Đang học'}`;
   button.title=label;button.setAttribute('aria-label',label);
-  if(question.completed)button.insertAdjacentHTML('afterbegin',svg('<path d="m5 12 4 4L19 6"/>'));
-  button.addEventListener('click',()=>{location.href=question.completed?`key-speaking-feedback-detail.html#question-${index+1}`:'key-speaking-produce.html';});
+  if(question.completed&&!isMindmap)button.insertAdjacentHTML('afterbegin',svg('<path d="m5 12 4 4L19 6"/>'));
+  button.addEventListener('click',()=>{if(isMindmap){app.querySelector(`button[data-map-question="${index}"]`)?.click();return;}location.href=question.completed?`key-speaking-feedback-detail.html#question-${index+1}`:'key-speaking-produce.html';});
   progress.append(button);
  });
- tags.append(progress);
+ if(!isDrill)tags.append(progress);
  const identity=node('div','lesson-top-identity');identity.append(title,tags);
  const tools=node('div','lesson-top-tools'),wallet=node('a','wallet');wallet.href='key-spark.html';wallet.setAttribute('aria-label','SparkPoint · Xem Spark và quà');wallet.innerHTML=`<span class="project-point-mark" aria-hidden="true">${svg('<path d="m14 2-9 12h7l-2 8 9-12h-7l2-8Z"/>')}</span><strong data-balance>${balance()}</strong><small>SparkPoint</small>`;
  const close=node('a','lesson-close');close.href='key-speaking-library.html';close.title='Đóng bài học';close.setAttribute('aria-label','Đóng bài học · Về thư viện Speaking');close.innerHTML=svg('<path d="m6 6 12 12M18 6 6 18"/>');
@@ -56,7 +60,7 @@ export function mountSpeakingLessonShell(app,workspace,file){
  const rail=node('div','lesson-rail');rail.setAttribute('role','group');rail.setAttribute('aria-label','Xem lộ trình');
  const nav=node('nav','');nav.id='speaking-route-details';nav.setAttribute('aria-label','Các phần của bài Speaking');nav.hidden=true;nav.inert=true;
  const markers=[];
- stages.forEach(item=>{
+ lessonStages.forEach(item=>{
   const current=item===stage,marker=node('button','lesson-rail-marker');marker.type='button';marker.dataset.railStage=item.key;marker.setAttribute('aria-label',`${item.label}${current?' · Đang học':''}`);marker.setAttribute('aria-controls',nav.id);marker.setAttribute('aria-expanded','false');if(current)marker.setAttribute('aria-current','step');marker.innerHTML=svg(item.icon);rail.append(marker);markers.push(marker);
   const group=node('section','lesson-stage-group');group.dataset.stage=item.key;group.dataset.current=String(current);group.hidden=true;
   const link=node('a','lesson-stage-link');link.href=item.key==='prepare'?speakingPreparationEntry():fileFor(item.pages[0][0]);if(current)link.setAttribute('aria-current','step');link.innerHTML=`<span class="lesson-stage-number">${svg(item.icon)}</span><span class="lesson-stage-copy"><span class="lesson-stage-heading"><strong data-stage-label="${item.label}">${item.label}</strong>${current?'<span class="lesson-stage-status">Đang học</span>':''}</span><small>${item.description}</small></span>`;

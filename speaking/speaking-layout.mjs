@@ -1,3 +1,5 @@
+import {mountEntryDrill} from './speaking-entry-drill.mjs';
+import {mountSpeakingMindmap} from './speaking-mindmap.mjs';
 import {speakingPreparationEntry} from './speaking-preparation-visibility.mjs';
 import {mountSpeakingPreparation} from './speaking-preparation.mjs';
 import {syncSpeakingLibrary} from './speaking-library.mjs';
@@ -50,13 +52,6 @@ function library(main){
  filters.addEventListener('input',filter);filters.addEventListener('change',filter);meta.querySelector('button').addEventListener('click',()=>{input.value='';selects.forEach(el=>el.selectedIndex=0);filter();input.focus();});
  main.querySelector('.question-strip')?.remove();
 }
-function drill(main){
- main.querySelectorAll('.target br').forEach(br=>br.replaceWith(document.createTextNode(' ')));
- const layout=main.querySelector('.layout'),practice=layout?.querySelector('.practice'),aside=layout?.querySelector('aside');if(!layout||!practice||!aside)return;
- layout.classList.add('speaking-drill-layout');const source=node('section','card speaking-drill-source');
- for(const el of [...practice.children]){if(el.matches('.goal,.instruction,.target,.meaning,.sample-audio'))source.append(el);}
- aside.prepend(source);layout.prepend(aside);const rule=main.querySelector('.ruleline');if(rule)practice.prepend(rule);
-}
 function functionalMindmap(main){
  const bank=main.querySelector('.wordbank');if(!bank)return;
  const words=[...bank.querySelectorAll('.bankword')];const slots=[...main.querySelectorAll('.slot')];const phrases=words.map(el=>el.firstChild.textContent.trim());const keys=[0,3,1,4,2,5];let selected=1;const assigned=new Map([[0,0]]);const feedback=main.querySelector('.nearfeedback');feedback?.setAttribute('role','status');
@@ -79,13 +74,10 @@ export function enhanceSpeaking(workspace,file){
  if(file==='key-speaking-library.html')syncSpeakingLibrary(main);
  if(file==='key-speaking-vocabulary.html'||file==='key-speaking-game.html')mountSpeakingPreparation(main,file);
  if(file==='key-speaking-mindmap.html'){
-  functionalMindmap(main);
-  const back=workspace.querySelector(':scope > .footer a:not(.primary)'),next=workspace.querySelector(':scope > .footer a.primary');
-  if(back){back.href='key-speaking-library.html';back.textContent='← Thư viện';}
-  if(next){next.href='key-speaking-produce.html';next.textContent='Bắt đầu nói →';}
-  const bankIntro=main.querySelector('.wordbank>p');if(bankIntro)bankIntro.textContent='Chọn cụm từ để sắp xếp ý trước khi nói.';
+  workspace.querySelectorAll(':scope > .footer').forEach(el=>el.remove());
+  main.speakingStageDispose=mountSpeakingMindmap(main);
  }
- if(file==='key-speaking-drill-repeat.html')drill(main);
+ if(file==='key-speaking-drill-repeat.html'){workspace.querySelectorAll(':scope > .footer').forEach(el=>el.remove());mountEntryDrill(main);}
  main.querySelectorAll('.steps a').forEach(a=>a.textContent=a.textContent.replace(/^\d+\s*·\s*/,''));
  const previews=[...document.querySelectorAll('body > .previewbar')],extra=main.querySelector('.r1-drill-links');
  if(previews.length||extra){const tools=node('details','speaking-preview-tools');tools.append(node('summary','','Trạng thái mẫu · Dành cho xem thử'));const content=node('div');content.append(...previews);if(extra)content.append(extra);tools.append(content);const review=document.querySelector('.review-inner');if(review)review.insertBefore(tools,review.querySelector(':scope > .review-menu'));else document.querySelector('.browser').before(tools);}
@@ -93,7 +85,7 @@ export function enhanceSpeaking(workspace,file){
  if(['produce','feedback','feedback-detail','version2','compare','completion'].some(page=>file===`key-speaking-${page}.html`)){
   workspace.querySelectorAll(':scope > .footer').forEach(el=>el.remove());
   document.querySelectorAll('input[name=record-state],input[id^=state-],input[name=issue]').forEach(el=>el.remove());
-  mountSpeakingCycle(main,file);
+  main.speakingStageDispose=mountSpeakingCycle(main,file);
  }
  main.tabIndex=-1;document.body.dataset.speakingReady=file;
 }

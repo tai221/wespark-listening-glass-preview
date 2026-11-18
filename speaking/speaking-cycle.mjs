@@ -1,7 +1,10 @@
+import {retainCompletedSource} from './speaking-entry-drill-state.mjs';
 import {speakingPreparationEntry,speakingPreparationLabel} from './speaking-preparation-visibility.mjs';
 import {mountCycleResult} from './speaking-cycle-result.mjs';
 import {scenarioCatalog} from './speaking-cycle-result-data.mjs';
 import {mountSpeakingPractice} from './speaking-practice.mjs';
+import {mountSpeakingRound} from './speaking-round.mjs';
+import {mountRoundResults} from './speaking-round-results.mjs';
 import {mountSpeakingFeedback} from './speaking-feedback.mjs';
 import {fixture} from './speaking-feedback-model.mjs';
 import {CYCLE_STORAGE_KEY,createCycleState,transitionCycle,restoreCycleState,cycleSummary,cycleFeedbackState,cycleSample} from './speaking-cycle-model.mjs';
@@ -12,6 +15,8 @@ const files={v1:'produce',feedback:'feedback',v2:'version2',result:'compare',com
 const stages={v1:'Nói lần đầu · V1',feedback:'Nhận xét V1',v2:'Nói lại · V2',result:'Kết quả V2',completion:'Hoàn tất'};
 export function mountSpeakingCycle(main,file){
  if(!main)return ()=>{};
+ if(file==='key-speaking-produce.html')return mountSpeakingRound(main);
+ if(['key-speaking-feedback.html','key-speaking-feedback-detail.html'].includes(file))return mountRoundResults(main);
  if(!document.querySelector('link[data-speaking-cycle]')){const link=document.createElement('link');link.rel='stylesheet';link.dataset.speakingCycle='';link.href=new URL('./speaking-cycle.css',import.meta.url).href;document.head.append(link);}
  if(!document.querySelector('link[data-cycle-result]')){const link=document.createElement('link');link.rel='stylesheet';link.dataset.cycleResult='';link.href=new URL('./speaking-cycle-result.css',import.meta.url).href;document.head.append(link);}
  let saved=null;try{saved=sessionStorage.getItem(CYCLE_STORAGE_KEY);}catch{}
@@ -21,7 +26,7 @@ export function mountSpeakingCycle(main,file){
  document.body.classList.add('speaking-cycle-page');main.classList.add('speaking-cycle');
  const pending=()=>['recording','review'].includes(recordState);
  function mayLeave(){if(!pending())return true;if(!confirm('Bạn đang có lượt ghi âm chưa gửi. Rời màn này và bỏ lượt đang dở?'))return false;recordState='ready';return true;}
- function save(){try{sessionStorage.setItem(CYCLE_STORAGE_KEY,JSON.stringify(state));storageFailed=false;}catch{storageFailed=true;}}
+ function save(){try{sessionStorage.setItem(CYCLE_STORAGE_KEY,JSON.stringify(state));storageFailed=cycleSummary(state).complete&&!retainCompletedSource(sessionStorage,state).saved;}catch{storageFailed=true;}}
  function canonical(){const path=new URL(location.href);path.pathname=path.pathname.replace(/[^/]+$/,`key-speaking-${reviewId?'feedback-detail':files[state.stage]}.html`);path.hash=reviewId?`question-${fixture.questions.findIndex(q=>q.id===reviewId)+1}`:`question-${state.current+1}`;history.replaceState(null,'',path);}
  function syncShell(){
   if(destroyed)return;
@@ -79,7 +84,7 @@ export function mountSpeakingCycle(main,file){
   main.dataset.cycleStage=reviewId?'history':state.stage;main.dataset.cycleQuestion=reviewId||state.questions[state.current].id;
   const q=state.questions.find(q=>q.id===(reviewId||state.questions[state.current].id));
   if(!reviewId&&['v1','v2'].includes(state.stage)){
-   const v2=state.stage==='v2';dispose=mountSpeakingPractice(main,{questionIndex:state.current,version:v2?2:1,submitLabel:v2?'Xem kết quả V2':'Xem nhận xét câu này',onStateChange:next=>recordState=next,canLeave:mayLeave,backLabel:v2?'Về nhận xét câu này':state.current===0?`Về ${speakingPreparationLabel()}`:`Xem lại câu ${state.current}`,onBack:()=>{if(v2){reviewId=q.id;render(true);}else if(state.current>0){reviewId=state.questions[state.current-1].id;render(true);}else location.href=speakingPreparationEntry();},onSubmit:()=>{if(v2&&outcome==='technical-failure')return false;return dispatch(v2?{type:'submit-v2',outcome,behavior}:{type:'submit-v1',variant});}});
+   const v2=state.stage==='v2';dispose=mountSpeakingPractice(main,{questionIndex:state.current,previousQuestions:state.questions.flatMap((entry,index)=>index<state.current&&entry.v1?[index]:[]),version:v2?2:1,submitLabel:v2?'Xem kết quả V2':'Xem nhận xét câu này',onStateChange:next=>recordState=next,canLeave:mayLeave,backLabel:v2?'Về nhận xét câu này':state.current===0?`Về ${speakingPreparationLabel()}`:`Xem lại câu ${state.current}`,onBack:()=>{if(v2){reviewId=q.id;render(true);}else if(state.current>0){reviewId=state.questions[state.current-1].id;render(true);}else location.href=speakingPreparationEntry();},onSubmit:()=>{if(v2&&outcome==='technical-failure')return false;return dispatch(v2?{type:'submit-v2',outcome,behavior}:{type:'submit-v1',variant});}});
    if(v2){const targets=document.createElement('details');targets.className='cycle-targets';targets.open=true;targets.innerHTML=`<summary>${q.requiredV2.length} mục tiêu · nói lại trọn câu trả lời</summary><ul>${q.requiredV2.map(pattern=>{const g=cycleFeedbackState(state).groups.find(g=>g.pattern===pattern),source=g.sources.find(e=>e.questionId===q.id);return `<li><strong>${escape(g.label)}</strong><span>${escape(source.instruction||`${source.text} → ${source.replacement}`)}</span></li>`;}).join('')}</ul>`;main.querySelector('.practice-prompt').after(targets);}
   }else if(!reviewId&&state.stage==='completion')completion();
   else {

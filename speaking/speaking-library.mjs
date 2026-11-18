@@ -1,4 +1,4 @@
-import {speakingPreparationEntry} from './speaking-preparation-visibility.mjs';
+import {enterSpeaking,seedEntryDrillPreview} from './speaking-entry-drill-state.mjs';
 import {createBackgroundButton} from '../background-toggle.mjs';
 import {createSoundButton} from '../ui-sound.mjs';
 import {balance} from '../session.mjs';
@@ -34,13 +34,18 @@ export function syncSpeakingLibrary(main){
  const wallet=element('a','wallet');wallet.href='key-spark.html';wallet.setAttribute('aria-label','SparkPoint · Xem Spark và quà');wallet.title='Xem Spark & quà';
  wallet.innerHTML=`<span class="project-point-mark" aria-hidden="true">${icon('bolt')}</span><strong data-balance>${balance()}</strong><small>SparkPoint</small>`;
  utilities.prepend(createBackgroundButton(document),createSoundButton(document),wallet);
+ const drillStyle=element('link','');drillStyle.rel='stylesheet';drillStyle.href=new URL('./speaking-entry-drill.css',import.meta.url).href;document.head.append(drillStyle);
+ const preview=element('details','entry-drill-demo');preview.innerHTML='<summary>Bản xem thử</summary><div><p>Mẫu một buổi trước đã hoàn thành, có các mục đang chờ luyện. Chưa thu âm hoặc chấm giọng nói thật.</p><button type="button" data-entry-drill-preview>Đặt lại mẫu Drill đang chờ</button></div>';
+ preview.querySelector('button').addEventListener('click',()=>{let saved=false;try{saved=seedEntryDrillPreview(window.sessionStorage);}catch{}if(saved)location.href='key-speaking-drill-repeat.html#preview';else{error.hidden=false;error.textContent='Chưa lưu được mẫu luyện. Thử lại nhé.';}});utilities.prepend(preview);
+ document.addEventListener('click',event=>{if(preview.open&&!preview.contains(event.target))preview.open=false;});
+ preview.addEventListener('keydown',event=>{if(event.key==='Escape'){preview.open=false;preview.querySelector('summary').focus();event.preventDefault();}});
 
  const topics=[...new Set(speakingLessons.map(lesson=>lesson.topic))];
  const grid=main.querySelector('.lessons');grid.replaceChildren();
  const cards=speakingLessons.map(lesson=>{
   const card=element('article','lesson-card card'),title=element('h2','');title.textContent=lesson.title;
   const action=element(lesson.href?'a':'button',lesson.href?'button primary':'button');
-  if(lesson.href){action.href=lesson.href==='key-speaking-vocabulary.html'?speakingPreparationEntry():lesson.href;action.replaceChildren(document.createTextNode('Bắt đầu'),Object.assign(element('span','speaking-card-arrow'),{innerHTML:icon('arrow')}));}
+  if(lesson.href){action.href=lesson.href==='key-speaking-vocabulary.html'?'key-speaking-drill-repeat.html':lesson.href;if(lesson.href==='key-speaking-vocabulary.html')action.addEventListener('click',event=>{if(event.button||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();let entry;try{entry=enterSpeaking(window.sessionStorage);}catch{}if(entry?.saved&&entry.href)location.href=entry.href;else{error.hidden=false;error.textContent='Chưa lưu được buổi trước. Thử lại trước khi vào bài mới nhé.';}});action.replaceChildren(document.createTextNode('Bắt đầu'),Object.assign(element('span','speaking-card-arrow'),{innerHTML:icon('arrow')}));}
   else{action.type='button';action.disabled=true;action.textContent='Sắp có';}
   const art=element('div','lesson-art'),img=element('img','');img.src=`assets/speaking-covers/${lesson.id}-rustic-v2.webp`;img.alt='';img.width=320;img.height=240;art.append(img);
   if(lesson.plan){const plan=element('span','plan-tag');plan.textContent='OKRs';plan.title='Bài thuộc kế hoạch OKRs của bạn';art.append(plan);}
