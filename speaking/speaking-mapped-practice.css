@@ -125,3 +125,6 @@ body[data-speaking-glass][data-speaking-lesson] main.speaking-cycle.speaking-pra
  .mapped-tree-leaves{position:absolute;top:440px;width:230px;display:grid;grid-auto-rows:72px;gap:16px}
  .mapped-tree-leaves>span{display:flex;align-items:center;padding:6px 14px;background:#fffefb;border:1.5px solid #d9cc9d;border-radius:16px;color:#28374c;font-size:21px;line-height:1.35;overflow:auto;overflow-wrap:anywhere}
 }
+
+.mapped-map-canvas{position:relative;width:100%;min-height:100%;overflow:clip}
+.mapped-map-viewport{overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d8ceb3 transparent}

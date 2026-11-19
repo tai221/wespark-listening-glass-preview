@@ -41,3 +41,5 @@ Desktop visual study published 2026-11-13: background, ink, typography, card bor
 Updated 2026-11-14: Plus Jakarta Sans, lightly softened scenery, warm translucent demo frame, YouTube demo thumbnails and 2D audio illustrations. Selected YouTube videos supply topic-matched demo covers; lesson transcripts and durations remain prototype fixtures. Thumbnail provenance is in assets/lesson-covers/library-reference-media-sources.json.
 
 Updated 2026-11-18: Listening library and preparation now open the approved illustrated UI by default. Synced current learning cards, mascot banner and runtime files across the Listening cluster; retained practice activities, comparison pages and Speaking navigation.
+
+Updated 2026-11-19: synced the current Speaking library styling, mindmap vocabulary and camera controls, mapped practice, follow-up rounds and round results. Desktop browser preview with local demo progress.

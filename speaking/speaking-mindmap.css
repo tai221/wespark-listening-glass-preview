@@ -27,7 +27,6 @@ body[data-speaking-mindmap] .lesson-content>main.mindmap-studio{max-width:1500px
 .mm-map-tools button:hover{background:#fff1c6}.mm-map-tools svg{width:17px;height:17px}
 .mm-viewport{position:absolute;inset:50px 0 55px;overflow:hidden}
 .mm-world{position:absolute;left:0;top:0;width:840px;height:620px;transform-origin:0 0;will-change:transform}
-.mindmap-studio[data-camera-ready=true] .mm-world{transition:transform 1400ms cubic-bezier(.16,1,.3,1)}
 .mm-connections{position:absolute;inset:0;width:840px!important;height:620px!important;fill:none;overflow:visible}
 .mm-line{stroke-width:9;stroke-linecap:round;stroke:#edc654}.mm-line-1{stroke:#a5cadf}.mm-line-2{stroke:#c2b1e6}
 .mm-root{position:absolute;left:325px;top:260px;width:208px;height:164px;background:#fff9e8;border:2px solid #e2bc55;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;box-shadow:0 7px 18px #a58b3320;text-align:center}
@@ -118,7 +117,6 @@ body[data-speaking-mindmap] .mindmap-studio .mm-techniques button{flex-direction
 .mm-phrases button{border:1px solid #c3d4e6;background:#eff5fd;color:#294564;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5;cursor:grab}
 .mm-phrases button[aria-pressed=true]{border-color:#9c7628;background:#fff0ba;color:#634817}
 .mm-phrases button[aria-pressed=true]:after{content:' ✓';font-weight:800}
-.mm-assignment-status{font-size:12px;line-height:1.6;color:#4c6837;margin-top:18px}
 body[data-speaking-mindmap] .mindmap-studio .mm-branch{display:block;padding:23px 20px 18px}
 .mm-question-control{display:flex;align-items:center;gap:12px;width:100%;border:0;padding:0;background:transparent;text-align:left}
 .mm-question-control .mm-branch-title{flex:1;font-size:21px}
@@ -133,29 +131,173 @@ body[data-speaking-mindmap] .mindmap-studio .mm-branch{display:block;padding:23p
 .mm-outline-node:before{content:'';position:absolute;left:-18px;top:30px;width:17px;border-top:2px solid #ceae57}
 .mm-outline-node strong{width:100%;font-size:16px;line-height:1.5}.mm-outline-node span{font-size:13px;line-height:1.5;background:#e9f0d9;color:#3c542c;border-radius:6px;padding:4px 7px}
 .mm-outline-node:hover{border-color:#96701f;background:#fff6d7}
-.mindmap-studio[data-map-view=overview] .mm-branch-detail{display:none}
-.mindmap-studio[data-map-view=focused] .mm-branch[aria-current=true]{width:600px!important}
-.mindmap-studio[data-map-view=focused] .mm-branch:not([aria-current=true]),.mindmap-studio[data-map-view=focused] .mm-root,.mindmap-studio[data-map-view=focused] .mm-connections{visibility:hidden}
 @media(min-width:1100px) and (max-width:1300px){body[data-speaking-mindmap] .mindmap-studio .mm-layout{grid-template-columns:400px minmax(0,1fr)}.mm-map{height:590px}}
 
 /* Tree structure: every branch and leaf is its own node on the canvas. */
 .mm-tree-wires{position:absolute;inset:0;pointer-events:none}
 .mindmap-studio .mm-tree-links{position:absolute;inset:0;width:940px!important;height:auto!important;overflow:visible;fill:none;stroke:#d9af46;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.mindmap-studio[data-map-view=overview] .mm-tree-wires{display:none}
-body[data-speaking-mindmap] .mindmap-studio[data-map-view=focused] .mm-branch[aria-current=true]{left:0!important;top:0!important;width:940px!important;height:650px;padding:0;background:none;border:0;box-shadow:none;border-radius:0}
-.mindmap-studio[data-map-view=focused] .mm-question-control{position:absolute;left:290px;top:15px;width:340px;height:95px;padding:18px 24px;border:2px solid #dcb64d;border-radius:26px;background:#fff7df;box-shadow:0 4px 0 #e5c76e}
-.mindmap-studio[data-map-view=focused] .mm-question-control .mm-branch-title{font-size:25px;line-height:1.4;min-height:0}
-.mindmap-studio[data-map-view=focused] .mm-branch>.mm-number{left:300px;top:-2px;z-index:1;width:38px;height:38px;font-size:19px}
-.mindmap-studio[data-map-view=focused] .mm-branch-detail{display:block;position:static;margin:0}
-.mindmap-studio[data-map-view=focused] .mm-branch-detail>button{position:absolute;display:flex;flex-wrap:wrap;justify-content:flex-start;align-content:center;gap:8px 10px;border-radius:22px;padding:16px 20px;font-size:21px;box-shadow:0 3px 7px #6b58200c}
-.mindmap-studio[data-map-view=focused] [data-map-answer]{left:30px;top:150px;width:310px;min-height:120px;background:#fffefb;border-color:#c7d9e5}
-.mindmap-studio[data-map-view=focused] [data-map-expand]{left:590px;top:160px;width:270px;height:90px;background:#fff5d7;border-color:#d9be72}
-.mindmap-studio[data-map-view=focused] .mm-branch-detail>button>span{flex-basis:100%;max-width:none;margin:0;padding-left:0;white-space:normal;overflow-wrap:anywhere;font-size:18px;line-height:1.45;max-height:78px;overflow:auto;color:#536078}
-.mindmap-studio[data-map-view=focused] .mm-outline{display:contents;margin:0}
-.mindmap-studio[data-map-view=focused] .mm-outline:before,.mindmap-studio[data-map-view=focused] .mm-outline-node:before{display:none}
-.mindmap-studio[data-map-view=focused] .mm-outline-node{position:absolute;top:325px;left:390px;width:230px;height:72px;min-height:0;justify-content:center;text-align:center;padding:12px 14px;border-radius:18px;background:#fffaf0}
-.mindmap-studio[data-map-view=focused] .mm-outline-node[data-outline-branch="1"]{left:670px}
-.mindmap-studio[data-map-view=focused] .mm-outline-node strong{font-size:22px;line-height:1.35}
 .mm-tree-leaves{position:absolute;left:390px;top:440px;width:230px;display:grid;grid-auto-rows:72px;gap:16px}
 .mm-tree-leaves[data-branch-leaves="1"]{left:670px}
 .mm-tree-leaves>[data-outline-phrase]{display:flex;align-items:center;padding:8px 14px;background:#fffefb;border:1.5px solid #d9cc9d;border-radius:16px;color:#28374c;font-size:19px;line-height:1.35;overflow:auto;overflow-wrap:anywhere}
+
+/* Keep phrase guidance secondary and below the choices. */
+body[data-speaking-mindmap] .mindmap-studio .mm-phrase-help{display:flex;align-items:flex-start;gap:8px;margin:16px 0 0;color:var(--mm-muted);font-size:12px;font-weight:400;line-height:1.6}
+.mm-phrase-help>svg{flex:none;width:16px;height:16px;margin-top:2px}
+
+/* Direct map editing retains a readable scale; taller trees scroll inside the map. */
+.mm-map-canvas{position:relative;width:100%;min-height:100%;overflow:clip}
+body[data-speaking-mindmap] .mindmap-studio .mm-tree-leaves>button{font-family:inherit;text-align:left;cursor:pointer;gap:10px}
+.mm-tree-leaves>[data-outline-phrase]>svg{flex:none;width:22px;height:22px;margin-left:auto;opacity:.6}
+body[data-speaking-mindmap] .mindmap-studio .mm-tree-leaves>[data-outline-phrase]:hover{background:#fff3d3;border-color:#b39245}
+.mm-tree-leaves>[data-outline-phrase]:hover>svg,.mm-tree-leaves>[data-outline-phrase]:focus-visible>svg{opacity:1}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-add{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 12px;border:1.5px dashed #cabd99;border-radius:14px;background:#fffdf6;color:#746037;font-family:inherit;font-size:18px;font-weight:600;line-height:1.4;text-align:center;cursor:pointer;box-shadow:none}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-add>svg{flex:none;width:22px;height:22px}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-add:hover{background:#fff3d3;border-color:#a57e2d;color:#5f471d}
+body[data-speaking-mindmap] .mindmap-studio .mm-add-outline{position:absolute;left:590px;top:266px;width:270px;height:44px;min-height:0;font-size:17px}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-entry{display:flex;align-items:center;gap:4px;margin:0;padding:6px;border:1.5px solid #b68a2a;border-radius:14px;background:#fffdf5;box-shadow:0 3px 8px #8c6c1e12;min-width:0}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-entry input{flex:1;min-width:0;width:100%;border:0;background:transparent;padding:8px 4px;color:#28374c;font:500 19px/1.4 'Plus Jakarta Sans',sans-serif;caret-color:#916719}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-entry input::placeholder{color:#656b74}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-entry button{display:grid;place-items:center;flex:none;width:32px;height:36px;padding:6px;border:0;border-radius:8px;background:#ffdf78;color:#604717;cursor:pointer}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-entry button[type=button]{background:transparent;color:#5d6572}
+.mm-map-entry button>svg{width:20px;height:20px}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-entry button:hover{background:#f5cc52}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-entry button[type=button]:hover{background:#f0ece1}
+body[data-speaking-mindmap] .mindmap-studio :is(.mm-map-add,.mm-map-entry button,[data-outline-phrase]):focus-visible{outline:3px solid #976800;outline-offset:3px}
+body[data-speaking-mindmap] .mindmap-studio .mm-map-entry input:focus-visible{outline:2px solid #976800;outline-offset:-1px;border-radius:6px}
+
+/* Small suggestion cards fit their bilingual content; audio stays beside the English. */
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrases{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrase-option{display:inline-grid;grid-template-columns:24px minmax(0,auto);align-items:start;gap:6px;flex:0 1 auto;max-width:100%;width:fit-content;padding:8px 10px;border:1px solid #ebe9e2;border-radius:12px;background:#f7f7f4}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrase-option[data-selected=true]{background:#fff5d5;border-color:#d8bf74}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrases [data-phrase]{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0;min-height:0;width:auto;padding:0 16px 0 0;border:0;border-radius:5px;background:transparent;color:var(--mm-ink);box-shadow:none;text-align:left;cursor:grab}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrases [data-phrase]::after{content:none}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrases [data-phrase]>strong{font-size:14px;line-height:1.5;font-weight:750;overflow-wrap:anywhere}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrase-meaning{font-size:13px;line-height:1.45;color:#687085;font-weight:400;overflow-wrap:anywhere}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrases .mm-phrase-audio{display:grid;place-items:center;align-self:start;width:24px;height:24px;min-height:24px;margin:-1px 0 0;padding:3px;border:0;border-radius:5px;background:transparent;color:#00837d;cursor:pointer;box-shadow:none}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrase-audio>svg{width:18px;height:18px}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrases .mm-phrase-audio::after{content:none}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrases .mm-phrase-audio:is(:hover,[aria-pressed=true]){background:#e0f4ef;color:#006e67}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrases .mm-phrase-audio:disabled{opacity:.45;cursor:default}
+.mm-phrase-selected{display:none;position:absolute;top:3px;right:0;color:#80601e}
+.mm-phrase-selected>svg{display:block;width:14px;height:14px}
+.mm-phrase-option[data-selected=true] .mm-phrase-selected{display:block}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-phrases button:focus-visible{outline:2px solid #976800;outline-offset:3px}
+
+/* Reverse-dictionary UI demo; fixed results, ready for a future backend. */
+.mm-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-words{margin-top:24px;padding-top:20px;border-top:1px solid #ebe7dd}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-words h3{margin:0 0 10px;font-size:15px;line-height:1.5;font-weight:750;color:var(--mm-ink)}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-form{display:flex;align-items:center;gap:8px;margin:0;padding:4px 5px;border:1px solid #e2dfd5;border-radius:14px;background:#f8f7f3;transition:background 140ms,border-color 140ms}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-form input{flex:1;min-width:0;min-height:42px;padding:9px 8px;border:0;border-radius:0;background:transparent;color:var(--mm-ink);font:400 14px/1.5 'Plus Jakarta Sans',sans-serif;caret-color:#916719}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-form input::placeholder{color:#687085}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-form button{display:grid;place-items:center;flex:none;width:40px;height:40px;min-height:40px;padding:10px;border:0;border-radius:10px;background:#ffe08a;color:#604717;font:650 14px/1.5 'Plus Jakarta Sans',sans-serif;cursor:pointer}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-form button:hover:not(:disabled){background:#ffdc77}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-form button:disabled{background:#eeece4;color:#89877e;cursor:default}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-results .mm-find-choice{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0;min-height:0;width:auto;padding:0;border:0;border-radius:5px;background:transparent;color:var(--mm-ink);box-shadow:none;text-align:left;cursor:pointer}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-choice>strong{font-size:14px;line-height:1.5;font-weight:750}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-choice[aria-pressed=true]::after{content:none}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-action{display:flex;align-items:center;gap:4px;margin-top:5px;color:#80601e;font-size:12px;font-weight:600;line-height:1.5}
+.mm-find-action>svg{width:14px;height:14px}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-words button:focus-visible{outline:2px solid #976800;outline-offset:3px}
+
+[data-find-output]{margin-top:12px}
+
+/* The shared Speaking outline is !important; replace it only for this text field. */
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-form input:is(:focus,:focus-visible){outline:none!important;outline-offset:0!important;box-shadow:none;border:0}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-find-form:focus-within{border-color:#b9ac88;background:#fffaf0}
+@media(prefers-reduced-motion:reduce){.mm-find-form{transition:none!important}}
+
+.mm-find-form button>svg{width:18px;height:18px}
+
+/* Prezi-style navigation: one fixed scene, one camera; no reflow or hidden trees. */
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-viewport{overflow:hidden!important;touch-action:none;cursor:grab}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-map-canvas{height:100%!important;min-height:0;overflow:hidden}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-world{transition:none!important;will-change:auto;overflow:visible}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-branch{position:absolute;display:block;left:var(--mm-scene-x)!important;top:var(--mm-scene-y)!important;width:940px!important;min-height:650px;height:auto;padding:0!important;margin:0!important;border:0;border-radius:0;background:none!important;box-shadow:none!important;visibility:visible!important;transition:none}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-connections{left:var(--mm-scene-left);top:var(--mm-scene-top);width:var(--mm-scene-width)!important;height:var(--mm-scene-height)!important;visibility:visible!important;pointer-events:none}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-root{visibility:visible!important;transform:scale(var(--mm-label-scale,1));transform-origin:center;cursor:pointer}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-question-control{position:absolute;left:290px;top:15px;display:flex;align-items:center;gap:12px;width:340px;height:126px;min-height:0;padding:12px 20px;border:2px solid #dcb64d;border-radius:26px;background:#fff7df;box-shadow:0 4px 0 #e5c76e;text-align:left;transform:scale(var(--mm-label-scale,1));transform-origin:50% 100%;transition:background 160ms,border-color 160ms}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-question-control:hover{background:#fff0c4;border-color:#b58c2c}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-question-control .mm-branch-title{flex:1;min-height:0;font-size:24px;line-height:1.3;font-weight:750}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-question-control>.mm-number{position:absolute;left:12px;top:-18px;width:38px;height:38px;border:3px solid #fffefa;border-radius:50%;background:#ffdc70;font-size:19px}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-branch-detail{display:block!important;position:static;margin:0}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-branch-detail>button{position:absolute;display:flex;flex-wrap:wrap;justify-content:flex-start;align-content:center;gap:8px 10px;border:2px solid #d9be72;border-radius:22px;padding:16px 20px;font-size:21px;box-shadow:0 3px 7px #6b58200c}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-branch-detail>[data-map-answer]{left:30px;top:150px;width:310px;min-height:120px;background:var(--map-answer-fill,#e8f2ff);border-color:var(--map-answer-line,#78a7d6);color:var(--map-answer-ink,#24577d)}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-branch-detail>[data-map-expand]{left:590px;top:160px;width:270px;height:90px;background:var(--map-expand-fill,#fff0e3);border-color:var(--map-expand-line,#d89e6b);color:var(--map-expand-ink,#855128)}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-branch-detail>button>span{flex-basis:100%;max-width:none;margin:0;padding:0;white-space:normal;overflow-wrap:anywhere;font-size:18px;line-height:1.45;max-height:78px;overflow:auto;color:inherit}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-outline{display:contents!important;margin:0}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-outline:before,body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-outline-node:before{display:none}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-outline-node{position:absolute;display:flex;align-items:center;justify-content:center;width:230px;height:72px;min-height:0;margin:0;padding:10px 12px;border:2px solid var(--map-branch-line,#ccb778);border-radius:18px;background:var(--map-branch-fill,#fffaf0);color:var(--map-branch-ink,#7b611f);text-align:center}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-outline-node strong{width:100%;font-size:22px;line-height:1.35;font-weight:750}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-wires{display:block!important}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-branch-detail[inert]{pointer-events:none}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-map-tools{justify-content:space-between}
+.mm-zoom-controls{display:flex;gap:4px}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-zoom-controls button{display:grid;place-items:center;width:40px;min-height:40px;padding:8px;border-radius:10px}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-zoom-controls svg{width:19px;height:19px}
+body[data-speaking-mindmap] .mindmap-studio[data-map-dragging=true] .mm-viewport{cursor:grabbing;user-select:none}
+
+body[data-speaking-mindmap] .mindmap-studio .mm-connections .mm-line{stroke-width:var(--mm-topic-stroke,8);opacity:.8}
+
+/* Prezi detail disclosure: overview contains question anchors only. */
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-branch :is(.mm-branch-detail,.mm-tree-wires){opacity:0;visibility:hidden!important;pointer-events:none;transition:opacity 180ms ease}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio[data-map-view=focused] .mm-branch[aria-current=true] :is(.mm-branch-detail,.mm-tree-wires){opacity:1;visibility:visible!important;pointer-events:auto}
+@media(prefers-reduced-motion:reduce){.mindmap-studio .mm-branch :is(.mm-branch-detail,.mm-tree-wires){transition:none!important}}
+
+/* Overview question colors identify the three question branches. */
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio[data-map-view=overview] [data-question-card="0"] .mm-question-control{background:#fff7df;border-color:#dcb64d;color:#715314;box-shadow:0 4px 0 #e5c76e}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio[data-map-view=overview] [data-question-card="0"] .mm-question-control>.mm-number{background:#ffdc70;color:#715314}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio[data-map-view=overview] [data-question-card="1"] .mm-question-control{background:#eaf4ff;border-color:#94b9dc;color:#285879;box-shadow:0 4px 0 #bed5e9}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio[data-map-view=overview] [data-question-card="1"] .mm-question-control>.mm-number{background:#cde5fa;color:#285879}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio[data-map-view=overview] [data-question-card="2"] .mm-question-control{background:#f2ecfb;border-color:#b9a2d6;color:#665087;box-shadow:0 4px 0 #d6c5eb}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio[data-map-view=overview] [data-question-card="2"] .mm-question-control>.mm-number{background:#e2d4f5;color:#665087}
+
+/* Detail diagrams use one quiet connector color; topic links belong to overview. */
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-connections{transition:opacity 220ms ease}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio [data-tree-link]{stroke:var(--mm-link-color,#c4c5bd)!important;stroke-width:2;fill:none}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links{stroke:var(--mm-link-color,#c4c5bd)!important;stroke-width:2}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-outline-node,body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-leaves{--map-branch-fill:#f5f6f2;--map-leaf-fill:#fafbf8;--map-branch-line:#c8cfc3;--map-branch-ink:#425341}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-outline-node{background:var(--map-branch-fill)!important;border-color:var(--map-branch-line)!important;color:var(--map-branch-ink)!important}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-leaves>[data-outline-phrase]{background:var(--map-leaf-fill)!important;border-color:var(--map-branch-line)!important;color:var(--map-branch-ink)!important}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-leaves>.mm-map-add,body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-add-outline{background:transparent;border-color:#d4d3c9;color:#747467}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio[data-map-view=focused] .mm-connections{opacity:.65;visibility:visible!important}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="0"],[data-branch-leaves="0"]){--map-branch-fill:#e3f3ef;--map-leaf-fill:#f1faf7;--map-branch-line:#68a996;--map-branch-ink:#286658}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-0"],[data-tree-link^="branch-0-"]){--mm-link-color:#68a996}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="1"],[data-branch-leaves="1"]){--map-branch-fill:#eee8fa;--map-leaf-fill:#f7f3ff;--map-branch-line:#a18ac5;--map-branch-ink:#665087}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-1"],[data-tree-link^="branch-1-"]){--mm-link-color:#a18ac5}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="2"],[data-branch-leaves="2"]){--map-branch-fill:#fff2cf;--map-leaf-fill:#fffaf0;--map-branch-line:#d4b45e;--map-branch-ink:#7b611f}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-2"],[data-tree-link^="branch-2-"]){--mm-link-color:#d4b45e}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="3"],[data-branch-leaves="3"]){--map-branch-fill:#e7f1fc;--map-leaf-fill:#f4f8ff;--map-branch-line:#85afd0;--map-branch-ink:#365d7b}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-3"],[data-tree-link^="branch-3-"]){--mm-link-color:#85afd0}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="4"],[data-branch-leaves="4"]){--map-branch-fill:#e3f3ef;--map-leaf-fill:#f1faf7;--map-branch-line:#68a996;--map-branch-ink:#286658}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-4"],[data-tree-link^="branch-4-"]){--mm-link-color:#68a996}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="5"],[data-branch-leaves="5"]){--map-branch-fill:#eee8fa;--map-leaf-fill:#f7f3ff;--map-branch-line:#a18ac5;--map-branch-ink:#665087}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-5"],[data-tree-link^="branch-5-"]){--mm-link-color:#a18ac5}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="6"],[data-branch-leaves="6"]){--map-branch-fill:#fff2cf;--map-leaf-fill:#fffaf0;--map-branch-line:#d4b45e;--map-branch-ink:#7b611f}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-6"],[data-tree-link^="branch-6-"]){--mm-link-color:#d4b45e}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="7"],[data-branch-leaves="7"]){--map-branch-fill:#e7f1fc;--map-leaf-fill:#f4f8ff;--map-branch-line:#85afd0;--map-branch-ink:#365d7b}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-7"],[data-tree-link^="branch-7-"]){--mm-link-color:#85afd0}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="8"],[data-branch-leaves="8"]){--map-branch-fill:#e3f3ef;--map-leaf-fill:#f1faf7;--map-branch-line:#68a996;--map-branch-ink:#286658}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-8"],[data-tree-link^="branch-8-"]){--mm-link-color:#68a996}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="9"],[data-branch-leaves="9"]){--map-branch-fill:#eee8fa;--map-leaf-fill:#f7f3ff;--map-branch-line:#a18ac5;--map-branch-ink:#665087}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-9"],[data-tree-link^="branch-9-"]){--mm-link-color:#a18ac5}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="10"],[data-branch-leaves="10"]){--map-branch-fill:#fff2cf;--map-leaf-fill:#fffaf0;--map-branch-line:#d4b45e;--map-branch-ink:#7b611f}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-10"],[data-tree-link^="branch-10-"]){--mm-link-color:#d4b45e}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="11"],[data-branch-leaves="11"]){--map-branch-fill:#e7f1fc;--map-leaf-fill:#f4f8ff;--map-branch-line:#85afd0;--map-branch-ink:#365d7b}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-11"],[data-tree-link^="branch-11-"]){--mm-link-color:#85afd0}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="12"],[data-branch-leaves="12"]){--map-branch-fill:#e3f3ef;--map-leaf-fill:#f1faf7;--map-branch-line:#68a996;--map-branch-ink:#286658}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-12"],[data-tree-link^="branch-12-"]){--mm-link-color:#68a996}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="13"],[data-branch-leaves="13"]){--map-branch-fill:#eee8fa;--map-leaf-fill:#f7f3ff;--map-branch-line:#a18ac5;--map-branch-ink:#665087}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-13"],[data-tree-link^="branch-13-"]){--mm-link-color:#a18ac5}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="14"],[data-branch-leaves="14"]){--map-branch-fill:#fff2cf;--map-leaf-fill:#fffaf0;--map-branch-line:#d4b45e;--map-branch-ink:#7b611f}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-14"],[data-tree-link^="branch-14-"]){--mm-link-color:#d4b45e}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="15"],[data-branch-leaves="15"]){--map-branch-fill:#e7f1fc;--map-leaf-fill:#f4f8ff;--map-branch-line:#85afd0;--map-branch-ink:#365d7b}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-15"],[data-tree-link^="branch-15-"]){--mm-link-color:#85afd0}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="16"],[data-branch-leaves="16"]){--map-branch-fill:#e3f3ef;--map-leaf-fill:#f1faf7;--map-branch-line:#68a996;--map-branch-ink:#286658}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-16"],[data-tree-link^="branch-16-"]){--mm-link-color:#68a996}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="17"],[data-branch-leaves="17"]){--map-branch-fill:#eee8fa;--map-leaf-fill:#f7f3ff;--map-branch-line:#a18ac5;--map-branch-ink:#665087}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-17"],[data-tree-link^="branch-17-"]){--mm-link-color:#a18ac5}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="18"],[data-branch-leaves="18"]){--map-branch-fill:#fff2cf;--map-leaf-fill:#fffaf0;--map-branch-line:#d4b45e;--map-branch-ink:#7b611f}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-18"],[data-tree-link^="branch-18-"]){--mm-link-color:#d4b45e}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio :is([data-outline-branch="19"],[data-branch-leaves="19"]){--map-branch-fill:#e7f1fc;--map-leaf-fill:#f4f8ff;--map-branch-line:#85afd0;--map-branch-ink:#365d7b}
+body[data-speaking-glass][data-speaking-lesson][data-speaking-mindmap] .lesson-shell .lesson-body .lesson-content>main.mindmap-studio .mm-tree-links :is([data-tree-link="expand-branch-19"],[data-tree-link^="branch-19-"]){--mm-link-color:#85afd0}

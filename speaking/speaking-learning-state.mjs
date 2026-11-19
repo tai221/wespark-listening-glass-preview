@@ -2,6 +2,7 @@ import {ENTRY_DRILL_STORAGE_KEY} from './speaking-entry-drill-state.mjs';
 import {CYCLE_STORAGE_KEY} from './speaking-cycle-model.mjs';
 import {SPEAKING_ROUND_KEY} from './speaking-round-state.mjs';
 import {ROUND_RESULTS_KEY} from './speaking-round-results-state.mjs';
+import {FOLLOWUP_KEY} from './speaking-followup-state.mjs';
 // Speaking hometown state is intentionally isolated from Listening and wallet storage.
 export const STORAGE_KEY='wespark-speaking-hometown-learning-v1';
 export const items=[
@@ -134,7 +135,7 @@ export function restoreState(raw){
 export function readState(storage){try{return restoreState(storage.getItem(STORAGE_KEY));}catch{return restoreState();}}
 export function saveState(storage,state){try{storage.setItem(STORAGE_KEY,JSON.stringify(state));}catch{}}
 export function resetTopic(storage){
- try{storage.removeItem(STORAGE_KEY);storage.removeItem('wespark-speaking-hometown-learning-intro-v1');storage.removeItem(CYCLE_STORAGE_KEY);storage.removeItem(ENTRY_DRILL_STORAGE_KEY);storage.removeItem(SPEAKING_ROUND_KEY);storage.removeItem(ROUND_RESULTS_KEY);return true;}catch{return false;}
+ try{storage.removeItem(STORAGE_KEY);storage.removeItem('wespark-speaking-hometown-learning-intro-v1');storage.removeItem(CYCLE_STORAGE_KEY);storage.removeItem(ENTRY_DRILL_STORAGE_KEY);storage.removeItem(SPEAKING_ROUND_KEY);storage.removeItem(ROUND_RESULTS_KEY);storage.removeItem(FOLLOWUP_KEY);return true;}catch{return false;}
 }
 export function toggleAssessment(state,id,status){if(!validId(id)||!validGroup(status))return state;const assessments={...state.assessments};if(assessments[id]===status)delete assessments[id];else assessments[id]=status;return {...state,assessments};}
 export function reviewIds(state){return items.filter(item=>state.groups.includes(state.assessments[item.id])).map(item=>item.id);}

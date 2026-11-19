@@ -55,6 +55,9 @@ body[data-speaking-glass][data-speaking-lesson] main.speaking-round-results{
  .rf-retake:active{transform:translateY(3px);box-shadow:0 1px 0 #d4a52d}
  .rf-analysis-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
  .rf-analysis-heading h2{margin:0}
+ .rf-summary-band{display:inline-flex;align-items:center;gap:12px;flex:none;white-space:nowrap;padding:8px 14px;background:#fff5d9;border-radius:12px;color:#785318}
+ .rf-summary-band span{font-size:13px;font-weight:600}
+ .rf-summary-band strong{font-size:26px;line-height:1.25;font-weight:750;letter-spacing:-.025em;font-variant-numeric:tabular-nums}
  .rf-analysis-heading>span{white-space:nowrap;font-size:12px;color:#596276}
  .rf-band{display:flex;justify-content:space-between;align-items:center;background:#fff5d9;color:#785318;border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px;font-weight:650}
  .rf-band strong{font-size:30px;line-height:1.2}

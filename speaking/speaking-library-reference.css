@@ -1,0 +1,33 @@
+@import url('../library-reference.css');
+
+/* The approved Listening library world, scoped by its library variant attribute. */
+@media (min-width:1100px){
+ body[data-speaking-library]{--ink:#172034;--muted:#555b68;background:#fff}
+ body[data-speaking-library] .browser.project-shell{background:#fff;border:1px solid #dce0d2}
+ body[data-speaking-library] .browser.project-shell::before,
+ body[data-speaking-library] .browser.project-shell::after{display:none}
+ body[data-speaking-library] .project-header{background:#fff}
+ body[data-speaking-library] .project-sidebar{padding-top:12px}
+ body[data-speaking-library] .project-nav-group{margin-bottom:24px}
+ body[data-speaking-library] .speaking-library-heading{grid-template-columns:minmax(0,.95fr) minmax(0,1fr);min-height:340px;gap:24px;margin-bottom:24px}
+ body[data-speaking-library] .speaking-library-heading h1{font-size:32px;line-height:1.3;font-weight:800;letter-spacing:-.035em;color:#172034}
+ body[data-speaking-library] .speaking-library-heading .intro{max-width:390px;font-size:14px;font-weight:400;line-height:1.8;color:#555b68;margin-top:16px}
+ body[data-speaking-library] .speaking-header-demo{padding:26px;min-height:300px;border-radius:16px;background:#fffcf3;border:1px solid #eee7d4;box-shadow:0 7px 22px #97743212}
+ body[data-speaking-library] .speaking-demo-stage{padding:8px 0}
+ body[data-speaking-library] .speaking-demo-replay{right:16px;bottom:16px}
+ body[data-speaking-library] .library-filters{background:#fffcf4;border-radius:18px}
+ body[data-speaking-library] .project-shell .lesson-card{aspect-ratio:auto;min-height:158px}
+ body[data-speaking-library] .project-shell .lesson-art[data-cover-type=speaking]{background:#fbf5e6;height:100%;min-height:132px;overflow:hidden}
+ body[data-speaking-library] .project-shell .lesson-art img{object-fit:contain}
+ body[data-speaking-library] .project-shell .lesson-body{flex:initial}
+ body[data-speaking-library] .project-shell .lesson-body h2{font-size:14px;min-height:35px}
+ body[data-speaking-library] .project-shell .lesson-tags>span{font-size:11px}
+ html body[data-speaking-library] .project-shell .lesson-body>.button.primary{background:#ffdc65;border:1px solid #ffe7a1;box-shadow:0 2px 0 #e1bc45;color:#493915}
+ html body[data-speaking-library] .project-shell .lesson-body>.button.primary:hover{background:#ffd34d;transform:none}
+ html body[data-speaking-library] .project-shell .lesson-body>.button.primary:active{transform:translateY(2px);box-shadow:none}
+ body[data-speaking-library] .project-shell .lesson-body>.button:disabled{background:#f6f5f1;border:1px solid #dedbd3;color:#66665e;box-shadow:none;opacity:1;cursor:not-allowed}
+ html body[data-speaking-library] .project-shell .project-utilities .wallet{border:0;background:#fffbf3;box-shadow:none}
+ body[data-speaking-library] .speaking-empty{padding:28px;background:#fffcf4;border-radius:16px}
+ body[data-speaking-library] .speaking-empty h2{margin-bottom:8px}
+ body[data-speaking-library] .speaking-empty p{margin-bottom:16px}
+}

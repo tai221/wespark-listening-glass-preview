@@ -38,19 +38,27 @@ const phrasePools=[
   [['improve public transport','create more green spaces','in the future'],['less traffic','a cleaner city','more convenient journeys']]
  ]
 ];
-export function outlineFor(question,method){return outlines[method][question].map((label,index)=>({label,words:phrasePools[method][question][index]}));}
+// User-authored branches and phrase suggestions belong to one question/method draft.
+export function outlineFor(question,method,draft){
+ const labels=[...outlines[method][question],...(draft?.customOutlines?.[method]||[])];
+ return labels.map((label,index)=>({label,words:[...new Set([...(phrasePools[method][question][index]||[]),...(draft?.customPhrases?.[method]?.[index]||[])])]}));
+}
+const cleanWords=values=>Array.isArray(values)?[...new Set(values.filter(value=>typeof value==='string').map(value=>value.trim().slice(0,120)).filter(Boolean))]:[];
 export function hydrateDrafts(saved){
  return [0,1,2].map((question)=>{
   const raw=Array.isArray(saved)&&saved[question]&&typeof saved[question]==='object'?saved[question]:{};
   const suggestion=Number.isInteger(raw.suggestion)&&raw.suggestion>=0&&raw.suggestion<3?raw.suggestion:null;
   const answer=(suggestion!==null?answerSuggestions[question][suggestion]:typeof raw.answer==='string'?raw.answer:'').slice(0,300);
   const technique=Number.isInteger(raw.technique)&&raw.technique>=0&&raw.technique<4?raw.technique:0;
-  const methodDrafts={};
+  const methodDrafts={},customOutlines={},customPhrases={};
   for(let method=0;method<4;method++){
    const branches=raw.methodDrafts?.[method];
    if(!Array.isArray(branches))continue;
-   methodDrafts[method]=outlineFor(question,method).map((_,branch)=>Array.isArray(branches[branch])?[...new Set(branches[branch].filter(word=>typeof word==='string'&&word.trim()).map(word=>word.slice(0,120)))].slice(0,8):[]);
+   customOutlines[method]=cleanWords(raw.customOutlines?.[method]).map(label=>label.slice(0,80));
+   const outline=outlineFor(question,method,{customOutlines});
+   methodDrafts[method]=outline.map((_,branch)=>cleanWords(branches[branch]));
+   customPhrases[method]=outline.map((item,branch)=>cleanWords([...(Array.isArray(raw.customPhrases?.[method]?.[branch])?raw.customPhrases[method][branch]:[]),...methodDrafts[method][branch].filter(word=>!item.words.includes(word))]));
   }
-  return {answer,suggestion:null,technique,methodDrafts,prepared:raw.prepared===true||!!answer||Object.keys(methodDrafts).length>0};
+  return {answer,suggestion:null,technique,methodDrafts,customOutlines,customPhrases,prepared:raw.prepared===true||!!answer||Object.keys(methodDrafts).length>0};
  });
 }

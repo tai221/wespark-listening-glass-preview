@@ -14,6 +14,8 @@ const element=(tag,cls)=>Object.assign(document.createElement(tag),{className:cl
 
 export function syncSpeakingLibrary(main){
  document.body.dataset.speakingLibrary='';
+ document.body.dataset.libraryVersion='rules-v1';
+ const referenceStyle=element('link','');referenceStyle.rel='stylesheet';referenceStyle.href=new URL('./speaking-library-reference.css',import.meta.url).href;document.head.append(referenceStyle);
  document.body.dataset.sparkPage='library';
  const review=element('div','speaking-library-review');
  const index=element('a','');index.href='../index.html';index.textContent='← Mục lục dự án';
@@ -27,6 +29,8 @@ export function syncSpeakingLibrary(main){
  review.append(index,restart,label,error);document.querySelector('.browser').before(review);
  main.querySelector('.heading>.pill')?.remove();
  main.querySelector('.heading').classList.add('speaking-library-heading');
+ main.querySelector('.heading .eyebrow')?.remove();
+ const heading=main.querySelector('.heading h1');heading.innerHTML='Thư viện <span class="library-title-mark">Speaking</span>';
  mountSpeakingHeaderDemo(main.querySelector('.heading'));
  main.querySelectorAll('.r1-flow-actions,.question-strip').forEach(el=>el.remove());
  const utilities=document.querySelector('.project-utilities');
@@ -41,13 +45,13 @@ export function syncSpeakingLibrary(main){
  preview.addEventListener('keydown',event=>{if(event.key==='Escape'){preview.open=false;preview.querySelector('summary').focus();event.preventDefault();}});
 
  const topics=[...new Set(speakingLessons.map(lesson=>lesson.topic))];
- const grid=main.querySelector('.lessons');grid.replaceChildren();
+ const grid=main.querySelector('.lessons');grid.classList.add('lesson-grid');grid.replaceChildren();
  const cards=speakingLessons.map(lesson=>{
   const card=element('article','lesson-card card'),title=element('h2','');title.textContent=lesson.title;
   const action=element(lesson.href?'a':'button',lesson.href?'button primary':'button');
   if(lesson.href){action.href=lesson.href==='key-speaking-vocabulary.html'?'key-speaking-drill-repeat.html':lesson.href;if(lesson.href==='key-speaking-vocabulary.html')action.addEventListener('click',event=>{if(event.button||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();let entry;try{entry=enterSpeaking(window.sessionStorage);}catch{}if(entry?.saved&&entry.href)location.href=entry.href;else{error.hidden=false;error.textContent='Chưa lưu được buổi trước. Thử lại trước khi vào bài mới nhé.';}});action.replaceChildren(document.createTextNode('Bắt đầu'),Object.assign(element('span','speaking-card-arrow'),{innerHTML:icon('arrow')}));}
   else{action.type='button';action.disabled=true;action.textContent='Sắp có';}
-  const art=element('div','lesson-art'),img=element('img','');img.src=`assets/speaking-covers/${lesson.id}-rustic-v2.webp`;img.alt='';img.width=320;img.height=240;art.append(img);
+  const art=element('div','lesson-art'),img=element('img','');art.dataset.coverType='speaking';img.src=`assets/speaking-covers/${lesson.id}-rustic-v2.webp`;img.alt='';img.width=320;img.height=240;art.append(img);
   if(lesson.plan){const plan=element('span','plan-tag');plan.textContent='OKRs';plan.title='Bài thuộc kế hoạch OKRs của bạn';art.append(plan);}
   const body=element('div','lesson-body'),tags=element('div','lesson-tags');
   tags.innerHTML=`<span class="lesson-topic-tag" data-topic="${lesson.theme}">${icon(topicIcons[lesson.theme])}<span>${lesson.topic}</span></span><span class="lesson-level-tag" data-level="${lesson.level}" aria-label="Trình độ bài ${lesson.level}">${icon('level')}<span>${lesson.level}</span></span>`;
