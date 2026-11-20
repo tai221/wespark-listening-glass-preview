@@ -139,3 +139,9 @@ html body[data-speaking-library] .speaking-library-mode:disabled{opacity:1;curso
 @media(min-width:1100px) and (max-width:1300px){body[data-speaking-library] .speaking-library-header-content{gap:20px;grid-template-columns:minmax(0,1.15fr) minmax(440px,1fr)}body[data-speaking-library] .speaking-library-modes{gap:10px}html body[data-speaking-library] .speaking-library-mode{font-size:15px;min-height:180px}}
 
 html body[data-speaking-library] .project-shell .project-nav-item[aria-current]{color:#172034}
+
+/* Soft color ribbons at the header corner, following the supplied Listening reference. */
+@media(min-width:1100px){
+ body[data-speaking-library] .speaking-library-heading{position:relative;isolation:isolate}
+ body[data-speaking-library] .speaking-library-heading::before{content:"";position:absolute;z-index:-1;top:-24px;right:-24px;width:70%;height:166px;background:url("assets/speaking-modes/header-color-waves.svg") right top/100% 100% no-repeat;pointer-events:none}
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 180" preserveAspectRatio="none">
+ <defs>
+  <linearGradient id="cream" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffaf0"/><stop offset="1" stop-color="#fff1c9" stop-opacity=".55"/></linearGradient>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e8f4ff"/><stop offset="1" stop-color="#e8f4ff" stop-opacity=".12"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe8a1" stop-opacity=".78"/><stop offset="1" stop-color="#fff2c5" stop-opacity=".6"/></linearGradient>
+ </defs>
+ <path fill="url(#cream)" d="M204 0h484c-29 39-76 49-112 75-51 38-98 83-178 68-80-14-151-48-176-91-10-17-15-35-18-52Z"/>
+ <path fill="url(#blue)" d="M70 107c35-38 93-52 148-44 64 9 112 43 172 53 39 7 67 9 105 1-44 32-97 31-151 13-56-19-83-35-125-23-47 13-76 56-116 58-43 3-58-23-33-58Z"/>
+ <path fill="url(#cream)" d="M367 0h314c-16 24-25 55-52 72-35 23-60 48-95 64-34 17-60 27-77 13-20-17 4-40 20-55 34-32 26-58-110-94Z"/>
+ <path fill="url(#gold)" d="M588 0h172c4 24-28 34-56 45-52 20-83 49-130 62-29 8-52 18-74 27 48-29 30-56 54-90 10-17 18-33 34-44Z"/>
+ <ellipse cx="48" cy="65" rx="32" ry="19" transform="rotate(-28 48 65)" fill="#fff5e2"/>
+ <ellipse cx="685" cy="126" rx="24" ry="14" transform="rotate(-21 685 126)" fill="#fff6e6"/>
+</svg>
