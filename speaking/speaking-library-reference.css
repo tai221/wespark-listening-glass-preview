@@ -1,6 +1,6 @@
 @import url('../library-reference.css');
 
-/* The approved Listening library world, scoped by its library variant attribute. */
+/* Preserve the approved desktop library shell and brand. */
 @media (min-width:1100px){
  body[data-speaking-library]{--ink:#172034;--muted:#555b68;background:#fff}
  body[data-speaking-library] .browser.project-shell{background:#fff;border:1px solid #dce0d2}
@@ -9,25 +9,120 @@
  body[data-speaking-library] .project-header{background:#fff}
  body[data-speaking-library] .project-sidebar{padding-top:12px}
  body[data-speaking-library] .project-nav-group{margin-bottom:24px}
- body[data-speaking-library] .speaking-library-heading{grid-template-columns:minmax(0,.95fr) minmax(0,1fr);min-height:340px;gap:24px;margin-bottom:24px}
- body[data-speaking-library] .speaking-library-heading h1{font-size:32px;line-height:1.3;font-weight:800;letter-spacing:-.035em;color:#172034}
- body[data-speaking-library] .speaking-library-heading .intro{max-width:390px;font-size:14px;font-weight:400;line-height:1.8;color:#555b68;margin-top:16px}
- body[data-speaking-library] .speaking-header-demo{padding:26px;min-height:300px;border-radius:16px;background:#fffcf3;border:1px solid #eee7d4;box-shadow:0 7px 22px #97743212}
- body[data-speaking-library] .speaking-demo-stage{padding:8px 0}
- body[data-speaking-library] .speaking-demo-replay{right:16px;bottom:16px}
- body[data-speaking-library] .library-filters{background:#fffcf4;border-radius:18px}
- body[data-speaking-library] .project-shell .lesson-card{aspect-ratio:auto;min-height:158px}
- body[data-speaking-library] .project-shell .lesson-art[data-cover-type=speaking]{background:#fbf5e6;height:100%;min-height:132px;overflow:hidden}
- body[data-speaking-library] .project-shell .lesson-art img{object-fit:contain}
- body[data-speaking-library] .project-shell .lesson-body{flex:initial}
- body[data-speaking-library] .project-shell .lesson-body h2{font-size:14px;min-height:35px}
- body[data-speaking-library] .project-shell .lesson-tags>span{font-size:11px}
- html body[data-speaking-library] .project-shell .lesson-body>.button.primary{background:#ffdc65;border:1px solid #ffe7a1;box-shadow:0 2px 0 #e1bc45;color:#493915}
- html body[data-speaking-library] .project-shell .lesson-body>.button.primary:hover{background:#ffd34d;transform:none}
- html body[data-speaking-library] .project-shell .lesson-body>.button.primary:active{transform:translateY(2px);box-shadow:none}
- body[data-speaking-library] .project-shell .lesson-body>.button:disabled{background:#f6f5f1;border:1px solid #dedbd3;color:#66665e;box-shadow:none;opacity:1;cursor:not-allowed}
  html body[data-speaking-library] .project-shell .project-utilities .wallet{border:0;background:#fffbf3;box-shadow:none}
- body[data-speaking-library] .speaking-empty{padding:28px;background:#fffcf4;border-radius:16px}
- body[data-speaking-library] .speaking-empty h2{margin-bottom:8px}
- body[data-speaking-library] .speaking-empty p{margin-bottom:16px}
+ body[data-speaking-library] .speaking-library-heading{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1fr);align-items:center;gap:32px;min-height:340px;margin-bottom:28px;padding:0}
+ body[data-speaking-library] .speaking-library-heading h1{font-size:32px;line-height:1.2;font-weight:800;letter-spacing:-.035em;color:#172034}
+ body[data-speaking-library] .speaking-library-heading .intro{max-width:390px;font-size:14px;font-weight:400;line-height:1.8;color:#555b68;margin:16px 0 0}
+ body[data-speaking-library] .speaking-header-demo{min-height:300px;padding:24px 30px;background:#fffcf3;border:1px solid #e5dcc3;border-radius:20px;box-shadow:0 5px 16px #97743212}
+ body[data-speaking-library] .speaking-demo-stage{padding:8px 0}
+ body[data-speaking-library] .speaking-demo-prompt{color:var(--ink)}
+ body[data-speaking-library] .speaking-demo-replay{right:16px;bottom:16px;width:36px;height:36px}
+ body[data-speaking-library] .library-title-mark::before{display:none}
+ body[data-speaking-library] .library-title-mark::after{bottom:-5px;height:9px}
 }
+
+/* Topic/question browser. Explicit component classes avoid old library-grid rules. */
+body[data-speaking-library] .speaking-practice-library{color:#172034;min-width:0}
+body[data-speaking-library] .practice-part-tabs{display:flex;align-items:center;gap:12px;margin:0 0 24px}
+body[data-speaking-library] .practice-part-tab{min-width:110px;min-height:46px;padding:10px 24px;border:1px solid #e5dcc3;border-radius:999px;background:#fffaf0;color:var(--ink);font-size:13px;font-weight:600;box-shadow:none;cursor:pointer}
+body[data-speaking-library] .practice-part-tab[aria-selected=true]{background:#f6d466;border-color:#b8922e;color:var(--ink);font-weight:750;box-shadow:none}
+body[data-speaking-library] .practice-part-tab:hover{border-color:#b8922e}
+body[data-speaking-library] .practice-part-tab[aria-selected=true]:hover{background:#f6d466;border-color:#b8922e}
+body[data-speaking-library] .practice-part-tab:active{border-color:currentColor}
+body[data-speaking-library] .practice-part-panel{display:grid;grid-template-columns:300px minmax(0,1fr);align-items:stretch;gap:24px}
+body[data-speaking-library] .practice-topic-pane{min-width:0;padding:20px 14px 14px;border:1.5px solid #384052;border-radius:20px;background:#fff;box-shadow:0 3px 1px #17203430,0 5px 10px #17203408}
+body[data-speaking-library] .practice-topic-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 8px 18px}
+body[data-speaking-library] .practice-topic-heading h2{font-size:16px;line-height:1.5;margin:0;font-weight:750}
+body[data-speaking-library] .practice-topic-count{color:var(--muted);font-size:13px;white-space:nowrap}
+body[data-speaking-library] .practice-topic-list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+body[data-speaking-library] .practice-topic{display:flex;align-items:center;gap:12px;width:100%;min-height:70px;padding:12px 10px;background:#fff;border:1px solid #e5e3da;border-radius:14px;color:#172034;text-align:left;box-shadow:none;cursor:pointer}
+body[data-speaking-library] .practice-topic:hover{background:#fff7df;transform:none;box-shadow:none}
+body[data-speaking-library] .practice-topic[aria-pressed=true]{background:#ffedb3;border-color:#b8922e;color:var(--ink);box-shadow:none}
+body[data-speaking-library] .practice-topic[aria-pressed=true]:hover{background:#ffe89a}
+body[data-speaking-library] .practice-topic-icon{flex:none;display:grid;place-items:center;width:34px;height:38px;color:var(--ink)}
+body[data-speaking-library] .practice-topic-icon svg{width:24px;height:24px}
+body[data-speaking-library] .practice-topic-copy{display:grid;gap:5px;flex:1;min-width:0}
+body[data-speaking-library] .practice-topic-copy strong{font-size:14px;line-height:1.4;font-weight:800;letter-spacing:-.02em}
+body[data-speaking-library] .practice-topic-copy>span{font-size:13px;line-height:1.4;color:var(--muted)}
+body[data-speaking-library] .practice-topic-arrow{display:flex;flex:none;width:14px;color:var(--ink);visibility:hidden}
+body[data-speaking-library] .practice-topic-arrow svg{width:14px;height:18px}
+body[data-speaking-library] .practice-topic[aria-pressed=true] .practice-topic-arrow{visibility:visible}
+body[data-speaking-library] .practice-detail{display:flex;flex-direction:column;min-width:0;padding:28px;border:1.5px solid #384052;border-radius:20px;background:#fff;box-shadow:0 3px 1px #17203430,0 5px 10px #17203408}
+body[data-speaking-library] .practice-detail-heading{display:flex;align-items:center;gap:14px}
+body[data-speaking-library] .practice-detail-icon{display:grid;place-items:center;width:48px;height:48px;flex:none;background:#fff5d8;border:1px solid #f2e4bd;border-radius:15px;color:var(--ink)}
+body[data-speaking-library] .practice-detail-icon svg{width:26px;height:26px}
+body[data-speaking-library] .practice-detail-copy{flex:1;min-width:0}
+body[data-speaking-library] .practice-detail h2{font-size:24px;line-height:1.35;font-weight:800;letter-spacing:-.025em;margin:0;color:#172034}
+body[data-speaking-library] .practice-detail-meta{font-size:13px;line-height:1.5;color:var(--muted);margin:7px 0 0}
+body[data-speaking-library] .practice-part-badge{flex:none;padding:6px 10px;background:#faf8f1;border:1px solid #e9e5d9;border-radius:8px;color:var(--ink);font-size:13px;font-weight:600;white-space:nowrap}
+body[data-speaking-library] .practice-topic-description{font-size:14px;line-height:1.7;color:var(--muted);margin:20px 0 24px}
+body[data-speaking-library] .practice-question-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}
+body[data-speaking-library] .practice-question-heading h3{font-size:14px;line-height:1.5;margin:0;font-weight:700}
+body[data-speaking-library] .practice-question-heading>span{font-size:13px;color:var(--muted)}
+body[data-speaking-library] .practice-question-list{list-style:none;display:grid;gap:12px;padding:0;margin:0}
+body[data-speaking-library] .practice-question-row{display:flex;align-items:center;gap:14px;min-height:76px;padding:12px 12px 12px 16px;background:#fffaf0;border:1px solid #e5dcc3;border-radius:14px}
+body[data-speaking-library] .practice-question-number{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:10px;background:#fff1bf;color:var(--ink);font-size:13px;font-weight:750}
+body[data-speaking-library] .practice-question-row p{flex:1;min-width:0;font-size:14px;line-height:1.65;font-weight:650;margin:0;color:var(--ink)}
+body[data-speaking-library] .practice-detail-footer{display:flex;align-items:center;flex-direction:column;gap:12px;margin-top:auto;padding-top:28px}
+body[data-speaking-library] .practice-start-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:174px;min-height:48px;padding:12px 24px;border:1px solid #ffe8a7;border-radius:10px;background:linear-gradient(145deg,#ffdf7b,#ffd052);box-shadow:0 5px 14px #bb8b1d18,inset 0 1px 0 #fff9;color:var(--ink);font-size:13px;line-height:1.5;font-weight:750;text-decoration:none;cursor:pointer}
+body[data-speaking-library] .practice-start-button svg{width:17px;height:17px}
+body[data-speaking-library] .practice-start-button:hover:not(:disabled){background:#efb223;border-color:#ffe8a7;box-shadow:0 6px 20px #bb8b1d28;transform:none;text-decoration:none}
+body[data-speaking-library] .practice-start-button:active:not(:disabled){transform:translateY(2px) scale(.98);box-shadow:inset 0 2px 6px #795a151c}
+body[data-speaking-library] .practice-start-button:disabled{background:#f6f5f1;border-color:#dedbd3;color:var(--muted);box-shadow:none;cursor:not-allowed;transform:none;opacity:1}
+body[data-speaking-library] .practice-topic-empty{font-size:14px;line-height:1.7;padding:16px 8px;color:var(--muted);margin:0}
+body[data-speaking-library] .practice-part-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:300px;padding:24px;text-align:center}
+body[data-speaking-library] .practice-part-empty p{font-size:14px;line-height:1.8;color:var(--muted);max-width:440px;margin:0}
+body[data-speaking-library] .speaking-practice-library [hidden]{display:none}
+body[data-speaking-library] .speaking-practice-library :is(button,a):focus-visible{outline:3px solid #08667a!important;outline-offset:4px!important}
+
+/* Part 2 cue cards and Part 3 discussions share the existing browser family. */
+body[data-speaking-library] .speaking-practice-library:not([data-part="1"]) .practice-topic-list{max-height:458px;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:3px 5px 4px 3px;margin:-3px -5px -4px -3px}
+body[data-speaking-library] .speaking-practice-library:not([data-part="1"]) .practice-detail{padding:24px}
+body[data-speaking-library] .speaking-practice-library:not([data-part="1"]) .practice-topic-description{margin:14px 0 18px}
+body[data-speaking-library] .speaking-practice-library:not([data-part="1"]) .practice-detail-footer{padding-top:20px}
+body[data-speaking-library] .speaking-practice-library[data-part="3"] .practice-question-list{gap:10px}
+body[data-speaking-library] .speaking-practice-library[data-part="3"] .practice-question-row{min-height:64px;padding-top:10px;padding-bottom:10px}
+body[data-speaking-library] .practice-cue-card{padding:20px 22px;background:#fffaf0;border:1px solid #e5dcc3;border-radius:16px}
+body[data-speaking-library] .practice-cue-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+body[data-speaking-library] .practice-cue-prompt{font-size:15px;line-height:1.7;font-weight:750;margin:4px 0 0;color:var(--ink)}
+body[data-speaking-library] .practice-cue-instruction{font-size:14px;line-height:1.7;font-weight:600;color:var(--muted);margin:16px 0 8px}
+body[data-speaking-library] .practice-cue-bullets{display:grid;gap:7px;list-style:disc;padding:0 0 0 22px;margin:0;color:var(--ink)}
+body[data-speaking-library] .practice-cue-bullets li{font-size:15px;line-height:1.7;padding-left:2px}
+body[data-speaking-library] .practice-cue-bullets li::marker{color:var(--ink)}
+body[data-speaking-library] .practice-cue-explain{font-size:15px;line-height:1.7;font-weight:600;color:var(--ink);margin:16px 0 0}
+body[data-speaking-library] .practice-cue-timing{padding-top:14px;margin:16px 0 0;border-top:1px solid #eadfbd;color:var(--ink);font-size:13px;line-height:1.6;font-weight:650}
+
+/* Three independent Part 2 tasks per topic, with one cue expanded at a time. */
+body[data-speaking-library] .practice-cue-list{display:grid;gap:10px;max-height:420px;overflow-y:auto;scrollbar-gutter:stable;padding:0 3px 3px 0}
+body[data-speaking-library] .practice-cue-item{border:1px solid #e5dcc3;border-radius:14px;background:#fffaf0;overflow:clip}
+body[data-speaking-library] .practice-cue-summary{display:flex;align-items:center;gap:12px;padding:14px 16px;min-height:70px;list-style:none;cursor:pointer;color:var(--ink)}
+body[data-speaking-library] .practice-cue-summary::-webkit-details-marker{display:none}
+body[data-speaking-library] .practice-cue-summary:hover{background:#fff4d8}
+body[data-speaking-library] .practice-cue-summary .practice-cue-prompt{flex:1;min-width:0;font-size:14px;line-height:1.65;font-weight:700}
+body[data-speaking-library] .practice-cue-chevron{display:flex;flex:none;color:var(--ink)}
+body[data-speaking-library] .practice-cue-chevron svg{width:16px;height:16px;transform:rotate(90deg)}
+body[data-speaking-library] .practice-cue-item[open] .practice-cue-chevron svg{transform:rotate(-90deg)}
+body[data-speaking-library] .practice-cue-item .practice-cue-card{border:0;border-radius:0;padding:0 20px 18px;background:transparent}
+body[data-speaking-library] .practice-cue-item .practice-cue-heading{align-items:center;margin-bottom:8px}
+body[data-speaking-library] .practice-cue-item .practice-cue-instruction{margin:0}
+body[data-speaking-library] .speaking-practice-library .practice-cue-summary:focus-visible{outline:2px solid #08667a!important;outline-offset:-3px!important;border-radius:12px}
+
+/* Standalone illustrated topic thumbnails, matching the user's app-tile reference. */
+body[data-speaking-library] .practice-topic-icon{width:52px;height:52px;background:transparent;border:0;border-radius:0}
+body[data-speaking-library] .practice-topic-icon img{display:block;width:52px;height:52px;object-fit:contain}
+body[data-speaking-library] .practice-detail-icon:has(img){width:64px;height:64px;background:transparent;border:0;border-radius:0}
+body[data-speaking-library] .practice-detail-icon img{display:block;width:64px;height:64px;object-fit:contain}
+body[data-speaking-library] .speaking-practice-library .practice-topic-list{max-height:458px;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:3px 5px 4px 3px;margin:-3px -5px -4px -3px}
+
+/* Speaking library text uses blue-black ink, including warm-surface controls. */
+body[data-speaking-library] .speaking-header-demo,
+body[data-speaking-library] .speaking-demo-answer,
+body[data-speaking-library] .speaking-demo-replay{color:var(--ink)}
+html body[data-speaking-library] .project-shell .project-speaking-subnav a[aria-current],
+html body[data-speaking-library] .project-shell .project-speaking-subnav a:hover,
+body[data-speaking-library] .project-nav-item:hover,
+body[data-speaking-library] .project-breadcrumb [aria-current],
+body[data-speaking-library] .project-utilities .entry-drill-demo>summary,
+body[data-speaking-library] .project-utilities .entry-drill-demo button,
+html body[data-speaking-library] .project-shell .project-utilities .wallet strong{color:var(--ink)}
+body[data-speaking-library] .project-breadcrumb .project-crumb-separator{color:var(--muted)}

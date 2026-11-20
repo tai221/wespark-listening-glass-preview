@@ -43,3 +43,7 @@ Updated 2026-11-14: Plus Jakarta Sans, lightly softened scenery, warm translucen
 Updated 2026-11-18: Listening library and preparation now open the approved illustrated UI by default. Synced current learning cards, mascot banner and runtime files across the Listening cluster; retained practice activities, comparison pages and Speaking navigation.
 
 Updated 2026-11-19: synced the current Speaking library styling, mindmap vocabulary and camera controls, mapped practice, follow-up rounds and round results. Desktop browser preview with local demo progress.
+
+## Speaking update — 2026-11-20
+
+The practice library now includes Parts 1–3, three questions or cue cards per topic, topic illustrations, and an animated speaking demo. The shared sidebar includes Practice ielts and a coming-soon Test ielts entry. Typography, colors, borders and the Bắt đầu action follow the Listening library.

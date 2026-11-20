@@ -1,9 +1,9 @@
 // Local library fixtures. Only Hometown currently has a lesson preview.
 export const speakingLessons=[
- {id:'hometown',title:'My hometown',topic:'Quê hương',theme:'hometown',level:'B1',description:'Nơi bạn lớn lên và những điều muốn kể.',plan:true,href:'key-speaking-vocabulary.html'},
- {id:'daily-life',title:'A day that feels like you',topic:'Đời sống',theme:'daily-life',level:'A2',description:'Kể về một ngày quen thuộc của bạn.'},
- {id:'environment',title:'A greener neighborhood',topic:'Môi trường',theme:'environment',level:'B2',description:'Thảo luận những thay đổi nơi bạn sống.'},
- {id:'food',title:'A meal worth sharing',topic:'Ẩm thực',theme:'food',level:'A2',description:'Kể về món ăn yêu thích và những bữa ăn đáng nhớ.'},
- {id:'travel',title:'My next adventure',topic:'Du lịch',theme:'travel',level:'B1',description:'Chia sẻ điểm đến và kế hoạch cho chuyến đi tiếp theo.'},
- {id:'learning',title:'Learning something new',topic:'Học tập',theme:'learning',level:'A1',description:'Nói về một kỹ năng mới bạn muốn học.'}
+ {id:'hometown',questions:["Where is your hometown?", "What do you like about your hometown?", "Is there anything you would like to change?"],title:'My hometown',topic:'Quê hương',theme:'hometown',level:'B1',description:'Nơi bạn lớn lên và những điều muốn kể.',plan:true,href:'key-speaking-vocabulary.html'},
+ {id:'daily-life',questions:["What do you usually do in the morning?", "What is your favorite part of the day?", "What would you like to do more often?"],title:'A day that feels like you',topic:'Đời sống',theme:'daily-life',level:'A2',description:'Kể về một ngày quen thuộc của bạn.'},
+ {id:'environment',questions:["What environmental issues affect your area?", "How could local people make a difference?", "Who should take the lead in making changes?"],title:'A greener neighborhood',topic:'Môi trường',theme:'environment',level:'B2',description:'Thảo luận những thay đổi nơi bạn sống.'},
+ {id:'food',questions:["What is your favorite food?", "Who do you usually share meals with?", "Do you enjoy cooking at home?"],title:'A meal worth sharing',topic:'Ẩm thực',theme:'food',level:'A2',description:'Kể về món ăn yêu thích và những bữa ăn đáng nhớ.'},
+ {id:'travel',questions:["Where would you like to travel next?", "What do you usually do on holiday?", "How do you prepare for a trip?"],title:'My next adventure',topic:'Du lịch',theme:'travel',level:'B1',description:'Chia sẻ điểm đến và kế hoạch cho chuyến đi tiếp theo.'},
+ {id:'learning',questions:["What new skill would you like to learn?", "How do you like to learn new things?", "Who helps you when learning is difficult?"],title:'Learning something new',topic:'Học tập',theme:'learning',level:'A1',description:'Nói về một kỹ năng mới bạn muốn học.'}
 ];
