@@ -17,6 +17,11 @@ export function mountLessonShell(document,{soundButton,read=()=>({}),write=()=>{
  if(!app||!header||!main||app.classList.contains('lesson-shell'))return;
  document.body.dataset.lessonShell='';app.classList.add('lesson-shell');
  const style=document.createElement('link');style.rel='stylesheet';style.href='lesson-shell.css?v=no-lock-ui-20261104';document.head.append(style);
+ // Extend the approved visual language to canonical lessons; comparison forks stay independent.
+ if(page!=='pre'||document.body.dataset.visualVersion==='reference'&&/\/pre(?:-current)?\.html$/.test(view.location.pathname)){
+  document.body.dataset.listeningUi='reference';
+  const visual=document.createElement('link');visual.rel='stylesheet';visual.href='reference-flow.css?v=20261120-navy-text';document.head.append(visual);
+ }
  const originalHeading=main.querySelector('.lesson-identity h1,.while-identity h1,.post-heading h1,.practice-lesson-heading h1');
  const title=originalHeading||document.createElement('h1');if(!originalHeading)title.textContent=header.querySelector('.lesson-title')?.firstChild?.textContent?.trim()||'Small steps for the planet';
  const tags=main.querySelector('.context-tags,.while-tags,.post-tags,.practice-lesson-tags')||document.createElement('div');if(!tags.childElementCount){tags.className='lesson-fallback-tags';tags.innerHTML='<span>Môi trường</span><span>A2</span>';}
