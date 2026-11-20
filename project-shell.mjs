@@ -49,7 +49,6 @@ function mount(){
     ['Phần thưởng',[['gift','Spark & quà','../key-spark.html']]],
   ];
   sidebar.innerHTML='<nav aria-label="Các tính năng">'+groups.map(([group,items])=>`<div class="project-nav-group"><h2>${group}</h2>${items.map(([glyph,label,href])=>`<a class="project-nav-item" href="${href}" title="${label}" aria-label="${label}"${glyph==='listen'?' aria-current="page"':''}>${icon(glyph)}<span>${label}</span></a>`).join('')}</div>`).join('')+'</nav>';
-  mountSpeakingSidebar(sidebar,{practiceHref:'speaking/key-speaking-library.html'});
   const workspace=document.createElement('div');workspace.className='project-workspace';
   // Move, rather than copy, controls so listeners, IDs and progress remain intact.
   [...app.children].filter(el=>el!==header).forEach(el=>workspace.append(el));
@@ -93,4 +92,3 @@ if(['pre','while','post','dictation','shadowing','conversation'].includes(docume
 else if(desktop.matches)mount();
 desktop.addEventListener('change',e=>{if(e.matches)mount();});
 soundButton.before(backgroundButton);
-import {mountSpeakingSidebar} from './speaking-sidebar.mjs';
