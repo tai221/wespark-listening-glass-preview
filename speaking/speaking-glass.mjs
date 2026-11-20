@@ -1,5 +1,4 @@
 import {enhanceSpeaking} from './speaking-layout.mjs';
-import {mountSpeakingSidebar} from '../speaking-sidebar.mjs';
 import {mountSpeakingLessonShell} from './speaking-lesson-shell.mjs';
 import {mountSpeakingStageTransitions} from './speaking-stage-transition.mjs';
 // Desktop shell adapter; move existing lesson nodes to preserve radio/hash state hooks.
@@ -17,7 +16,6 @@ function mount(){
  const sidebar=document.createElement('aside');sidebar.id='speaking-sidebar';sidebar.className='project-sidebar';sidebar.setAttribute('aria-label','Điều hướng chính');
  const groups=[['Kế hoạch',[['plan','OKRs của tôi','key-okrs-management.html']]],['Học tập',[['listen','Listening','../library.html'],['speak','Speaking','key-speaking-library.html'],['book','Từ vựng','#preview-unavailable']]],['Theo dõi',[['progress','Hồ sơ học tập','key-profile.html']]],['Phần thưởng',[['gift','Spark & quà','key-spark.html']]]];
  sidebar.innerHTML='<nav aria-label="Các tính năng">'+groups.map(([group,items])=>`<div class="project-nav-group"><h2>${group}</h2>${items.map(([glyph,label,href])=>`<a class="project-nav-item" href="${href}" title="${label}" aria-label="${label}"${glyph==='speak'?' aria-current="page"':''}>${icon(glyph)}<span>${label}</span></a>`).join('')}</div>`).join('')+'</nav>';
- mountSpeakingSidebar(sidebar,{practiceHref:'key-speaking-library.html',current:true});
  const workspace=document.createElement('div');workspace.className='project-workspace';
  [...app.children].filter(el=>el!==header).forEach(el=>workspace.append(el));
  if(lesson||journey||session){const context=document.createElement('section');context.className='project-lesson-context';if(lesson){lesson.classList.add('project-lesson-name');context.append(lesson);}if(journey)context.append(journey);if(session)context.append(session);workspace.prepend(context);}

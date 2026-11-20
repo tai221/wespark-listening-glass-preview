@@ -46,4 +46,8 @@ Updated 2026-11-19: synced the current Speaking library styling, mindmap vocabul
 
 ## Speaking update — 2026-11-20
 
-The practice library now includes Parts 1–3, three questions or cue cards per topic, topic illustrations, and an animated speaking demo. The shared sidebar includes Practice ielts and a coming-soon Test ielts entry. Typography, colors, borders and the Bắt đầu action follow the Listening library.
+The practice library now includes Parts 1–3, three questions or cue cards per topic, topic illustrations, and an animated speaking demo. The header includes Practice ielts and a coming-soon Test ielts entry; the sidebar keeps a single Speaking destination. Typography, colors, borders and the Bắt đầu action follow the Listening library.
+
+## Header alignment — 2026-11-20
+
+Speaking mode cards now match the Listening header sizes and flat illustrations. Practice ielts and Test ielts appear beside the speaking demo, with no nested sidebar tabs. The current Listening library header is included in this update.

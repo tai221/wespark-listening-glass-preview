@@ -10,9 +10,9 @@
  body[data-speaking-library] .project-sidebar{padding-top:12px}
  body[data-speaking-library] .project-nav-group{margin-bottom:24px}
  html body[data-speaking-library] .project-shell .project-utilities .wallet{border:0;background:#fffbf3;box-shadow:none}
- body[data-speaking-library] .speaking-library-heading{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1fr);align-items:center;gap:32px;min-height:340px;margin-bottom:28px;padding:0}
+ body[data-speaking-library] .speaking-library-heading{display:block;margin-bottom:32px;padding:8px 0 0}
  body[data-speaking-library] .speaking-library-heading h1{font-size:32px;line-height:1.2;font-weight:800;letter-spacing:-.035em;color:#172034}
- body[data-speaking-library] .speaking-library-heading .intro{max-width:390px;font-size:14px;font-weight:400;line-height:1.8;color:#555b68;margin:16px 0 0}
+ body[data-speaking-library] .speaking-library-heading .intro{max-width:none;font-size:14px;font-weight:400;line-height:1.8;color:#555b68;margin:16px 0 0}
  body[data-speaking-library] .speaking-header-demo{min-height:300px;padding:24px 30px;background:#fffcf3;border:1px solid #e5dcc3;border-radius:20px;box-shadow:0 5px 16px #97743212}
  body[data-speaking-library] .speaking-demo-stage{padding:8px 0}
  body[data-speaking-library] .speaking-demo-prompt{color:var(--ink)}
@@ -118,11 +118,24 @@ body[data-speaking-library] .speaking-practice-library .practice-topic-list{max-
 body[data-speaking-library] .speaking-header-demo,
 body[data-speaking-library] .speaking-demo-answer,
 body[data-speaking-library] .speaking-demo-replay{color:var(--ink)}
-html body[data-speaking-library] .project-shell .project-speaking-subnav a[aria-current],
-html body[data-speaking-library] .project-shell .project-speaking-subnav a:hover,
 body[data-speaking-library] .project-nav-item:hover,
 body[data-speaking-library] .project-breadcrumb [aria-current],
 body[data-speaking-library] .project-utilities .entry-drill-demo>summary,
 body[data-speaking-library] .project-utilities .entry-drill-demo button,
 html body[data-speaking-library] .project-shell .project-utilities .wallet strong{color:var(--ink)}
 body[data-speaking-library] .project-breadcrumb .project-crumb-separator{color:var(--muted)}
+
+/* Library modes follow the Listening header composition. */
+body[data-speaking-library] .speaking-library-header-content{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:32px;margin-top:28px}
+body[data-speaking-library] .speaking-library-modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding-bottom:5px}
+html body[data-speaking-library] .speaking-library-mode{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:190px;padding:18px 12px 24px;border:2px solid #fff;border-radius:26px;background:#fff9e5;color:#172034;text-align:center;text-decoration:none;font-family:inherit;font-size:18px;font-weight:800;line-height:1.4;box-shadow:0 4px 0 #efdfaa,0 7px 12px #1720340b}
+html body[data-speaking-library] .speaking-library-mode.is-current{border-color:#e9c253}
+html body[data-speaking-library] .speaking-library-mode.mode-test{background:#f3edfa;box-shadow:0 4px 0 #e6e4ed,0 7px 12px #1720340b}
+body[data-speaking-library] .speaking-library-mode img{width:78px;height:72px;object-fit:contain;flex:none}
+html body[data-speaking-library] .speaking-library-mode.is-current:hover{background:#fff3cb;text-decoration:none}
+html body[data-speaking-library] .speaking-library-mode.is-current:active{transform:translateY(3px);box-shadow:0 1px 0 #efdfaa}
+html body[data-speaking-library] .speaking-library-mode:focus-visible{outline:2px solid #08667a;outline-offset:4px}
+html body[data-speaking-library] .speaking-library-mode:disabled{opacity:1;cursor:default;color:#172034}
+@media(min-width:1100px) and (max-width:1300px){body[data-speaking-library] .speaking-library-header-content{gap:20px;grid-template-columns:minmax(0,1.15fr) minmax(440px,1fr)}body[data-speaking-library] .speaking-library-modes{gap:10px}html body[data-speaking-library] .speaking-library-mode{font-size:15px;min-height:180px}}
+
+html body[data-speaking-library] .project-shell .project-nav-item[aria-current]{color:#172034}

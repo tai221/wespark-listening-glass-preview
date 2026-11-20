@@ -29,7 +29,16 @@ export function syncSpeakingLibrary(main){
  main.querySelector('.heading .eyebrow')?.remove();
  const heading=main.querySelector('.heading h1');heading.innerHTML='Luyện tập IELTS <span class="library-title-mark">Speaking</span>';
  main.querySelector('.heading .intro').textContent='Chọn chủ đề, khám phá câu hỏi và luyện nói theo cách của bạn.';
- mountSpeakingHeaderDemo(main.querySelector('.heading'));
+ const header=main.querySelector('.heading');
+ const content=element('div','speaking-library-header-content');
+ const modes=element('nav','speaking-library-modes');modes.setAttribute('aria-label','Mục tiêu luyện nói');
+ const practice=element('button','speaking-library-mode is-current');practice.type='button';practice.setAttribute('aria-pressed','true');
+ practice.addEventListener('click',()=>document.getElementById('speaking-practice')?.scrollIntoView({block:'start'}));
+ practice.innerHTML='<img src="assets/speaking-modes/practice-listening-v2.svg" width="78" height="72" alt=""><span>Practice ielts</span>';
+ const test=element('button','speaking-library-mode mode-test');test.type='button';test.disabled=true;test.title='Sắp có';test.setAttribute('aria-label','Test ielts · Sắp có');
+ test.innerHTML='<img src="assets/speaking-modes/test-listening-v2.svg" width="78" height="72" alt=""><span>Test ielts</span>';
+ modes.append(practice,test);content.append(modes);header.append(content);
+ mountSpeakingHeaderDemo(content);
  main.querySelectorAll('.r1-flow-actions,.question-strip').forEach(el=>el.remove());
  const utilities=document.querySelector('.project-utilities');
  utilities.querySelector('a[href="key-spark.html"]')?.remove();
@@ -43,7 +52,7 @@ export function syncSpeakingLibrary(main){
  preview.addEventListener('keydown',event=>{if(event.key==='Escape'){preview.open=false;preview.querySelector('summary').focus();event.preventDefault();}});
 
  main.querySelectorAll('.filters,.catalog-meta').forEach(el=>el.remove());
- const library=element('section','speaking-practice-library');
+ const library=element('section','speaking-practice-library');library.id='speaking-practice';
  main.querySelector('.lessons').replaceWith(library);
  mountSpeakingPracticeLibrary(library, {onEnter(event){
   if(event.button||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;

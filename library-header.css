@@ -1,0 +1,24 @@
+/* Desktop library header following the approved composition. */
+body[data-library-version] .library-goals-intro.library-intro{display:block;margin:8px 0 32px;padding:8px 0 0;position:relative;isolation:isolate}
+.library-goals-intro::before{content:"";position:absolute;z-index:-1;top:-24px;right:-24px;width:80%;height:215px;background:url("assets/library-header-halftone.svg") right top/100% 100% no-repeat;pointer-events:none}
+body[data-library-version] .library-goals-intro .page-heading h1{font-size:34px!important;margin:0 0 14px;line-height:1.25}
+body[data-library-version] .library-goals-intro .page-heading p{max-width:none;font-size:15px;line-height:1.6;margin:0}
+.library-header-content{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:32px;margin-top:28px}
+.listening-goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:0 0 5px}
+.listening-goal{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:190px;padding:18px 8px 24px;border:2px solid #fff;border-radius:26px;background:#f0eef9;color:#172034;text-align:center;text-decoration:none;box-shadow:0 4px 0 #e6e4ed,0 7px 12px #1720340b;font-size:15px;line-height:1.5;font-weight:750}
+.listening-goal.is-current{background:#fff9e5;border-color:#e9c253;box-shadow:0 4px 0 #efdfaa,0 7px 12px #a98a2912}
+.listening-goal.goal-test{background:#f3edfa}
+.listening-goal.goal-ielts{background:#e8f3ff;box-shadow:0 4px 0 #d7e6f3,0 7px 12px #1720340b}
+.listening-goal strong{display:block;font-size:18px;font-weight:800;line-height:1.4}
+.listening-goal .goal-art{height:72px;width:78px;flex:none}
+.listening-goal small{position:absolute;bottom:7px;font-size:10px;color:#676174;font-weight:500}
+.listening-goal:disabled{opacity:1;cursor:default}
+.listening-goal.is-current:hover{background:#fff3cb}
+.listening-goal.is-current:active{transform:translateY(3px);box-shadow:0 1px 0 #efdfaa}
+.listening-goal:focus-visible{outline:3px solid #a97b13;outline-offset:4px}
+/* Filter chips: white surfaces and black labels, with yellow for selection. */
+body[data-library-version] .library-filters{background:#fff;--filter-ink:#171717;--filter-muted:#525252;--filter-focus:#80601e}
+body[data-library-version] .library-filters .filter-pill{--chip-bg:#fff;--chip-ink:#171717;--chip-edge:#dedede;--chip-on:#f6d466;--chip-on-edge:#e7c04f}
+body[data-library-version] .library-filters .filter-pill:hover{border-color:#9b9b9b}
+body[data-library-version] .library-filters .filter-pill[aria-pressed="true"]{color:#171717}
+@media(min-width:1100px) and (max-width:1300px){.library-header-content{gap:20px;grid-template-columns:minmax(0,1.15fr) minmax(440px,1fr)}.listening-goals{gap:10px}.listening-goal{min-height:180px;font-size:13px}.listening-goal strong{font-size:15px}}
