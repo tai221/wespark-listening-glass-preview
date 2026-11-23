@@ -1,5 +1,5 @@
 // Share the original lesson behavior; isolate cover changes to this version.
-import './library.mjs?v=mode-palette-20261123';
+import './library.mjs?v=test-placeholder-20261123';
 
 const heading=document.querySelector('.library-intro h1');
 const markedTitle=document.createElement('span');

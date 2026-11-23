@@ -61,12 +61,7 @@ function renderTests(){
   const icon=document.createElement('span');icon.className='test-status-mark';icon.setAttribute('aria-hidden','true');icon.textContent=test.status==='complete'?'✓':test.status==='progress'?'◔':'○';
   status.append(icon,document.createTextNode(state.label));
   const action=document.createElement('button');action.type='button';action.className=`button ${test.status==='complete'?'secondary':'primary'}`;action.textContent=state.action;action.setAttribute('aria-label',`${state.action} · ${test.title}`);
-  action.addEventListener('click',()=>{
-   $('#detail-title').textContent=test.title;$('#detail-description').textContent=`Trạng thái minh họa: ${state.label.toLowerCase()}.`;
-   $('#detail-meta').textContent='Thi thử IELTS Listening';
-   $('#lesson-detail .notice').textContent='Đây là bản xem thử danh sách đề. Luồng làm bài và xem kết quả sẽ được bổ sung ở bước tiếp theo.';
-   $('#lesson-detail').showModal();
-  });
+  action.addEventListener('click',()=>{location.href=`ielts-test.html?test=${encodeURIComponent(test.title)}`;});
   card.append(title,status,action);$('#lessons').append(card);
  }
 }
