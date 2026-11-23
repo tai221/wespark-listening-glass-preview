@@ -2,16 +2,16 @@ import {preparationAccessible} from './session.mjs';
 import {read,prep} from './session.mjs';
 const $=s=>document.querySelector(s);
 const lessons=[
- {id:'planet',title:'Small steps for the planet',topic:'Environment',level:'A2',media:'Video',duration:'02:40',description:'Những thay đổi nhỏ để giảm rác thải trong cuộc sống thường ngày.',plan:true},
- {id:'morning',title:'A morning conversation',topic:'Daily life',level:'A1',media:'Audio',duration:'03:10',description:'Lắng nghe một cuộc trò chuyện ngắn về kế hoạch cho ngày mới.'},
- {id:'sport',title:'Finding your next sport',topic:'Sport',level:'B1',media:'Video',duration:'04:05',description:'Khám phá một hoạt động thể thao mới qua câu chuyện của người nói.'},
- {id:'market',title:'A Saturday at the market',topic:'Daily life',level:'A2',media:'Audio',duration:'03:25',description:'Theo chân một buổi đi chợ, hỏi giá và lựa chọn thực phẩm cho cả tuần.'},
- {id:'garden',title:'A little garden at home',topic:'Environment',level:'B2',media:'Video',duration:'03:50',description:'Bắt đầu một góc vườn nhỏ và khám phá cách chăm sóc cây mỗi ngày.'},
- {id:'walk',title:'One walk, a better day',topic:'Sport',level:'A2',media:'Audio',duration:'02:55',description:'Một thói quen đi bộ đơn giản giúp ngày mới năng động và dễ chịu hơn.'}
+ {id:'planet',part:'Part 2',title:'Small steps for the planet',topic:'Environment',level:'A2',media:'Video',duration:'02:40',description:'Những thay đổi nhỏ để giảm rác thải trong cuộc sống thường ngày.',plan:true},
+ {id:'morning',part:'Part 1',title:'A morning conversation',topic:'Daily life',level:'A1',media:'Audio',duration:'03:10',description:'Lắng nghe một cuộc trò chuyện ngắn về kế hoạch cho ngày mới.'},
+ {id:'sport',part:'Part 3',title:'Finding your next sport',topic:'Sport',level:'B1',media:'Video',duration:'04:05',description:'Khám phá một hoạt động thể thao mới qua câu chuyện của người nói.'},
+ {id:'market',part:'Part 1',title:'A Saturday at the market',topic:'Daily life',level:'A2',media:'Audio',duration:'03:25',description:'Theo chân một buổi đi chợ, hỏi giá và lựa chọn thực phẩm cho cả tuần.'},
+ {id:'garden',part:'Part 4',title:'A little garden at home',topic:'Environment',level:'B2',media:'Video',duration:'03:50',description:'Bắt đầu một góc vườn nhỏ và khám phá cách chăm sóc cây mỗi ngày.'},
+ {id:'walk',part:'Part 2',title:'One walk, a better day',topic:'Sport',level:'A2',media:'Audio',duration:'02:55',description:'Một thói quen đi bộ đơn giản giúp ngày mới năng động và dễ chịu hơn.'}
 ];
 const cardSummaries={planet:'Thói quen nhỏ, ít rác thải hơn.',morning:'Lên kế hoạch cho ngày mới.',sport:'Tìm môn thể thao hợp với bạn.',market:'Đi chợ và chọn thực phẩm.',garden:'Chăm một góc vườn nhỏ.',walk:'Bắt đầu thói quen đi bộ.'};
 const topicLabels={'Environment':'Môi trường','Daily life':'Đời sống','Sport':'Thể thao'};
-const topicStyles={Environment:{id:'environment',path:'<path d="M20 3C9 2 3 7 5 14c2 6 13 5 15-11Z M4 21l11-12"/>'},'Daily life':{id:'daily-life',path:'<path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7"/>'},Sport:{id:'sport',path:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-5 5-5 13 0 18M12 3c5 5 5 13 0 18"/>'}};
+const topicStyles={Environment:{id:'environment',path:'<path d="M20 3C9 2 3 7 5 14c2 6 13 5 15-11Z M4 21l11-12"/>'},'Daily life':{id:'daily-life',path:'<path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7"/>'},Sport:{id:'sport',part:'Part 3',path:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-5 5-5 13 0 18M12 3c5 5 5 13 0 18"/>'}};
 
 const cardIcon=name=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${({clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',video:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3Z"/>',audio:'<path d="M4 14v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="12" width="4" height="8" rx="2"/><rect x="17" y="12" width="4" height="8" rx="2"/>',level:'<path d="M5 19v-4m7 4V9m7 10V4"/>',idea:'<path d="M9 18h6m-5 3h4M8 13a6 6 0 1 1 8 0c-1 1-1 2-1 3H9c0-1 0-2-1-3Z"/>'})[name]}</svg>`;
 let hasRendered=false,filterAnimation=null;
@@ -29,18 +29,20 @@ if(session.while?.reviewComplete){state='Đang học · Vận dụng';stage='pos
 if(session.post.choice){state='Đang học · Vận dụng';stage=`${session.post.choice}.html`;}
 if(session.post.skipped){state='Đã bỏ qua phần Vận dụng';stage='post.html';}
 if(session.post.complete.length){state='Đã hoàn thành luyện tập';stage='post.html';}
+let listeningMode='general';
+const generalLevels=Array.from($('#level').options,option=>option.value);
 const filterLabels={topic:'Chủ đề',level:'Trình độ',media:'Nguồn'};
 const filterOptions={topic:{'':'Tất cả',...topicLabels},media:{'':'Tất cả'},level:{'':'Tất cả'}};
-for(const id of ['topic','level','media']){
+function buildFilter(id){
  const select=$('#'+id),field=select.closest('label');
  const group=document.createElement('fieldset');group.className=`filter-group filter-${id}`;
- const legend=document.createElement('legend');legend.textContent=filterLabels[id];
+ const legend=document.createElement('legend');legend.textContent=id==='level'&&listeningMode==='ielts'?'Part':filterLabels[id];
  const choices=document.createElement('div');choices.className='filter-choices';
  for(const option of select.options){
   const button=document.createElement('button');button.type='button';button.className='filter-pill';
   button.textContent=filterOptions[id][option.value]||option.textContent;
   if(option.value===''){
-   const label={media:'Tất cả nguồn',topic:'Tất cả chủ đề',level:'Tất cả trình độ'}[id];
+   const label={media:'Tất cả nguồn',topic:'Tất cả chủ đề',level:listeningMode==='ielts'?'Tất cả Part':'Tất cả trình độ'}[id];
    button.setAttribute('aria-label',label);button.title=label;
    button.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>';
   }
@@ -50,6 +52,21 @@ for(const id of ['topic','level','media']){
  }
  select.hidden=true;group.append(legend,choices,select);field.replaceWith(group);
 }
+for(const id of ['topic','level','media'])buildFilter(id);
+for(const button of document.querySelectorAll('[data-listening-mode]'))button.addEventListener('click',()=>{
+ const nextMode=button.dataset.listeningMode;
+ if(nextMode===listeningMode)return;
+ listeningMode=nextMode;
+ for(const modeButton of document.querySelectorAll('[data-listening-mode]')){
+  const active=modeButton.dataset.listeningMode===listeningMode;
+  modeButton.classList.toggle('is-current',active);modeButton.setAttribute('aria-pressed',String(active));
+ }
+ const select=$('#level'),group=select.closest('fieldset');
+ const field=document.createElement('label');field.className='field';group.replaceWith(field);field.append(select);
+ const values=listeningMode==='ielts'?['','Part 1','Part 2','Part 3','Part 4']:generalLevels;
+ select.replaceChildren(...values.map(value=>new Option(value||'Tất cả',value)));select.value='';
+ buildFilter('level');render();
+});
 $('.filter-topic').before($('.filter-media'));
 
 function syncFilterPills(){
@@ -58,7 +75,7 @@ function syncFilterPills(){
 }
 function render(){
  syncFilterPills();
- const filtered=lessons.filter(l=>(!$('#topic').value||l.topic===$('#topic').value)&&(!$('#level').value||l.level===$('#level').value)&&(!$('#media').value||l.media===$('#media').value));
+ const filtered=lessons.filter(l=>(!$('#topic').value||l.topic===$('#topic').value)&&(!$('#level').value||(listeningMode==='ielts'?l.part:l.level)===$('#level').value)&&(!$('#media').value||l.media===$('#media').value));
  $('#lessons').replaceChildren();$('#empty').hidden=!!filtered.length;$('#result-count').textContent=`${filtered.length} bài học phù hợp`;
  for(const l of filtered){
   const article=document.createElement('article');article.className='lesson-card card';
