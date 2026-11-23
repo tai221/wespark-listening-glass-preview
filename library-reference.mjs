@@ -17,6 +17,12 @@ function updateCovers(){
     const title=card.querySelector('h2').textContent;
     const action=card.querySelector('.lesson-body>.button');
     action.setAttribute('aria-label',`${action.textContent.replace(/\s*→\s*$/,'')} · ${title}`);
+    if(action.textContent.endsWith('→')&&!action.querySelector('.lesson-action-arrow')){
+      const label=action.textContent.replace(/\s*→\s*$/,'');
+      const arrow=document.createElement('span');
+      arrow.className='lesson-action-arrow';arrow.textContent='→';arrow.setAttribute('aria-hidden','true');
+      action.replaceChildren(document.createTextNode(`${label} `),arrow);
+    }
     if(videos[id]){
       art.dataset.coverType='video';
       card.dataset.youtubeSource=`https://www.youtube.com/watch?v=${videos[id]}`;

@@ -16,6 +16,40 @@ body[data-library-version] .library-goals-intro .page-heading p{max-width:none;f
 .listening-goal.is-current:hover{background:#fff3cb}
 .listening-goal.is-current:active{transform:translateY(3px);box-shadow:0 1px 0 #efdfaa}
 .listening-goal:focus-visible{outline:3px solid #a97b13;outline-offset:4px}
+/* Hover feedback stays on artwork and real controls; unavailable modes stay disabled. */
+.library-goals-intro .listening-goal{transition:transform 280ms cubic-bezier(.2,.7,.3,1)}
+.library-goals-intro .goal-art{transform-origin:50% 70%;transition:transform 280ms ease-out}
+body[data-library-version] .project-shell .lesson-art>img{transition:transform 360ms cubic-bezier(.2,.7,.3,1)}
+body[data-library-version] .project-shell .lesson-body>.button{transition:transform 220ms ease-out}
+.lesson-action-arrow{display:inline-block;transition:transform 260ms ease-out}
+body[data-glass-motion="false"] :is(.listening-goal,.goal-art,.lesson-art>img,.lesson-body>.button,.lesson-action-arrow){transform:none!important}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .library-goals-intro .listening-goal:not(:disabled):hover{transform:translateY(-4px)}
+  .library-goals-intro .listening-goal:hover .goal-art{animation:listening-goal-greet 620ms ease-out both}
+  body[data-library-version] .project-shell .lesson-card:hover .lesson-art>img{transform:scale(1.045)}
+  body[data-library-version] .project-shell .lesson-body>.button:hover{transform:translateY(-2px)}
+  .lesson-body>.button:hover .lesson-action-arrow{transform:translateX(4px)}
+}
+@media(prefers-reduced-motion:no-preference){
+  .library-goals-intro .listening-goal:focus-visible .goal-art{animation:listening-goal-greet 620ms ease-out both}
+  .library-goals-intro .listening-goal:not(:disabled):active{transform:translateY(3px);transition-duration:100ms}
+  body[data-library-version] .project-shell .lesson-body>.button:focus-visible{transform:translateY(-2px)}
+  .lesson-body>.button:focus-visible .lesson-action-arrow{transform:translateX(4px)}
+  body[data-library-version] .project-shell .lesson-body>.button:active{transform:translateY(2px);transition-duration:100ms}
+}
+@keyframes listening-goal-greet{
+  0%{transform:translateY(0) rotate(0)}
+  35%{transform:translateY(-6px) rotate(-7deg)}
+  65%{transform:translateY(-3px) rotate(4deg)}
+  100%{transform:translateY(-2px) rotate(0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .library-goals-intro .listening-goal,
+  .library-goals-intro .goal-art,
+  body[data-library-version] .project-shell .lesson-art>img,
+  body[data-library-version] .project-shell .lesson-body>.button,
+  .lesson-action-arrow{animation:none!important;transition:none!important;transform:none!important}
+}
 /* Filter chips: white surfaces and black labels, with yellow for selection. */
 body[data-library-version] .library-filters{background:#fff;--filter-ink:#171717;--filter-muted:#525252;--filter-focus:#80601e}
 body[data-library-version] .library-filters .filter-pill{--chip-bg:#fff;--chip-ink:#171717;--chip-edge:#dedede;--chip-on:#f6d466;--chip-on-edge:#e7c04f}

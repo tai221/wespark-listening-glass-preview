@@ -12,7 +12,7 @@ const element=(tag,cls)=>Object.assign(document.createElement(tag),{className:cl
 export function syncSpeakingLibrary(main){
  document.body.dataset.speakingLibrary='';
  document.body.dataset.libraryVersion='rules-v1';
- const referenceStyle=element('link','');referenceStyle.rel='stylesheet';referenceStyle.href=new URL('./speaking-library-reference.css',import.meta.url).href;document.head.append(referenceStyle);
+ const referenceStyle=element('link','');referenceStyle.rel='stylesheet';referenceStyle.href=new URL('./speaking-library-reference.css?v=20261123-library-hover',import.meta.url).href;document.head.append(referenceStyle);
  document.body.dataset.sparkPage='library';
  const review=element('div','speaking-library-review');
  const index=element('a','');index.href='../index.html';index.textContent='← Mục lục dự án';

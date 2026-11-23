@@ -1,4 +1,4 @@
-import {enhanceSpeaking} from './speaking-layout.mjs';
+import {enhanceSpeaking} from './speaking-layout.mjs?v=20261123-library-hover';
 import {mountSpeakingLessonShell} from './speaking-lesson-shell.mjs';
 import {mountSpeakingStageTransitions} from './speaking-stage-transition.mjs';
 // Desktop shell adapter; move existing lesson nodes to preserve radio/hash state hooks.

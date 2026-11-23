@@ -2,7 +2,7 @@ import {mountEntryDrill} from './speaking-entry-drill.mjs';
 import {mountSpeakingMindmap} from './speaking-mindmap.mjs';
 import {speakingPreparationEntry} from './speaking-preparation-visibility.mjs';
 import {mountSpeakingPreparation} from './speaking-preparation.mjs';
-import {syncSpeakingLibrary} from './speaking-library.mjs';
+import {syncSpeakingLibrary} from './speaking-library.mjs?v=20261123-library-hover';
 import {mountSpeakingCycle} from './speaking-cycle.mjs?v=20261111';
 // Family-specific desktop compositions. The existing radio/hash lesson fixtures remain local.
 const assets='../assets/';

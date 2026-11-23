@@ -138,10 +138,76 @@ html body[data-speaking-library] .speaking-library-mode:focus-visible{outline:2p
 html body[data-speaking-library] .speaking-library-mode:disabled{opacity:1;cursor:default;color:#172034}
 @media(min-width:1100px) and (max-width:1300px){body[data-speaking-library] .speaking-library-header-content{gap:20px;grid-template-columns:minmax(0,1.15fr) minmax(440px,1fr)}body[data-speaking-library] .speaking-library-modes{gap:10px}html body[data-speaking-library] .speaking-library-mode{font-size:15px;min-height:180px}}
 
+/* Match Listening mode hover, press and illustration feedback. */
+html body[data-speaking-library] .speaking-library-mode{transition:transform 280ms cubic-bezier(.2,.7,.3,1)}
+body[data-speaking-library] .speaking-library-mode img{transform-origin:50% 70%;transition:transform 280ms ease-out}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ html body[data-speaking-library] .speaking-library-mode:not(:disabled):hover{transform:translateY(-4px)}
+ body[data-speaking-library] .speaking-library-mode:hover img{animation:speaking-mode-greet 620ms ease-out both}
+}
+@media(prefers-reduced-motion:no-preference){
+ body[data-speaking-library] .speaking-library-mode:focus-visible img{animation:speaking-mode-greet 620ms ease-out both}
+ html body[data-speaking-library] .speaking-library-mode:not(:disabled):active{transform:translateY(3px);transition-duration:100ms}
+}
+@keyframes speaking-mode-greet{
+ 0%{transform:translateY(0) rotate(0)}
+ 35%{transform:translateY(-6px) rotate(-7deg)}
+ 65%{transform:translateY(-3px) rotate(4deg)}
+ 100%{transform:translateY(-2px) rotate(0)}
+}
+body[data-speaking-library][data-glass-motion="false"] .speaking-library-mode,
+body[data-speaking-library][data-glass-motion="false"] .speaking-library-mode img{animation:none!important;transition:none!important;transform:none!important}
+@media(prefers-reduced-motion:reduce){
+ html body[data-speaking-library] .speaking-library-mode,
+ body[data-speaking-library] .speaking-library-mode img{animation:none!important;transition:none!important;transform:none!important}
+}
+
 html body[data-speaking-library] .project-shell .project-nav-item[aria-current]{color:#172034}
 
 /* Soft color ribbons at the header corner, following the supplied Listening reference. */
 @media(min-width:1100px){
  body[data-speaking-library] .speaking-library-heading{position:relative;isolation:isolate}
  body[data-speaking-library] .speaking-library-heading::before{content:"";position:absolute;z-index:-1;top:-24px;right:-24px;width:70%;height:166px;background:url("assets/speaking-modes/header-color-waves.svg") right top/100% 100% no-repeat;pointer-events:none}
+}
+
+/* Gentle feedback for the Part, topic and question browser. */
+body[data-speaking-library] .practice-part-tab{transition:background-color 220ms ease-out,border-color 220ms ease-out,transform 220ms cubic-bezier(.2,.7,.3,1)}
+body[data-speaking-library] .practice-part-tab:not([aria-selected=true]):is(:hover,:focus-visible){background:#fff1cb}
+body[data-speaking-library] .practice-topic{transition:background-color 220ms ease-out,border-color 220ms ease-out}
+body[data-speaking-library] .practice-topic-arrow{visibility:visible;opacity:0;transition:opacity 200ms ease-out,transform 240ms ease-out}
+body[data-speaking-library] .practice-topic:is(:hover,:focus-visible,[aria-pressed=true]) .practice-topic-arrow{opacity:1}
+body[data-speaking-library] .practice-topic-icon img{transform-origin:50% 70%;transition:transform 240ms ease-out}
+body[data-speaking-library] :is(.practice-question-row,.practice-cue-summary){transition:background-color 220ms ease-out}
+body[data-speaking-library] .practice-question-row{cursor:default}
+body[data-speaking-library] .practice-question-row:hover,
+body[data-speaking-library] .practice-cue-summary:is(:hover,:focus-visible){background:#fff2d4}
+body[data-speaking-library] .practice-question-number{transition:background-color 220ms ease-out}
+body[data-speaking-library] .practice-question-row:hover .practice-question-number,
+body[data-speaking-library] .practice-cue-summary:is(:hover,:focus-visible) .practice-question-number{background:#ffe49a}
+body[data-speaking-library] .practice-cue-chevron{transition:transform 240ms ease-out}
+body[data-speaking-library] .practice-cue-chevron svg{transition:transform 240ms ease-out}
+@media(prefers-reduced-motion:no-preference){
+ body[data-speaking-library] .practice-topic:focus-visible .practice-topic-icon img{animation:speaking-topic-greet 480ms ease-out both}
+ body[data-speaking-library] .practice-topic:focus-visible .practice-topic-arrow{transform:translateX(3px)}
+ body[data-speaking-library] .practice-cue-summary:focus-visible .practice-cue-chevron{transform:translateY(2px)}
+}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ body[data-speaking-library] .practice-part-tab:not([aria-selected=true]):hover{transform:translateY(-2px)}
+ body[data-speaking-library] .practice-part-tab:not([aria-selected=true]):active{transform:none;transition-duration:100ms}
+ body[data-speaking-library] .practice-topic:hover .practice-topic-icon img{animation:speaking-topic-greet 480ms ease-out both}
+ body[data-speaking-library] .practice-topic:hover .practice-topic-arrow{transform:translateX(3px)}
+ body[data-speaking-library] .practice-cue-summary:hover .practice-cue-chevron{transform:translateY(2px)}
+ body[data-speaking-library] .practice-cue-item[open] .practice-cue-summary:hover .practice-cue-chevron{transform:translateY(-2px)}
+}
+@keyframes speaking-topic-greet{
+ 0%{transform:scale(1) rotate(0)}
+ 45%{transform:scale(1.07) rotate(-4deg)}
+ 75%{transform:scale(1.04) rotate(2deg)}
+ 100%{transform:scale(1.05) rotate(0)}
+}
+body[data-speaking-library][data-glass-motion="false"] :is(.practice-part-tab,.practice-topic-icon img,.practice-topic-arrow,.practice-cue-chevron){animation:none!important;transform:none!important}
+body[data-speaking-library][data-glass-motion="false"] .speaking-practice-library *{transition:none!important}
+@media(prefers-reduced-motion:reduce){
+ body[data-speaking-library] :is(.practice-part-tab,.practice-topic-icon img,.practice-topic-arrow,.practice-cue-chevron){animation:none!important;transform:none!important}
+ body[data-speaking-library] .speaking-practice-library *{transition:none!important}
 }
