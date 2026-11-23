@@ -29,6 +29,47 @@ if(session.while?.reviewComplete){state='Đang học · Vận dụng';stage='pos
 if(session.post.choice){state='Đang học · Vận dụng';stage=`${session.post.choice}.html`;}
 if(session.post.skipped){state='Đã bỏ qua phần Vận dụng';stage='post.html';}
 if(session.post.complete.length){state='Đã hoàn thành luyện tập';stage='post.html';}
+const mockTests=[
+ {title:'IELTS Listening Test 01',status:'complete'},
+ {title:'IELTS Listening Test 02',status:'progress'},
+ {title:'IELTS Listening Test 03',status:'new'},
+ {title:'IELTS Listening Test 04',status:'new'},
+ {title:'IELTS Listening Test 05',status:'new'},
+ {title:'IELTS Listening Test 06',status:'new'}
+];
+const testStates={new:{label:'Chưa làm',action:'Bắt đầu'},progress:{label:'Đang làm',action:'Tiếp tục'},complete:{label:'Đã hoàn thành',action:'Xem kết quả'}};
+const lessonNotice=$('#lesson-detail .notice').textContent;
+let testStatus='';
+const testFilters=document.createElement('div');testFilters.className='library-filters test-filters';
+const statusGroup=document.createElement('fieldset');statusGroup.className='filter-group';
+const statusLegend=document.createElement('legend');statusLegend.textContent='Trạng thái làm bài';
+const statusChoices=document.createElement('div');statusChoices.className='filter-choices';
+for(const [value,label] of [['','Tất cả'],...Object.entries(testStates).map(([key,state])=>[key,state.label])]){
+ const button=document.createElement('button');button.type='button';button.className='filter-pill';button.textContent=label;button.dataset.status=value;button.setAttribute('aria-pressed',String(value===testStatus));
+ button.addEventListener('click',()=>{testStatus=value;render();});statusChoices.append(button);
+}
+statusGroup.append(statusLegend,statusChoices);testFilters.append(statusGroup);$('.library-filters').before(testFilters);
+function renderTests(){
+ const filtered=mockTests.filter(test=>!testStatus||test.status===testStatus);
+ for(const button of statusChoices.children)button.setAttribute('aria-pressed',String(button.dataset.status===testStatus));
+ $('#empty').hidden=true;$('#result-count').textContent=`${filtered.length} đề thi thử IELTS`;
+ $('#lessons').replaceChildren();
+ for(const test of filtered){
+  const state=testStates[test.status],card=document.createElement('article');card.className='test-card card';
+  const title=document.createElement('h2');title.textContent=test.title;
+  const status=document.createElement('span');status.className='test-status';status.dataset.state=test.status;
+  const icon=document.createElement('span');icon.className='test-status-mark';icon.setAttribute('aria-hidden','true');icon.textContent=test.status==='complete'?'✓':test.status==='progress'?'◔':'○';
+  status.append(icon,document.createTextNode(state.label));
+  const action=document.createElement('button');action.type='button';action.className=`button ${test.status==='complete'?'secondary':'primary'}`;action.textContent=state.action;action.setAttribute('aria-label',`${state.action} · ${test.title}`);
+  action.addEventListener('click',()=>{
+   $('#detail-title').textContent=test.title;$('#detail-description').textContent=`Trạng thái minh họa: ${state.label.toLowerCase()}.`;
+   $('#detail-meta').textContent='Thi thử IELTS Listening';
+   $('#lesson-detail .notice').textContent='Đây là bản xem thử danh sách đề. Luồng làm bài và xem kết quả sẽ được bổ sung ở bước tiếp theo.';
+   $('#lesson-detail').showModal();
+  });
+  card.append(title,status,action);$('#lessons').append(card);
+ }
+}
 let listeningMode='general';
 const generalLevels=Array.from($('#level').options,option=>option.value);
 const filterLabels={topic:'Chủ đề',level:'Trình độ',media:'Nguồn'};
@@ -56,7 +97,7 @@ for(const id of ['topic','level','media'])buildFilter(id);
 for(const button of document.querySelectorAll('[data-listening-mode]'))button.addEventListener('click',()=>{
  const nextMode=button.dataset.listeningMode;
  if(nextMode===listeningMode)return;
- listeningMode=nextMode;
+ listeningMode=nextMode;document.body.dataset.listeningMode=listeningMode;
  for(const modeButton of document.querySelectorAll('[data-listening-mode]')){
   const active=modeButton.dataset.listeningMode===listeningMode;
   modeButton.classList.toggle('is-current',active);modeButton.setAttribute('aria-pressed',String(active));
@@ -75,6 +116,8 @@ function syncFilterPills(){
 }
 function render(){
  syncFilterPills();
+ $('#lessons').classList.toggle('test-list',listeningMode==='test');
+ if(listeningMode==='test'){renderTests();return;}
  const filtered=lessons.filter(l=>(!$('#topic').value||l.topic===$('#topic').value)&&(!$('#level').value||(listeningMode==='ielts'?l.part:l.level)===$('#level').value)&&(!$('#media').value||l.media===$('#media').value));
  $('#lessons').replaceChildren();$('#empty').hidden=!!filtered.length;$('#result-count').textContent=`${filtered.length} bài học phù hợp`;
  for(const l of filtered){
@@ -90,7 +133,7 @@ function render(){
   const statusPath=completed?'<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>':started?'<circle class="status-track" cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/><path class="status-play" d="m10 8 6 4-6 4Z"/>':'<circle cx="12" cy="12" r="9"/>';
   status.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${statusPath}</svg>`;body.append(status);
   if(l.id==='planet'){const a=document.createElement('a');a.className='button primary';a.href=stage;a.textContent=completed?'Luyện thêm →':state==='Chưa học'?'Bắt đầu học →':'Tiếp tục →';body.append(a);}
-  else {const b=document.createElement('button');b.className='button secondary';b.textContent='Thông tin bài';b.addEventListener('click',()=>{$('#detail-title').textContent=l.title;$('#detail-description').textContent=l.description;$('#detail-meta').textContent=`${l.topic} · ${l.level} · ${l.media} ${l.duration}`;$('#lesson-detail').showModal();});body.append(b);}
+  else {const b=document.createElement('button');b.className='button secondary';b.textContent='Thông tin bài';b.addEventListener('click',()=>{$('#lesson-detail .notice').textContent=lessonNotice;$('#detail-title').textContent=l.title;$('#detail-description').textContent=l.description;$('#detail-meta').textContent=`${l.topic} · ${l.level} · ${l.media} ${l.duration}`;$('#lesson-detail').showModal();});body.append(b);}
   article.append(image,body);$('#lessons').append(article);
  }
  if(hasRendered&&companion?.dataset.sparkMotion==='true'&&$('#lessons').animate){

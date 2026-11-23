@@ -5,19 +5,20 @@ body[data-library-version] .library-goals-intro .page-heading h1{font-size:34px!
 body[data-library-version] .library-goals-intro .page-heading p{max-width:none;font-size:15px;line-height:1.6;margin:0}
 .library-header-content{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:32px;margin-top:28px}
 .listening-goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:0 0 5px}
-.listening-goal{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:190px;padding:18px 8px 24px;border:2px solid #fff;border-radius:26px;background:#f0eef9;color:#172034;text-align:center;text-decoration:none;box-shadow:0 4px 0 #e6e4ed,0 7px 12px #1720340b;font-size:15px;line-height:1.5;font-weight:750}
-.listening-goal.is-current{background:#fff9e5;border-color:#e9c253;box-shadow:0 4px 0 #efdfaa,0 7px 12px #a98a2912}
-.listening-goal[data-listening-mode="general"]:not(.is-current){background:#e8f3ff;box-shadow:0 4px 0 #d7e6f3,0 7px 12px #1720340b}
-.listening-goal.goal-test{background:#f3edfa}
-.listening-goal.goal-ielts{background:#e8f3ff;box-shadow:0 4px 0 #d7e6f3,0 7px 12px #1720340b}
-.listening-goal.goal-ielts.is-current{background:#fff9e5;border-color:#e9c253;box-shadow:0 4px 0 #efdfaa,0 7px 12px #a98a2912}
+.listening-goal{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:190px;padding:18px 8px 24px;border:2px solid #fff;border-radius:26px;background:var(--goal-bg,#fff9e5);color:#172034;text-align:center;text-decoration:none;box-shadow:0 4px 0 var(--goal-edge,#efdfaa),0 7px 12px #1720340b;font-size:15px;line-height:1.5;font-weight:750}
+.listening-goal.is-current{border-color:#e9c253;box-shadow:0 4px 0 var(--goal-edge,#efdfaa),0 7px 12px #a98a2912}
+.listening-goal.is-current::after{content:"";position:absolute;bottom:12px;left:50%;width:32px;height:4px;border-radius:999px;background:#d4a124;transform:translateX(-50%);pointer-events:none}
+.listening-goal[data-listening-mode="general"]{--goal-bg:#fff9e5;--goal-edge:#efdfaa;--goal-hover:#fff3cb}
+.listening-goal.goal-test{--goal-bg:#f3edfa;--goal-edge:#e6deef;--goal-hover:#eee4f8}
+.listening-goal.goal-ielts{--goal-bg:#e8f3ff;--goal-edge:#d7e6f3;--goal-hover:#deedff}
+
 .listening-goal:not(:disabled){cursor:pointer;font-family:inherit}
 .listening-goal strong{display:block;font-size:18px;font-weight:800;line-height:1.4}
 .listening-goal .goal-art{height:72px;width:78px;flex:none}
 .listening-goal small{position:absolute;bottom:7px;font-size:10px;color:#676174;font-weight:500}
 .listening-goal:disabled{opacity:1;cursor:default}
-.listening-goal.is-current:hover{background:#fff3cb}
-.listening-goal.is-current:active{transform:translateY(3px);box-shadow:0 1px 0 #efdfaa}
+.listening-goal:not(:disabled):hover{background:var(--goal-hover,#fff3cb)}
+.listening-goal.is-current:active{transform:translateY(3px);box-shadow:0 1px 0 var(--goal-edge,#efdfaa)}
 .listening-goal:focus-visible{outline:3px solid #a97b13;outline-offset:4px}
 /* Hover feedback stays on artwork and real controls; unavailable modes stay disabled. */
 .library-goals-intro .listening-goal{transition:transform 280ms cubic-bezier(.2,.7,.3,1)}
@@ -58,6 +59,23 @@ body[data-library-version] .library-filters{background:#fff;--filter-ink:#171717
 body[data-library-version] .library-filters .filter-pill{--chip-bg:#fff;--chip-ink:#171717;--chip-edge:#dedede;--chip-on:#f6d466;--chip-on-edge:#e7c04f}
 body[data-library-version] .library-filters .filter-pill:hover{border-color:#9b9b9b}
 body[data-library-version] .library-filters .filter-pill[aria-pressed="true"]{color:#171717}
-@media(min-width:1100px) and (max-width:1300px){.library-header-content{gap:20px;grid-template-columns:minmax(0,1.15fr) minmax(440px,1fr)}.listening-goals{gap:10px}.listening-goal{min-height:180px;font-size:13px}.listening-goal.goal-ielts.is-current{background:#fff9e5;border-color:#e9c253;box-shadow:0 4px 0 #efdfaa,0 7px 12px #a98a2912}
+@media(min-width:1100px) and (max-width:1300px){.library-header-content{gap:20px;grid-template-columns:minmax(0,1.15fr) minmax(440px,1fr)}.listening-goals{gap:10px}.listening-goal{min-height:180px;font-size:13px}
 .listening-goal:not(:disabled){cursor:pointer;font-family:inherit}
 .listening-goal strong{font-size:15px}}
+
+/* Mock IELTS tests share the library shell, with only title, status and access. */
+
+body[data-listening-mode="test"] .library-filters:not(.test-filters),
+body[data-listening-mode="test"] #clear{display:none!important}
+body[data-library-version] .project-shell .lesson-grid.test-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+body[data-library-version] .project-shell .test-card{display:grid;grid-template-columns:minmax(0,1fr) max-content;align-items:center;gap:12px 8px;min-height:104px;padding:14px 16px;background:#fff;border:1.5px solid #384052;border-radius:20px;box-shadow:0 3px 1px #17203430,0 5px 10px #17203408;cursor:default}
+body[data-library-version] .project-shell .test-card h2{grid-column:1/-1;margin:0;font-size:14px;font-weight:750;line-height:1.5;letter-spacing:-.02em;overflow-wrap:anywhere}
+.test-status{display:flex;align-items:center;gap:6px;color:#555b68;font-size:12px;font-weight:600;white-space:nowrap}
+.test-status[data-state="progress"]{color:#856019}
+.test-status[data-state="complete"]{color:#28704a}
+.test-status-mark{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;font-size:17px;line-height:1}
+body[data-library-version] .project-shell .test-card>.button{width:auto;min-width:106px;min-height:36px;padding:6px 12px;border-radius:10px;font-size:12px;font-weight:750;line-height:1.5}
+body[data-library-version] .project-shell .test-card>.button:focus-visible{outline:3px solid #a97b13;outline-offset:4px}
+
+body[data-library-version] .project-shell .library-filters.test-filters{display:none}
+body[data-library-version][data-listening-mode="test"] .project-shell .library-filters.test-filters{display:flex;justify-content:flex-start;padding:10px 0}
