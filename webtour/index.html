@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fcf6f1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 48'%3E%3Cpath fill='%23ffbd22' d='M27 2 5 27h15L12 46l22-29H20Z'/%3E%3C/svg%3E">
+  <title>WeSpark · Khởi đầu hành trình</title>
+  <link rel="stylesheet" href="tour.css">
+  <script src="tour.js" defer></script>
+</head>
+<body>
+  <main class="scene" aria-label="Giới thiệu WeSpark">
+    <header class="header">
+      <div class="logo" aria-label="WeSpark">We<span>Spark</span><svg viewBox="0 0 36 48" aria-hidden="true"><path d="M27 2 5 27h15L12 46l22-29H20Z"/></svg></div>
+      <ol class="progress" aria-label="Tiến trình giới thiệu">
+        <li aria-current="step"><span class="sr-only">Bước 1, Khám phá</span></li>
+        <li><span class="sr-only">Bước 2, Thấu hiểu</span></li>
+        <li><span class="sr-only">Bước 3, Định hướng</span></li>
+        <li><span class="sr-only">Bước 4, Kiên trì</span></li>
+        <li><span class="sr-only">Bước 5, Cộng đồng</span></li>
+        <li><span class="sr-only">Bước 6, Chinh phục</span></li>
+      </ol>
+    </header>
+
+    <div class="feature listening reveal" style="--delay:3.8s" aria-hidden="true">
+      <div class="glass-card float-card">
+        <div class="audio-row"><svg class="headphones" viewBox="0 0 64 64"><path d="M12 39V29a20 20 0 0 1 40 0v10"/><rect x="8" y="32" width="12" height="22" rx="6"/><rect x="44" y="32" width="12" height="22" rx="6"/></svg><div class="wave" data-wave></div><span class="play">▶</span></div>
+        <div class="skeleton wide"></div><div class="skeleton medium"></div>
+        <i class="glint corner" style="--phase:1.3s"></i>
+      </div>
+    </div>
+    <div class="feature speaking reveal" style="--delay:4.5s" aria-hidden="true">
+      <div class="glass-card float-card">
+        <div class="audio-row"><span class="microphone"><svg viewBox="0 0 40 48"><rect x="14" y="3" width="12" height="27" rx="6"/><path d="M8 22v3a12 12 0 0 0 24 0v-3M20 37v8m-7 0h14"/></svg></span><div class="wave" data-wave></div></div>
+        <div class="speech-lines"><i></i><div class="skeleton"></div><i></i><div class="skeleton"></div></div>
+        <i class="glint corner" style="--phase:3.7s"></i>
+      </div>
+    </div>
+    <div class="feature goal reveal" style="--delay:5.2s" aria-hidden="true">
+      <div class="glass-card float-card">
+        <div class="target"><span></span><i></i></div><div class="goal-lines"><div class="skeleton wide"></div><div class="skeleton medium"></div></div>
+        <i class="glint corner" style="--phase:5.6s"></i>
+      </div>
+    </div>
+    <div class="feature growth reveal" style="--delay:4.2s" aria-hidden="true">
+      <div class="glass-card float-card">
+        <div class="skeleton small"></div><div class="skeleton medium"></div>
+        <div class="chart"><div class="bars"><i style="--bar:20%"></i><i style="--bar:31%"></i><i style="--bar:45%"></i><i style="--bar:57%"></i><i style="--bar:76%"></i><i style="--bar:100%"></i></div><svg viewBox="0 0 260 120"><path d="M8 109 57 91 106 78 155 57 204 35 250 6"/><g><circle cx="8" cy="109" r="4"/><circle cx="57" cy="91" r="4"/><circle cx="106" cy="78" r="4"/><circle cx="155" cy="57" r="4"/><circle cx="204" cy="35" r="4"/><circle cx="250" cy="6" r="5"/></g></svg></div>
+        <i class="glint chart-light" style="--phase:2.4s"></i>
+      </div>
+    </div>
+    <div class="feature tasks reveal" style="--delay:4.9s" aria-hidden="true">
+      <div class="glass-card float-card">
+        <div class="task"><span class="check">✓</span><div><div class="skeleton wide"></div><div class="skeleton small"></div></div></div>
+        <div class="task"><span class="check">✓</span><div><div class="skeleton wide"></div><div class="skeleton medium"></div></div></div>
+        <div class="task"><span class="check empty"></span><div><div class="skeleton medium"></div><div class="skeleton small"></div></div></div>
+        <i class="glint corner" style="--phase:4.6s"></i>
+      </div>
+    </div>
+    <div class="feature community reveal" style="--delay:5.6s" aria-hidden="true">
+      <div class="glass-card float-card"><div class="avatars"><span class="avatar avatar-one"></span><span class="avatar avatar-two"></span><span class="avatar avatar-three"></span></div><span class="add-person">+</span><i class="glint corner" style="--phase:6.4s"></i></div>
+    </div>
+
+    <section class="message" aria-labelledby="welcome-title">
+      <h1 id="welcome-title"><span class="reveal title-first" style="--delay:.2s">Chúng tôi không tạo ra</span><span class="reveal title-second" style="--delay:1.3s">một <em>website luyện tập</em></span><span class="reveal title-third" style="--delay:2s">đơn thuần.</span></h1>
+      <p class="description reveal" style="--delay:3s">Chúng tôi tạo ra một người đồng hành giúp bạn hiểu bản thân,<br> biết mình cần làm gì và từng bước chinh phục mục tiêu tiếng Anh.</p>
+      <a class="explore" href="step-2.html">Khám phá WeSpark <span aria-hidden="true">→</span></a>
+    </section>
+
+    <div class="journey reveal" style="--delay:6.1s" aria-hidden="true">
+      <svg class="route" viewBox="0 0 1672 941">
+        <defs><filter id="road-glow" x="-30%" y="-200%" width="160%" height="500%"><feGaussianBlur stdDeviation="10"/></filter></defs>
+        <path class="road-halo" d="M230 913C350 868 427 890 550 873S747 824 864 842 1090 808 1205 804"/>
+        <path class="road" d="M230 913C350 868 427 890 550 873S747 824 864 842 1090 808 1205 804"/>
+        <path class="road-travel" d="M230 913C350 868 427 890 550 873S747 824 864 842 1090 808 1205 804"/>
+        <g class="road-stops"><circle cx="652" cy="855" r="13"/><circle cx="835" cy="839" r="13"/><circle cx="1034" cy="825" r="13"/></g>
+        <ellipse cx="1205" cy="804" rx="23" ry="8" fill="#ffd150" stroke="white" stroke-width="4"/>
+      </svg>
+      <i class="glint road-light" style="left:652px;top:855px;--phase:0s"></i><i class="glint road-light" style="left:835px;top:839px;--phase:1.5s"></i><i class="glint road-light" style="left:1034px;top:825px;--phase:3s"></i><i class="glint road-light" style="left:1205px;top:804px;--phase:4.5s"></i>
+      <div class="flag"><span><svg viewBox="0 0 36 48"><path d="M27 2 5 27h15L12 46l22-29H20Z"/></svg></span></div>
+    </div>
+    <div class="mascot reveal" style="--delay:6.6s"><img src="assets/spark-walking.png" alt="Spark đeo ba lô, hào hứng dẫn bạn vào hành trình học" width="270" height="270"><span class="mascot-shadow" aria-hidden="true"></span></div>
+    <p class="spark-message reveal" style="--delay:7.6s">“Mình sẽ dẫn bạn đi xem điều gì<br> làm WeSpark khác biệt nhé!”</p>
+  </main>
+  <div class="preview-controls" aria-label="Điều khiển hiệu ứng"><button id="replay" type="button" title="Phát lại từ đầu"><span aria-hidden="true">↻</span> Xem lại</button><button id="motion" type="button" aria-pressed="false">Tạm dừng hiệu ứng</button></div>
+</body>
+</html>
