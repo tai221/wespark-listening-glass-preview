@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WeSpark · Thấu hiểu 2D</title>
+  <meta name="theme-color" content="#fcf6f1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 48'%3E%3Cpath fill='%23ffbd22' d='M27 2 5 27h15L12 46l22-29H20Z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="tour.css">
+  <link rel="stylesheet" href="step-2.css">
+  <link rel="stylesheet" href="tour-2d.css">
+  <link rel="stylesheet" href="step-2-2d.css">
+  <script src="tour.js" defer></script>
+</head>
+<body class="tour-2d">
+  <main class="scene understand" aria-labelledby="understand-title">
+    <header class="understand-header">
+      <a href="index-2d.html" class="logo" aria-label="WeSpark, quay lại màn đầu">We<span>Spark</span><svg viewBox="0 0 36 48" aria-hidden="true"><path d="M27 2 5 27h15L12 46l22-29H20Z"/></svg></a>
+    </header>
+    <div class="ribbon-scene" aria-hidden="true">
+      <svg viewBox="0 0 1672 941" class="ribbon">
+        <defs>
+          <linearGradient id="ribbon-gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe9a0"/><stop offset=".42" stop-color="#ffe787"/><stop offset=".7" stop-color="#ffc737"/><stop offset="1" stop-color="#fff5a4"/></linearGradient>
+          <filter id="ribbon-glow" x="-15%" y="-20%" width="130%" height="140%"><feGaussianBlur stdDeviation="8"/></filter>
+          <path id="ribbon-path" d="M-30 893C155 730 346 725 534 738S868 827 1090 854 1360 841 1513 734 1558 555 1479 535 1425 595 1454 420 1298 263 1231 156 1220 27 1080 39 768 143 607 164"/>
+        </defs>
+        <use href="#ribbon-path" class="ribbon-aura"/>
+        <use href="#ribbon-path" class="ribbon-body"/>
+        <use href="#ribbon-path" class="ribbon-edge"/>
+        <use href="#ribbon-path" class="ribbon-trace"/>
+      </svg>
+      <i class="glint" style="left:1070px;top:854px;--phase:2.8s"></i>
+      <i class="glint" style="left:1198px;top:71px;--phase:5s"></i>
+      <i class="glint" style="left:1512px;top:734px;--phase:6.4s"></i>
+    </div>
+    <section class="understand-copy">
+      <div class="step-label"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="13" cy="13" r="9"/><path d="m20 20 8 8"/></svg>Thấu hiểu</div>
+      <h1 id="understand-title"><span class="reveal" style="--delay:.2s">Chúng tôi<br>thấu hiểu bạn</span><span class="reveal gold-phrase" style="--delay:1.3s">chân tơ kẽ tóc.</span></h1>
+      <svg class="title-stroke reveal" style="--delay:1.8s" viewBox="0 0 260 60" aria-hidden="true"><path d="M12 47Q132-2 247 8Q131 10 13 54Z"/></svg>
+    </section>
+    <div class="board-position reveal" style="--delay:2.3s">
+      <section class="analysis-board" aria-label="Ví dụ phân tích câu trả lời">
+        <div class="board-inner">
+          <p class="sample-sentence reveal" style="--delay:3.1s" lang="en">My hometown <mark class="grammar-error">have<span class="error-rays" aria-hidden="true"><i></i><i></i><i></i></span></mark> many<br>beautiful beaches.</p>
+          <div class="correction reveal" style="--delay:5.4s" aria-label="Sửa have thành has">
+            <span class="wrong-word" lang="en">have</span>
+            <svg class="correction-arrow" viewBox="0 0 48 40" aria-hidden="true"><path d="M5 20h35M28 8l12 12-12 12"/></svg>
+            <span class="right-word" lang="en">has<svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22"/><path d="m11 22 8 8 15-17"/></svg></span>
+          </div>
+          <div class="explanation reveal" style="--delay:7.3s">
+            <svg class="bulb" viewBox="0 0 48 64" aria-hidden="true"><path d="M14 43c0-8-9-12-9-23a19 19 0 0 1 38 0c0 11-9 15-9 23v7H14ZM16 56h16M21 62h6M23 44V26l-7-6m7 6 8-6"/></svg>
+            <p><strong>“My hometown” là chủ ngữ số ít.</strong><span>Dùng “has” ở thì hiện tại đơn.</span></p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="score-position reveal" style="--delay:9s">
+      <aside class="score-card" aria-label="Điểm minh họa 5.5">
+        <div class="score-bars" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p class="score-label">Điểm minh họa</p><strong class="score">5.5</strong>
+        <div class="score-track" aria-hidden="true"><span></span></div>
+        <i class="glint score-glint" style="--phase:3.4s" aria-hidden="true"></i>
+      </aside>
+    </div>
+    <div class="teacher-position reveal" style="--delay:4.1s"><img class="teacher-spark" src="assets/spark-teacher-2d.png" width="410" height="410" alt="Spark cầm que chỉ, hướng dẫn bạn hiểu lỗi trong câu trả lời"><span class="teacher-shadow" aria-hidden="true"></span></div>
+    <div class="skill-tile tile-listening reveal" style="--delay:9.6s" aria-hidden="true"><div class="skill-tile-inner"><svg viewBox="0 0 80 80"><path d="M14 48V35a26 26 0 0 1 52 0v13"/><rect x="8" y="40" width="17" height="28" rx="8"/><rect x="55" y="40" width="17" height="28" rx="8"/></svg></div></div>
+    <div class="skill-tile tile-reading reveal" style="--delay:10s" aria-hidden="true"><div class="skill-tile-inner"><svg viewBox="0 0 90 80"><path d="M45 17C34 8 18 8 8 13v54c13-5 26-4 37 5 11-9 24-10 37-5V13c-10-5-26-5-37 4ZM45 17v55"/></svg></div></div>
+    <div class="skill-tile tile-speaking reveal" style="--delay:10.3s" aria-hidden="true"><div class="skill-tile-inner"><svg viewBox="0 0 70 90"><rect x="24" y="5" width="26" height="51" rx="13"/><path d="M14 42v6a23 23 0 0 0 46 0v-6M37 71v14M24 85h26"/></svg></div></div>
+    <nav class="tour-navigation" aria-label="Chuyển bước giới thiệu">
+      <a class="back-link" href="index-2d.html"><span aria-hidden="true">←</span> Quay lại</a>
+      <ol class="tour-dots" aria-label="Bước 2 trên 6"><li class="visited" aria-label="Bước 1, Khám phá"></li><li aria-current="step" aria-label="Bước 2, Thấu hiểu"></li><li aria-label="Bước 3, Định hướng"></li><li aria-label="Bước 4, Kiên trì"></li><li aria-label="Bước 5, Cộng đồng"></li><li aria-label="Bước 6, Chinh phục"></li></ol>
+      <a class="next-link" href="step-3-2d.html">Xem lộ trình <span aria-hidden="true">→</span></a>
+    </nav>
+  </main>
+  <a class="compare-version" href="step-2.html">Xem bản 3D</a>
+  <div class="preview-controls" aria-label="Điều khiển hiệu ứng"><button id="replay" type="button" title="Phát lại từ đầu"><span aria-hidden="true">↻</span> Xem lại</button><button id="motion" type="button" aria-pressed="false">Tạm dừng hiệu ứng</button></div>
+</body>
+</html>

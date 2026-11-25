@@ -1,0 +1,57 @@
+body.tour-2d { background: #fffaf3; }
+.tour-2d .glass-card {
+  background: #fffaf3;
+  border: 2.5px solid #111c3b;
+  box-shadow: 4px 8px 0 #ffe6a5;
+  border-radius: 33px;
+}
+.tour-2d .glass-card:before { display: none; }
+.tour-2d .progress:before { background: #111c3b; }
+.tour-2d .progress li { border: 2px solid #111c3b; background: #fffaf3; box-shadow: none; }
+.tour-2d .progress li[aria-current] { background: #ffd22e; box-shadow: 0 0 0 10px #ffefbf; }
+.tour-2d .progress li[aria-current]:after { border-color: #ffda55; }
+.tour-2d .headphones { stroke: #142344; fill: #ffdc54; filter: none; stroke-width: 3; }
+.tour-2d .microphone { background: #ffe58b; border: 0; }
+.tour-2d .microphone svg { stroke: #142344; fill: #ffd444; }
+.tour-2d .play { border: 2px solid #142344; color: #142344; background: #ffda4a; }
+.tour-2d .skeleton { background: #c5c3c8; }
+.tour-2d .speech-lines i { background: #ffcb34; }
+.tour-2d .bars i { background: #ffdc56; border: 2px solid #142344; }
+.tour-2d .chart svg { stroke: #142344; fill: #ffd545; stroke-width: 2; }
+.tour-2d .chart path { stroke: #e3a800; }
+.tour-2d .check { background: #ffe074; border: 2px solid #142344; color: #142344; font-size: 22px; }
+.tour-2d .check.empty { background: #fffaf3; }
+.tour-2d .target { border: 3px solid #142344; background: #fffaf3; box-shadow: none; }
+.tour-2d .target:before { inset: 10px; border: 3px solid #142344; }
+.tour-2d .target:after { content: ''; position: absolute; inset: 22px; border: 2px solid #142344; border-radius: 50%; }
+.tour-2d .target i { background: #ffcd38; border: 1px solid #142344; box-shadow: none; height: 6px; z-index: 1; }
+.tour-2d .target i:after { background: #ffc532; }
+.tour-2d .avatar { background-image: url('assets/welcome-2d-reference.png'); border: 2px solid #142344; box-shadow: none; }
+.tour-2d .avatar-one { background-position: -1283px -587px; }
+.tour-2d .avatar-two { background-position: -1359px -588px; }
+.tour-2d .avatar-three { background-position: -1434px -587px; }
+.tour-2d .add-person { background: #ffdf76; color: #77531b; }
+.tour-2d .explore { background: #ffd332; border: 2.5px solid #142344; box-shadow: none; }
+.tour-2d .explore:hover { background: #ffdc58; box-shadow: 0 5px 0 #ffe6a5; }
+.tour-2d .explore:after { display: none; }
+.tour-2d .description { color: #505d84; }
+.tour-2d .spark-message { background: #fffaf3; border: 2.5px solid #142344; box-shadow: none; }
+.tour-2d .spark-message:before { background: #fffaf3; width: 20px; height: 20px; left: -11px; clip-path: none; border-left: 2.5px solid #142344; border-bottom: 2.5px solid #142344; transform: rotate(45deg); border-radius: 0 0 0 5px; }
+.tour-2d .mascot img { filter: none; }
+.tour-2d .mascot-shadow { filter: none; background: #fff0c9; height: 19px; width: 185px; left: 40px; }
+.tour-2d .road-halo { display: none; }
+.tour-2d .road { stroke: #ffd02d; stroke-width: 5; }
+.tour-2d .road-travel { stroke: #fff8d4; stroke-width: 3; }
+.tour-2d .road-stops { filter: none; fill: #ffcb25; }
+.tour-2d .flag { border-color: #142344; }
+.tour-2d .flag span { background: #ffd12c; filter: none; }
+.tour-2d .glint { background: none; }
+.tour-2d .glint:before, .tour-2d .glint:after { background: #ffbd00; filter: none; height: 3px; width: 24px; }
+.tour-2d .glint:after { width: 3px; height: 24px; }
+.tour-2d .glass-card:after {
+  content: ''; position: absolute; right: 8px; top: -29px; width: 35px; height: 23px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 30'%3E%3Cpath d='M5 16 3 3M17 19 24 6M25 27l12-2' fill='none' stroke='%23ffbf0b' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation: accent-rays 6s ease-in-out infinite;
+}
+.compare-version { position: fixed; left: 18px; bottom: 14px; color: #775b3b; font-size: 12px; text-underline-offset: 4px; padding: 6px; }
+@keyframes accent-rays { 0%, 70%, 100% { opacity: .5; transform: scale(.9); } 80% { opacity: 1; transform: scale(1.08); } }

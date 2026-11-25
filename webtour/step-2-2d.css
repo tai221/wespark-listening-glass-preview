@@ -1,0 +1,79 @@
+.tour-2d .step-label {
+  background: #ffe79c;
+  border: 2px solid #142344;
+}
+.tour-2d .step-label svg { stroke: #9b6900; }
+.tour-2d .analysis-board {
+  border: 2.5px solid #142344;
+  background: #fffaf3;
+  padding: 27px;
+  border-radius: 48px;
+  box-shadow: 7px 10px 0 #ffe5a1;
+}
+.tour-2d .analysis-board:before {
+  display: none;
+}
+.tour-2d .board-inner {
+  background: #fffaf3;
+  box-shadow: none;
+  border-radius: 30px;
+}
+.tour-2d .grammar-error {
+  border: 2px solid transparent;
+  animation-name: mark-error-2d;
+}
+.tour-2d .wrong-word {
+  border: 2px solid #b62920;
+  background: #ffe6e0;
+  box-shadow: none;
+}
+.tour-2d .right-word {
+  border: 2px solid #247a32;
+  background: #e5f4d8;
+  box-shadow: none;
+}
+.tour-2d .correction-arrow { stroke: #142344; }
+.tour-2d .explanation {
+  border: 2px solid #142344;
+  background: #fff0c5;
+  box-shadow: none;
+}
+.tour-2d .bulb { stroke: #a16b00; fill: #ffdf6c; }
+.tour-2d .score-card {
+  border: 2.5px solid #142344;
+  background: #fff6df;
+  box-shadow: 5px 8px 0 #ffe3a0;
+  border-radius: 36px;
+}
+.tour-2d .score-bars { background: #ffe598; border-radius: 0 33px 0 25px; }
+.tour-2d .score-bars i { background: #ffcb31; border: 1.5px solid #142344; box-shadow: none; }
+.tour-2d .score-track { border: 1.5px solid #142344; background: #fffaf3; }
+.tour-2d .score-track span { background: #ffd132; }
+.tour-2d .teacher-spark { filter: none; }
+.tour-2d .teacher-shadow { background: #ffedbe; filter: none; }
+.tour-2d .skill-tile-inner {
+  border: 2.5px solid #142344;
+  border-radius: 30px;
+  background: #fffaf3;
+  box-shadow: 5px 7px 0 #ffe5a5;
+}
+.tour-2d .skill-tile svg { stroke: #142344; filter: none; stroke-width: 3; }
+.tour-2d .tile-listening rect,
+.tour-2d .tile-speaking rect { fill: #ffd64b; stroke: #142344; stroke-width: 2; }
+.tour-2d .ribbon-aura, .tour-2d .ribbon-edge { display: none; }
+.tour-2d .ribbon-body { stroke: #ffcf33; stroke-width: 5; opacity: 1; }
+.tour-2d .ribbon-trace { stroke: #fff9db; stroke-width: 3; }
+.tour-2d .tour-navigation a { border: 2px solid #142344; box-shadow: none; }
+.tour-2d .back-link { background: #fffaf3; color: #142344; }
+.tour-2d .next-link { background: #ffd332; }
+.tour-2d .tour-dots { background: #fffaf3; }
+.tour-2d .tour-dots li { border: 1.5px solid #142344; background: #fffaf3; }
+.tour-2d .tour-dots .visited { background: #ffe79c; }
+.tour-2d .tour-dots [aria-current] { background: #ffd332; }
+@keyframes mark-error-2d {
+  from { background: transparent; color: #121b47; border-color: transparent; }
+  to { background: #ffe0db; color: #b3261d; border-color: #b3261d; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-2d .grammar-error { background: #ffe0db; color: #b3261d; border-color: #b3261d; }
+}
