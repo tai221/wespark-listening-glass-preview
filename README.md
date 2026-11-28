@@ -51,3 +51,9 @@ The practice library now includes Parts 1–3, three questions or cue cards per 
 ## Header alignment — 2026-11-20
 
 Speaking mode cards now match the Listening header sizes and flat illustrations. Practice ielts and Test ielts appear beside the speaking demo, with no nested sidebar tabs. The current Listening library header is included in this update.
+
+
+## Onboarding update — 2026-11-28
+
+[Start onboarding](https://tai221.github.io/wespark-listening-glass-preview/onboarding/key-onboarding-skills.html).
+Desktop setup includes skills, IELTS goals, study availability, preferences, Quick Test invitations, practice needs and a read-only confirmation screen. Spark audio can be muted; selections stay in browser storage. Quick Test results and OKR proposals remain labeled prototype fixtures, with no live assessment or backend.
